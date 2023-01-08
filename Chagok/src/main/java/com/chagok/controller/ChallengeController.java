@@ -251,9 +251,32 @@ public class ChallengeController {
 			if(nick != null) {
 				List<ChallengeVO> mychallengeList = service.getmyChallenge(nick);
 				model.addAttribute("mychallengeList", mychallengeList);
+				mylog.debug(mychallengeList+"");
 			}
 			
+			
 			return "/challenge/mychallenge";
+		}
+		
+		// mychallenge에서 신청취소 했을 때
+		@GetMapping("/cancelChallenge")
+		public String cancelChallengeGET(@RequestParam("cno") Integer cno, @RequestParam("c_sort") Integer c_sort,HttpSession session) throws Exception {
+			
+			Integer mno = (Integer)session.getAttribute("mno");
+			mylog.debug(cno+" : cno , "+mno+" : mno, "+c_sort+" : c_sort");
+//			String nick = uservice.getUser(mno).getNick();
+			
+			String nick = ",효원";
+			service.cancelChallenge(nick,cno);
+			
+			if(c_sort == 0) {
+				service.cancelPlus(mno, cno);
+			}else if(c_sort == 1){
+				service.cancelMinus(mno, cno);
+			}
+//			cno, mno로챌린지 조회
+			
+			return "redirect:/challenge/mychallenge";
 		}
 		
 		
@@ -396,5 +419,7 @@ public class ChallengeController {
 				
 		return "/challenge/resultdefeat";
 	}
+	
+	
 	
 }

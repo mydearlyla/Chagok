@@ -12,15 +12,28 @@
 <!-- } -->
 <%-- %> --%>
 
-<!-- <script type="text/javascript"> -->
-<!-- function page_move(){ -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.btn.btn-danger.hyo').click(function(){
+			var cno = $(this).children('.cno_hy').val();
+			var mno = $(this).children('.mno_hy').val();
+			var c_sort = $(this).children('.c_sort_hy').val();
+			
+			alert(cno);
+			alert(mno);
+			alert(c_sort);
+			
+			$('.location').attr("href", "/challenge/cancelChallenge?cno="+cno+"&mno="+mno+"&c_sort="+c_sort);
+		});
+	});
 	
-<!--  } -->
-<!-- </script> -->
+	
+</script>
+
 
 	<h1>내 챌린지</h1>
 	
-<%-- 	${mychallengeList } --%>
+	${mychallengeList }
 	<div class="col-xs-12 table-responsive">
 	<table class="table table-striped">
 		<thead>
@@ -56,7 +69,13 @@
 				</c:if>
 				<c:if test="${vo.c_status eq 1 }">
 				<td><span style="color: #F39C12; font-weight: bold; padding-right: 15px;">모집 중</span>
-				<button type="button" class="btn btn-danger" id="cancel" style="background-color: #FFDB83; color:#ffffff; font-weight:bold;">신청 취소</button></td>
+				<a href="" class="location">
+				<button type="button" class="btn btn-danger hyo" style="background-color: #FFDB83; color:#ffffff; font-weight:bold;">신청 취소
+					<input type="hidden" value="${vo.cno}" class="cno_hy">
+					<input type="hidden" value="${vo.mno}" class="mno_hy">
+					<input type="hidden" value="${vo.c_sort}" class="c_sort_hy">
+				</button>
+				</a></td>
 				</c:if>
 				<c:if test="${vo.c_status eq 2 }">
 				<td><span style="color: #00A65A; font-weight: bold;">진행 중</span></td>

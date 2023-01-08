@@ -78,17 +78,17 @@
    </select>
    
     <!-- 챌린지 신청 취소 닉네임 잘라내기-->
-    <update id="cancelChallenge">
-   		update challenge set c_person = replace(c_person,',#{nick}','') where cno=#{cno};
+    <update id="cancelChallenge" parameterType="map">
+   		update challenge set c_person = replace(c_person,#{nick},'') where cno=#{cno};
     </update>
     
     <!-- 저축형 챌린지 신청취소  -->
-    <delete id="cancelPlus">
+    <delete id="cancelPlus" parameterType="map">
     	delete from plus where mno=#{mno} and cno=#{cno};
     </delete>
     
     <!-- 절약형 챌린지 신청 취소 -->
-    <delete id="cancelMinus">
+    <delete id="cancelMinus" parameterType="map">
     	delete from minus where mno=#{mno} and cno=#{cno};
     </delete>
 	

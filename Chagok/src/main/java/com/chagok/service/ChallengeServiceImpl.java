@@ -65,6 +65,26 @@ public class ChallengeServiceImpl implements ChallengeService{
 		mylog.debug("getmyChallenge(String nick) : "+mychallengeList);
 		return dao.getmyChallenge(nick);
 	}
+	// 챌린지 취소하기 (챌린지 테이블에 닉네임 잘라주기)
+	@Override
+	public void cancelChallenge(String nick, Integer cno) {
+		mylog.debug("service : cancelChallnege 호출");
+		dao.cancelChallenge(nick, cno);
+	}
+	
+	// 저축형 챌린지 신청 취소 (플러스테이블에 mno랑 cno 없애주기)
+	@Override
+	public void cancelPlus(Integer mno, Integer cno) {
+		mylog.debug("service : cancelPlus 호출");
+		dao.cancelPlus(mno, cno);
+	}
+
+	// 절약형 챌린지 신청 취소 (마이너스 테이블에 mno랑 cno 없애주기)
+	@Override
+	public void cancelMinus(Integer mno, Integer cno) {
+		mylog.debug("service : cancelMinus 호출");
+		dao.cancelMinus(mno, cno);
+	}
 
 	@Override
 	public List<Map<String, Object>> getMinusPeople(Integer cno) {

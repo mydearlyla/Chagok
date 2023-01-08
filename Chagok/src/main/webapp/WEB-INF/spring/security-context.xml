@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+		<!-- security-context.xml 시큐리티 관련 설정정보 -->
+		<bean id="customAccessDeniedHandler" class="com.chagok.security.CustomAccessDeniedHandler"></bean>
+		<bean id="customLoginSuccessHandler" class="com.chagok.security.CustomLoginSuccessHandler"></bean>
+		<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+		
+	<security:http>
+		<!-- <security:intercept-url pattern="/login" access="permitAll"/> -->
+		<security:intercept-url pattern="/challenge/*" access="hasRole('ROLE_MEMBER')"/>
+		<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
+		
+		<security:form-login login-page="/login"/>
+		
+		<!-- 접근권한 오류 403 발생시 페이지 이동  -->
+		<security:access-denied-handler ref="customAccessDeniedHandler"/>
+		
+		<!-- 로그인 성공 -->
+		<security:form-login login-page="/login" authentication-success-handler-ref="customLoginSuccessHandler"/>
+		
+		<!-- 로그아웃  -->
+		<security:logout logout-url="/logout" invalidate-session="true" delete-cookies="JSESSION_ID,remember-me"/>
+
+		<!-- 스프링 시큐리티의 csrf 설정 -->
+	<!-- 	<security:csrf disabled="true"/> -->
+		
+		<!-- 로그인 상태 기억하기(7일) --> 
+		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800" />
+		
+	</security:http>
+    
+    
+    
+    <!-- 인증 관리  -->
+	<security:authentication-manager>
+	
+		<security:authentication-provider>
+		
+			<!-- <security:jdbc-user-service data-source-ref="dataSource"/> -->
+			
+			<security:jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="select id, pw from user where id=?"
+				authorities-by-username-query="select id, authority from user where id=?"/>
+			
+			<security:password-encoder ref="bcryptPasswordEncoder"/>
+
+		</security:authentication-provider>
+		
+	</security:authentication-manager>
+
+
+</beans>

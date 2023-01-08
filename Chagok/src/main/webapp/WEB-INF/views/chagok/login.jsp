@@ -47,20 +47,20 @@
     <p class="login-box-msg" style="font-family: 'Gowun Dodum', sans-serif; font-size: 18px;"><b>로그인</b></p>
 	<!-- <p class="login-box-msg">Sign in to start your session</p> -->
 	
-    <form action="/login" method="post"> <!-- QQQ 주소변경할 것  -->
-      <div class="form-group has-feedback"> <!-- QQQ 배포시 지울 것!  -->
-        <input type="email" class="form-control" id="id" name="id" value="user@user.com" placeholder="이메일">
+    <form action="/login" method="post"> 
+      <div class="form-group has-feedback">
+        <input type="email" class="form-control" id="id" name="id" placeholder="이메일">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback"><!-- QQQ 배포시 지울 것!  -->
-        <input type="password" class="form-control" id="pw" name="pw" value="12341234" placeholder="비밀번호">
+      <div class="form-group has-feedback">
+        <input type="password" class="form-control" id="pw" name="pw" placeholder="비밀번호">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
-              <div class="save_id">
-              <input type="checkbox" id="useCookie" name="useCookie"><label for="useCookie">아이디 저장 </label>
+              <div class="remember-me">
+              <input type="checkbox" name="remember-me" id="remember-me"><label for="remember-me">로그인 상태 유지 </label>
               </div>
           </div>
         </div>
@@ -70,10 +70,12 @@
           </div>
         </div>
         <div class="col-xs-12 pull-right">
-          <button type="button" class="btn btn-primary btn-block btn-flat" onclick="f_loginCheck();">로그인</button>
+<!--           <button type="button" class="btn btn-primary btn-block btn-flat" onclick="f_loginCheck();">로그인</button> -->
+          <input type="submit" class="btn btn-primary btn-block btn-flat" value="로그인"/>
         </div>
         <!-- /.col -->
       </div>
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
     </form>
 
     <div class="social-auth-links text-center">
@@ -92,7 +94,52 @@
   <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
+<script type="text/javascript">
+// function f_loginCheck(){
+// 	var id = $('input[name=id]').val();
+// 	var pw = $('input[name=pw]').val();
+	
+// 	var loginData = {"id":id, "pw":pw};
+// 	console.log(id);
+// 	console.log(pw);
+// 	console.log(loginData);
+// 	$.ajax({
+// 		type : "post", // 서버에 전송하는 http방식
+//   		 url :"/login", // 서버 요청 url
+//  		 dataType : "application/json", //서버로 부터 응답받을 데이터의 형태 
+//   		 data : JSON.stringify(loginData), // 서버로 전송할 데이터 // 위에서 지정한 const id 
+// 		 success : function(result){
+// 			console.log('통신 성공! ' + result);
+// // 			if(result == 0){
+// // 				Swal.fire({
+// // 		            title: '아이디와 비밀번호를 다시 확인 후 시도해 주세요.', 
+// // 		            icon: 'warning'
+// // 		          });
+// // 		         return false;
+// // 			} else {
+// // 				// 로그인 성공 시
+// // 				Swal.fire({
+// // 					  title: '환영합니다!',
+// // 					  icon: 'success',
+// // 					  showConfirmButton: false,
+// // 					  timer: 1000
+// // 					})
+// // //				setTimeout('url()',9000);
+// // 					//console.log(result);
+// // 					return true;
+// // 			}
+// 		},
+// 		error : function(jqXHR, status, error){
+// 			console.log("알 수 없는 에러 [" + error + "]");
+// 		}
+// 	});
+	
+// }
 
+// function url(){
+// 	window.location.href="/main";
+// }
+</script>
 
 <!-- Bootstrap 3.3.7 -->
 <script src="${pageContext.request.contextPath }/resources/bootstrap/js/bootstrap.min.js"></script>

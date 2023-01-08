@@ -1,5 +1,7 @@
 package com.chagok.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Spliterator;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +36,7 @@ import com.chagok.service.ChallengeService;
 import com.chagok.service.UserService;
 
 @Controller
-public class ChagokController {
+public class ChagokController implements SessionNames {
 		
 	private static final Logger mylog = LoggerFactory.getLogger(ChagokController.class);
 	
@@ -233,6 +236,18 @@ public class ChagokController {
          mylog.debug("절약형 챌린지로 이동");
          return "redirect:/challenge/minusdetail?cno="+cno;
       }
+   }
+   
+   @GetMapping("/accessError")
+   public String accessDenied(Authentication auth, Model model) throws Exception {
+//	   mylog.debug("access Denied : " + auth);
+//	   mylog.debug("접근 아이디 : " + auth.getName());
+//	   mylog.debug("접근자 권한 : " +auth.getAuthorities());
+	   
+	   model.addAttribute("msg", "접근 권한이 없는 페이지입니다.");
+	   
+	   return "/chagok/accessError";
+			   
    }
    
 	

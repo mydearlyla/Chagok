@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 
@@ -27,8 +28,8 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath }/resources/mainpagecss/css/reset.css">
 
-<link rel="stylesheet" type="text/css" href="../resources/mainpagecss/css/font.css">
-<link rel="stylesheet" type="text/css" href="../resources/mainpagecss/css/style.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/mainpagecss/css/font.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/mainpagecss/css/style.css">
 
 <!-- jQuery -->
    <script src="../resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
@@ -191,14 +192,21 @@ border: 3px solid rgb(255 191 131 / 40%);
 			</div>
 		</div>
 		<div class="user_menu">
-		<c:if test="${nick == null}">
+		<%-- <sec:authorize access="isAnonymous()">  --%>
+		<c:if test="${nick == null }">
 			<a href="/login"><div class="login"><p style="font-family: 'GmarketSans'">로그인</p></div></a>
 			<a href="/register"><div class="join"><p style="font-family: 'GmarketSans'">회원가입</p></div></a>
 		</c:if>
-		<c:if test="${nick != null}">
+		<%-- </sec:authorize> --%>
+<%-- 		<sec:authorize access="isAuthenticated()">  --%>
+		<c:if test="${nick != null }">
 			<a href="#"><div class="login"><p style="font-family: 'GmarketSans'"><small>${nick } 님 환영합니다.</small></p></div></a>
-			<a href="/logout"><div class="join"><p style="font-family: 'GmarketSans'">로그아웃</p></div></a>
+<!-- 			<form action="/logout" method="post"> -->
+				<a href="/logout"><div class="join"><p style="font-family: 'GmarketSans'">로그아웃</p></div></a>
+<%-- 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">			 --%>
+<!-- 			</form> -->
 		</c:if>
+<%-- 		</sec:authorize> --%>
 		</div>
 		<br><br><br><br><br><br>
 	</div>

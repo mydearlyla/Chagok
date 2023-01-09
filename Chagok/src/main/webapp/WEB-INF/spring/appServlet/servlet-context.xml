@@ -49,33 +49,33 @@
 	 <beans:property name="defaultEncoding" value="utf-8" />
 	</beans:bean>
 
-	<beans:bean id="sampleInterceptor" class="com.chagok.interceptor.SampleInterceptor"/>
-	<beans:bean id="loginInterceptor" class="com.chagok.interceptor.LoginInterceptor"/>
-	<beans:bean id="authInterceptor" class="com.chagok.interceptor.AuthInterceptor"/>
+<!-- 	<beans:bean id="sampleInterceptor" class="com.chagok.interceptor.SampleInterceptor"/> -->
+<!-- 	<beans:bean id="loginInterceptor" class="com.chagok.interceptor.LoginInterceptor"/> -->
+<!-- 	<beans:bean id="authInterceptor" class="com.chagok.interceptor.AuthInterceptor"/> -->
 
-	<interceptors>
-	   <interceptor>
-	       <mapping path="/commumain" />
-	       <beans:ref bean="sampleInterceptor" />
+<!-- 	<interceptors> -->
+<!-- 	   <interceptor> -->
+<!-- 	       <mapping path="/commumain" /> -->
+<!-- 	       <beans:ref bean="sampleInterceptor" /> -->
 	       
-	   </interceptor>
-	</interceptors>
+<!-- 	   </interceptor> -->
+<!-- 	</interceptors> -->
 	
-	<interceptors>
-	   <interceptor>
-	       <mapping path="/login" />
-	       <beans:ref bean="loginInterceptor" />
-	   </interceptor>
-	</interceptors>
+<!-- 	<interceptors> -->
+<!-- 	   <interceptor> -->
+<!-- 	       <mapping path="/login" /> -->
+<!-- 	       <beans:ref bean="loginInterceptor" /> -->
+<!-- 	   </interceptor> -->
+<!-- 	</interceptors> -->
 	
-	<interceptors>
-	   <interceptor> <!-- 접근권한 설정 QQQ 필요시 추가  -->
-	       <mapping path="/challenge/plusregist" />
-	       <mapping path="/challenge/minusregist" />
-	       <mapping path="/challenge/mychallenge" />
-	       <beans:ref bean="authInterceptor" />
-	   </interceptor>
-	</interceptors>
+<!-- 	<interceptors> -->
+<!-- 	   <interceptor> 접근권한 설정 QQQ 필요시 추가  -->
+<!-- 	       <mapping path="/challenge/plusregist" /> -->
+<!-- 	       <mapping path="/challenge/minusregist" /> -->
+<!-- 	       <mapping path="/challenge/mychallenge" /> -->
+<!-- 	       <beans:ref bean="authInterceptor" /> -->
+<!-- 	   </interceptor> -->
+<!-- 	</interceptors> -->
 	
 
 </beans:beans>

@@ -141,6 +141,15 @@ public class ChagokController implements SessionNames {
 //			return 0;
 //		}
 	}
+	
+	@PostMapping(value = "/loginCK")
+	public @ResponseBody Object loginCK(@RequestBody Map<String, String> loginMap, UserVO userVO) throws Exception {
+		mylog.debug(" loginCK() 호출");
+		
+		userVO =  service.loginUserCheck(loginMap);
+		
+		return userVO;
+	}
 
 	 // http://localhost:8080/register
 	 @GetMapping(value = "/register")

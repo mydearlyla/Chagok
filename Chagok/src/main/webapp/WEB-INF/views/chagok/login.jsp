@@ -49,11 +49,11 @@
 	
     <form action="/login" method="post"> 
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" id="id" name="id" placeholder="이메일">
+        <input type="email" class="form-control" id="username" name="username" placeholder="이메일">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" id="pw" name="pw" placeholder="비밀번호">
+        <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">

@@ -16,7 +16,7 @@ function f_loginCheck(){
 	
 	$.ajax({
 		type : "post",
-		url : "/login", /* QQQ 테스트후 변경할 것*/
+		url : "/loginCK", /* QQQ 테스트후 변경할 것*/
 		contentType : "application/json",
 		data : JSON.stringify(loginData),
 		timeout : 1000,
@@ -35,6 +35,8 @@ function f_loginCheck(){
 					  showConfirmButton: false,
 					  timer: 1000
 					})
+					//setTimeout('url()',5000);
+					return true;
 			}
 		},
 		error : function(jqXHR, status, error){

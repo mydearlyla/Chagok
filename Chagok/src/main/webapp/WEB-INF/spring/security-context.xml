@@ -43,9 +43,7 @@
 		
 			<!-- <security:jdbc-user-service data-source-ref="dataSource"/> -->
 			
-			<security:jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query="select id, pw from user where id=?"
-				authorities-by-username-query="select id, authority from user where id=?"/>
+			<security:jdbc-user-service data-source-ref="dataSource"/>
 			
 			<security:password-encoder ref="bcryptPasswordEncoder"/>
 

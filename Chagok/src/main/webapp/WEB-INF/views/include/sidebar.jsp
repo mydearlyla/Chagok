@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
  <head>
@@ -17,12 +17,13 @@
    <link href="${pageContext.request.contextPath }/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
    <!-- AdminLTE Skins. Choose a skin from the css/skins 
         folder instead of downloading all of them to reduce the load. -->
-   <link href="${pageContext.request.contextPath }/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+ 	<link href="${pageContext.request.contextPath }/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
 	<!-- 채팅 js -->
     <%-- <script src="${pageContext.request.contextPath }/resources/plugins/chat/feed.js"></script> --%>
     <!-- 채팅 css  -->
     <link href="${pageContext.request.contextPath }/resources/plugins/chat/feed.css" rel="stylesheet" type="text/css" />
     <link href="${pageContext.request.contextPath }/resources/plugins/modal/minusModal.css" rel="stylesheet" type="text/css" />
+
    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
    <!--[if lt IE 9]>
@@ -34,9 +35,6 @@
      <!-- jQuery 2.1.4 -->
    <script src="${pageContext.request.contextPath }/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 
- 
- 
- 
   <body class="skin-blue sidebar-mini">
   
     <div class="wrapper">
@@ -51,45 +49,42 @@
               <img src="/resources/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
-              <p>Alexander Pierce</p>
+            <c:if test="${nick != null }">
+              <p><a href="#" style="color: black;">${nick }</a></p>
+              <a href="#" ><i class="fa fa-circle text-success" ></i> Online</a>
+            </c:if>
+            <c:if test="${nick == null }">
+              <p><a href="/login">로그인을 해주세요</a></p>
+            </c:if>
 
-              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
           </div>
-          <!-- search form -->
-<!--           <form action="#" method="get" class="sidebar-form"> -->
-<!--             <div class="input-group"> -->
-<!--               <input type="text" name="q" class="form-control" placeholder="Search..."/> -->
-<!--               <span class="input-group-btn"> -->
-<!--                 <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button> -->
-<!--               </span> -->
-<!--             </div> -->
-<!--           </form> -->
-          <!-- /.search form -->
+
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
-            <li class="header">마이페이지</li>
-            <li class="treeview">
+<!--             <li class="header">마이페이지</li> -->
+            <li class="treeview active">
               <a href="#">
                 <i class="fa fa-trophy"></i> <span>챌린지</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
-              <ul class="treeview-menu">
-                <li><a href="/chagok/challengemain"><i class="fa fa-circle-o"></i> 모집 중 챌린지</a></li>
-                <li><a href="/challenge/mychallenge"><i class="fa fa-circle-o"></i> 내 챌린지</a></li>
-                <li><a href="/challenge/review"><i class="fa fa-circle-o"></i> 후기 게시판</a></li>
+              <ul class="treeview-menu ">
+                <li><a href="/commumain"></i> 모집 중 챌린지</a></li>
+                <li><a href="/challenge/mychallenge"></i> 내 챌린지</a></li>
+                <li><a href="/reviewboard"></i> 후기 게시판</a></li>
               </ul>
             </li>
-            <li class="treeview">
+            <li class="treeview active">
               <a href="#">
                 <i class="fa fa-group"></i>
                 <span>커뮤니티</span>
-                <span class="label label-primary pull-right">4</span>
+                <i class="fa fa-angle-left pull-right"></i>
+<!--                 <span class="label label-primary pull-right">4</span> -->
               </a>
-              <ul class="treeview-menu">
-                <li><a href="../community/canibuy"><i class="fa fa-circle-o"></i> 사도 돼?</a></li>
-                <li><a href="../community/news"><i class="fa fa-circle-o"></i> 뉴스 / 재테크</a></li>
-                <li><a href="../community/balancing"><i class="fa fa-circle-o"></i> 월말 결산</a></li>
-                <li><a href="../community/free"><i class="fa fa-circle-o"></i> 자유 게시판</a></li>
+              <ul class="treeview-menu active">
+<!--                 <li><a href="../community/canibuy"><i class="fa fa-circle-o"></i> 사도 돼?</a></li> -->
+                <li><a href="../community/news"></i> 뉴스 / 재테크</a></li>
+                <li><a href="../community/balancing"></i> 월말 결산</a></li>
+                <li><a href="/freeboard"></i> 자유 게시판</a></li>
               </ul>
             </li>
 <!--             <li> -->
@@ -97,15 +92,29 @@
 <!--                 <i class="fa fa-th"></i> <span>고객센터</span> <small class="label pull-right bg-green">new</small> -->
 <!--               </a> -->
 <!--             </li> -->
-            <li class="treeview">
+            <li class="treeview active">
               <a href="#">
                 <i class="fa fa-asterisk"></i>
                 <span>고객센터</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
-              <ul class="treeview-menu">
-                <li><a href="/challenge/notice"><i class="fa fa-circle-o"></i> 공지 게시판</a></li>
-                <li><a href="/community/report"><i class="fa fa-circle-o"></i> 신고 게시판</a></li>
+              <ul class="treeview-menu active">
+                <li><a href="/notice"></i> 공지 게시판</a></li>
+                <li><a href="/community/report"></i> 신고 게시판</a></li>
+<!--                 <li><a href="../charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li> -->
+<!--                 <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li> -->
+              </ul>
+            </li>
+            <li class="treeview active">
+              <a href="#">
+                <i class="fa fa-asterisk"></i>
+                <span>관리자</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu active">
+                <li><a href="/challenge/chListAll"></i> 챌린지 관리</a></li>
+                <li><a href="/#"></i> 회원 관리</a></li>
+                <li><a href="#"></i> 결제 관리</a></li>
 <!--                 <li><a href="../charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li> -->
 <!--                 <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li> -->
               </ul>
@@ -197,11 +206,16 @@
 <!--               </ul> -->
 <!--             </li> -->
 <!--             <li><a href="/resources/documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li> -->
-            <li class="header">LABELS</li>
-            <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
-          </ul>
+<!--             <li class="header">LABELS</li> -->
+<!--             <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li> -->
+<!--             <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li> -->
+<!--             <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li> -->
+
+<!--             <li class="header">LABELS</li> -->
+<!--             <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li> -->
+<!--             <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li> -->
+<!--             <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li> -->
+<!--           </ul> -->
         </section>
         <!-- /.sidebar -->
       </aside>

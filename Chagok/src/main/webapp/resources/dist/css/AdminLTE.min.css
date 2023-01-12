@@ -9,11 +9,13 @@
  *           Please visit http://opensource.org/licenses/MIT for more information
 !*/
 html, body {
-	min-height: 100%
+	min-height: 100%;
+	font-family: 'GmarketSans' ;
 }
 
 .layout-boxed html, .layout-boxed body {
-	height: 100%
+	height: 100%;
+	font-family: 'GmarketSans' ;
 }
 
 body {
@@ -23,7 +25,8 @@ body {
 		sans-serif;
 	font-weight: 400;
 	overflow-x: hidden;
-	overflow-y: auto
+	overflow-y: auto;
+	font-family: 'GmarketSans' ;
 }
 
 .wrapper {
@@ -138,7 +141,8 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-	font-family: 'Pretendard','Source Sans Pro', sans-serif
+/* 	font-family: 'Pretendard','Source Sans Pro', sans-serif */
+    font-family: 'GmarketSans' ;
 }
 
 a {
@@ -470,7 +474,8 @@ a:hover, a:active, a:focus {
 	position: relative;
 	width: 100%;
 	padding: 10px;
-	overflow: hidden
+	overflow: hidden;
+/* 	background-color: #ffdb83c2; */
 }
 
 .user-panel:before, .user-panel:after {
@@ -580,9 +585,9 @@ a:hover, a:active, a:focus {
 }
 
 .sidebar-menu .treeview-menu>li>a {
-	padding: 5px 5px 5px 15px;
+	padding: 10px 10px 10px 40px;
 	display: block;
-	font-size: 14px
+	font-size: 14px;
 }
 
 .sidebar-menu .treeview-menu>li>a>.fa, .sidebar-menu .treeview-menu>li>a>.glyphicon,

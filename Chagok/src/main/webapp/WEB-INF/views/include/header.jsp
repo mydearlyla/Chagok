@@ -93,7 +93,7 @@
 	display: flex;
     height: 75px;
     background: rgba(255, 255, 255,1);
-    padding: 0 100px 0 100px;
+    padding: 0 0 0 100px;
     align-items: center;
     border-bottom: 1px solid #bfb7b773;
     flex-direction: row;
@@ -162,28 +162,28 @@ color : rgba(255, 219, 131 / 80%);
     flex-direction: row;
     justify-content: flex-end;
     width: 240px;
+    margin-left: 120px;
 }
 
 .custom_inner .user_menu div {
-	width: 70px;
+/* 	width: 70px; */
     height: auto;
     text-align: center;
-    margin-left: 10px;
     }
 .custom_inner .user_menu .login,
 .custom_inner .user_menu .join{
-border: 3px solid rgb(255 191 131 / 40%);
-    border-radius: 9px;
-    width: 87px;  
+/* border: 3px solid rgb(255 191 131 / 40%); */
+/*     border-radius: 9px; */
+/*     width: 180px;   */
     height: auto;
-    text-align: center;
-    font-size: 17px;
+    text-align: right;
+    font-size: 14px;
     padding: 5px;
     margin-right: 5px;
     }
 .custom_inner .user_menu .login:hover,
 .custom_inner .user_menu .join:hover{
- border: 3px solid rgb(255 191 131 / 80%);
+/*  border: 3px solid rgb(255 191 131 / 80%); */
  background: rgb(176 224 229 / 5%);
  }   
 </style>
@@ -220,7 +220,7 @@ border: 3px solid rgb(255 191 131 / 40%);
 				<a href="/assetmain"><p style="font-family: 'GmarketSans'">자산관리</p></a>
 			</div>
 			<div class="notice">
-				<p style="font-family: 'GmarketSans'">공지사항</p>
+				<a href="/notice"><p style="font-family: 'GmarketSans'">공지사항</p></a>
 			</div>
 		</div>
 		<div class="user_menu">
@@ -235,4 +235,47 @@ border: 3px solid rgb(255 191 131 / 40%);
 		</div>
 		<br><br><br><br><br><br>
 	</div>
+	
+<!-- Channel Plugin Scripts -->
+<script>
+  (function() {
+    var w = window;
+    if (w.ChannelIO) {
+      return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
+    }
+    var ch = function() {
+      ch.c(arguments);
+    };
+    ch.q = [];
+    ch.c = function(args) {
+      ch.q.push(args);
+    };
+    w.ChannelIO = ch;
+    function l() {
+      if (w.ChannelIOInitialized) {
+        return;
+      }
+      w.ChannelIOInitialized = true;
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+      s.charset = 'UTF-8';
+      var x = document.getElementsByTagName('script')[0];
+      x.parentNode.insertBefore(s, x);
+    }
+    if (document.readyState === 'complete') {
+      l();
+    } else if (window.attachEvent) {
+      window.attachEvent('onload', l);
+    } else {
+      window.addEventListener('DOMContentLoaded', l, false);
+      window.addEventListener('load', l, false);
+    }
+  })();
+  ChannelIO('boot', {
+    "pluginKey": "3bbf6452-0c82-4794-a001-469c5be43946"
+  });
+</script>
+<!-- End Channel Plugin -->
 </body>

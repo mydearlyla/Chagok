@@ -20,6 +20,12 @@
 	<logger name="com.chagok.service">
 		<level value="debug" />
 	</logger>
+	<logger name="com.chagok.interceptor">
+		<level value="debug" />
+	</logger>
+	<logger name="com.chagok.utils">
+		<level value="debug" />
+	</logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">

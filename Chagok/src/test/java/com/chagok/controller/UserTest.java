@@ -31,7 +31,7 @@ public class UserTest {
 	
 	// 회원정보저장(Create)
 	//@Test
-	public void createUser() {
+	public void createUser() throws Exception {
 
 		// 회원정보 생성(사용자 입력 정보) // 현재 없는 단계이므로 테스트용으로 만든 상태
 		UserVO vo = new UserVO();
@@ -44,7 +44,7 @@ public class UserTest {
 		
 		// 특정 회원의 모든정보를 조회
 		//@Test
-		public void getUserInfo() {
+		public void getUserInfo() throws Exception {
 			
 			UserVO vo = dao.getUser("user@user.com");
 			
@@ -53,7 +53,7 @@ public class UserTest {
 		
 		// 로그인 처리
 		@Test
-		public void loginMember() {
+		public void loginMember() throws Exception {
 			
 //			UserVO insertVO = new UserVO();
 //			insertVO.setId("user2@user.com");

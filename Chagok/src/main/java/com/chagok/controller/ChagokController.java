@@ -2,9 +2,9 @@ package com.chagok.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Spliterator;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,10 +21,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.WebUtils;
 
+import com.chagok.domain.AlertVO;
 import com.chagok.domain.ChallengeVO;
+import com.chagok.domain.Criteria;
+import com.chagok.domain.PageMaker;
+import com.chagok.domain.SearchCriteria;
 import com.chagok.domain.UserVO;
+import com.chagok.interceptor.SessionNames;
+import com.chagok.service.AlertService;
+//import com.chagok.service.AlertService;
 import com.chagok.service.ChallengeService;
 import com.chagok.service.UserService;
 
@@ -38,6 +45,9 @@ public class ChagokController {
 	
 	@Inject
 	private ChallengeService service2;
+	
+	@Inject
+	private AlertService alertService;
 	
 	// 차곡 메인사이트 
 	// http://localhost:8080/main
@@ -56,65 +66,80 @@ public class ChagokController {
 		return "/chagok/assetmain";
 	}
 
-//	// 커뮤니티 파트 메인
-//	// http://localhost:8080/commumain
-//	@GetMapping(value = "/commumain")
-//	public String commumainGET() throws Exception {
-//
-//		return "/chagok/commumain";
-//	}
-	
 	// 챌린지 목록 불러오기 (커뮤메인)
 	// http://localhost:8080/commumain
 	@GetMapping(value="/commumain")
-	public String getChallengeList(Model model, @ModelAttribute("result") String result) throws Exception {
-		mylog.debug(" /chagok/commumain 호출 ");
-		
-		// 전달받은 정보 x
-		mylog.debug(" 전달정보 : "+result);
-		
+	public String getChallengeList(Model model, @ModelAttribute("scri") SearchCriteria scri) throws Exception {
+		mylog.debug(" /commumain 호출 ");
+				
 		// 서비스 -> DAO 게시판 리스트 가져오기
 		List<ChallengeVO> challengeList = service2.getChallengeList();
-		
-		// 참여명수 구하기		
+		List<UserVO> ranking = service2.ranking();
+//		List<ChallengeVO> cList = service2.cList(scri);
 		
 		// 연결되어 있는 뷰페이지로 정보 전달 (Model 객체)
 		model.addAttribute("challengeList", challengeList);
+		model.addAttribute("ranking", ranking);
+//		model.addAttribute("cList", cList);
+		model.addAttribute("cList", service2.cList(scri));
+		
+		// 페이징 처리
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(service2.cListCount(scri));
+		
+		model.addAttribute("pageMaker", pageMaker);
 		
 		return "/chagok/commumain";
 	}
 	
 	// http://localhost:8080/login
 	@GetMapping(value = "/login")
-	public String loginGET() throws Exception {
-
+	public String loginGET(HttpServletRequest request) throws Exception {
+		mylog.debug("login GET 호출 ");
+		
 		return "/chagok/login";
 	}
 
 	@PostMapping(value = "/login")
-	public @ResponseBody Object loginPOST(@RequestBody Map<String, String> loginMap, HttpServletRequest request, UserVO vo, Model model) throws Exception {
+	public String loginPOST(@RequestBody Map<String, String> loginMap, HttpServletRequest request, HttpServletResponse response, UserVO UserVO, Model model) throws Exception {
 		mylog.debug(" loginPOST() 호출");
 		HttpSession session = request.getSession();
-		
-		// 전달정보 저장(id, pw)
+
 		mylog.debug(" 로그인 정보 : " +loginMap);
-		mylog.debug(" 세션 정보 : " +session);
 		
-		if(session.getAttribute("mno") != null) {
-			session.invalidate();;
-		}
-		
-		UserVO userVO = service.loginUserCheck(loginMap);
-		
-		if(userVO != null) {
-			session.setAttribute("mno", userVO.getMno());
-			session.setAttribute("nick", userVO.getNick());
+		try {
+			UserVO =  service.loginUserCheck(loginMap);
+			mylog.debug("controller : "+UserVO);
 			
-			return userVO;
-		} else {
-			
-			return 0;
+			if (UserVO != null) { // 로그인 성공
+				model.addAttribute("UserVO", UserVO);
+				mylog.debug("Controller_model : "+model);
+				mylog.debug("Controller_model : "+UserVO);
+				
+				session.setAttribute("mno", UserVO.getMno());
+				session.setAttribute("nick", UserVO.getNick());
+				
+			}else {
+				model.addAttribute("loginResult", "Login Fail!");
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		return "chagok/main";
+//		// 세션 유지시간 30분
+//		session.setMaxInactiveInterval(60*30);
+//
+//		if(UserVO != null) {
+//			session.setAttribute("mno", UserVO.getMno());
+//			session.setAttribute("nick", UserVO.getNick());
+//			
+//			return UserVO;
+//		} else {
+//			
+//			return 0;
+//		}
 	}
 
 	 // http://localhost:8080/register
@@ -137,59 +162,65 @@ public class ChagokController {
 		
 	 @PostMapping("/checkId")
 	 @ResponseBody
-	 public String checkId(@RequestBody String id) {	// 받을 데이터타입이 텍스트라 스트링으로함 반드시 리퀘스트바디를 붙힐것! ajax 통신시
-		 System.out.println("/user/checkId : post");
-		 System.out.println("param : " + id );
+	 public String checkId(@RequestBody String id) throws Exception {	// 받을 데이터타입이 텍스트라 스트링으로함 반드시 리퀘스트바디를 붙힐것! ajax 통신시
+		 mylog.debug("/user/checkId : post");
+		 mylog.debug("param : " + id );
 		
 		 int checkNum = service.checkId(id);
 		 System.out.println("checkNum : " + checkNum );
 		 if(checkNum != 0) {
-		 	 System.out.println("아이디 중복");
+		 	 mylog.debug("아이디 중복");
 			 return "duplicated";
 			
 		 }else {
-			 System.out.println("아이디 사용 가능");
+			 mylog.debug("아이디 사용 가능");
 			 return "available";
 		 }
 	 }
 	
 	 @PostMapping("/checkNick")
 	 @ResponseBody
-	 public String checkNick(@RequestBody String nick) {	// 받을 데이터타입이 텍스트라 스트링으로함 반드시 리퀘스트바디를 붙힐것! ajax 통신시
-		 System.out.println("/user/checkNick : post");
-		 System.out.println("param : " + nick );
+	 public String checkNick(@RequestBody String nick) throws Exception {	// 받을 데이터타입이 텍스트라 스트링으로함 반드시 리퀘스트바디를 붙힐것! ajax 통신시
+		 mylog.debug("/user/checkNick : post");
+		 mylog.debug("param : " + nick );
 		
 		 int checkNum = service.checkNick(nick);
-		 System.out.println("checkNum : " + checkNum );
+		 mylog.debug("checkNum : " + checkNum );
 		
 		 if(checkNum != 0) {
-		 	 System.out.println("닉네임 중복");
+			 mylog.debug("닉네임 중복");
 			 return "duplicated";
 			
 		 }else {
-			 System.out.println("닉네임 사용 가능");
+			 mylog.debug("닉네임 사용 가능");
 			 return "available";
 		 }
 	 }
 	 
 	 @GetMapping(value = "/logout")
-	 public String logoutMain(HttpServletRequest request) throws Exception{
+	 public String logoutMain(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		 
-		 mylog.debug("logout(HttpServletRequest)");
-		 HttpSession session = request.getSession();
-		 
+		 mylog.debug("logout(session)");
+		 session.removeAttribute(SessionNames.LOGIN);
 		 session.invalidate();
 		 
+		 // Spring에 담기 쿠키를 가져옴(WebUtils)
+		 Cookie loginCookie = WebUtils.getCookie(request, SessionNames.LOGIN);
+		 if(loginCookie != null) {
+			 loginCookie.setMaxAge(0); // 만료시킴
+			 
+			 response.addCookie(loginCookie);
+		 }
 		 return "redirect:/main";
 	 }
 	 
 	 // 가계부 가져오기 (연동) - 수지 
-	 @RequestMapping(value="/abookList")
-		public String getAbookList() throws Exception{
-			mylog.debug(" /abookList -> 연결된 뷰 abookList.jsp -> 데이터 생성 -> ChallengeController ");
-			
-			return "/asset/abookList";
-		}
+//	 @RequestMapping(value="/abookList")
+//		public String getAbookList() throws Exception{
+//			mylog.debug(" /abookList -> 연결된 뷰 abookList.jsp -> 데이터 생성 -> ChallengeController ");
+//			
+//			return "/asset/abookList";
+//		}
 	
 	 
 	// http://localhost:8080/challenge/detail?cno=1
@@ -206,6 +237,37 @@ public class ChagokController {
          return "redirect:/challenge/minusdetail?cno="+cno;
       }
    }
+   
+   @PostMapping(value = "/alert")
+   @ResponseBody
+   public void alert(@RequestBody Map<String, Object> map, AlertVO alertVO) throws Exception {
+	   mylog.debug(" 알림기능 ajax 호출");
+	   alertVO.setCno(Integer.parseInt(map.get("type").toString()));
+	   alertVO.setA_content(map.get("content").toString());
+	   alertVO.setA_receive(Integer.parseInt(map.get("target").toString()));
+	   
+	   alertService.alert(alertVO);
+	   
+   }
+   
+	// 마이페이지
+	// http://localhost:8080/myPage
+   @GetMapping(value="/myPage")
+   public String myPage(Integer mno) {
+	   mylog.debug(" mypage 호출 ");
+	   
+	   // UserVO vo = service.getUser(mno);
+	   
+	   
+	   return "/chagok/myPage";
+   }
+   
+   
+   
+   // http://localhost:8080/adminUser
+   
+//   public void adminUser
+	
 	
    @GetMapping("/iframeMyAsset")
    public String iframeMyAsset() {
@@ -315,9 +377,6 @@ public class ChagokController {
 	   
 	   return "redirect:/unregist";
    }
-   
-   
-   ////////////// ym 마이페이지 구현중 ////////////// 
    
    
 }

@@ -1,7 +1,5 @@
 package com.chagok.domain;
 
-import java.sql.Timestamp;
-
 import lombok.Data;
 
 @Data
@@ -14,7 +12,7 @@ public class ChallengeVO {
 	private String c_start;
 	private int c_deposit;
 	private String c_content;
-	private String c_host;
+	private int mno;
 	private int c_status;
 	private int c_freq;
 	private int c_sort;
@@ -26,5 +24,8 @@ public class ChallengeVO {
 	private String ct_top;
 	private String c_thumbFile;
 	private int c_cnt;
+	
+
+	
 
 }

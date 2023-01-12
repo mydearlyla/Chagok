@@ -4,19 +4,23 @@
 <%@ include file="../include/sidebar.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- <% --%>
-<!-- // 로그인 세션제어 -->
-<!-- String nick = (String) session.getAttribute("nick"); -->
-<!-- if(nick == null){ -->
-<!-- 	response.sendRedirect("chagok/login"); -->
-<!-- } -->
-<%-- %> --%>
-
-<!-- <script type="text/javascript"> -->
-<!-- function page_move(){ -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.btn.btn-danger.hyo').click(function(){
+			var cno = $(this).children('.cno_hy').val();
+			var mno = $(this).children('.mno_hy').val();
+			var c_sort = $(this).children('.c_sort_hy').val();
+			
+// 			alert(cno);
+// 			alert(mno);
+// 			alert(c_sort);
+			
+			$('.location').attr("href", "/challenge/cancelChallenge?cno="+cno+"&mno="+mno+"&c_sort="+c_sort);
+		});
+	});
 	
-<!--  } -->
-<!-- </script> -->
+</script>
+
 
 	<h1>내 챌린지</h1>
 	
@@ -42,21 +46,25 @@
 				<td>절약형</td>
 				</c:if>
 				<td>${vo.ct_top }</td>
-				
-				
-				
 				<c:if test="${vo.c_sort eq 0 }">
-				<td><a href = "/challenge/checkfeed?cno=${vo.cno }">${vo.c_title }</a></td>
+				<td><a href = "/challenge/plusFeed?cno=${vo.cno }">${vo.c_title }</a></td>
 				</c:if>
 				<c:if test="${vo.c_sort eq 1 }">
-				<td><a href = "/challenge/checkfeed?cno=${vo.cno }">${vo.c_title }</a></td>
+				<td><a href = "/challenge/minusfeed?cno=${vo.cno }">${vo.c_title }</a></td>
 				</c:if>
 				<td>${vo.c_period }주</td>
 				<c:if test="${vo.c_status eq 0 }">
 				<td><span style="color: #000000; font-weight: bold;">승인 대기</span></td>
 				</c:if>
 				<c:if test="${vo.c_status eq 1 }">
-				<td><span style="color: #F39C12; font-weight: bold;">모집 중</span></td>
+				<td><span style="color: #F39C12; font-weight: bold; padding-right: 15px;">모집 중</span>
+				<a href="" class="location">
+				<button type="button" class="btn btn-danger hyo" style="background-color: #FFDB83; color:#ffffff; font-weight:bold;">신청 취소
+					<input type="hidden" value="${vo.cno}" class="cno_hy">
+					<input type="hidden" value="<%=session.getAttribute("mno") %>" class="mno_hy">
+					<input type="hidden" value="${vo.c_sort}" class="c_sort_hy">
+				</button>
+				</a></td>
 				</c:if>
 				<c:if test="${vo.c_status eq 2 }">
 				<td><span style="color: #00A65A; font-weight: bold;">진행 중</span></td>

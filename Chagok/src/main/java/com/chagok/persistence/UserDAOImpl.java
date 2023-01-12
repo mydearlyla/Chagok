@@ -1,5 +1,6 @@
 package com.chagok.persistence;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -32,7 +33,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
-	public void createUser(UserVO vo) {
+	public void createUser(UserVO vo) throws Exception {
 		//System.out.println("DAO : "+vo);
 		mylog.info(" 서비스 -> DAO -> mapper ");
 		// (디비연결 - sql 작성) - 실행
@@ -43,20 +44,20 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
-	public int checkId(String id) {
+	public int checkId(String id) throws Exception {
 		int result = sqlSession.selectOne(NAMESPACE+".checkId",id);
 		return result;
 	}
 	
 	@Override
-	public int checkNick(String nick) {
+	public int checkNick(String nick) throws Exception {
 		int result = sqlSession.selectOne(NAMESPACE+".checkNick",nick);
 		return result;
 	}
 
 	//특정 회원정보 조회(id)
 	@Override
-	public UserVO getUser(String id) {
+	public UserVO getUser(String id) throws Exception {
 		UserVO vo = sqlSession.selectOne(NAMESPACE+".getUser",id);
 				
 		System.out.println(" DAO : " +vo);
@@ -65,23 +66,29 @@ public class UserDAOImpl implements UserDAO {
 	
 	//특정 회원정보 조회(mno)
 	@Override
-	public UserVO getUser(int mno) {
+	public UserVO getUser(int mno) throws Exception {
 
 		return sqlSession.selectOne(NAMESPACE+".getUserM",mno);
 	}
 
+	// 로그인 처리
 	@Override
-	public UserVO loginUserCheck(Map<String, String> loginMap) {
+	public UserVO loginUserCheck(Map<String, String> loginMap) throws Exception {
 		
 		return sqlSession.selectOne(NAMESPACE+".loginUserCheck",loginMap);
 	}
 
 
 	@Override
-	public void updateIsCheck(int mno) {
+	public void updateIsCheck(int mno) throws Exception {
 		sqlSession.update(NAMESPACE+".updateIsCheck", mno);
 	}
 
+	// 관리자 전체 회원 조회
+	@Override
+	public List<UserVO> getUserList() throws Exception {
+		
+		return sqlSession.selectList(NAMESPACE +".getUserList");
 	@Override
 	public void updateSeqNo(Map<String, Object> map) {
 		sqlSession.update(NAMESPACE+".updateSeqNo", map);

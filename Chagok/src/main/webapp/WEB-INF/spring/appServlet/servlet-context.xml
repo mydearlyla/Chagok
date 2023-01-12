@@ -37,17 +37,21 @@
 	<context:component-scan base-package="com.chagok.controller" />
 	
 	<!-- 웹 소켓핸들러 -->
-    <websocket:message-broker application-destination-prefix="/chat">
+    <websocket:message-broker application-destination-prefix="/">
     <websocket:transport send-timeout="15000" send-buffer-size="524288" message-size="131072" />
-        <websocket:stomp-endpoint path="/room" allowed-origins="*">
-            <websocket:sockjs/>
+        <websocket:stomp-endpoint path="/plusFeed" allowed-origins="*">
+            <websocket:handshake-interceptors>
+            	<beans:bean class="com.chagok.interceptor.HttpHandshakeInterceptor"/>
+            </websocket:handshake-interceptors>
+            <websocket:sockjs websocket-enabled="true"/>
         </websocket:stomp-endpoint>
-        <websocket:simple-broker prefix="/pub, /sub"/>
+        <websocket:simple-broker prefix="/topic, /queue"/>
     </websocket:message-broker>
+	
     
     <!-- 사진 업로드 기능 업로드 패스 설정 --> 
 	<beans:bean class="java.lang.String" id="uploadPath">
-	 <beans:constructor-arg value="D:\workspace_chagok\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Chagok\resources" />
+	 <beans:constructor-arg value="D:\workspace_chagok\Final_Project_Team2\Chagok\src\main\webapp\resources\" />
 	</beans:bean>
 	
 	<!-- 일반 파일 업로드 경로 -->
@@ -58,5 +62,24 @@
 	 <beans:property name="defaultEncoding" value="utf-8" />
 	</beans:bean>
 
+	<beans:bean id="loginInterceptor" class="com.chagok.interceptor.LoginInterceptor"/>
+	<beans:bean id="authInterceptor" class="com.chagok.interceptor.AuthInterceptor"/>
+
+	
+	<interceptors>
+	   <interceptor>
+	       <mapping path="/login" />
+	       <beans:ref bean="loginInterceptor" />
+	   </interceptor>
+	</interceptors>
+	
+	<interceptors>
+	   <interceptor> <!-- 접근권한 설정 QQQ 필요시 추가  -->
+	       <mapping path="/challenge/plusregist" />
+	       <mapping path="/challenge/minusregist" />
+	       <mapping path="/challenge/mychallenge" />
+	       <beans:ref bean="authInterceptor" />
+	   </interceptor>
+	</interceptors>
 
 </beans:beans>

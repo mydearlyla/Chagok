@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Log in</title>
+  <title>Chagok | Log in</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -47,29 +47,28 @@
     <p class="login-box-msg" style="font-family: 'Gowun Dodum', sans-serif; font-size: 18px;"><b>로그인</b></p>
 	<!-- <p class="login-box-msg">Sign in to start your session</p> -->
 	
-	
-    <form action="" method="post">
-      <div class="form-group has-feedback">
-        <input type="email" class="form-control" id="id" name="id" placeholder="이메일">
+    <form action="/login" method="post"> <!-- QQQ 주소변경할 것  -->
+      <div class="form-group has-feedback"> <!-- QQQ 배포시 지울 것!  -->
+        <input type="email" class="form-control" id="id" name="id" value="user@user.com" placeholder="이메일">
+
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" id="pw" name="pw" placeholder="비밀번호">
+      <div class="form-group has-feedback"><!-- QQQ 배포시 지울 것!  -->
+        <input type="password" class="form-control" id="pw" name="pw" value="12341234" placeholder="비밀번호">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <input type="hidden" value="${param.pageInfo }" class="form-control" id="pageInfo" name="pageInfo">
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
-              <div class="save_id"><input type="checkbox" id="save_id"><label for="save_id">아이디 저장 </label></div>
+              <div class="save_id">
+              <input type="checkbox" id="useCookie" name="useCookie"><label for="useCookie">아이디 저장 </label>
+              </div>
           </div>
         </div>
         <!-- /.col -->
         <div class="col-xs-12">
           <div class="checkbox icheck">
-<%--          	<div id="textstyle">${message }</div>  --%>
-<!--         	<div class="idCheck" id="textstyle"> </div> -->
-<!--         	<div class="pwCheck" id="textstyle"> </div> -->
           </div>
         </div>
         <div class="col-xs-12 pull-right">

@@ -694,6 +694,30 @@ $("#jqGrid").jqGrid({
 }
 
 
+ </script>   
+ 
+ <script type="text/javascript">
+ $("#bedata").click(function(){ 
+     var gr = jQuery("#editgrid").jqGrid('getGridParam','selrow'); 
+     if( gr != null ) jQuery("#editgrid").jqGrid('editGridRow',gr{height:280,reloadAfterSubmit:false}); 
+     else alert("Please Select Row"); 
+});
+ </script>
+
+<script type="text/javascript">
+	/* 설정 */
+	const config = {
+		dateFormat: 'yy-mm-dd',
+	    prevText: '이전 달',
+	    nextText: '다음 달',
+	    monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	    monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	    dayNames: ['일','월','화','수','목','금','토'],
+	    dayNamesShort: ['일','월','화','수','목','금','토'],
+	    dayNamesMin: ['일','월','화','수','목','금','토'],
+	    yearSuffix: '년',
+        changeMonth: true,
+        changeYear: true
 	///////////////////////////////////////아직 안 쓰는 코드 
     function search() {
     	

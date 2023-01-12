@@ -1,4 +1,5 @@
 
+
 #user-green{
 	background-color: #66C14A
 }
@@ -69,7 +70,8 @@
 }
 
 .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
-	background-color: #ffffff
+	background-color: #ffffff;
+	font-family: 'GmarketSans';
 }
 
 .skin-blue .user-panel>.info, .skin-blue .user-panel>.info>a {
@@ -77,8 +79,12 @@
 }
 
 .skin-blue .sidebar-menu>li.header {
-	color: #4b646f;
-	background: #FFDB83
+	color: #000000;
+    background: #ffdb83b0;
+    font-family: 'GmarketSans';
+    font-size: 20px;
+    text-align: center;
+    padding-top: 20px;
 }
 
 .skin-blue .sidebar-menu>li>a {
@@ -88,13 +94,15 @@
 .skin-blue .sidebar-menu>li:hover>a, .skin-blue .sidebar-menu>li.active>a
 	{
 	color: #fff;
-	background: #1e282c;
-	border-left-color: #3c8dbc
+    background: #66bb7a;
+    border-left-color: #3e6c49;
+/*  #FFDB83   #bfa258 */
 }
 
 .skin-blue .sidebar-menu>li>.treeview-menu {
 	margin: 0 1px;
-	background: #2c3b41
+	background: #66bb7a1c;
+/* 	#ffdb8312 */
 }
 
 .skin-blue .sidebar a {
@@ -106,12 +114,13 @@
 }
 
 .skin-blue .treeview-menu>li>a {
-	color: #8aa4af
+	color: #8aaf95;
+/* 	#b5a786 */
 }
 
 .skin-blue .treeview-menu>li.active>a, .skin-blue .treeview-menu>li>a:hover
 	{
-	color: #fff
+	color: #53725a
 }
 
 .skin-blue .sidebar-form {

@@ -9,13 +9,13 @@
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=yes,viewport-fit=cover">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="스마트한 자산관리 솔루션, 회사의 자산관리가 쉬워진다.">
-<meta name="keywords" content="SAMQ,샘큐,노버스,노버스메이,자산관리">
-<meta name="author" content="Novusmay">
+<meta name="description" content="똑똑한 소비습관 기르기, 나의 자산관리가 쉬워진다.">
+<meta name="keywords" content="Chagok,차곡,가계부,챌린지,자산관리">
+<meta name="author" content="chagok">
 <meta property="og:title"
-	content="SAMQ - 스마트한 자산관리 솔루션, 회사의 자산관리가 쉬워진다.">
-<meta property="og:description" content="스마트한 자산관리 솔루션, 회사의 자산관리가 쉬워진다.">
-<meta property="og:site_name" content="SAMQ">
+	content="차곡 - 똑똑한 소비습관 기르기, 나의 자산관리가 쉬워진다.">
+<meta property="og:description" content="똑똑한 소비습관 기르기, 나의 자산관리가 쉬워진다.">
+<meta property="og:site_name" content="차곡">
 <meta property="og:url" content="https://www.novusmay.com/samq/">
 <meta property="og:image" content="https://i.imgur.com/syK7Oa0.jpg">
 <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
@@ -75,14 +75,13 @@
 						<dl class="btm">
 							<dt>차곡</dt>
 							<dd>
-								<span>한눈에 모아보는 자동화 자산관리, <b>무료사용</b>으로 <b>편리함</b>을 즐겨보세요.
+								<span>한눈에 모아보는 자동화 자산관리, <b>차곡</b>으로 <b>편리함</b>을 즐겨보세요.
 								</span>
 								<div class="btn_bx">
-									<a href="sample/main.html" class="btn_demo border"
-										target="_blank">둘러보기</a> <a href="login.aspx"
-										class="btn_free full">무료로 시작하기</a>
-									<button type="button" class="btn_inquiry border"
-										onclick="pop_inquiry_show();">제품 문의하기</button>
+									<a href="/assetmain" class="btn_demo border">자산관리</a>
+									<a href="/commumain" class="btn_free full">커뮤니티</a>
+<!-- 									<button type="button" class="btn_inquiry border" -->
+<!-- 										onclick="pop_inquiry_show();">제품 문의하기</button> -->
 								</div>
 							</dd>
 						</dl>
@@ -90,17 +89,17 @@
 					
 					<br><br><br>
 					
-					<hr>
+<!-- 					<hr> -->
 					
-					<br><br><br>
-						<h1>임시 링크 입니다 기능 만들어지기 전까진 요기로 이동하세요<br><br></h1>
+<!-- 					<br><br><br> -->
+<!-- 						<h1>임시 링크 입니다 기능 만들어지기 전까진 요기로 이동하세요<br><br></h1> -->
 						
-						<a href="/commumain">커뮤니티 메인 가기</a><br><br>
-						<a href="/assetmain">자산관리 메인 가기</a><br>
+<!-- 						<a href="/commumain">커뮤니티 메인 가기</a><br><br> -->
+<!-- 						<a href="/assetmain">자산관리 메인 가기</a><br> -->
 					
-					<br><br><br>
+<!-- 					<br><br><br> -->
 					
-					<hr>
+<!-- 					<hr> -->
 					
 					<br><br><br>
 					
@@ -111,28 +110,28 @@
 								<div class="wrap">
 									<div class="top_bx">
 										<div class="tit">
-											<p>재물조사 현황을</p>
+											<p>이 달의 수입지출을</p>
 											<p>알려드려요!</p>
 										</div>
 									</div>
 									<div class="mid_bx">
 										<div class="list_wrap">
 											<dl class="list">
-												<dt>재물조사 기간</dt>
-												<dd>2021-01-01 - 2021-01-07</dd>
+												<dt>수입지출 현황</dt>
+												<dd>2023-01-01-2023-01-16</dd>
 											</dl>
 											<dl class="list">
-												<dt>담당인원</dt>
-												<dd>5명</dd>
+												<dt>이 달의 소비</dt>
+												<dd>택시</dd>
 											</dl>
 											<dl class="list">
-												<dt>재고조사 진행품목</dt>
-												<dd>1000개</dd>
+												<dt>지난달 대비</dt>
+												<dd>60% 지출</dd>
 											</dl>
 											<div class="progress">
 												<dl class="p_item">
-													<dt class="dt">완료</dt>
-													<dd class="dd">600개/60%</dd>
+													<dt class="dt">현재</dt>
+													<dd class="dd">60%</dd>
 												</dl>
 												<div class="bar">
 													<p class="bg">
@@ -149,34 +148,34 @@
 								<div class="wrap">
 									<div class="top_bx">
 										<div class="tit">
-											<p>여기저기서 구매한</p>
-											<p>소프트웨어 한번에</p>
-											<p>보고싶으면 샘큐!</p>
+											<p>소비패턴 분석으로</p>
+											<p>금융상품 및 챌린지</p>
+											<p>추천 받아보세요!</p>
 										</div>
-										<div class="full">현황 조회하기</div>
+										<div class="full">조회하기</div>
 									</div>
 									<div class="mid_bx">
 										<div class="list_wrap">
 											<dl class="list">
 												<dt>
-													총 라이선스<i>(구독/구매)</i>
+													카드<i>(적립/할인)</i>
 												</dt>
-												<dd>100개</dd>
+												<dd>적립형</dd>
 											</dl>
 											<dl class="list subs">
-												<dt>구독형</dt>
-												<dd>75개</dd>
+												<dt>추천카드</dt>
+												<dd>핏(Fit)</dd>
 											</dl>
 											<dl class="list">
-												<dt>구매형</dt>
-												<dd>25개</dd>
+												<dt>절약형</dt>
+												<dd>교통비</dd>
 											</dl>
 										</div>
 										<div class="chart_wrap">
 											<div class="pie">
 												<div class="blank">
 													<div class="txt">
-														<p>구독형</p>
+														<p>택시비</p>
 														<p>
 															75<i>%</i>
 														</p>
@@ -192,18 +191,18 @@
 								<div class="wrap">
 									<div class="top_bx">
 										<div class="tit">
-											<p>소모품 운영현황을</p>
+											<p>참가 챌린지 현황을</p>
 											<p>알려드려요.</p>
 										</div>
 										<div class="mid_wrap">
 											<dl class="p_item">
-												<dt class="dt">금월 입고량</dt>
-												<dd class="dd">1200개</dd>
+												<dt class="dt">저축형</dt>
+												<dd class="dd">50만원 모으기</dd>
 											</dl>
 											<div class="progress">
 												<dl class="p_item">
-													<dt class="dt">금월 출고량</dt>
-													<dd class="dd">50%</dd>
+													<dt class="dt">현황</dt>
+													<dd class="dd">25만원</dd>
 												</dl>
 												<div class="bar">
 													<p class="bg">
@@ -215,24 +214,19 @@
 									</div>
 									<div class="mid_bx">
 										<div class="tit">
-											<p>사무 비품 현황을</p>
+											<p>참가 챌린지 현황을</p>
 											<p>알려드려요.</p>
 										</div>
 										<div class="mid_wrap">
 											<div class="progress new">
 												<dl class="p_item">
-													<dt class="dt">금월 신규등록</dt>
-													<dd class="dd">60%</dd>
+													<dt class="dt">절약형</dt>
+													<dd class="dd">식비 줄이기</dd>
 												</dl>
-												<div class="bar">
-													<p class="bg">
-														<i class="num" style="width: 60%"></i>
-													</p>
-												</div>
 											</div>
 											<div class="progress">
 												<dl class="p_item">
-													<dt class="dt">사무비품 미할당</dt>
+													<dt class="dt">현황</dt>
 													<dd class="dd">35%</dd>
 												</dl>
 												<div class="bar">
@@ -249,26 +243,26 @@
 					</div>
 				</div>
 			</section>
-			<section class="section_bubble">
+			<section class="section_bubble" style="padding:0px;">
 				<div class="cnt">
-					<h3 class="blind">샘큐</h3>
+					<h3 class="blind">차곡</h3>
 					<div class="cnt_bx">
 						<div class="top_bx">
 							<div class="left"
 								style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
 								<div class="txt">
-									<p>회사 비품 샀는데</p>
-									<p>엑셀에 하나하나</p>
-									<p>다 입력해야하는데</p>
+									<p>이번달 내 월급</p>
+									<p>도대체 어디로</p>
+									<p>다 날아간거지?</p>
 									<p>하..</p>
 								</div>
 							</div>
 							<div class="right"
 								style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
 								<div class="txt">
-									<p>소프트웨어는</p>
-									<p>비품 사듯이 간편하게</p>
-									<p>구매할 수 없을까?!</p>
+									<p>다른 사람들과</p>
+									<p>같이 돈 모으면</p>
+									<p>쉽지 않을까?!</p>
 								</div>
 							</div>
 						</div>
@@ -276,17 +270,17 @@
 							<div class="left"
 								style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
 								<div class="txt">
-									<p>자산관리솔루션이라고</p>
-									<p>구매는 해봤는데..</p>
-									<p>어차피 내가 작성..</p>
-									<p>내가 엑셀로 하고말지..</p>
+									<p>경제 뉴스</p>
+									<p>한번에 모아보고..</p>
+									<p>정보 공유하고..</p>
+									<p>너무 좋을 것 같은데..</p>
 								</div>
 							</div>
 							<div class="right"
 								style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
 								<div class="txt">
-									<p>비품등록 때문에</p>
-									<p>야근하네..</p>
+									<p>내 자산 분석은</p>
+									<p>어떻게 하지..</p>
 									<p class="under">진짜 자동으로 관리해주는</p>
 									<p class="under">자산관리 어디 없을까?</p>
 								</div>
@@ -295,33 +289,32 @@
 					</div>
 				</div>
 			</section>
-			<section class="section_admin">
+			<section class="section_admin" style="padding:15px;">
 				<div class="cnt">
-					<h3 class="blind">샘큐</h3>
+					<h3 class="blind">차곡</h3>
 					<div class="cnt_bx">
 						<dl>
-							<dt class="icon"></dt>
 							<dd class="txt_bx">
 								<p>
-									안녕하세요! 저는 <i>샘큐</i>라고해요.
+									안녕하세요! 저는 <i>차곡</i>이라고해요.
 								</p>
-								<p>어렵고 불편한 사내자산관리</p>
+								<p>어렵고 불편한 자산관리</p>
 								<p>
 									<i>지금부터 제가 도와드릴게요. :)</i>
 								</p>
 							</dd>
 							<dd class="tag_bx">
 								<ul>
-									<li class="tag">#기업자산관리</li>
-									<li class="tag">#대표님들주목</li>
-									<li class="tag">#완전자동화관리</li>
+									<li class="tag">#개인자산관리</li>
+									<li class="tag">#좋은소비습관</li>
+									<li class="tag">#나만의리포트</li>
 								</ul>
 							</dd>
 						</dl>
 					</div>
 				</div>
 			</section>
-			<section class="section_function">
+<!--			<section class="section_function">
 				<div class="cnt">
 					<h3 class="blind">샘큐</h3>
 					<div class="cnt_bx">
@@ -391,7 +384,7 @@
 								<p>관리자가 구매만 하고 사용자가</p>
 								<p>사용하지 않은 자산을 뜻합니다.</p>
 							</div>
-						</li> -->
+						</li> 
 							<div class="slick-list draggable">
 								<div class="slick-track"
 									style="opacity: 1; width: auto; transform: translate3d(-745px, 0px, 0px);">
@@ -1366,31 +1359,34 @@
 						</ul>
 					</div>
 				</div>
-			</section>
+			</section> -->
 			<section class="section_proposal">
 				<div class="cnt">
-					<h3 class="blind">샘큐</h3>
+					<h3 class="blind">차곡</h3>
 					<div class="cnt_bx">
 						<dl>
 							<dt>
 								<div class="bubble">
 									<div class="txt">
 										<p>
-											샘큐가 해주는 <i class="mob">편리해진</i>
+											차곡과 함께 <i class="mob">개인 자산</i>
 										</p>
 										<p>
-											<i class="pc">편리해진</i> 기업용 자산관리
+											<i class="pc">개인 자산</i> 차곡차곡
 										</p>
-										<p>직접 느껴보세요.</p>
+										<p>모아보세요!</p>
 									</div>
 								</div>
-								<div class="icon"></div>
+								<!-- <div class="icon"></div>  -->
 							</dt>
 							<dd>
-								<a href="/files/Samq_Proposal.pdf" class="btn_download"
-									download="">제안서 다운로드</a>
-								<button type="button" class="btn_inquiry"
-									onclick="pop_inquiry_show();">제품 문의하기</button>
+							<!-- 	<a href="/files/Samq_Proposal.pdf" class="btn_download"
+									download="">제안서 다운받기</a>  -->
+									<button type="button" class="btn_demo border" onclick="location.href='/register';"
+									style="margin:10px 150px 50px 50px;">
+									지금 가입하기</button>
+							<!-- 	<button type="button" class="btn_inquiry"
+									onclick="location.href='/register';">지금 가입하기</button>  -->
 							</dd>
 						</dl>
 					</div>
@@ -1399,7 +1395,7 @@
 		</div>
 
 
-		<footer class="footer">
+<!-- 		<footer class="footer">
 			<div class="wrap">
 				<div class="left_cnt">
 					<dl>
@@ -1434,10 +1430,8 @@
 					</ul>
 				</div>
 			</div>
-		</footer>
-
-
-		<div class="dimmed"
+		</footer> -->
+<!-- 		<div class="dimmed"
 			onclick="pop_terms_hide();pop_send_hide();pop_inquiry_hide();pop_solution_apply_hide();"></div>
 
 		<div class="floating_btn">
@@ -1609,6 +1603,6 @@
 				style="position: relative !important; height: 100% !important; width: 100% !important; border: none !important;"></iframe>
 		</div>
 	</div>
-	<style data-styled="active" data-styled-version="5.1.1"></style>
+	<style data-styled="active" data-styled-version="5.1.1"></style>  -->
 </body>
 </html>

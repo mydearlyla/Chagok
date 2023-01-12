@@ -393,7 +393,7 @@
 <!-- <button class="button" type="button" onclick="restart()">Replay</button> -->
 
 <!-- <button class="button" type="button" -->
-<!-- 	onclick="location.href='/review';">후기 작성하기</button> -->
+<!-- 	onclick="location.href='/review=cno?${cno}';">후기 작성하기</button> -->
 
 
 

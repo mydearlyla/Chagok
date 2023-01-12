@@ -248,7 +248,7 @@ $(document).ready(function(){
 			
 			console.log("ReceiveMessage:" + msg);
 		});
-	
+		
 	});
 	
 	var socket = null;
@@ -283,7 +283,7 @@ $(document).ready(function(){
 				var content = JSON.parse(chat.body);
 				console.log(content);
 				//socket.onmessage = onMessage;
-
+				
 				if(content.writer != null){
 					
 					if( content.writer == nick ){ 
@@ -339,15 +339,9 @@ $(document).ready(function(){
 				
 				var chat = {"writer": content.writer, "message":content.message , "time": currT, "cno": cno, "receiver": "all", "f_date": currD };
 				
-				
-				
-				
-				
 			}); 	//client.subscribe 끝
 		}); 		// client.connect 끝
-
 	}	
-	
 </script>
 <script type="text/javascript">
 $(document).ready(function(){

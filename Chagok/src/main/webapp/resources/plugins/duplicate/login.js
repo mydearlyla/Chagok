@@ -35,7 +35,8 @@ function f_loginCheck(){
 					  icon: 'success',
 					  showConfirmButton: false,
 					  timer: 1000
-					})
+					});
+				url();
 			}
 		},
 		error : function(jqXHR, status, error){
@@ -46,6 +47,7 @@ function f_loginCheck(){
 }
 
 function url(){
+	
 	var pageInfo = $('input[name=pageInfo]').val();
 	
 	if (pageInfo == "" ) {

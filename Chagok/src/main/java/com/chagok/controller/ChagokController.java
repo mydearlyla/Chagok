@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 import com.chagok.domain.AlertVO;
@@ -102,6 +103,7 @@ public class ChagokController {
 	}
 
 	@PostMapping(value = "/login")
+	@ResponseBody
 	public String loginPOST(@RequestBody Map<String, String> loginMap, HttpServletRequest request, HttpServletResponse response, UserVO UserVO, Model model) throws Exception {
 		mylog.debug(" loginPOST() 호출");
 		HttpSession session = request.getSession();
@@ -122,6 +124,7 @@ public class ChagokController {
 				
 			}else {
 				model.addAttribute("loginResult", "Login Fail!");
+				return "0";
 				
 			}
 		} catch (Exception e) {
@@ -249,20 +252,6 @@ public class ChagokController {
 	   alertService.alert(alertVO);
 	   
    }
-   
-	// 마이페이지
-	// http://localhost:8080/myPage
-   @GetMapping(value="/myPage")
-   public String myPage(Integer mno) {
-	   mylog.debug(" mypage 호출 ");
-	   
-	   // UserVO vo = service.getUser(mno);
-	   
-	   
-	   return "/chagok/myPage";
-   }
-   
-   
    
    // http://localhost:8080/adminUser
    

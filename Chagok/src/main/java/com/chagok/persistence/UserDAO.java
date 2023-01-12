@@ -33,7 +33,6 @@ public interface UserDAO {
 	
 	// 관리자 전체 회원 조회
 	public List<UserVO> getUserList() throws Exception;
-	public void updateIsCheck(int mno);
 	
 	// user_seq_no 저장
 	public void updateSeqNo(Map<String, Object> map);

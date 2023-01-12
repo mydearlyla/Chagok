@@ -89,6 +89,8 @@ public class UserDAOImpl implements UserDAO {
 	public List<UserVO> getUserList() throws Exception {
 		
 		return sqlSession.selectList(NAMESPACE +".getUserList");
+	}
+	
 	@Override
 	public void updateSeqNo(Map<String, Object> map) {
 		sqlSession.update(NAMESPACE+".updateSeqNo", map);
@@ -106,7 +108,7 @@ public class UserDAOImpl implements UserDAO {
 		
 		return result;
 	}
-	
+
 	
 	
 	

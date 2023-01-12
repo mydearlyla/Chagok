@@ -146,7 +146,7 @@ public class ChallengeController {
 		
 		// 서비스 -> DAO 게시판 리스트 가져오기
 		// getAbookList(1) -> getAbookList(mno) 수정 필요 !!!!!
-		List<AbookVO> abookList = aService.getAbookList(mno);
+//		List<AbookVO> abookList = aService.getAbookList(mno);
 		List<Map<String, Object>> minusAbook = service.getMinusAbook(mno, cno);
 		mylog.debug(minusAbook+"");
 //		mylog.debug("abookList : "+abookList);
@@ -171,7 +171,7 @@ public class ChallengeController {
 	   model.addAttribute("mvo",mvo);
 	   model.addAttribute("vo3", vo3);
 	   
-	   model.addAttribute("abookList", abookList);
+//	   model.addAttribute("abookList", abookList);
 //	   model.addAttribute("cateList", cateList);
 //	   model.addAttribute("jsonAbook",jsonAbook);
 //		model.addAttribute("jsonCate",jsonCate);

@@ -69,12 +69,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	// 관리자 전체 회원 조회
-	@Override
-	public List<UserVO> getUserList() throws Exception {
-		return dao.getUserList();
+	
+	
+	
 	@Override
 	public void updateSeqNo(Map<String, Object> map) {
 		dao.updateSeqNo(map);
+	}
+	
+	@Override
+	public List<UserVO> getUserList() throws Exception {
+		return dao.getUserList();
 	}
 
 	@Override

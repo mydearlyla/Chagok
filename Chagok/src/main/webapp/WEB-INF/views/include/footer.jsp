@@ -262,11 +262,11 @@ $(document).ready(function(){
 	var currD = new Date().getMonth() + 1 + "월 " + new Date().getDate()+"일";
 	
 	function connectSockJS(){
-		//STOMP Client
-		var sock = new SockJS("/plusFeed"); // endpoint
-		var client = Stomp.over(sock);
-		isStomp = true;
-		socket = client;
+	      //STOMP Client
+	      var sock = new SockJS("/plusFeed", null, { timeout: 15000 }); // endpoint
+	      var client = Stomp.over(sock);
+	      isStomp = true;
+	      socket = client;
 		
 		
 		// 소켓 연결확인

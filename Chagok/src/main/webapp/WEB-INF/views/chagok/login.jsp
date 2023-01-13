@@ -49,12 +49,12 @@
 	
     <form action="/login" method="post"> <!-- QQQ 주소변경할 것  -->
       <div class="form-group has-feedback"> <!-- QQQ 배포시 지울 것!  -->
-        <input type="email" class="form-control" id="id" name="id" value="user@user.com" placeholder="이메일">
+        <input type="email" class="form-control" id="id" name="id" placeholder="이메일">
 
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback"><!-- QQQ 배포시 지울 것!  -->
-        <input type="password" class="form-control" id="pw" name="pw" value="12341234" placeholder="비밀번호">
+        <input type="password" class="form-control" id="pw" name="pw" placeholder="비밀번호">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <input type="hidden" value="${param.pageInfo }" class="form-control" id="pageInfo" name="pageInfo">

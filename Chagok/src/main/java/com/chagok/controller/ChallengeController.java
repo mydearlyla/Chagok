@@ -3,6 +3,9 @@ package com.chagok.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -11,6 +14,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -18,6 +22,7 @@ import org.slf4j.LoggerFactory;
 //import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -358,11 +363,16 @@ public class ChallengeController {
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 		String fileName = null;
+		mylog.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ imgUploadPath : " + imgUploadPath);
 
 		if(file != null) {
-		   fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);   
+			mylog.debug("if문 들어옴");
+		   fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);  
+		   mylog.debug("@@@@@@@ if : " + fileName);
 		} else {
+			mylog.debug("esif문 들어옴");
 		   fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
+		   mylog.debug("@@@@@@@ elif : " + fileName);
 		}
 
 		vo.setC_file(File.separator + "imgUpload" + ymdPath + File.separator + fileName);

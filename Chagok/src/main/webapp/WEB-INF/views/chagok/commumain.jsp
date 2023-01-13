@@ -91,12 +91,11 @@
       		<p class="card-item-chevron--new-2"><b>오늘<br>마감</b></p>
       	</c:if>
         <a class="card-item-link" href="/challenge/detail?cno=${vo.cno }">
-        
           <c:if test="${startTime - nowfmtTime >= 2}">
-      		 <img class="card-img-top img-fluid" src="${vo.c_thumbFile }" alt="" aria-labelledby="title_1" id="c_img">
+      		 <img class="card-img-top img-fluid" src="${pageContext.request.contextPath }/resources${vo.c_thumbFile }" alt="" aria-labelledby="title_1" id="c_img">
       	  </c:if>
       	  <c:if test="${startTime - nowfmtTime == 1}">
-      		<img class="card-img-top img-fluid-2" src="${vo.c_thumbFile }" alt="" aria-labelledby="title_1" id="c_img">
+      		<img class="card-img-top img-fluid-2" src="${pageContext.request.contextPath }/resources${vo.c_thumbFile }" alt="" aria-labelledby="title_1" id="c_img">
       	  </c:if>
         
         </a>

@@ -131,7 +131,7 @@
 						<!-- 오픈뱅킹에서 발급한 이용기관 앱의 Client ID -->
 						<input type="hidden" name="client_id" value="d357debb-9ab8-401d-a882-ce684fb5b3f7">
 						<!-- 사용자 인증이 성공하면 이용기관으로 연결되는 URL callback_uri -->
-						<input type="hidden" name="redirect_uri" value="http://chagok.ga/asset/callback">
+						<input type="hidden" name="redirect_uri" value="http://localhost:8080/asset/callback">
 						<!-- Access Token 권한 범위 -->
 						<input type="hidden" name="scope" value="login inquiry transfer cardinfo">
 						<!-- 보안위협에 대응하기 위해 세팅하는 난수값 (32자리) -->
@@ -191,7 +191,7 @@
 			<!-- 계좌목록 -->
 			<div id="account_ch" style="display: none;">
 			<c:forEach var="vo" items="${accountList }">
-				<div class="info-box" style="margin: 0 0 1px 30px; width: 95%;">
+				<div class="info-box" style="margin: 0 0 1px 0; width: 95%;">
 					<a href="#" class="startModal_account">
 						<input type="hidden" value="${vo.fintech_use_num }" class="fintech_use_num_account">
 						<input type="hidden" value="${vo.account_alias }" class="account_alias_account">
@@ -200,9 +200,9 @@
 							<i class="fa fa-bank"></i>
 						</span>
 						<div class="info-box-content" style="padding-top: 15px; display: flex;">
-							<span class="info-box-text" style="font-size: 3em; margin-left: 20px; display: inline;">${vo.account_alias }</span> 
-							<span class="info-box-text" style="font-size: 3em; margin-left: 200px; display: inline;">총 <fmt:formatNumber value="${vo.balance_amt }"/> 원</span> 
-							<span class="info-box-text" style="font-size: 3em; margin-left: 200px; display: inline;">${vo.account_num_masked }</span> 
+							<span class="info-box-text" style="font-size: 3em; margin-left: 20px; display: inline-block; width: 15%;">${vo.account_alias }</span> 
+							<span class="info-box-text" style="font-size: 3em; margin-left: 50px; display: inline-block; width: 35%;">총 <fmt:formatNumber value="${vo.balance_amt }"/> 원</span> 
+							<span class="info-box-text" style="font-size: 3em; margin-left: 50px; display: inline-block;">${vo.account_num_masked }</span> 
 						</div>
 					</a>
 				</div>
@@ -234,7 +234,7 @@
 					</c:if>
 				</c:forEach>
 				
-					<div class="info-box" style="margin: 0 0 1px 30px; width: 95%">
+					<div class="info-box" style="margin: 0 0 1px 0; width: 95%">
 						<a href="#" class="startModal_card">
 							<input type="hidden" value="${cardVO.card_id }" class="card_id_card">
 							<input type="hidden" value="${cardVO.card_name }" class="card_name_card">
@@ -244,9 +244,9 @@
 								<i class="fa fa-credit-card"></i>
 							</span>
 							<div class="info-box-content" style="padding-top: 15px;">
-								<span class="info-box-text" style="font-size: 3em; margin-left: 20px; display: inline;">${cardVO.card_name }</span> 
-								<span class="info-box-text" style="font-size: 3em; margin-left: 200px; display: inline;">총 ${cardPartSum } 원</span> 
-								<span class="info-box-text" style="font-size: 3em; margin-left: 200px; display: inline;">${cardVO.card_num_masked }</span> 
+								<span class="info-box-text" style="font-size: 3em; margin-left: 20px; display: inline-block; width: 20%">${cardVO.card_name }</span> 
+								<span class="info-box-text" style="font-size: 3em; margin-left: 50px; display: inline-block; width: 35%">총 ${cardPartSum } 원</span> 
+								<span class="info-box-text" style="font-size: 3em; margin-left: 50px; display: inline-block;">${cardVO.card_num_masked }</span> 
 							</div>
 						</a>
 					</div>
@@ -277,13 +277,13 @@
 			
 			<!-- 현금목록 -->
 			<div id="cash_ch" style="display: none;">
-				<div class="info-box" style="margin: 0 0 1px 30px; width: 95%">
+				<div class="info-box" style="margin: 0 0 1px 0; width: 95%">
 					<a href="#" class="startModal_cash">
 						<span class="info-box-icon">
 							<i class="fa fa-database"></i>
 						</span>
 						<div class="info-box-content" style="padding-top: 15px;">
-							<span class="info-box-text" style="font-size: 3em; margin-left: 20px; display: inline;">
+							<span class="info-box-text" style="font-size: 3em; margin-left: 20px; display: inline-block; width: 15%;">
 								<c:if test="${cashVO == null }">
 									현금 내역이 없습니다.
 								</c:if>
@@ -291,7 +291,7 @@
 									${cashVO.cash_inout }
 								</c:if>
 							</span> 
-							<span class="info-box-text" style="font-size: 3em; margin-left: 200px; display: inline;">
+							<span class="info-box-text" style="font-size: 3em; margin-left: 50px; display: inline-block;">
 								<c:if test="${cashVO != null }">
 									총  <fmt:formatNumber value="${cashVO.cash_amt }"/> 원
 								</c:if>
@@ -399,22 +399,21 @@
  
 
 
-<hr>
-<hr>
+<!-- 
 <h1 style="margin: 100px 20px 0 0"> 여기는 임시 </h1>
 	
 	<form action="https://testapi.openbanking.or.kr/oauth/2.0/authorize" method="get" onsubmit="return userCheck();">
-		<!-- 고정값 : code -->
+		고정값 : code
 		<input type="hidden" name="response_type" value="code">
-		<!-- 오픈뱅킹에서 발급한 이용기관 앱의 Client ID -->
+		오픈뱅킹에서 발급한 이용기관 앱의 Client ID
 		<input type="hidden" name="client_id" value="d357debb-9ab8-401d-a882-ce684fb5b3f7">
-		<!-- 사용자 인증이 성공하면 이용기관으로 연결되는 URL callback_uri -->
-		<input type="hidden" name="redirect_uri" value="http://chagok.ga/asset/callback">
-		<!-- Access Token 권한 범위 -->
+		사용자 인증이 성공하면 이용기관으로 연결되는 URL callback_uri
+		<input type="hidden" name="redirect_uri" value="http://localhost:8080/asset/callback">
+		Access Token 권한 범위
 		<input type="hidden" name="scope" value="login inquiry transfer cardinfo">
-		<!-- 보안위협에 대응하기 위해 세팅하는 난수값 (32자리) -->
+		보안위협에 대응하기 위해 세팅하는 난수값 (32자리)
 		<input type="hidden" name="state" value="12345678123456781234567812345678">
-		<!-- 사용자인증타입 구분주 2) (0:최초인증, 1:재인증, 2:인증생략) -->
+		사용자인증타입 구분주 2) (0:최초인증, 1:재인증, 2:인증생략)
 		<input type="hidden" name="auth_type" value="0">
 		
 		<input type="submit" class="btn btn-block btn-success btn-lg" id="assetCheck" 
@@ -423,19 +422,19 @@
 	
 	
 	<form action="https://testapi.openbanking.or.kr/oauth/2.0/authorize" method="get" onsubmit="return userCheck();">
-		<!-- 고정값 : code -->
+		고정값 : code
 		<input type="hidden" name="response_type" value="code">
-		<!-- 오픈뱅킹에서 발급한 이용기관 앱의 Client ID -->
+		오픈뱅킹에서 발급한 이용기관 앱의 Client ID
 		<input type="hidden" name="client_id" value="d357debb-9ab8-401d-a882-ce684fb5b3f7">
-		<!-- 사용자 인증이 성공하면 이용기관으로 연결되는 URL callback_uri -->
-		<input type="hidden" name="redirect_uri" value="http://chagok.ga/asset/callbackCenter">
-		<!-- Access Token 권한 범위 -->
+		사용자 인증이 성공하면 이용기관으로 연결되는 URL callback_uri
+		<input type="hidden" name="redirect_uri" value="http://localhost:8080/asset/callbackCard">
+		Access Token 권한 범위
 		<input type="hidden" name="scope" value="login cardinfo">
-		<!-- 보안위협에 대응하기 위해 세팅하는 난수값 (32자리) -->
+		보안위협에 대응하기 위해 세팅하는 난수값 (32자리)
 		<input type="hidden" name="state" value="12345678123456781234567812345678">
-		<!-- 사용자인증타입 구분주 2) (0:최초인증, 1:재인증, 2:인증생략) -->
+		사용자인증타입 구분주 2) (0:최초인증, 1:재인증, 2:인증생략)
 		<input type="hidden" name="auth_type" value="0">
-		<!-- 카드 인증 -->
+		카드 인증
 		<input type="hidden" name="register_info" value="C">
 		
 		<input type="submit" class="btn btn-block btn-success btn-lg" id="assetCheck" 
@@ -445,22 +444,22 @@
 	
 	
 	<form action="https://testapi.openbanking.or.kr/oauth/2.0/authorize" method="get" onsubmit="return userCheck();">
-		<!-- 고정값 : code -->
+		고정값 : code
 		<input type="hidden" name="response_type" value="code">
-		<!-- 오픈뱅킹에서 발급한 이용기관 앱의 Client ID -->
+		오픈뱅킹에서 발급한 이용기관 앱의 Client ID
 		<input type="hidden" name="client_id" value="d357debb-9ab8-401d-a882-ce684fb5b3f7">
-		<!-- 사용자 인증이 성공하면 이용기관으로 연결되는 URL callback_uri -->
-		<input type="hidden" name="redirect_uri" value="http://chagok.ga/asset/callbackCenter">
-		<!-- Access Token 권한 범위 -->
+		사용자 인증이 성공하면 이용기관으로 연결되는 URL callback_uri
+		<input type="hidden" name="redirect_uri" value="http://localhost:8080/asset/callbackCenter">
+		Access Token 권한 범위
 		<input type="hidden" name="scope" value="login inquiry transfer">
-		<!-- 보안위협에 대응하기 위해 세팅하는 난수값 (32자리) -->
+		보안위협에 대응하기 위해 세팅하는 난수값 (32자리)
 		<input type="hidden" name="state" value="12345678123456781234567812345678">
-		<!-- 사용자인증타입 구분주 2) (0:최초인증, 1:재인증, 2:인증생략) -->
+		사용자인증타입 구분주 2) (0:최초인증, 1:재인증, 2:인증생략)
 		<input type="hidden" name="auth_type" value="0">
 		
 		<input type="submit" class="btn btn-block btn-success btn-lg" id="assetCheck" 
 		style="width: 200px; margin: 20px 40px" value="센터 인증 기관용(미완성)">	
-	</form>
+	</form> -->
 	
 </div>
 <%@ include file="../include/footer.jsp" %>

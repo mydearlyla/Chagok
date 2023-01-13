@@ -199,7 +199,7 @@
 	
 	<!-- 11. 주간 통계 (지출, 수입) -->
 	<select id="week" resultType="map">
-		select A.week2, A.weekout, b.weekin
+		select A.week2, A.weekout, B.weekin
 			from (
 			<include refid="week2"/>
 			, <include refid="weekout"/>
@@ -208,7 +208,7 @@
 					, <include refid="weekin"/>
 				on A.week2 = B.week2
 		union
-			select B.week2, A.weekout, b.weekin
+			select B.week2, A.weekout, B.weekin
 			from (
 			<include refid="week2"/>
 			, <include refid="weekout"/>
@@ -221,14 +221,14 @@
 	
 	<!-- 12. 월간 통계 (지출, 수입) -->
 	<select id="month" resultType="map">
-		select A.month2, A.monthout, b.monthin
+		select A.month2, A.monthout, B.monthin
 			from (
 				<include refid="monthout"/> 
 					left outer join (
 						<include refid="monthin"/> 
 					on A.month2 = B.month2
 		union
-			select B.month2, A.monthout, b.monthin
+			select B.month2, A.monthout, B.monthin
 			from (
 				<include refid="monthout"/> 
 					right outer join (

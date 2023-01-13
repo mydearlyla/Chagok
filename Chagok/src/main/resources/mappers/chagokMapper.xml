@@ -244,18 +244,14 @@
 	
 	<!-- 검색1 -->
 	<select id="cList" resultType="com.chagok.domain.ChallengeVO" parameterType="com.chagok.domain.SearchCriteria">
-		SELECT  *
-		 	FROM ( 
-		      	  SELECT *
-               		FROM  ( select cno, ch.ctno ctno, c_title, c_file, c_pcnt, c_period, c_start, c_deposit, c_content, c_person, mno, c_freq, c_sort, c_amount, c_total, c_min, c_status, c_thumbFile, c_cnt, ct_top, ct_bottom, 
-		            	   ROW_NUMBER() OVER(ORDER BY cno) AS RNUM
-							from challenge ch join category c
-							where ch.ctno = c.ctno) AP
-		         	WHERE 1=1 
-		         		<include refid="search"></include>
-		           							            ) MP
-		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
-		ORDER BY cno
+  	 SELECT  *
+       FROM (
+            select *, @rownum := @rownum + 1 AS RNUM from chl 
+            JOIN ( SELECT @rownum := 0) R
+                                       ) MP
+                     <include refid="search"></include>
+      WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+      ORDER BY cno
 	</select>
 	
 	<!-- 검색2 -->

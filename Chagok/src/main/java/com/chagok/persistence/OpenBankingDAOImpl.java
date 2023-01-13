@@ -29,7 +29,7 @@ import com.chagok.apiDomain.UserInfoResponseVO;
 public class OpenBankingDAOImpl implements OpenBankingDAO{
 	private String client_id = "d357debb-9ab8-401d-a882-ce684fb5b3f7"; // 기관 id
 	private String client_secret = "a137df94-4001-439a-ab9d-c61f985f6811"; // 기관 pw
-	private String redirect_uri = "http://localhost:8080/asset/callback"; // call uri
+	private String redirect_uri = "http://chagok.ga/asset/callback"; // call uri
 	private String grant_type = "authorization_code";
 	
 	private HttpHeaders httpHeaders; // http 헤더 정보 관리 클래스

@@ -9,14 +9,15 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-	<!-- 디비연결정보 - DataSource -->
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
-		<property name="url" value="jdbc:log4jdbc:mysql://db.itwillbs.dev:3306/class7_220721_team2"/>
-		<property name="username" value="class7_220721_team2"/>
-		<property name="password" value="2teamgood"/>
-	</bean>
-	<!-- 디비연결정보 - DataSource -->
+   <!-- 디비연결정보 - DataSource -->
+   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+      <property name="url" value="jdbc:log4jdbc:mysql://itwillbs10.cafe24.com:3306/itwillbs10"/>
+      <property name="username" value="itwillbs10"/>
+      <property name="password" value="itwillbs8030909"/>
+   </bean>
+   <!-- 디비연결정보 - DataSource -->
+
 	
 	<!-- mybatis 설정(디비연결, 설정, 매퍼) -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

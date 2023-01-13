@@ -191,7 +191,7 @@ color : rgba(255, 219, 131 / 80%);
 <script type="text/javascript">
 	$(document).ready(function(){
 		var link = window.location.href;
-		var currentURL = link.substring(22);
+		var currentURL = link.substring(17);
 // 		alert(currentURL);
 		
 		$('#loginURL').click(function(){

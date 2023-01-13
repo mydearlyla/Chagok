@@ -408,9 +408,9 @@
 
 	<!-- 비즈니스 계좌 입금시 plus 테이블 pl_sum 업데이트 -->
 	<update id="updatePlusSum">
-		update plus set pl_sum=(select pl_sum where mno = #{mno} and cno = #{cno})+#{biz_amount}, 
-		pl_cnt=(select pl_cnt where mno = #{mno} and cno = #{cno}) + 1 
-		where mno = #{mno} and cno = #{cno}
+		update plus 
+		set pl_sum=pl_sum+#{biz_amount}, pl_cnt=pl_cnt+1 
+		where mno = #{mno} and cno = #{cno};
 	</update>
 	
 

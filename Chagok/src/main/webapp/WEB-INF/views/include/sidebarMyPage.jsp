@@ -17,7 +17,7 @@
    <link href="${pageContext.request.contextPath }/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
    <!-- AdminLTE Skins. Choose a skin from the css/skins 
         folder instead of downloading all of them to reduce the load. -->
-   <link href="${pageContext.request.contextPath }/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+ 	<link href="${pageContext.request.contextPath }/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
 	<!-- 채팅 js -->
     <%-- <script src="${pageContext.request.contextPath }/resources/plugins/chat/feed.js"></script> --%>
     <!-- 채팅 css  -->
@@ -35,8 +35,6 @@
      <!-- jQuery 2.1.4 -->
    <script src="${pageContext.request.contextPath }/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 
- 
- 
   <body class="skin-blue sidebar-mini">
   
     <div class="wrapper">
@@ -52,8 +50,8 @@
             </div>
             <div class="pull-left info">
             <c:if test="${nick != null }">
-             <p><a href="#" style="color: black;">${nick }</a></p>
-              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+              <p><a href="#" style="color: black;">${nick }</a></p>
+              <a href="#" ><i class="fa fa-circle text-success" ></i> Online</a>
             </c:if>
             <c:if test="${nick == null }">
               <p><a href="/login">로그인을 해주세요</a></p>
@@ -61,24 +59,9 @@
 
             </div>
           </div>
-          <!-- search form -->
-<!--           <form action="#" method="get" class="sidebar-form"> -->
-<!--             <div class="input-group"> -->
-<!--               <input type="text" name="q" class="form-control" placeholder="Search..."/> -->
-<!--               <span class="input-group-btn"> -->
-<!--                 <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button> -->
-<!--               </span> -->
-<!--             </div> -->
-<!--           </form> -->
-          <!-- /.search form -->
-          <!-- sidebar menu: : style can be found in sidebar.less -->
+
           <ul class="sidebar-menu">
-            <li class="header">마이페이지</li>
-            
-            
-            
-            
-            
+           
             <li class="treeview active">
               <a href="#">
                 <i class="fa fa-asterisk"></i>
@@ -86,14 +69,13 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu active">
-                <li><a href="/myPage"><i class="fa fa-circle-o"></i> 회원정보 관리</a></li>
-                <li><a href="/challenge/challengeListAll"><i class="fa fa-circle-o"></i> 내 챌린지</a></li>
-                <li><a href="/myBoardWrite"><i class="fa fa-circle-o"></i> 내가 쓴 글</a></li>
-                <li><a href="/unregist"><i class="fa fa-circle-o"></i> 회원탈퇴</a></li>
-<!--                 <li><a href="../charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li> -->
-<!--                 <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li> -->
+                <li><a href="/myPage"></i> 회원정보 관리</a></li>
+                <li><a href="/challenge/mychallenge"></i> 내 챌린지</a></li>
+                <li><a href="/myBoardWrite"></i> 내가 쓴 글</a></li>
+                <li><a href="/unregist"></i> 회원탈퇴</a></li>
               </ul>
             </li>
+            
             <li class="treeview active">
               <a href="#">
                 <i class="fa fa-asterisk"></i>
@@ -101,18 +83,12 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu active">
-                <li><a href="/notice"><i class="fa fa-circle-o"></i> 공지 게시판</a></li>
-                <li><a href="/community/report"><i class="fa fa-circle-o"></i> 신고 게시판</a></li>
-<!--                 <li><a href="../charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li> -->
-<!--                 <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li> -->
+                <li><a href="/notice"></i> 공지 게시판</a></li>
+                <li><a href="/community/report"></i> 신고 게시판</a></li>
               </ul>
             </li>
             
-            
-            <li class="header">LABELS</li>
-            <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+
           </ul>
         </section>
         <!-- /.sidebar -->

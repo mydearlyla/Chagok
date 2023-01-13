@@ -17,12 +17,13 @@
 <h1 class="visually-hidden"></h1>
 <main>
 <form method="get">
-  <div class="search">
+
+<%--   <div class="search">
     <select name="searchType">
       <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
       <option value="c_title"<c:out value="${scri.searchType eq 'c_title' ? 'selected' : ''}"/>>제목</option>
       <option value="c_content"<c:out value="${scri.searchType eq 'c_content' ? 'selected' : ''}"/>>내용</option>
-<%--       <option value="c_host"<c:out value="${scri.searchType eq 'c_host' ? 'selected' : ''}"/>>작성자</option> --%>
+      <option value="c_host"<c:out value="${scri.searchType eq 'c_host' ? 'selected' : ''}"/>>작성자</option>
       <option value="c_titlec_content"<c:out value="${scri.searchType eq 'c_titlec_content' ? 'selected' : ''}"/>>제목+내용</option>
     </select>
 
@@ -36,7 +37,7 @@
         });
       });   
     </script>
-  </div>
+  </div> --%>
 
 	<!-- 명예의 전당 -->
 <h1>명예의 전당</h1>

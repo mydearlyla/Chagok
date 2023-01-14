@@ -8,7 +8,7 @@
 <!--   insert pay info into db -->
 	<insert id="insertPay">
 		insert into pay (mno,pay_cash,pay_mean,pay_regdate)
-		values (#{mno},#{pay_cash},#{pay_mean},#{pay_regdate})
+		values (#{mno},#{pay_cash},#{pay_mean},now())
 	</insert>
   
   </mapper>

@@ -12,14 +12,14 @@
       <div class="section-title">
          <h2>절약형 차곡 챌린지</h2>
       </div> 
-<%--      ${vo } --%>
+<%--      ${mno } --%>
 <%--       / http://localhost:8080/challenge/minusFeed?cno=1 // ${mvo } --%>
       
 <%--       <button type="button" class="btn btn-default" onclick="location.href='${pageContext.request.contextPath }/commumain';">메인으로 가기</button> --%>
      
      <div class="row">
 		<div class="col-lg-5 mx-6 aos-init aos-animate" data-aos="fade-right" >
-		<img class="img-responsive" src="${vo.c_file}" alt="Photo" >
+		<img class="img-responsive" src="${pageContext.request.contextPath }/resources${vo.c_file}" alt="Photo" >
 		</div>
 		<div class="col-lg-6 pt-4 pt-lg-0 content aos-init aos-animate" data-aos="fade-left" >
 			 <h3><span style="color: #66BB7A; font-weight: bold;">[${vo2.ct_top }]</span> ${vo.c_title }</h3>
@@ -52,7 +52,7 @@
 				<div class="col-lg-6" style="line-height: 180%">
 	             <div class="progress-group" style="width: 280px;" >
 	               <span class="progress-text">챌린지 장 </span>
-	               <span class="progress-number"><b>${vo.mno }</b>님</span>
+	               <span class="progress-number"><b>${host.nick }</b>님</span>
 	             </div>
 	             <div class="progress-group" style="width: 280px;">
 	               <span class="progress-text">챌린지 인원</span>
@@ -84,7 +84,7 @@
 	</div>
    </div>
 </section>
-<section class="content">
+<section class="content" style="min-height:10%;">
    <div class="box box-default">
       <div class="box-header with-border">
       	<div class="text-center">
@@ -96,10 +96,8 @@
    
 <!--    가계부 연동하기 모달 -->
 <!-- 모달 css 파일 : resources -> plugins -> modal -> minusModal.css  -->
-<%-- ${vo.cno} / ${vo.mno} --%>
 	<form action="/challenge/minusFeed?cno=${vo.cno}" method="post" id="frm">
-<!-- 		mno 수정필요 -->
-	<input type="hidden" value="${vo.mno }" id="mno" name="mno">
+	<input type="hidden" value="${mno }" id="mno" name="mno">
 	<input type="hidden" value="${vo.cno }" id="cno" name="cno">
 	<div class="modal fade" id="modal-default" style="margin-top: 10%;">
 		<div class="modal-dialog">
@@ -118,32 +116,52 @@
 <%-- 	cateList : ${cateList } // --%>
 <%-- 	jsonCate : ${jsonCate } --%>
 <%-- 				${minusAbook } --%>
-		<table border="1">
-		<tr>
-		 <td>날짜</td>
-		 <td>내용</td>
-		 <td>금액</td>
-		 <td>카테고리</td>
-		 <td>소분류</td>
-		 <td>연동</td>
-		</tr>
-		<c:forEach var="mAbook" begin="0" end="${minusAbook.size()}" items="${minusAbook}">
-		<tr>
-		 <td>${mAbook.ab_date }</td>
-		 <td>${mAbook.ab_content }</td>
-		 <td>${mAbook.ab_amount }</td>
-		 <td>${mAbook.ct_top }</td>
-		 <td>${mAbook.ct_bottom }</td>
-		<td><input type="checkbox" id="checkbox" name="ab_amount" value="${mAbook.ab_amount}"></td>
-		</tr>
-		</c:forEach>
-		</table>
+	<div class="box-body">
+		<div class="table-responsive">
+			<table class="table no-margin">
+			<c:if test="${minusAbook.size() > 0}">
+				<thead>
+					<tr>
+						<th>날짜</th>
+						<th>내용</th>
+						<th>금액</th>
+						<th>카테고리</th>
+						<th>소분류</th>
+						<th>연동</th>
+					</tr>
+				</thead>
+				</c:if>
+				<c:choose>
+				<c:when test="${minusAbook.size() > 0}">
+				<c:forEach var="mAbook" begin="0" end="${minusAbook.size()}" items="${minusAbook}">
+				<tbody>
+					<tr>
+						<td>${mAbook.ab_date }</td>
+						<td>${mAbook.ab_content }</td>
+						<td>${mAbook.ab_amount }</td>
+						<td>${mAbook.ct_top }</td>
+						<td>${mAbook.ct_bottom }</td>
+						<td>
+							<input type="checkbox" id="checkbox" name="ab_amount" value="${mAbook.ab_amount}">
+						</td>
+					</tr>
+				</tbody>
+				</c:forEach>
+				</c:when>
+				<c:otherwise>
+				연동할 가계부 정보가 없습니다.
+				</c:otherwise>
+				</c:choose>
+			</table>
+		</div>
+
+	</div>
 				</div>
+
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
 					<button type="submit" class="btn btn-primary" id="saveABook" onclick="document.getElementById('frm').submit();">
 					저장하기</button>
-<!-- 					mno 수정 필요!! -->
 				</div>
 			</div>
 
@@ -244,7 +262,7 @@
 	              <div class="chat_people">
 	                <div class="chat_img"> 
 	                <c:if test="${minusPeoList.profile != null }">
-	                	<img src="/${minusPeoList.profile }" alt="sunil"> 
+	                	<img src="${pageContext.request.contextPath }/resources${minusPeoList.profile }" alt="sunil"> 
 	                </c:if>
 	                <c:if test="${minusPeoList.profile == null }">
 	                	<img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> 
@@ -252,8 +270,9 @@
 	                </div>
 	                <div class="chat_ib">
 <%-- 	                  <h5>${plusPeoList.nick} <span class="chat_date"><fmt:formatDate value="${now }" pattern="MMM DD일"/></span></h5><!-- 최근 접속일자로 바꿀 것 --> --%>
-	                  <h5>${minusPeoList.nick} <span class="chat_date"><a href="#"><i class="fa fa-circle text-success"></i> Online</a></span></h5><!-- 최근 접속일자로 바꿀 것 -->
-	                  <a href="#"><i class="fa fa-circle text-gray"></i> Offline</a>
+	                  <h5>${minusPeoList.nick} <span class="chat_date"></h5>
+<!-- 	                  <a href="#"><i class="fa fa-circle text-success"></i> Online</a></span> -->
+<!-- 	                  <a href="#"><i class="fa fa-circle text-gray"></i> Offline</a> -->
 	                </div>
 	              </div>
 	            </div>

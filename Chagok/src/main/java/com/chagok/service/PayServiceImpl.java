@@ -17,10 +17,10 @@ public class PayServiceImpl implements PayService {
 	private PayDAO dao;
 	// insert pay info into db
 	@Override
-	public void insertPay(Integer mno, Integer pay_cash, String pay_mean, String pay_regdate) {
+	public void insertPay(Integer mno, Integer pay_cash, String pay_mean) {
 
 		mylog.debug(" insertPay 호출 ");
-		dao.insertPay(mno, pay_cash, pay_mean, pay_regdate);
+		dao.insertPay(mno, pay_cash, pay_mean);
 	}
 
 	

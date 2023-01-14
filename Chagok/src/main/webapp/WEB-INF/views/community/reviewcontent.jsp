@@ -6,21 +6,43 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/sidebar.jsp" %>
 
-<h1> 후기글 상세 </h1>
+<script>
+			$(document).ready(function(){
+				var formObj = $("form[role='form']");
+				
+// 				// 수정
+// 				$(".btn-danger").click(function(){
+					
+// 					formObj.attr("action","/reviewupdate"); 
+// 					formObj.attr("method","get"); 
+// 					formObj.submit();
+					
+// 				});
+			
+				// 삭제
+				$(".sbtn2").click(function(){
+					
+					formObj.attr("action","/reviewremove");
+					formObj.submit();
+				});
+				
+// 				// 목록가기
+// 				$(".bg-purple").click(function(){
+// 					location.href = "/reviewboard";
+// 				});
+				
+				
+			});
+</script> 
 
+<h1> 챌린지 후기 글 </h1>
+${startDate }
 	<section class="content" >
 	 <form role="form" method="post">
 		<input type="hidden" name="bno" value="${boardChallenge.bno }">
 	</form>
 	<div class="row">
-		<div class="col-lg-5 mx-6 aos-init aos-animate" data-aos="fade-right" >
-<%-- 	        <img class="img-responsive" src="${vo.c_file}" alt="Photo" > --%>
-		<h3><span style="color: #66BB7A; font-weight: bold;">[후기 제목]</span> ${boardChallenge.b_title }</h3>
-		<h4><span style="color: #66BB7A; font-weight: bold;">[작성자]</span> ${boardChallenge.b_writer }</h4>
-		<h4><span style="color: #66BB7A; font-weight: bold;">[후기 내용]</span></h4>
-	        <textarea class="form-control" rows="3" style="margin-top:15px; width: 600px; height: 280px" readonly>${boardChallenge.b_content }</textarea>
-		</div>
-		<div class="col-lg-6 pt-4 pt-lg-0 content aos-init aos-animate" data-aos="fade-left" >
+		<div class="col-lg-6 pt-4 pt-lg-0 content aos-init aos-animate"  data-aos="fade-left" >
 			<c:forEach var="vo" items="${challengeList }">
 			
 				<c:if test="${vo.c_sort eq 0 }">
@@ -78,42 +100,74 @@
 	         	</div>
 	       </div>
 		</div>
+		<div class="col-lg-5 mx-6 aos-init aos-animate" data-aos="fade-right" >
+		<h3><span style="color: #66BB7A; font-weight: bold;">[후기 제목]</span> ${boardChallenge.b_title }</h3>
+		<h4><span style="color: #66BB7A; font-weight: bold;">[작성자]</span> ${boardChallenge.b_writer }</h4>
+		<h4><span style="color: #66BB7A; font-weight: bold;">[후기 내용]</span></h4>
+	        <textarea class="form-control" rows="3" style="margin-top:15px; width: 600px; height: 280px; resize: none;" readonly>${boardChallenge.b_content }</textarea>
+	        
+		</div>
 	</div>
 	<br>
 
+     <div class="bt_wrap">       
  	<c:set var="writer" value="${boardChallenge.b_writer }"/>
 	<c:if test= "${nick == '관리자' || nick == writer}">
-        <input class="btn btn-danger" type="submit" value="수정하기" onclick="location.href='/reviewupdate?bno=${boardChallenge.bno}&cno=${boardChallenge.cno }';" style="width:218px; margin-left: 950px;">
-<!--         <input class="btn btn-danger" type="submit" value="수정하기"  style="width:218px; margin-left: 950px;"> -->
-		<input class="btn btn-warning" type="submit" value="삭제하기" style="width:218px; margin-left: 950px;">
+        <input class="sbtn" type="button" value="수정하기" onclick="location.href='/reviewupdate?bno=${boardChallenge.bno}&cno=${boardChallenge.cno }';">
+		<input class="sbtn2" type="submit" value="삭제하기">
 	</c:if>
-        <input class="btn bg-purple" type="submit" value="돌아가기" onclick="location.href='/reviewboard'" style="width:218px; margin-left: 950px;">
+        <input class="sbtn" type="submit" value="돌아가기" onclick="location.href='/reviewboard';">
+     </div>
 </section>
+
+<style>
+.bt_wrap {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.bt_wrap a {
+    display: inline-block;
+    min-width: 80px;
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid #FFDB83;
+    border-radius: 2px;
+    font-size: 1.4rem;
+}
+
+.bt_wrap a:first-child {
+    margin-left: 0;
+}
+
+.bt_wrap a.on {
+    background: #FFDB83;
+    color: #fff;
+}   
+.bt_wrap input.sbtn {
+	display: inline-block;
+    min-width: 100px;
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid #FFDB83;
+    border-radius: 2px;
+    font-size: 1.4rem;
+    background-color: #FFDB83;
+    color: #fff;
+}
+
+.bt_wrap input.sbtn2 {
+	display: inline-block;
+    min-width: 100px;
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid #FFDB83;
+    border-radius: 2px;
+    font-size: 1.4rem;
+    background-color: #fff;
+    color: #FFDB83;
+}
+
+</style>    
+
 <%@ include file="../include/footer.jsp"%>
-<script>
-			$(document).ready(function(){
-				var formObj = $("form[role='form']");
-				
-// 				// 수정
-// 				$(".btn-danger").click(function(){
-					
-// 					formObj.attr("action","/reviewupdate"); 
-// 					formObj.attr("method","get"); 
-// 					formObj.submit();
-					
-// 				});
-			
-				// 삭제
-				$(".btn-warning").click(function(){
-					formObj.attr("action","/reviewremove");
-					formObj.submit();
-				});
-				
-				// 목록가기
-				$(".bg-purple").click(function(){
-					location.href = "/reviewboard";
-				});
-				
-				
-			});
-</script> 

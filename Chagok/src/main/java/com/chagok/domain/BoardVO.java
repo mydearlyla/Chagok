@@ -39,4 +39,5 @@ public class BoardVO {
 	private String c_thumbFile;
 	private int c_cnt;
 	
+	
 }

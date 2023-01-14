@@ -107,7 +107,7 @@ public interface ChallengeDAO {
 	public ChallengeVO getMoney(Integer mno);
 	
 	// 가계부 가져오기
-	public List<Map<String, Object>> getMinusAbook(Integer mno, Integer cno);
+	public List<Map<String, Object>> getMinusAbook(Integer mno, Integer cno, Integer ctno);
 	
 	// 게시판 글 + 챌린지
 	public Map<String, Object> getBoardChallenge(Integer cno) throws Exception;
@@ -115,9 +115,6 @@ public interface ChallengeDAO {
 	// 가계부 값 연동하기
 	public void updateMoney(Integer mno, Integer ab_amount, Integer cno);
 	
-	// 페이징 처리 구현된 공지리스트 조회
-	public List<BoardVO> getNBoardPage(Integer page) throws Exception;
-		
 	// 공지리스트 조회 (페이징처리 cri)
 	public List<BoardVO> getNBoardPage(Criteria cri) throws Exception;
 	
@@ -128,14 +125,9 @@ public interface ChallengeDAO {
 	public void confirmChallenge(Integer c_status, Integer cno) throws Exception;
 	
 	// 관리자 모달창 회원mno
-	public List<UserVO> adminmodal(Integer mno) throws Exception;
-	
-	// 페이징 처리 구현된 후기리스트 조회
-//	public List<BoardVO> getRBoardPage(Integer page) throws Exception;
-	public List<Map<String, Object>> getRBoardPage(Integer page) throws Exception;
+	public List<UserVO> adminmodal(Map<String, Object> map) throws Exception;
 			
 	// 후기리스트 조회 (페이징처리 cri)
-//	public List<BoardVO> getRBoardPage(Criteria cri) throws Exception;
 	public List<Map<String, Object>> getRBoardPage(Criteria cri) throws Exception;
 		
 	// 전체 후기게시판 글 개수 조회
@@ -150,16 +142,37 @@ public interface ChallengeDAO {
 	// 내 plus 테이블 정보 가져오기
 	public PlusVO getPlusOne(int mno, int cno) throws Exception;
 
-	// 챌린지목록(페이징처리)
+	// 관리자 - 챌린지 전체 목록
 	public List<ChallengeVO> chListAll(Criteria cri) throws Exception;
 	
-	// 페이징 처리 구현된 자유게시판 조회
-	public List<BoardVO> getFBoardPage(Integer page) throws Exception;
-		
+	// 관리자 - 챌린지 총 개수
+	public Integer chListCnt() throws Exception;
+	
 	// 자유게시판 조회 (페이징처리 cri)
 	public List<BoardVO> getFBoardPage(Criteria cri) throws Exception;
 	
 	// 전체 자유게시판 글 개수 조회
 	public int FBoardCount() throws Exception;
+		
+	// 경제게시판 조회 (페이징처리 cri)
+	public List<BoardVO> getEBoardPage(Criteria cri) throws Exception;
+		
+	// 경제 자유게시판 글 개수 조회
+	public int EBoardCount() throws Exception;	
+	
+	// 챌린지 성공/실패 여부 가져옴(모든 회원)
+	public List<Map<String, Object>> challengeResultList(Integer cno) throws Exception;
+	
+	// 챌린지 성공/실패 여부 가져옴(한 명만)
+	public Map<String, Object> challengeResult(Integer cno, Integer mno) throws Exception;
 
+	// ctno 가져오기
+	public int getCtno(Integer cno);
+	
+	// 내가 쓴 글 보기
+	public List<BoardVO> getMyBoardWrite(Criteria cri) throws Exception;
+//	public List<BoardVO> getMyBoardWrite(String nick) throws Exception;
+	
+	// 내가 쓴 글 개수 조회
+	public int MyBoardWriteCnt() throws Exception;
 }

@@ -37,8 +37,8 @@
 			<div class="col-lg-6">
              <div class="progress-group" style="width: 280px;">
                <span class="progress-text">챌린지 장 </span>
-<%--                <span class="progress-number"><b>${vo.mno }</b>님</span> --%>
-             </div>
+               <span class="progress-number"><b>${host.nick }</b>님</span>
+            </div>
              <div class="progress-group" style="width: 280px;">
                <span class="progress-text">챌린지 인원</span>
                <span class="progress-number"><b>${vo.c_cnt }</b>/ ${vo.c_pcnt }</span>
@@ -49,7 +49,7 @@
                </div>
           	 <div class="progress-group" style="width: 280px;">
                <span class="progress-text">챌린지 기간</span>
-               <span class="progress-number"><b>${vo.c_period }</b></span>
+               <span class="progress-number"><b>${vo.c_period }</b>주</span>
               </div> 
              <div class="progress-group" style="width: 280px;">
                <span class="progress-text">챌린지 시작일</span>

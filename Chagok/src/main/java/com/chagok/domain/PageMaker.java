@@ -13,8 +13,17 @@ public class PageMaker {
 	private int endPage;
 	private boolean prev;
 	private boolean next;
-	private int displayPageNum = 9;
+	private int displayPageNum;
 	private Criteria cri;
+	
+	
+	public PageMaker() {
+	    this.displayPageNum=9;
+	}
+	
+	public void setDisplayPageNum(int displayPageNum) {
+		this.displayPageNum = displayPageNum;
+	}
 	
 	public void setCri(Criteria cri) {
 		this.cri = cri;
@@ -107,4 +116,12 @@ public class PageMaker {
 			return ""; 
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "PageMaker [totalCount=" + totalCount + ", startPage=" + startPage + ", endPage=" + endPage + ", prev="
+				+ prev + ", next=" + next + ", displayPageNum=" + displayPageNum + ", cri=" + cri + "]";
+	}
+	
+	
 }

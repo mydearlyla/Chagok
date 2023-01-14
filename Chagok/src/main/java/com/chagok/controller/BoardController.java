@@ -121,7 +121,7 @@ public class BoardController {
 		model.addAttribute("boardChallenge", boardChallenge);
 		mylog.debug("여기까진 출력되나?");
 		
-		return "/community/reviewupdate2";
+		return "/community/reviewupdate";
 					
 	}
 				
@@ -197,8 +197,6 @@ public class BoardController {
 	@GetMapping(value = "/notice")
 	public String noticeGET(Model model,HttpSession session,Criteria cri) throws Exception {
 			
-//		List<BoardVO> boardList = service.getBoardList(2);
-//		List<ChallengeVO> cList = service2.cList(scri);
 		List<BoardVO> boardList2 = service.getNBoardPage(cri);
 		mylog.debug(boardList2+"");
 			
@@ -318,7 +316,7 @@ public class BoardController {
 	public String FreeBoardGET(HttpSession session,Model model,Criteria cri) throws Exception {
 		mylog.debug(" /freeboard 호출");
 			
-		List<BoardVO> boardList = service.getNBoardPage(cri);	
+		List<BoardVO> boardList = service.getFBoardPage(cri);	
 		
 		mylog.debug(boardList+"");
 			
@@ -410,7 +408,116 @@ public class BoardController {
 	}
 	// =================================================================================
 	
-
+	// =================================================================================
+	// http://localhost:8080/economy
+	// 경제 게시판 보드
+	@GetMapping(value = "/economy")
+	public String EconomyGET(HttpSession session,Model model,Criteria cri) throws Exception {
+		mylog.debug(" /economy 호출");
+			
+		List<BoardVO> boardList = service.getEBoardPage(cri);	
+		
+		mylog.debug(boardList+"");
+			
+		model.addAttribute("boardList", boardList);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(service.EboardCount());
+		mylog.debug("@@@@@@@@@@@@@@@@ economy");
+		mylog.debug("totalCnt : "+service.EboardCount());
+		model.addAttribute("pageMaker", pageMaker);
+			
+		return "/community/economy";
+	}
 	
+	// 경제 글 작성하기
+	// http://localhost:8080/economywrite
+	@GetMapping(value = "/economywrite")
+	public String economywriteGET(Model model, HttpSession session,HttpServletRequest request) throws Exception {
+			
+		mylog.debug(" economywriteGET 호출");
+			
+			
+			
+		return "/community/economywrite";
+				
+	}
+			
+	// 경제 글 작성하기 (post)
+	@PostMapping(value = "/economywrite")
+	public String economywritePOST(BoardVO vo, RedirectAttributes rttr,HttpSession session) throws Exception {
+				
+		mylog.debug(" economywritePOST 호출 ");
+				
+		mylog.debug(vo+"");
+				
+		service.insertBoard(vo);
+			mylog.debug("@@@@@@@@@@@@@@ economyPost");
+		rttr.addFlashAttribute("result", "createOK");
+			mylog.debug("!!!!!!!!!!!");
+		return "redirect:/economy";
+	}	
 	
+	// 경제 글 상세
+	// http://localhost:8080/economycontent
+	@GetMapping(value = "/economycontent")
+	public String economycontentGET(HttpSession session,Model model,@RequestParam("bno") int bno,Integer cno) throws Exception {
+				
+		BoardVO vo = service.getBoardContent(bno);
+		
+		model.addAttribute("vo",vo);
+		
+			
+		return "/community/economycontent";
+	}	
+	
+	// 경제 게시판 글 수정하기 GET
+	// http://localhost:8080/economyupdate?bno=33
+	@GetMapping(value = "/economyupdate")
+	public String economyupdateGET(@RequestParam("bno") int bno, Model model, HttpSession session) throws Exception{
+		mylog.debug(" economyupdateGET 호출");
+					
+		mylog.debug(bno+"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ economyupdateGET");
+		BoardVO vo = service.getBoardContent(bno);
+					
+		mylog.debug(vo+"");
+					
+		model.addAttribute("vo", vo);
+		mylog.debug("post 갈준비됐니?");
+		return "/community/economyupdate";
+					
+	}
+				
+	// 경제 게시판 글 수정하기 POST
+	@PostMapping(value = "/economyupdate")
+	public String economyupdatePOST(BoardVO vo,RedirectAttributes rttr,HttpSession session) throws Exception {
+		mylog.debug(" economyupdatePOST 호출 ");
+			
+		mylog.debug(vo+"");
+					
+					
+		Integer result = service.updateBoard(vo);
+							
+		if(result > 0) {
+						
+		rttr.addFlashAttribute("result", "modOK");
+								
+		}
+									
+		return "redirect:/economy";
+					
+	}
+		
+	// 경제 게시판 삭제
+	@PostMapping(value = "/economydelete")
+	public String economydeleteGET(int bno,RedirectAttributes rttr,HttpSession session) throws Exception {
+		mylog.debug(bno+"");
+			
+		service.deleteBoard(bno);
+					
+		rttr.addFlashAttribute("result", "delOK");
+					
+		return "redirect:/economy";
+	}	
 }

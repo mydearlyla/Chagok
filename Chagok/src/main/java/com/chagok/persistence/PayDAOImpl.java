@@ -24,13 +24,12 @@ public class PayDAOImpl implements PayDAO {
 
 	
 	@Override
-	public void insertPay(Integer mno, Integer pay_cash, String pay_mean, String pay_regdate) {
+	public void insertPay(Integer mno, Integer pay_cash, String pay_mean) {
 		mylog.debug(" insertPay 호출 ");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mno", mno);
 		map.put("pay_cash", pay_cash);
 		map.put("pay_mean", pay_mean);
-		map.put("pay_regdate", pay_regdate);
 		
 		sqlSession.insert(NAMESPACE+".insertPay",map);
 	}

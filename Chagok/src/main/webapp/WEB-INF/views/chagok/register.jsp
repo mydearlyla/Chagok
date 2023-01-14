@@ -85,14 +85,14 @@
       </div>
     </form>
 
-    <div class="social-auth-links text-center">
-      <p>- OR -</p>
-      <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up using
-        Facebook</a>
-      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
-        Google+</a>
-    </div>
-
+<!--     <div class="social-auth-links text-center"> -->
+<!--       <p>- OR -</p> -->
+<!--       <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up using -->
+<!--         Facebook</a> -->
+<!--       <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using -->
+<!--         Google+</a> -->
+<!--     </div> -->
+	<br>
     <a href="/login" class="text-center">로그인</a>
   </div>
   <!-- /.form-box -->

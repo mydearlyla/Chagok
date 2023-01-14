@@ -49,7 +49,7 @@
 			<div class="form-group">
 				<label for="pamt${i}" id="label${i}" class="col-sm-2 control-label">${top }</label>
 				<div class="col-sm-10">
-					<input type="text" id="pno${i}" name="pno${i}">
+					<input type="hidden" id="pno${i}" name="pno${i}">
 					<input type="hidden" name="ctno${i}" value="${i}">
 					<input type="text" class="form-control" id="pamt${i}" name="p_amount${i}" placeholder="예산을 입력하세요" maxlength="10" onkeyup="inputNumFmt(this);">
 				</div>
@@ -118,7 +118,7 @@ $(document).ready(function(){
 					$('#prevamt'+i+'').text(''+0+'');
 				}
 			}
-			$('#prevsum').text($.number(sum));
+			$('#prevsum').text(''+$.number(sum)+'');
 		}, error : function(data){
 			console.log('ajax 오류');
 		}
@@ -152,7 +152,7 @@ $(document).ready(function(){
 				}
 			}
 			if(sum!='0'){
-				$('#sumpamt').val(sum);
+				$('#sumpamt').val(''+$.number(sum)+'');
 			}
 		}, error : function(data){
 			console.log('ajax 오류');

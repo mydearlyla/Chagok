@@ -243,8 +243,8 @@
 					</div>
 				</div>
 			</section>
-			<section class="section_bubble" style="padding:0px;">
-				<div class="cnt">
+			<section class="section_bubble">
+				<div class="cnt" style="padding-bottom:70px;">
 					<h3 class="blind">차곡</h3>
 					<div class="cnt_bx">
 						<div class="top_bx">
@@ -290,7 +290,7 @@
 				</div>
 			</section>
 			<section class="section_admin" style="padding:15px;">
-				<div class="cnt">
+				<div class="cnt" style="padding-bottom:70px;">
 					<h3 class="blind">차곡</h3>
 					<div class="cnt_bx">
 						<dl>
@@ -1361,7 +1361,7 @@
 				</div>
 			</section> -->
 			<section class="section_proposal">
-				<div class="cnt">
+				<div class="cnt" style="padding-bottom:70px;">
 					<h3 class="blind">차곡</h3>
 					<div class="cnt_bx">
 						<dl>

@@ -5064,8 +5064,8 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 	z-index: 2;
 	color: #fff;
 	cursor: default;
-	background-color: #337ab7;
-	border-color: #337ab7
+	background-color: #66BB7A;
+	border-color: #66BB7A;
 }
 
 .pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover,

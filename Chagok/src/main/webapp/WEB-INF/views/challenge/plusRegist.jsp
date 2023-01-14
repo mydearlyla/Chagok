@@ -206,20 +206,24 @@ $(document).ready(function(){
 </script>
 
 <script>
-$(document).on("keyup", "input[name^=c_pcnt]", function() {
-    var val= $(this).val();
-    if(val < 3 || val > 10) {
-        alert("3명~10명까지만 모집가능합니다.");
-        $(this).val('');
-    }
+$(document).ready(function() {
+    $('#c_pcnt').change(function() {
+       var val= $('#c_pcnt').val();
+   	   if(val < 3 || val > 10) {
+   		  alert("3명~10명까지만 모집가능합니다.");
+   		  $(this).val('');
+	   }
+  	});
 });
 
-$(document).on("keyup", "input[name^=c_deposit]", function() {
-    var val= $(this).val();
-    if(val < 1000 || val > 200000) {
-        alert("1,000원~200,000원내로 입력해주세요.");
-        $(this).val('');
-    }
+$(document).ready(function() {
+    $('#c_deposit').change(function() {
+       var val= $('#c_deposit').val();
+       if(val < 1000 || val > 200000) {
+           alert("1,000원~200,000원내로 입력해주세요.");
+   		  $(this).val('');
+	   }
+  	});
 });
 </script> 
 
@@ -410,6 +414,7 @@ $(document).on("keyup", "input[name^=c_deposit]", function() {
                 <input type="hidden" name="c_sort" value="0">
                 <input type="hidden" name="c_min" value="2">
                 <input type="hidden" name="c_cnt" value="1">
+                <input type="hidden" name="c_total" value="1">
                 
                 
             </div>

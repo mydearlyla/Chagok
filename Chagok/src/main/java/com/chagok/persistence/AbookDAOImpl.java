@@ -32,9 +32,13 @@ public class AbookDAOImpl implements AbookDAO{
 	
 	// 가계부 조회 map
 	@Override
-	public List<Map<String, AbookVO>> getAbookList(int mno) throws Exception {
+	public List<Map<String, AbookVO>> getAbookList(int mno, int mm) throws Exception {
 //		mylog.debug("Mapper♡♡♡♡♡♡♡♡♡♡♡♡♡AbookList");
-		List<Map<String, AbookVO>> AbookList2 = sqlSession.selectList(NAMESPACE+".getAbookList", mno); 
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mno", mno);
+		map.put("mm", mm);
+		List<Map<String, AbookVO>> AbookList2 = sqlSession.selectList(NAMESPACE+".getAbookList", map); 
 		
 		return AbookList2;
 	}
@@ -63,18 +67,53 @@ public class AbookDAOImpl implements AbookDAO{
 	
 	// BOTTOM CATEGORY
 	@Override
-	public List<Map<String, Object>> ctbottomList() throws Exception {
+	public List<Map<String, Object>> ctbottomList(String ct_top) throws Exception {
+		mylog.debug("DAOIM처리전"+ct_top);
 		
-		List<Map<String, Object>> ctbottomList = sqlSession.selectList(NAMESPACE+".ctbottomList");
-	
+		List<Map<String, Object>> ctbottomList = null;
+		
+		mylog.debug("ct_top####"+ct_top);
+		ctbottomList = sqlSession.selectList(NAMESPACE+".ctbottomList", ct_top);
+//
+//		if("식비".equals(ct_top)) {
+//			mylog.debug("if문");
+//			ctbottomList = sqlSession.selectList(NAMESPACE+".ctbottomList", ct_top);
+//
+//		}else {
+//			mylog.debug("else");
+//			ctbottomList = sqlSession.selectList(NAMESPACE+".ctbottomList2", ct_top);
+//		}
+//		
 	return ctbottomList;
 }	
+	
+	
+	
+	
+	
 	// 가계부 수정 저장
 	@Override
 	public void setAbookList(AbookVO vo) throws Exception {
 		sqlSession.update(NAMESPACE+".setAbookList", vo);
-	
 	}
+
+	// 가계부 입력 
+	@Override
+	public void insAbookList(AbookVO vo) throws Exception {
+		sqlSession.insert(NAMESPACE+".insAbookList", vo);
+	}
+	
+	@Override
+	public List<AbookVO> toCate(int ctno) throws Exception {
+		List<AbookVO> toCateList = sqlSession.selectList(NAMESPACE+".toCate", ctno);
+		return toCateList; 
+	}
+
+	@Override
+	public void delAbookList(int abno) throws Exception {
+		sqlSession.delete(NAMESPACE+".delAbookList", abno);
+	}
+
 
 
 
@@ -83,6 +122,7 @@ public class AbookDAOImpl implements AbookDAO{
 	
 	
 	///////////////////MJ/////////////////////
+
 
 	@Override
 	public List<String> getctTop() throws Exception {
@@ -151,6 +191,14 @@ public class AbookDAOImpl implements AbookDAO{
 			mylog.debug("calInout");
 			return sqlSession.selectList(NAMESPACE+".calInout", map);
 		}
+	}
+
+	@Override
+	public int chkAb(Integer mno, Integer mm) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mno", mno);
+		map.put("mm", mm);
+		return sqlSession.selectOne(NAMESPACE+".chkAb", map);
 	}
 	
 	

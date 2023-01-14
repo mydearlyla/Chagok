@@ -1,15 +1,29 @@
 package com.chagok.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -192,12 +206,16 @@ public class StompController {
     	
     	Map<String, Object> payload = new HashMap<String, Object>();
     	
-    	//mylog.debug("httpsession : " + session.toString());
-    	//mylog.debug("websockesession : "+wsSession.toString());
     	
     	// 채팅 저장
     	service.saveMsg1(message, cno);
 
+//    	HttpServletRequest req = null;
+//    	ServletContext appliation = req.getSession().getServletContext();
+//    	
+//    	// 영역객체 저장 
+//    	appliation.setAttribute("alertAPP", "test");
+    	
     	// 알림 저장
     	alsevice.alertByMessage(message);
     	

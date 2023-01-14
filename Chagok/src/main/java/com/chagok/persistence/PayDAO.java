@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 public interface PayDAO {
 
 	// insert pay info into db
-	public void insertPay(Integer mno, Integer pay_cash, String pay_mean, String pay_regdate);
+	public void insertPay(Integer mno, Integer pay_cash, String pay_mean);
 }

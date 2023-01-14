@@ -18,10 +18,10 @@ function requestPay()
   		pg : 'html5_inicis',
   	    pay_method : 'card',
   	    merchant_uid: "order_no_0002"+ new Date().getTime(), // 상점에서 관리하는 주문 번호를 전달
-  	    name : '주문명:결제테스트',
-  	    amount : 100,
-  	    buyer_email : 'iamport@siot.do',
-  	    buyer_name : '구매자이름',
+  	    name : '꿀 충전',
+  	    amount : 5000,
+  	    buyer_email : 'param.userVO.id',
+  	    buyer_name : 'param.userVO.rname',
   	    buyer_tel : '010-1234-5678',
   	    buyer_addr : '서울특별시 강남구 삼성동',
   	    buyer_postcode : '123-456'
@@ -41,42 +41,110 @@ function requestPay()
         	    url : '/paymentPOST',           // 요청할 서버url
         	    async : true,            // 비동기화 여부 (default : true)
         	    contentType : "application/json",
-//         	    headers : {              // Http header
-//         	      "Content-Type" : "application/json",
-//         	      "X-HTTP-Method-Override" : "POST"
-//         	    },
-        	   // dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
         	    data : JSON.stringify({  // 보낼 데이터 (Object , String, Array)
-        	      "mno" : ${mno},
         	      "pay_cash" : rsp.paid_amount,
         	      "pay_mean" : rsp.pay_method,
         	      "pay_regdate" : new Date().getTime()
         	    })
-//         	    ,
-//         	    success : function(result) { // 결과 성공 콜백함수
-//         	        console.log(result);
-//         	    	alert('성공!');
-//         	    },
-//         	    error : function(request, status, error) { // 결과 에러 콜백함수
-//         	        console.log(error)
-//         	    }
         	});
-        
-        
-//         $.ajax({
-//         	type : 'POST',
-//         	url : "/verifyIamport", 
-//         	dataType: 'json',
-//         	data: {
-//         		imp_uid : "ab"
-        		
-//         	}
-//         	success:function(){location.href="http://localhost:8080/refund"},
-//         	error:function(){alert("AAA")}
-//         });
-
     } else {
-    	 var msg = '결제에 개같이 실패하였습니다.\n';
+    	 var msg = '결제에 실패하였습니다.\n';
+         msg += '에러내용 : ' + rsp.error_msg;
+    }
+    }
+	) 
+}
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#pay10000").click(requestPay1);
+});
+function requestPay1() 
+{
+	IMP.request_pay({
+  		pg : 'html5_inicis',
+  	    pay_method : 'card',
+  	    merchant_uid: "order_no_0002"+ new Date().getTime(), // 상점에서 관리하는 주문 번호를 전달
+  	    name : '꿀 충전',
+  	    amount : 10000,
+  	    buyer_email : 'param.userVO.id',
+  	    buyer_name : 'param.userVO.rname',
+  	    buyer_tel : '010-1234-5678',
+  	    buyer_addr : '서울특별시 강남구 삼성동',
+  	    buyer_postcode : '123-456'
+    },
+    function(rsp) {
+	if ( rsp.success ) {
+    	var msg = '결제가 완료되었습니다.';
+        msg += '고유ID : ' + rsp.imp_uid;
+        msg += '상점 거래ID : ' + rsp.merchant_uid;
+        msg += '결제 금액 : ' + rsp.paid_amount;
+        msg += '카드 승인번호 : ' + rsp.apply_num;
+        console.log(msg+"AAAA"); 
+        alert('결제가 완료되었습니다');
+        
+        	$.ajax({
+        	    type : 'post',           // 타입 (get, post, put 등등)
+        	    url : '/paymentPOST',           // 요청할 서버url
+        	    async : true,            // 비동기화 여부 (default : true)
+        	    contentType : "application/json",
+        	    data : JSON.stringify({  // 보낼 데이터 (Object , String, Array)
+        	      "pay_cash" : rsp.paid_amount,
+        	      "pay_mean" : rsp.pay_method,
+        	      "pay_regdate" : new Date().getTime()
+        	    })
+        	});
+    } else {
+    	 var msg = '결제에 실패하였습니다.\n';
+         msg += '에러내용 : ' + rsp.error_msg;
+    }
+    }
+	) 
+}
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#pay50000").click(requestPay2);
+});
+function requestPay2() 
+{
+	IMP.request_pay({
+  		pg : 'html5_inicis',
+  	    pay_method : 'card',
+  	    merchant_uid: "order_no_0002"+ new Date().getTime(), // 상점에서 관리하는 주문 번호를 전달
+  	    name : '꿀 충전',
+  	    amount : 50000,
+  	    buyer_email : 'param.userVO.id',
+  	    buyer_name : 'param.userVO.rname',
+  	    buyer_tel : '010-1234-5678',
+  	    buyer_addr : '서울특별시 강남구 삼성동',
+  	    buyer_postcode : '123-456'
+    },
+    function(rsp) {
+	if ( rsp.success ) {
+    	var msg = '결제가 완료되었습니다.';
+        msg += '고유ID : ' + rsp.imp_uid;
+        msg += '상점 거래ID : ' + rsp.merchant_uid;
+        msg += '결제 금액 : ' + rsp.paid_amount;
+        msg += '카드 승인번호 : ' + rsp.apply_num;
+        console.log(msg+"AAAA"); 
+        alert('결제가 완료되었습니다');
+        
+        	$.ajax({
+        	    type : 'post',           // 타입 (get, post, put 등등)
+        	    url : '/paymentPOST',           // 요청할 서버url
+        	    async : true,            // 비동기화 여부 (default : true)
+        	    contentType : "application/json",
+        	    data : JSON.stringify({  // 보낼 데이터 (Object , String, Array)
+        	      "pay_cash" : rsp.paid_amount,
+        	      "pay_mean" : rsp.pay_method,
+        	      "pay_regdate" : new Date().getTime()
+        	    })
+        	});
+    } else {
+    	 var msg = '결제에 실패하였습니다.\n';
          msg += '에러내용 : ' + rsp.error_msg;
     }
     }
@@ -85,68 +153,24 @@ function requestPay()
 </script>
 
 
-
-
-
-
-
-
-
-
-
-<!-- <script>
-function requestPay() 
-{
-	 alert('click!');
-    IMP.request_pay({
-  		pg : 'html5_inicis',
-  	    pay_method : 'card',
-  	    merchant_uid: "order_no_0002"+ new Date().getTime(), // 상점에서 관리하는 주문 번호를 전달
-  	    name : '주문명:결제테스트',
-  	    amount : 100,
-  	    buyer_email : 'iamport@siot.do',
-  	    buyer_name : '구매자이름',
-  	    buyer_tel : '010-1234-5678',
-  	    buyer_addr : '서울특별시 강남구 삼성동',
-  	    buyer_postcode : '123-456'
-    }, function(rsp) {
-		console.log(rsp);
-	    if ( rsp.success ) {
-	    	var msg = '결제가 완료되었습니다.';
-	        msg += '고유ID : ' + rsp.imp_uid;
-	        msg += '상점 거래ID : ' + rsp.merchant_uid;
-	        msg += '결제 금액 : ' + rsp.paid_amount;
-	        msg += '카드 승인번호 : ' + rsp.apply_num;
-	        console.log(msg);
-	        $.ajax({
-	        	type : 'POST',
-	        	url : "/verifyIamport", 
-	        	dataType: 'json',
-	        	data: {
-	        		imp_uid : rsp.imp_uid
-	        		
-	        	}
-	        });
-	    } else {
-	    	 var msg = '결제에 개같이 실패하였습니다.\n';
-	         msg += '에러내용 : ' + rsp.error_msg;
-	    }
-	    alert(msg);
-	}); // function(rsp)
-} // function requestPay()
-</script> -->
-
     <main>
+<%--     ${userVO } --%>
         <div class="ptop">
             <div class="pimg">
-              <a href="https://imgbb.com/"><img src="https://i.ibb.co/tbSR7Ch/hero.png" alt="hero" border="0"></a>
+              <a href="https://imgbb.com/">
+              <c:if test="${minusPeoList.profile != null }">
+               	<img src="${pageContext.request.contextPath }/resources${minusPeoList.profile }" alt="sunil"> 
+               </c:if>
+               <c:if test="${minusPeoList.profile == null }">
+               	<img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> 
+               </c:if>
+              </a>
             </div>
             <div class="pinfo">
-<%--             ${mno} --%>
-                <h1>차곡 결제 페이지</h1>
+                <h1>꿀 충전 페이지</h1>
                 <h4>
-                    <strong>닉네임: </strong>Amine <br>
-                    <strong>꿀머니: </strong>25.08.1999 <br>
+                    <strong>닉네임: </strong>${userVO.nick } <br>
+                    <strong>꿀머니: </strong>${userVO.buypoint+userVO.getpoint} 꿀 <br>
                 </h4>
             </div>
         </div>
@@ -162,10 +186,12 @@ function requestPay()
 						<img src="https://cdn-icons-png.flaticon.com/512/650/650917.png">
                     	</div>
                     </a>
-                    <div class="pskill">
+                    <a href="#">
+                    <div class="pskill" onclick="alert('구독 서비스는 준비중입니다!');">
                     	<p>구독</p>
                         <img src="https://cdn-icons-png.flaticon.com/512/6165/6165272.png">
                     </div>
+                    </a>
                 </div>
             </div>
             
@@ -183,29 +209,31 @@ function requestPay()
             </div>
         </div>
         <hr>
-        <div>
-		<button onclick="requestPay()" id="pay">결제하기</button> <!-- 결제하기 버튼 생성 -->
-		</div>
-		<div class="pcard">
+<!--         <div> -->
+<!-- 		<button onclick="requestPay()" id="pay">결제하기</button>  -->
+<!-- 		결제하기 버튼 생성 -->
+<!-- 		</div> -->
+		<div style="border: 1px solid #FEFCF5;"></div>
+		<div class="pcard" style="clear:both;">
 			<h1 class="pcard__title">Option 1</h1>
 			<h2 class="pcard__price">
 				<sup></sup>5,000<sup>꿀</sup>
 			</h2>
-			<button class="pcard__btn">Buy</button>
+			<button class="pcard__btn" onclick="requestPay()" id="pay">충전하기</button> 
 		</div>
 		<div class="pcard">
 			<h1 class="pcard__title">Option 2</h1>
 			<h2 class="pcard__price">
 				<sup></sup>10,000<sup>꿀</sup>
 			</h2>
-			<button class="pcard__btn">Buy</button>
+			<button class="pcard__btn" onclick="requestPay1()" id="pay10000">충전하기</button> 
 		</div>
 		<div class="pcard">
 			<h1 class="pcard__title">Option 3</h1>
 			<h2 class="pcard__price">
 				<sup></sup>50,000<sup>꿀</sup>
 			</h2>
-			<button class="pcard__btn">Buy</button>
+			<button class="pcard__btn" onclick="requestPay2()" id="pay50000">충전하기</button> 
 		</div>
 		
 </main>

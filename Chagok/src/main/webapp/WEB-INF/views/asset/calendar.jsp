@@ -5,7 +5,10 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/sidebarAsset.jsp" %>
 	
-<h1>달력형 가계부</h1>
+			<div class="box-header with-border">
+				<h3 class="box-title"
+				style="font-size: 25px; margin: 10px;">달력형 가계부</h3>
+			</div>
 
 <!-- jQuery.number -->
 <script src="/resources/js/jquery.number.min.js"></script>
@@ -16,6 +19,11 @@
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
 <!-- fmt --> 
 <script class="cssdesk" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.0/moment.min.js" type="text/javascript"></script>
+
+<style>
+.calendar{font-size: 30px !important;}
+</style>
+
 
 <div class="row" style="padding: 50px;">
 <input id="chk" class="chk" value="1" type="checkbox" checked>지출
@@ -140,6 +148,8 @@ $(document).ready(function (){
 			calendar.refetchEvents();
 		});
 	});
+	
+	
 });
 </script>
 

@@ -1,6 +1,8 @@
 package com.chagok.controller;
 
 import java.text.DateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
@@ -33,9 +35,14 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
+		String formatDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		
+		// 20190513으로 출력
+		System.out.println("ddddd"+formatDate);
+		
+		
 		return "home";
 	}
-	
 	
 	
 }

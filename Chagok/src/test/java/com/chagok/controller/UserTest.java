@@ -3,6 +3,7 @@ package com.chagok.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,7 +14,11 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.chagok.domain.AlertVO;
 import com.chagok.domain.UserVO;
+import com.chagok.persistence.AlertDAO;
+import com.chagok.persistence.ChallengeDAO;
+import com.chagok.persistence.PayDAO;
 import com.chagok.persistence.UserDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -23,6 +28,16 @@ import com.chagok.persistence.UserDAO;
 public class UserTest {
 	@Inject
 	private UserDAO dao;
+	
+	@Inject
+	private AlertDAO Adao;
+	
+	@Inject
+	private PayDAO pdao;
+
+	@Inject
+	private ChallengeDAO chdao;
+	
 	
 	//@Test
 	public void 시간정보조회하기() {
@@ -52,7 +67,7 @@ public class UserTest {
 		}
 		
 		// 로그인 처리
-		@Test
+		//@Test
 		public void loginMember() throws Exception {
 			
 //			UserVO insertVO = new UserVO();
@@ -68,6 +83,16 @@ public class UserTest {
 			}else {
 				System.out.println(" 로그인 실패!");
 			}
+		}
+		
+		
+		@Test
+		public void 챌린지_성공여부() throws Exception {
+			
+			Map<String, Object> map = chdao.challengeResult(72,46);
+			
+				System.out.println(map.entrySet());
+			
 		}
 		
 }

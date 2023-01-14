@@ -257,9 +257,9 @@ public class ChallengeServiceImpl implements ChallengeService{
 
 	// 가계부 가져오기 
 	@Override
-	public List<Map<String, Object>> getMinusAbook(Integer mno, Integer cno) {
+	public List<Map<String, Object>> getMinusAbook(Integer mno, Integer cno, Integer ctno) {
 		mylog.debug(" getMinusAbook(mno,cno) 호출 ");
-		return dao.getMinusAbook(mno, cno);
+		return dao.getMinusAbook(mno, cno, ctno);
 	}
 
 	// 가계부 값 연동하기 
@@ -292,9 +292,9 @@ public class ChallengeServiceImpl implements ChallengeService{
 
 	// 관리자 모달창 회원mno
 	@Override
-	public List<UserVO> adminmodal(Integer mno) throws Exception {
-		mylog.debug("service : "+mno);
-		return dao.adminmodal(mno);
+	public List<UserVO> adminmodal(Map<String, Object> map) throws Exception {
+		mylog.debug("service : "+map);
+		return dao.adminmodal(map);
 	}
 
 	// 후기글 정보 조회(페이징처리 cri)
@@ -334,11 +334,17 @@ public class ChallengeServiceImpl implements ChallengeService{
 		return dao.getPlusOne(mno, cno);
 	}
 
+	
 	@Override
 	public List<ChallengeVO> chListAll(Criteria cri) throws Exception {
 		return dao.chListAll(cri);
 	}
-	
+
+	@Override
+	public Integer chListCnt() throws Exception {
+		return dao.chListCnt();
+	}
+
 	// 자유게시판 정보 조회(페이징처리 cri)
 	@Override
 	public List<BoardVO> getFBoardPage(Criteria cri) throws Exception {
@@ -353,15 +359,62 @@ public class ChallengeServiceImpl implements ChallengeService{
 		return dao.FBoardCount();
 	}
 
+	// 경제게시판 정보 조회(페이징처리 cri)
+	@Override
+	public List<BoardVO> getEBoardPage(Criteria cri) throws Exception {
+		mylog.debug(" getEBoardPage(Criteria cri) 호출 ");
+		return dao.getEBoardPage(cri);
+	}
 	
-	
-	
-	
-	
+	// 경제 자유게시판 글 개수 조회
+	@Override
+	public int EboardCount() throws Exception {
+		mylog.debug("EboardCount() 호출");
+		return dao.EBoardCount();
+	}
+
+	@Override
+	public int getCtno(Integer cno) {
+		mylog.debug(" getCtno() 호출 ");
+		return dao.getCtno(cno);
+	}
 
 	
-	
 
+	// 챌린지 성공/실패 여부 가져옴(모든 회원)
+	@Override
+	public List<Map<String, Object>> challengeResultList(Integer cno) throws Exception {
+		mylog.debug("challengeResultList() 호출");
+		
+		return dao.challengeResultList(cno);
+	}
+
+	// 챌린지 성공/실패 여부 가져옴(한 명만)
+	@Override
+	public Map<String, Object> challengeResult(Integer cno, Integer mno) throws Exception {
+		mylog.debug("challengeResult() 호출");
+		
+		return dao.challengeResult(cno, mno);
+	}
+	
+	// 내가 쓴 글 조회(페이징처리 cri)
+	@Override
+	public List<BoardVO> getMyBoardWrite(Criteria cri) throws Exception {
+		mylog.debug(" getMyBoardWrite(Criteria cri) 호출 ");
+		return dao.getMyBoardWrite(cri);
+	}
+//	@Override
+//	public List<BoardVO> getMyBoardWrite(String nick) throws Exception {
+//		mylog.debug(" getMyBoardWrite(Criteria cri) 호출 ");
+//		return dao.getMyBoardWrite(nick);
+//	}
+		
+	// 내가 쓴 글 개수 조회
+	@Override
+	public int MyBoardWriteCnt() throws Exception {
+		mylog.debug(" MyBoardWriteCnt() 호출");
+		return dao.MyBoardWriteCnt();
+	}
 	
 	
 }

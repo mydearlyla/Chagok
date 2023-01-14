@@ -5,145 +5,56 @@
 
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/sidebar.jsp" %>
-<html lang="ko">
-<head>
-<script>
-	$(function(){
-		$(".btn.btn-block.btn-info.yes").click(function(){
-			
-			var a = $(this).children().val();
-			
-			$.ajax({
-				type : "get",
-				url : "/challenge/confirm",
-				data : {
-					status : 1,
-					cno : a
-				},
-				dataType: "json",
-				success : function(data){
-					console.log(data);
-					if (data==1){
-						alert('승인 완료!');
-						document.location.reload();
-					}
-				}
-			});
-		});
-		
-		$(".btn.btn-block.btn-danger.no").click(function(){
-			
-			var a = $(this).children().val();
-			
-			$.ajax({
-				type : "get",
-				url : "/challenge/confirm",
-				data : {
-					status : 6,
-					cno : a
-				},
-				dataType: "json",
-				success : function(data){
-					console.log(data);
-					if (data==6){
-						alert('거절 완료!');
-						document.location.reload();
-					}
-				}
-			});
-		});
-	});
-	
-</script>
 
-     <meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>관리자 챌린지 승인</title>
-</head>	
-<body>
-<%-- ${challengeList } --%>
-	<div class="board_wrap">
-		<div class="board_title"><strong>관리자 챌린지 승인</strong></div>
-		<div class="board_list_wrap">
-			<div class="board_list">
-				<div class="top">
-					<div class="num" style="padding-right: 10px; width:155px; padding-left: 10px;">챌린지 번호</div>
-					<div class="num" style="padding-left:10px; width: 110px;">분류</div>
-					<div class="num" style="width: 250px;">챌린지 명</div>
-					<div class="num">참여기간</div>
-					<div class="num" style="width:130px;">최소 인원/총 인원</div>
-					<div class="num" style="padding-left:25px; width:200px;">상태</div>
-				</div>
-				
-				<div>
-					<c:forEach items="${challengeList }" var="cl">
-						<div class="num" style="padding-right:10px; width:155px; padding-left: 10px;">${cl.cno }</div>
-						<div class="num" style="padding-left:10px; width: 110px;">
-							<c:choose>
-								<c:when test="${cl.c_sort eq 0 }">저축형</c:when>
-								<c:when test="${cl.c_sort eq 1 }">절약형</c:when>
-							</c:choose>
-						</div>
-						<div class="num" style="width: 250px;">
-							<c:choose>
-								<c:when test="${cl.c_sort eq 0 }"><a href="/challenge/plusFeed?cno=${cl.cno }">${cl.c_title }</a>
-								</c:when>
-								<c:when test="${cl.c_sort eq 1 }"><a href="/challenge/minusFeed?cno=${cl.cno }">${cl.c_title }</a>
-								</c:when>
-							</c:choose>
-						</div>
-						<div class="num">${cl.c_period }주</div>
-						<div class="num" style="width:130px;"><b>${cl.c_min }</b>/ ${cl.c_cnt }</div>
-						<div class="num" style="padding-left:25px; width:200px;">
-							<c:choose>
-								<c:when test="${cl.c_status eq 0 }">승인 대기
-									<button type="button" class="btn btn-block btn-info yes" style="width: auto; display: inline-block; padding: 3px 10px 0 10px;">승인
-										<input type="hidden" value="${cl.cno }" class="test">
-									</button>
-									<button type="button" class="btn btn-block btn-danger no" style="width: auto; display: inline-block; margin-bottom: 6px; padding: 3px 10px 0 10px;">거절
-										<input type="hidden" value="${cl.cno }" class="test">
-									</button>
-								</c:when>
-								<c:when test="${cl.c_status eq 1 }">모집중</c:when>
-								<c:when test="${cl.c_status eq 2 }">진행중</c:when>
-								<c:when test="${cl.c_status eq 3 }">챌린지 성공</c:when>
-								<c:when test="${cl.c_status eq 4 }">챌린지 실패</c:when>
-								<c:when test="${cl.c_status eq 5 }">모집 실패</c:when>
-								<c:when test="${cl.c_status eq 6 }">승인 거절</c:when>
-							</c:choose>                    
-						</div>
-					</c:forEach>
-				</div>
-		     
-				<div class="board_page">
-					<div class="box-footer clearfix">
-					    <ul class="pagination pagination-sm no-margin pull-right">
-					
-					        <c:if test="${pagevo.prev }">
-					            <li><a href="/challenge/chListAll?page=${pagevo.startPage-1 }">«</a></li>
-					        </c:if>
-					
-					        <c:forEach var="idx" begin="${pagevo.startPage }" end="${pagevo.endPage }" step="1">
-					            <li
-								    <c:out value="${idx == pagevo.cri.page? 'class=active':'' }"/>
-								>
-								    <a href="/challenge/chListAll?page=${idx }">${idx }</a>
-								</li>
-					        </c:forEach>
-					
-					        <c:if test="${pagevo.next }">
-					            <li><a href="/challenge/chListAll?page=${pagevo.endPage+1 }">»</a></li>
-					        </c:if>
-					    </ul>
-					</div>
-				</div>
-		</div>  
-	</div> 
+    <link rel="stylesheet" href="css/css.css">
+</head>
+
+<form role="form" method="post">
+  <div class="board_wrap">
+        <div class="board_title">
+       		 <strong> 뉴스 / 재테크 </strong>
+      		  <p> 뉴스 / 재테크 글 수정</p>
+    	</div>
+ 	    <div class="board_write_wrap">
+         <div class="board_write">
+             <div class="title">
+             	 <div class="title">
+                    <dl>
+                        <dt>제목</dt>
+                        <dd><input type="text" name="b_title" value="${vo.b_title }"></dd>
+                    </dl>
+                </div>
+             	 
+             	 <div class="info">
+                    <dl>
+                        <dt>작성자</dt>
+                        <dd><input type="text" placeholder="${vo.b_writer }" readonly ></dd>
+                    </dl>
+                    <dl>
+                        <dt>작성일</dt>
+                        <dd><input type="text" placeholder="<fmt:formatDate value="${vo.b_date }" pattern="yyyy-MM-dd"/>" readonly ></dd>
+                    </dl>
+                </div>
+             <div class="cont">
+             	<textarea name="b_content">${vo.b_content }</textarea>
+			 </div>
+         </div>
+       <div class="bt_wrap">
+       <input type="hidden" name="bno" value="${vo.bno }">
+       <input class="sbtn" type="submit" value="수정하기" onclick="location.href='/noticeupdate?bno=${board.bno}';">
+       <input class="sbtn2" type="button" value="목록가기" onclick="location.href='/economy';" >
+  </div>  
+</div> 
+</div>
+</div>  
+</form>
 </body>
 </html>
 
 <style>
-
 * {
     margin: 0;
     padding: 0;
@@ -164,7 +75,7 @@ a {
 
 .board_wrap {
     width: 1000px;
-    margin: 20px auto;
+    margin: 40px auto;
 }
 
 .board_title {
@@ -173,38 +84,35 @@ a {
 
 .board_title strong {
     font-size: 3rem;
-    font-weight: 1000;
 }
 
 .board_title p {
-    margin-top: 10px;
+    margin-top: 5px;
     font-size: 1.4rem;
 }
 
 .bt_wrap {
     margin-top: 30px;
     text-align: center;
-    font-size: 0;
 }
 
-.bt_wrap input {
+.bt_wrap a {
     display: inline-block;
     min-width: 80px;
     margin-left: 10px;
     padding: 10px;
-    border: 1px solid #000;
+    border: 1px solid #FFDB83;
     border-radius: 2px;
     font-size: 1.4rem;
 }
 
-.bt_wrap input:first-child {
+.bt_wrap a:first-child {
     margin-left: 0;
 }
 
-.bt_wrap input.sbtn {
-    background: #000;
+.bt_wrap a.on {
+    background: #FFDB83;
     color: #fff;
-    width: 30%;
 }
 
 .board_list {
@@ -233,9 +141,7 @@ a {
 }
 
 .board_list > div.top > div {
-    font-weight: 1000;
-    font-size: 15px;
-    
+    font-weight: 600;
 }
 
 .board_list .num {
@@ -243,13 +149,12 @@ a {
 }
 
 .board_list .title {
-	width: 70%;
-    text-align: center;
+    width: 60%;
+    text-align: left;
 }
 
 .board_list .top .title {
     text-align: center;
-    font-weight: 1000;
 }
 
 .board_list .writer {
@@ -257,7 +162,7 @@ a {
 }
 
 .board_list .date {
-    width: 20%;
+    width: 10%;
 }
 
 .board_list .count {
@@ -266,7 +171,7 @@ a {
 
 .board_page {
     margin-top: 30px;
-    text-align: right;
+    text-align: center;
     font-size: 0;
 }
 
@@ -279,7 +184,6 @@ a {
     border: 1px solid #ddd;
     border-left: 0;
     line-height: 100%;
-    text-align: center;
 }
 
 .board_page a.bt {
@@ -305,19 +209,22 @@ a {
 
 .board_view {
     width: 100%;
-    border-top: 2px solid #000;
+    border-top: 2px solid #66BB7A;
+    margin-left: 20px;
 }
 
 .board_view .title {
     padding: 20px 15px;
     border-bottom: 1px dashed #ddd;
-    font-size: 2rem;
+    font-size: 2.2rem;
 }
 
 .board_view .info {
-    padding: 15px;
-    border-bottom: 1px solid #999;
+	padding: 15px 0px 0px 20px;
+    border-bottom: 1px solid #66BB7A;
     font-size: 0;
+    display: flex;
+    justify-content: space-between;
 }
 
 .board_view .info dl {
@@ -356,29 +263,29 @@ a {
 }
 
 .board_view .info dl dd {
-    margin-left: 10px;
+    margin-left: 15px;
     color: #777;
 }
 
 .board_view .cont {
     padding: 15px;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #66BB7A;
     line-height: 160%;
     font-size: 1.4rem;
 }
 
 .board_write {
-    border-top: 2px solid #000;
+    border-top: 2px solid #66BB7A;
 }
 
 .board_write .title,
 .board_write .info {
-    padding: 15px;
+    padding: 15px 0px 0px 15px;
 }
 
 .board_write .info {
     border-top: 1px dashed #ddd;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #66BB7A;
     font-size: 0;
 }
 
@@ -422,18 +329,19 @@ a {
 }
 
 .board_write .cont {
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #66BB7A;
 }
 
 .board_write .cont textarea {
     display: block;
     width: 100%;
     height: 300px;
-    padding: 15px;
+    padding: 30px;
     box-sizing: border-box;
     border: 0;
     resize: vertical;
 }
+
 
 @media (max-width: 1000px) {
     .board_wrap {
@@ -455,7 +363,6 @@ a {
 
     .board_list .title {
         text-indent: 10px;
-        
     }
 
     .board_list .top .title {
@@ -518,6 +425,29 @@ a {
     }
 }
 
+.bt_wrap input.sbtn {
+	display: inline-block;
+    min-width: 100px;
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid #FFDB83;
+    border-radius: 2px;
+    font-size: 1.4rem;
+    background-color: #FFDB83;
+    color: #fff;
+}
+
+.bt_wrap input.sbtn2 {
+	display: inline-block;
+    min-width: 100px;
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid #FFDB83;
+    border-radius: 2px;
+    font-size: 1.4rem;
+    background-color: #fff;
+    color: #FFDB83;
+}
 </style>
 
 </div>

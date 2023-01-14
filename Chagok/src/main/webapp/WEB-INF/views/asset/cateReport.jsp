@@ -2,188 +2,283 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
 <%@ include file="../include/header.jsp"%>
 <%@ include file="../include/sidebarAsset.jsp"%>
 
 <head>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css"/>
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css"/>
 </head>
-<body>
-	<div class="content-wrapper" style="min-height: 986.281px;">
-	<section class="content-header">
-		<c:set var="today" value="<%=new java.util.Date() %>"/><br><br>
-		<h1>${nick }님의
-			<fmt:formatDate value="${today }" pattern="MM"/>월 카테고리별 리포트
-		</h1>
-	</section>
-	<section class="content">
-	<div class="row">
-		<div class="col-md-6">
-	
-			<div class="box box-primary">
-				<div class="box-header with-border">
-					<h3 class="box-title">이번달 최다 지출</h3>
-				</div>
-				<div class="box-body">
-					<div class="chart">
-						<canvas id="donutchart" style="height: 330px; width: 661px;"></canvas>
-					</div>
-				</div>
-	
-			</div>
-	
-	
-			<div class="box box-danger">
-				<div class="box-header with-border">
-					<h3 class="box-title">이번달 최대 지출</h3>
-				</div>
-				<div class="box-body">
-						<canvas id="barchart" style="height: 330px; width: 661px;"></canvas>
-				</div>
-			</div>
-	
-		</div>
-	
-		<div class="col-md-6">
-	
-			<div class="box box-info">
-				<div class="box-header with-border">
-					<h3 class="box-title">최다 지출 카테고리 분석</h3>
-				</div>
-				<div class="box-body">
-					<div class="box-report" style="height: 330px; width: 661px;">
-					<div class="table-responsive">
-						<table class="table no-margin">
-							<thead>
-								<tr>
-									<th>순위</th>
-									<th>상위카테고리</th>
-									<th>지출횟수</th>
-								</tr>
-							</thead>
-							<tbody id="tbody1"></tbody>
-						</table>
-					</div>
-					</div>
-				</div>
-	
-			</div>
-	
-	
-			<div class="box box-success">
-				<div class="box-header with-border">
-					<h3 class="box-title">최대 지출 카테고리 분석</h3>
-				</div>
-				<div class="box-body">
-					<div class="box-report" style="height: 330px; width: 661px;">
-										<div class="table-responsive">
-						<table class="table no-margin">
-							<thead>
-								<tr>
-									<th>순위</th>
-									<th>상위카테고리</th>
-									<th>지출금액</th>
-								</tr>
-							</thead>
-							<tbody id="tbody2"></tbody>
-						</table>
-					</div>
-					</div>
-				</div>
-	
-			</div>
-	
-		</div>
-	
-	</div>
-	</section>
 
-		<div class="box box-danger">
-			<div class="box-header with-border">
-				<h3 class="box-title">${nick }님, 함께 절약하는 습관을 길러요</h3>
-			</div>
+<style>
+.btn1 {
+    width: 250px;
+    background-color: #66bb7a;
+    height: 60px;
+    font-size: 30px;
+    color: #fff;
+    margin:2%;
+	border: none;
+	border-radius: 5px;
+    line-height: normal;
+}
+.row {
+	margin: 3%;
+}
+.content1 {
+    margin-right: auto;
+    margin-left: auto;
+}
+.color {
+	color:#66BB7A;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
+td {
+  padding-left: 10px;
+}
+h3 {
+	font-size: 22px;
+}
+.img-div {
+    height: 150px;
+    width: 150px;
+    object-fit: contain;
+    margin: auto;
+}
+.col-sm-4.a {
+	margin:auto;
+}
 
-			<div class="box-body no-padding">
-			
-				<ul class="users-list clearfix">
-				<c:forEach var="ch" items="${map.chRandList }">
-					<li>
-						<img src="" alt="User Image">
-						<h5 class="description-header"><a href="#">${ch.c_title }</a></h5>
-						<div class="box-footer">
-							<div class="row">
-								<div class="col-sm-4 border-right">
-									<div class="description-block">
-										<h5 class="description-header">진행기간</h5>
-										<span class="description-text">${ch.c_period }</span>
-									</div>
+.img1-title {
+    text-align:center;
+    display:table;
+    width:280px;
+    height:250px;
+}
+
+.img1-div {
+    display:table-cell;
+    vertical-align:middle;
+}
+
+.img1 {
+    max-width:180px;
+    max-height:180px;
+    border-radius: 0px;
+}
+.col-sm-4 a {
+	padding:0;
+	margin:0;
+}
+.rowa {
+	padding:0;
+}
+</style>
+
+
+	<c:if test="${chkAb.equals('abN') }">
+		<div class="row" style="text-align: center;">
+			<div class="col-md-12">
+				<div class="box-body">
+					<h1>등록된 가계부 정보가 없습니다.</h1>
+					<h1>차곡이 ${nick }님의 소비 습관을 분석해드릴게요!</h1>
+					<input type="button" 
+						class="btn1" value="가계부 쓰기"
+						onclick="location.href='/asset/abookList';">			
+				</div>
+			</div>
+		</div>
+	</c:if>
 		
-								</div>
+	<c:if test="${chkAb.equals('abY') }">
+		<div class="row">
+			<section class="content-header" style="text-align: center;">
+				<c:set var="today" value="<%=new java.util.Date() %>"/><br><br>
+				<h1 style="font-size:33px;">${nick }님의
+					<fmt:formatDate value="${today }" pattern="MM"/>월 카테고리별 리포트
+				</h1>
+			</section>
+		</div>
 		
-								<div class="col-sm-4 border-right">
-									<div class="description-block">
-										<h5 class="description-header">시작일</h5>
-										<span class="description-text">${ch.c_start }</span>
-									</div>
-		
-								</div>
-		
-								<div class="col-sm-4">
-									<div class="description-block">
-										<h5 class="description-header">모집인원</h5>
-										<span class="description-text">${ch.c_pcnt }명</span>
-									</div>
-								</div>
+		<section class="content1">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">이번달 최다 지출</h3>
+						</div>
+						<div class="box-body">
+							<div class="chart">
+								<canvas id="donutchart" style="height: 330px; width: 661px;"></canvas>
 							</div>
 						</div>
-					</li>
-				</c:forEach>
-				</ul>
+					</div>
+				</div>
 
+				<div class="col-md-6">
+					<div class="box box-info">
+						<div class="box-header with-border">
+							<h3 class="box-title">최다 지출 카테고리 분석</h3>
+						</div>
+						<div class="box-body">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>순위</th>
+										<th>상위카테고리</th>
+										<th>지출횟수</th>
+									</tr>
+								</thead>
+								<tbody id="tbody1"></tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
-
-			<div class="box-footer text-center">
-				<a href="#" class="">챌린지 더보기</a>
+		</section>
+		
+		<section class="content1">	
+			<div class="row">		
+				<div class="col-md-6">
+					<div class="box box-danger">
+						<div class="box-header with-border">
+							<h3 class="box-title">이번달 최대 지출</h3>
+						</div>
+						<div class="box-body">
+							<div class="chart">
+								<canvas id="barchart" style="height: 330px; width: 661px;"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="col-md-6">		
+					<div class="box box-success">
+						<div class="box-header with-border">
+							<h3 class="box-title">최대 지출 카테고리 분석</h3>
+						</div>
+						<div class="box-body">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>순위</th>
+										<th>상위카테고리</th>
+										<th>지출금액</th>
+									</tr>
+								</thead>
+								<tbody id="tbody2"></tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
+		</section>
 
-		</div>
-
-		<div class="box box-warning">
-			<div class="box-header with-border">
-				<h3 class="box-title">${nick }님, 이런 카드는 어떠세요?</h3>
-			</div>
-
-			<div class="box-body no-padding">
-				<ul class="users-list clearfix">
-				<c:forEach var="card" items="${map.cardRandList }">
-					<li>
-						<img src="" alt="User Image">
-						<h5 class="description-header">${card.prop_name }</h5>
-						<h5 class="description-header">${card.prop_info }</h5>
-						<div class="box-footer">
-							<div class="row">
-								<c:forEach var="cardInfo" items="${card.prop_content }">
-									<div class="col-sm-4 border-right">
-										<div class="description-block">
-											<span class="description-text">${cardInfo }</span>
+		<c:if test="${not empty map.chRandList }">		
+		<section class="content1">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="box box-danger">
+						<div class="box-header with-border">
+							<h3 class="box-title">${nick }님, 함께 절약하는 습관을 길러요</h3>
+						</div>
+			
+						<div class="box-body no-padding">
+							<ul class="users-list clearfix">
+							<c:forEach var="ch" items="${map.chRandList }">
+								<li>
+									<div class="img1-title">
+										<div class="img1-div">
+											<a href="/challenge/detail?cno=${ch.cno }">
+												<img src="${pageContext.request.contextPath }/resources${ch.c_thumbFile }"
+													class="img1">
+											</a>
 										</div>
 									</div>
-								</c:forEach>		
-							</div>
+									<div class="box-footer">
+										<h4>
+											<a href="/challenge/detail?cno=${ch.cno }">${ch.c_title }</a>
+										</h4>
+										<div class="rowa">
+											<div class="col-sm-4">
+												<span class="description-text">진행기간</span><br>
+												<span class="description-text">${ch.c_period }</span>
+											</div>
+					
+											<div class="col-sm-4">
+												<span class="description-header">시작일</span><br>
+												<span class="description-text">${ch.c_start }</span>
+											</div>
+					
+											<div class="col-sm-4">
+												<span class="description-header">모집인원</span><br>
+												<span class="description-text">${ch.c_pcnt }명</span>
+											</div>
+										</div>
+									</div>
+								</li>
+							</c:forEach>
+							</ul>
+			
 						</div>
-					</li>
-				
-				</c:forEach>
-				</ul>
-
+			
+						<div class="box-footer text-center">
+							<a href="/commumain" style="font-size: 18px;">챌린지 더보기</a>
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>
+		</section>
+		</c:if>
 
-
-	</div>	
+		<c:if test="${not empty map.cardRandList }">
+		<section class="content1">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="box box-warning">
+						<div class="box-header with-border">
+							<h3 class="box-title">${nick }님, 이런 카드는 어떠세요?</h3>
+						</div>
+						
+						<div class="box-body no-padding">
+							<ul class="users-list clearfix">
+							<c:forEach var="card" items="${map.cardRandList }">
+								<li>
+									<div class="img1-title">
+										<div class="img1-div">
+											<a href="/challenge/detail?cno=${ch.cno }">
+												<img src="${pageContext.request.contextPath }/resources${card.prop_img }"
+													class="img1">
+											</a>
+										</div>
+									</div>
+									<div class="box-footer">
+										<h5 class="description-header">${card.prop_name }</h5>
+										<h5 class="description-header">${card.prop_info }</h5>
+										<div class="row">
+											<c:forEach var="cardInfo" items="${card.prop_content }">
+												<div class="col-sm-4 border-right">
+													<div class="description-block">
+														<span class="description-text">${cardInfo }</span>
+													</div>
+												</div>
+											</c:forEach>		
+										</div>
+									</div>
+								</li>
+							</c:forEach>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		</c:if>
+	</c:if>
 
 <!-- jQuery -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>

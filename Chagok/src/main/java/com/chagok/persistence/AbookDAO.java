@@ -10,20 +10,25 @@ import com.chagok.domain.CategoryVO;
 public interface AbookDAO {
 	
 	// 가계부 목록
-    public List<Map<String, AbookVO>> getAbookList(int mno) throws Exception;
+    public List<Map<String, AbookVO>> getAbookList(int mno, int mm) throws Exception;
 	
 	// 카테고리 top
 	public List<Map<String, Object>> cateList() throws Exception;
 	
 	// 카테고리 bottom
-	public List<Map<String, Object>> ctbottomList() throws Exception;
+	public List<Map<String, Object>> ctbottomList(String ct_top) throws Exception;
+	
 	// 그리드 수정
 	public void setAbookList(AbookVO vo) throws Exception;
 	
+	// 가계부 추가
+	public void insAbookList(AbookVO vo) throws Exception;
 	
+	// 카테고리 ctno -> ctoop, bottom
+	public List<AbookVO> toCate(int ctno) throws Exception;
 	
-	
-	
+	// 가계부 삭제
+	public void delAbookList(int abno) throws Exception;
 	
 	
 	
@@ -53,5 +58,10 @@ public interface AbookDAO {
 	
 	// 달력
 	public List<Map<String, Object>> calInout(Integer mno, Integer mm, Integer inout) throws Exception;
+
+
+	
+	// 가계부 유무
+	public int chkAb(Integer mno, Integer mm) throws Exception;
 	
 }

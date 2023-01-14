@@ -7,25 +7,76 @@
 <%@ include file="../include/sidebarAsset.jsp"%>
 
 <head>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css"/>
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css"/>
 </head>
-<!-- <body> -->
-	<div class="content-wrapper" style="min-height: 986.281px;">
-		<section class="content-header">
-			<c:set var="today" value="<%=new java.util.Date() %>"/><br><br>
-			<h1>${nick }님의
-				<fmt:formatDate value="${today }" pattern="MM"/>월 날짜별 리포트
-			</h1>
-		</section>
-		<section class="content">
+
+<style>
+.btn1 {
+    width: 250px;
+    background-color: #66bb7a;
+    height: 60px;
+    font-size: 30px;
+    color: #fff;
+    margin:2%;
+	border: none;
+	border-radius: 5px;
+    line-height: normal;
+}
+.row {
+	margin: 3%;
+}
+.content1 {
+    margin-right: auto;
+    margin-left: auto;
+}
+.color {
+	color:#66BB7A;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
+td {
+  padding-left: 10px;
+}
+h3 {
+	font-size: 22px;
+}
+</style>
+
+	<c:if test="${chkAb.equals('abN') }">
+		<div class="row" style="text-align: center;">
+			<div class="col-md-12">
+				<div class="box-body">
+					<h1>등록된 가계부 정보가 없습니다.</h1>
+					<h1>차곡이 ${nick }님의 소비 습관을 분석해드릴게요!</h1>
+					<input type="button" 
+						class="btn1" value="가계부 쓰기"
+						onclick="location.href='/asset/abookList';">			
+				</div>
+			</div>
+		</div>
+	</c:if>
+		
+	<c:if test="${chkAb.equals('abY') }">
+		<div class="row">
+			<section class="content-header" style="text-align: center;">
+				<c:set var="today" value="<%=new java.util.Date() %>"/><br><br>
+				<h1 style="font-size:33px;">${nick }님의
+					<fmt:formatDate value="${today }" pattern="MM"/>월 날짜별 리포트
+				</h1>
+			</section>
+		</div>
+		
+		<section class="content1">
 			<div class="row">
 				<div class="col-sm-4 border-right">
 					<div class="description-block">
 						<h4>이번달 평균 소비금액은</h4>
-						<h3><fmt:formatNumber value="${map.dtAvg1 }"/>원 입니다.</h3>
-						<h4>지난달은 <fmt:formatNumber value="${map.dtAvg2 }"/>원</h4>
+						<h3><span class="color"><fmt:formatNumber value="${map.dtAvg1 }"/>원</span></h3>
+						<c:if test="${map.dtAvg2 != null}">
+							<h4>지난달은 <fmt:formatNumber value="${map.dtAvg2 }"/>원</h4>
+						</c:if>
 					</div>
 		
 				</div>
@@ -36,8 +87,10 @@
 						<c:set var="a" value="${map.dtSum1 }"/>
 						<c:set var="b" value="${map.dtSum2 }"/>
 						<c:set var="c" value="${map.dtSumIn }"/><!-- 이번달 총 수입 -->
-						<h3><fmt:formatNumber value="${a }"/>원</h3>
-						<h4>지난달은 <fmt:formatNumber value="${b }"/>원</h4>
+						<h3><span class="color"><fmt:formatNumber value="${a }"/>원</span></h3>
+						<c:if test="${b != null}">
+							<h4>지난달은 <fmt:formatNumber value="${b }"/>원</h4>
+						</c:if>
 					</div>
 		
 				</div>
@@ -45,35 +98,41 @@
 				<div class="col-sm-4">
 					<div class="description-block">
 						<h4>이번달 예상 지출금액은</h4>
-						<h3><fmt:formatNumber value="${map.expSum }"/>원</h3>
+						<h3><span class="color"><fmt:formatNumber value="${map.expSum }"/>원</span></h3>
 					</div>
 				</div>
 			</div>
 		</section>
 		
 		<section>
-			<div class="row">
+			<div class="row" style="text-align: center;">
 				<div class="col-md-6">
 					<c:set var="d" value="${a div b }"/>
 					<c:choose>
 					    <c:when test="${d>2 }">
 							<h3>허거덩... 이러다 거지가 될지도 모릅니다...</h3>
-							<h4>지난달보다 <fmt:formatNumber value="${d }" type="percent"/> 많이 쓰고 있습니다.</h4>
+							<c:if test="${b != null}">
+								<h4>지난달보다 <fmt:formatNumber value="${d }" type="percent"/> 많이 쓰고 있습니다.</h4>
+							</c:if>
 					    </c:when>
 					    <c:when test="${0<d && d<=2 }">
 							<h3>소비를 줄여보는 건 어떨까요?</h3>
 							<h4>지난달보다 <fmt:formatNumber value="${d }" type="percent"/> 많이 쓰고 있습니다.</h4>
 					    </c:when>
 					    <c:when test="${d==0 }">
+					    
 							<h3>이대로만 유지해도 좋아요</h3>
 							<h4>지난달과 동일하게 쓰고있습니다.</h4>
 					    </c:when>
 					    <c:otherwise>
 							<h3>잘 하고 있어요!</h3>
+							<h4>지난달보다 <fmt:formatNumber value="${d }" type="percent"/> 많이 쓰고 있습니다.</h4>
 							<h4>지난달보다 <fmt:formatNumber value="${d }" type="percent"/> 적게 쓰고 있습니다.</h4>
 					    </c:otherwise>
 					</c:choose>
-					<h4>최근 3개월 간 평균 지출 : <fmt:formatNumber value="${dtAvg3}"/>원</h4>
+					<c:if test="${dtAvg3 != null}">
+						<h4>최근 3개월 간 평균 지출 : <fmt:formatNumber value="${dtAvg3}"/>원</h4>
+					</c:if>
 				</div>
 				<div class="col-md-6">
 					<h3>이번달 남은 금액은 <fmt:formatNumber value="${c-a }"/>원 입니다.</h3>
@@ -83,48 +142,53 @@
 			</div>
 		</section>
 	
-		<section class="content">
+		<section class="content1">
 		<div class="row">	
 			<div class="col-md-6">
-				<div class="box-header">
-					<h3 class="box-title">한 주 요약</h3>
-				</div>
-	
-				<div class="box-body no-padding">
-					<table class="table">
-						<thead>
-							<tr>
-								<th>기간</th>
-								<th>지출</th>
-								<th>수입</th>
-							</tr>
-						</thead>
-						<tbody id="tbody1"></tbody>
-					</table>
-				</div>
+				<div class="box box-warnn">
+					<div class="box-header with-border">
+						<h3 class="box-title">최다 지출 카테고리 분석</h3>
+					</div>
+		
+					<div class="box-body">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>기간</th>
+									<th>지출</th>
+									<th>수입</th>
+								</tr>
+							</thead>
+							<tbody id="tbody1"></tbody>
+						</table>
+					</div>
+				</div> 
 			</div>
 			<div class="col-md-6">
-				<div class="box-header">
-					<h3 class="box-title">한 달 요약</h3>
-				</div>
-	
-				<div class="box-body no-padding">
-					<table class="table">
-						<thead>
-							<tr>
-								<th>기간</th>
-								<th>지출</th>
-								<th>수입</th>
-							</tr>
-						</thead>
-						<tbody id="tbody2"></tbody>
-					</table>
+				<div class="box box-danger">
+					<div class="box-header">
+						<h3 class="box-title">한 달 요약</h3>
+					</div>
+		
+					<div class="box-body no-padding">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>기간</th>
+									<th>지출</th>
+									<th>수입</th>
+								</tr>
+							</thead>
+							<tbody id="tbody2"></tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
 		</section>
-	
-		<section>
+
+		<section class="content1">
+		<div class="row">
 			<div class="col-md-6">
 				<div class="box box-primary">
 					<div class="box-header with-border">
@@ -132,7 +196,7 @@
 					</div>
 					<div class="box-body">
 						<div class="chart">
-							<canvas id="linechart1" style="height: 330px; width: 661px;"></canvas>
+							<canvas id="linechart1"></canvas>
 						</div>
 					</div>
 				</div>
@@ -144,16 +208,19 @@
 					</div>
 					<div class="box-body">
 						<div class="chart">
-							<canvas id="linechart2" style="height: 330px; width: 661px;"></canvas>
+							<canvas id="linechart2"></canvas>
 						</div>
 					</div>
 				</div>
 			</div>
-		
-		<h3>이번달은 ${map.noOut }일 동안 무지출을 실천했어요</h3>
-		<h4>이번달 소비 횟수 : ${map.outCnt }회</h4>
+			<div class="col-md-12" style="text-align: center; padding:2%">
+				<h3>이번달은 ${map.noOut }일 동안 무지출을 실천했어요</h3>
+				<h4>이번달 소비 횟수 : ${map.outCnt }회</h4>
+			</div>
+		</div>
 		</section>
-	
+		
+		
 		<section>
 		<div class="row">	
 			<div class="col-md-6">
@@ -183,10 +250,8 @@
 			</div>
 		</div>	
 		</section>
+	</c:if>
 	
-	
-	</div>	
-
 <!-- jQuery.number -->
 <script src="/resources/js/jquery.number.min.js"></script>
 <!-- chart.js -->
@@ -334,7 +399,7 @@ var dataline1 = {
 	datasets: [{
 		data: value1,
 	    fill: false,
-	    borderColor: 'rgb(75, 192, 192)',
+	    borderColor: '#66BB7A',
 	    tension: 0.1
 	}]
 };
@@ -344,16 +409,23 @@ var dataline2 = {
 	datasets: [{
 		data: value2,
 	    fill: true,
-	    borderColor: 'rgb(75, 192, 192)',
+	    borderColor: '#66BB7A',
 	    tension: 0.1
 	}]
 };
 
 var optionline = {
-		legend: {
-			display: false
+	legend: {
+		display: false
+	},
+	tooltips: { 
+		callbacks: { 
+			label: function(tooltipItem, data) { //숫자 단위 콤마
+				return tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"; 
+			} 
 		}
 	}
+}
 
 var ctx1 = document.getElementById('linechart1').getContext('2d');
 var ctx2 = document.getElementById('linechart2').getContext('2d');

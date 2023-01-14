@@ -5,8 +5,8 @@
 <%@ include file="../include/sidebar.jsp"%>
 
 <h1> 자유게시판 작성 </h1>
-<div class="box box-warning">
-	<div class="box-header with-border">
+<div class="box box-warning" style="margin-left:150px; width:600px;">
+	<div class="box-header with-border" >
 		<h3 class="box-title">자유 게시판 작성</h3>
 	</div>
 	<div class="box-body">
@@ -14,27 +14,27 @@
 
 			<div class="input-group">
 				<span class="input-group-addon"> 작성자 </span> 
-					<input type="text" class="form-control" name="b_writer" value="${nick }" readonly>
+					<input type="text" class="form-control" name="b_writer" value="${nick }" readonly style="width:100px; text-align:center;">
 			</div>
 			<br>
 			<div class="form-group">
 				<label>글 제목</label> 
-					<input type="text" class="form-control" placeholder="제목을 작성해주세요" name="b_title">
+					<input type="text" class="form-control" placeholder="제목을 작성해주세요" name="b_title" style="width:300px;">
 			</div>
 			<div class="form-group">
 				<label>글 내용</label>
-				<textarea class="form-control" rows="3" placeholder="내용을 입력해주세요" name="b_content"></textarea>
+				<textarea class="form-control" rows="3" placeholder="내용을 입력해주세요" name="b_content" style="width:500px; height:300px; resize: none;"></textarea>
 			</div>
-			<div class="form-group has-success">
-				<label class="control-label" for="inputSuccess">
-					<i class="fa fa-check"></i> 
-					첨부파일 첨부
-				</label> 
-					<input type="button" class="btn btn-block btn-success btn-sm" id="inputSuccess" name="b_file" value="파일 첨부" onclick="file_add();">
-				<div id="d_file">
-				</div>
-			</div>
-			<input type="submit" value=" 게시하기 " class="btn btn-block btn-success btn-sm">
+<!-- 			<div class="form-group has-success"> -->
+<!-- 				<label class="control-label" for="inputSuccess"> -->
+<!-- 					<i class="fa fa-check"></i>  -->
+<!-- 					첨부파일 첨부 -->
+<!-- 				</label>  -->
+<!-- 					<input type="button" class="btn btn-block btn-success btn-sm" id="inputSuccess" name="b_file" value="파일 첨부" onclick="file_add();" style="width:218px;"> -->
+<!-- 				<div id="d_file"> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+			<input type="submit" value=" 게시하기 " class="btn btn-block btn-success btn-sm" style="width:218px;">
 			<input type="hidden" value="3" name="b_sort">
 		</form>
 	</div>

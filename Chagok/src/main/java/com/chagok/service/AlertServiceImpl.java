@@ -1,5 +1,7 @@
 package com.chagok.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -28,6 +30,14 @@ public class AlertServiceImpl implements AlertService {
 		//messagingTemplate.convertAndSend("/queue/" + messageVO.getType(), messageVO);
 		
 	}
+	
+	// 해당 방의 모든 회원에게 보내기
+	@Override
+	public List<AlertVO> getAlarm(Integer cno) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 
 }

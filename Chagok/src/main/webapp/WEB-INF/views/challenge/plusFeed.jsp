@@ -62,7 +62,6 @@
 <h1 style="padding: 0 15px 0 15px;"> 저축형 차곡 챌린지 </h1>
 
  <!-- Main content -->
-<button class="btn btn-success pull-right" id="alertStart" >알림테스트용 </button>
 <section class="content">
 	<div class="row">
 		<div class="col-lg-5 mx-6 aos-init aos-animate" data-aos="fade-right" >
@@ -121,31 +120,20 @@
 		</div>
 	</div>
 	<br>
-    <div class="row">
+    <div class="row" style="width: 1200px; padding-left: 50px; padding-right: 20px; padding-top: 50px;">
 	    <div class="d-flex justify-content-center">
 		    <div class="box">
 		        <div class="col-md-12 text-center" style="background: #FAF8F1;">
-				    	<h4>
-		        		총 <span style="color: #10A19D;"> ${vo.c_total }</span> 번, 
-				    	<span style="color: #10A19D;">
-				    	<c:if test="${vo.c_freq == 1 }">
-				    		7
-				    	</c:if>
-				    	<c:if test="${vo.c_freq == 2 }">
-				    		3
-				    	</c:if>
-				    	<c:if test="${vo.c_freq == 3 }">
-				    		2
-				    	</c:if>
-				    		</span>일 마다 
-				    	<span style="color: #10A19D;">
-				    	<fmt:formatNumber value="${vo.c_amount / vo.c_period}" pattern=",000"/>
-				    	</span>원씩 저축하세요</h4>
+				    	<h4 style="marfin-top: 14px;">
+				    	총<span style="color: #10A19D;">${vo.c_total }</span>번을
+				    	<span style="color: #10A19D;">${vo.c_freq }</span>일 마다 
+				    	<span style="color: #10A19D;">${vo.c_amount }</span>원씩 저축하는 조건이 있습니다.
+				    	</h4>
 		    	</div>
 		    </div>
 		</div>
     </div>
-    
+   <br> 
 <!-- 입금하기 기능용 모달창 -->
 <c:if test="${vo.c_amount > myPlusVO.pl_sum}">
     <button class="btn btn-success" data-toggle="modal" data-target="#modal-default" style="margin-left: 90%">
@@ -209,13 +197,13 @@
               <h3 class="box-title">챌린지 진행상황</h3>
 
               <div class="box-tools">
-                <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+<!--                 <div class="input-group input-group-sm hidden-xs" style="width: 150px;"> -->
+<!--                   <input type="text" name="table_search" class="form-control pull-right" placeholder="Search"> -->
 
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
+<!--                   <div class="input-group-btn"> -->
+<!--                     <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button> -->
+<!--                   </div> -->
+<!--                 </div> -->
               </div>
             </div>
             <!-- /.box-header -->
@@ -236,6 +224,7 @@
                   <td>${i }</td>
                    <td>${plusPeoList.nick }</td> 
                    <td> 
+                   <!-- 기간 내   -->
                   	  <c:if test="${nowfmtTime - endTime < 0}">
  	                  	<c:if test="${saveMoney == vo.c_amount }">
 		                  	<c:if test="${plusPeoList.pl_cnt == vo.c_total }">
@@ -360,8 +349,9 @@
 	                </div>
 	                <div class="chat_ib">
 <%-- 	                  <h5>${plusPeoList.nick} <span class="chat_date"><fmt:formatDate value="${now }" pattern="MMM DD일"/></span></h5><!-- 최근 접속일자로 바꿀 것 --> --%>
-	                  <h5>${plusPeoList.nick} <span class="chat_date"><a href="#"><i class="fa fa-circle text-success"></i> Online</a></span></h5><!-- 최근 접속일자로 바꿀 것 -->
-	                  <a href="#"><i class="fa fa-circle text-gray"></i> Offline</a>
+	                  <h5>${plusPeoList.nick} <span class="chat_date"></h5><!-- 최근 접속일자로 바꿀 것 -->
+<!-- 	                  <a href="#"><i class="fa fa-circle text-success"></i> Online</a></span> -->
+<!-- 	                  <a href="#"><i class="fa fa-circle text-gray"></i> Offline</a> -->
 	                </div>
 	              </div>
 	            </div>

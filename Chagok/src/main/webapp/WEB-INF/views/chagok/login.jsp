@@ -47,13 +47,15 @@
     <p class="login-box-msg" style="font-family: 'Gowun Dodum', sans-serif; font-size: 18px;"><b>로그인</b></p>
 	<!-- <p class="login-box-msg">Sign in to start your session</p> -->
 	
-    <form action="/login" method="post"> <!-- QQQ 주소변경할 것  -->
-      <div class="form-group has-feedback"> <!-- QQQ 배포시 지울 것!  -->
+
+    <form action="/login" method="post"> 
+      <div class="form-group has-feedback"> 
         <input type="email" class="form-control" id="id" name="id" placeholder="이메일">
 
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback"><!-- QQQ 배포시 지울 것!  -->
+
+      <div class="form-group has-feedback">
         <input type="password" class="form-control" id="pw" name="pw" placeholder="비밀번호">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
@@ -62,7 +64,7 @@
         <div class="col-xs-8">
           <div class="checkbox icheck">
               <div class="save_id">
-              <input type="checkbox" id="useCookie" name="useCookie"><label for="useCookie">아이디 저장 </label>
+              <input type="checkbox" id="save_id" name="save_id"><label for="save_id">아이디 저장 </label>
               </div>
           </div>
         </div>
@@ -78,16 +80,17 @@
       </div>
     </form>
 
-    <div class="social-auth-links text-center">
-      <p>- OR -</p>
-      <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
-        Facebook</a>
-      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
-        Google+</a>
-    </div>
+<!--     <div class="social-auth-links text-center"> -->
+<!--       <p>- OR -</p> -->
+<!--       <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using -->
+<!--         Facebook</a> -->
+<!--       <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using -->
+<!--         Google+</a> -->
+<!--     </div> -->
     <!-- /.social-auth-links -->
 
-    <a href="#">비밀번호 찾기</a><br>
+<!--     <a href="#">비밀번호 찾기</a><br> -->
+    <br>
     <a href="/register" class="text-center">회원 가입</a>
 
   </div>

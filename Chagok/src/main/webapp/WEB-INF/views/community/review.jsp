@@ -81,7 +81,7 @@
 	<hr>
 	<h5> 후기 </h5>
 	
-	<textarea rows="15" cols="100" name="b_content"></textarea>
+	<textarea rows="15" cols="100" name="b_content" style="resize: none;"></textarea>
 	
 	 <div class="box-footer">
           <button type="submit" class="btn btn-primary" >글쓰기</button>

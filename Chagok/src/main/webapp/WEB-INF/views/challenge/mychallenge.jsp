@@ -21,10 +21,10 @@
 	
 </script>
 
-
 	<h1>내 챌린지</h1>
 	
-	${mychallengeList }
+<%-- ${challengeResultList}  --%> <!-- 챌린지 결과 Y/N -->
+<%-- 	${mychallengeList } --%>
 	<div class="col-xs-12 table-responsive">
 	<table class="table table-striped">
 		<thead>
@@ -46,12 +46,34 @@
 				<td>절약형</td>
 				</c:if>
 				<td>${vo.ct_top }</td>
-				<c:if test="${vo.c_sort eq 0 }">
-				<td><a href = "/challenge/plusFeed?cno=${vo.cno }">${vo.c_title }</a></td>
+				<!-- 0: 승인대기, 1 : 모집중, 5: 모집실패 -->
+				<c:if test="${vo.c_status eq 0 || vo.c_status eq 1 || vo.c_status eq 3 || vo.c_status eq 4 || vo.c_status eq 5 || vo.c_status eq 6  }"> 
+					<c:if test="${vo.c_sort eq 0 }">
+						<td><a href = "/challenge/plusdetail?cno=${vo.cno }">${vo.c_title }</a></td>
+					</c:if>
+					<c:if test="${vo.c_sort eq 1 }">
+						<td><a href = "/challenge/minusdetail?cno=${vo.cno }">${vo.c_title }</a></td>
+					</c:if>
 				</c:if>
-				<c:if test="${vo.c_sort eq 1 }">
-				<td><a href = "/challenge/minusfeed?cno=${vo.cno }">${vo.c_title }</a></td>
+				<c:if test="${vo.c_status eq 2 }">  <!-- 진행 중에만 피드 이동 -->
+					<c:if test="${vo.c_sort eq 0 }">
+						<td><a href = "/challenge/plusFeed?cno=${vo.cno }">${vo.c_title }</a></td>
+					</c:if>
+					<c:if test="${vo.c_sort eq 1 }">
+						<td><a href = "/challenge/minusFeed?cno=${vo.cno }">${vo.c_title }</a></td>
+					</c:if>
 				</c:if>
+			<c:forEach var="result" items="${challengeResultList }">
+				<c:if test="${vo.c_status eq 7 }"> 
+				<%--${ vo.cno == result.cno} --%>
+					<c:if test="${result.finish eq 'Y' && vo.cno == result.cno }">
+						<td><a href = "/challenge/success?cno=${vo.cno }">${vo.c_title } <span style="color: #66BB7A">결과 확인</span></a></td>
+					</c:if>
+					<c:if test="${result.finish eq 'N' && vo.cno == result.cno }">
+						<td><a href = "/challenge/defeat?cno=${vo.cno }">${vo.c_title }  <span style="color: #66BB7A">결과 확인</span> </a></td>
+					</c:if>
+				</c:if>
+			</c:forEach>
 				<td>${vo.c_period }주</td>
 				<c:if test="${vo.c_status eq 0 }">
 				<td><span style="color: #000000; font-weight: bold;">승인 대기</span></td>
@@ -80,6 +102,9 @@
 				</c:if>
 				<c:if test="${vo.c_status eq 6 }">
 				<td><span style="color: #444444; font-weight: bold;">승인 거절</span></td>
+				</c:if>
+				<c:if test="${vo.c_status eq 7 }">
+				<td><span style="color: #444444; font-weight: bold;">챌린지 종료</span></td>
 				</c:if>
 			</tr>
 			</c:forEach>

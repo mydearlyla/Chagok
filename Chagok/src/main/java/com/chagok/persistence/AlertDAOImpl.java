@@ -1,5 +1,7 @@
 package com.chagok.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -19,5 +21,13 @@ public class AlertDAOImpl implements AlertDAO {
 	public void alert(AlertVO vo) throws Exception {
 		sqlsession.insert(NAMESPACE+".alert",vo);
 	}
+
+	@Override
+	public List<AlertVO> getAlarm(Integer cno) throws Exception {
+
+		return sqlsession.selectList(NAMESPACE+".getAlarm", cno);
+	}
+	
+	
 
 }

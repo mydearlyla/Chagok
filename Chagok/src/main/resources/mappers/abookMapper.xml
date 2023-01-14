@@ -6,41 +6,65 @@
   <mapper namespace="com.chagok.mapper.abookMapper">
   
   <!-- 가계부 목록 -->
-  <select id="getAbookList" resultType="AbookVO">
-	select * from account_book as ab inner join category as c on ab.ctno=c.ctno where mno=#{mno}
+  <select id="getAbookList" resultType="AbookVO" >
+       select * from account_book as ab inner join category as c on ab.ctno=c.ctno
+		where ab.mno=1
+		and ab.ab_date between last_day(now() - interval #{mm}+1 month) + interval 1 day 
+		and last_day(now() - interval #{mm} month)
   </select>
   
   <!-- 카테고리 top -->
   <select id="cttopList" resultType="map">
 	select ctno, ct_top
 	from category
-	where ct_lev=0;
+	where ct_lev=0
   </select>
   
   <!-- 카테고리 bottom -->
-    <select id="ctbottomList" resultType="map">
-	select ctno, ct_top, ct_bottom
+    <select id="ctbottomList" resultType="map" parameterType="string">
+	select ctno, ct_bottom
 	from category
-	where ct_lev=1;
-  </select>
+	where ct_top=#{ct_top} and ct_lev=1
+  	</select>
+  	
+  	
+  	  <!-- 카테고리 bottom -->
+    <select id="ctbottomList2" resultType="map" parameterType="string">
+	select ctno, ct_bottom
+	from category
+	where ct_top="건강/운동" and ct_lev=1
+  	</select>
+  
+  	
+  	
+  	
+  	
   
   <!-- 가계부 저장(수정) -->
     <update id="setAbookList">
 	update account_book set 
 	ab_inout=#{ab_inout},ab_date=#{ab_date},ab_content=#{ab_content},ab_method=#{ab_method},ab_memo=#{ab_memo},ctno=#{ctno}, ab_amount=#{ab_amount}
-	where abno=#{abno};
+	where abno=#{abno}
 	</update>
   
   <!-- 가계부 삭제 -->
   <delete id="delAbookList">
-  	delete * from account_book where abno=#{abno};
+  	delete from account_book where abno=#{abno}
   </delete> 
   
   <!-- 가계부 적기 -->
-<!--   <insert id="insAbookList" parameterType="AbookVO"> -->
-<!--   insert into account_book() -->
-<!--   values(#{},) -->
-<!--   </insert> -->
+  <insert id="insAbookList" parameterType="AbookVO">
+  insert into account_book(mno, ctno, ab_inout, ab_amount, ab_date, ab_content, ab_method, ab_memo)
+  values(#{mno}, #{ctno}, #{ab_inout}, #{ab_amount}, #{ab_date}, #{ab_content}, #{ab_method}, #{ab_memo})
+  </insert>
+  
+  <!-- ctno로 카테고리 이름 뽑기 -->
+    <select id="toCate" resultType="AbookVO">
+  	select ct_top, ct_bottom
+	from category
+	where ctno=#{ctno}
+  </select>
+  
   
  	<!-- //////////////////// MJ //////////////////// -->
 	<!-- 해당월 예산 조회 -->
@@ -132,6 +156,14 @@
 		and ab.ab_inout=#{inout}
 		<include refid="cal2"/>
 	</select>
-	
-	
+
+	<!-- 가계부 유무 -->
+	<select id="chkAb" resultType="int">
+		select count(abno)
+		from account_book
+		where mno=#{mno} and 
+		ab_date between last_day(now() - interval #{mm}+1 month) + interval 1 day 
+		and last_day(now() - interval #{mm} month);
+	</select>
+		
   </mapper>

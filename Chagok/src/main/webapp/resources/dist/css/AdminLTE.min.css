@@ -26,7 +26,6 @@ body {
 	font-weight: 400;
 	overflow-x: hidden;
 	overflow-y: auto;
-	font-family: 'GmarketSans' ;
 }
 
 .wrapper {
@@ -1717,7 +1716,7 @@ deg
 }
 
 .box.box-primary {
-	border-top-color: #3c8dbc
+	border-top-color: #66BB7A
 }
 
 .box.box-info {

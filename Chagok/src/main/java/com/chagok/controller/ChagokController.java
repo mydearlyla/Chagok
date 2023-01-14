@@ -1,9 +1,13 @@
 package com.chagok.controller;
 
+import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,20 +25,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
+import com.chagok.apiDomain.AccountVO;
+import com.chagok.apiDomain.CardHistoryVO;
+import com.chagok.apiDomain.CardInfoVO;
+import com.chagok.apiDomain.CashVO;
 import com.chagok.domain.AlertVO;
+import com.chagok.domain.BoardVO;
+import com.chagok.domain.BusinessAccountVO;
 import com.chagok.domain.ChallengeVO;
 import com.chagok.domain.Criteria;
 import com.chagok.domain.PageMaker;
 import com.chagok.domain.SearchCriteria;
 import com.chagok.domain.UserVO;
 import com.chagok.interceptor.SessionNames;
+import com.chagok.service.AbookService;
+import com.chagok.service.AccountService;
 import com.chagok.service.AlertService;
 //import com.chagok.service.AlertService;
 import com.chagok.service.ChallengeService;
+import com.chagok.service.ReportService;
 import com.chagok.service.UserService;
+import com.chagok.utils.UploadFileUtils;
 
 @Controller
 public class ChagokController {
@@ -50,6 +65,18 @@ public class ChagokController {
 	@Inject
 	private AlertService alertService;
 	
+	@Inject
+	private AccountService accountService; 
+	
+	@Inject
+	private AbookService abService;
+	
+	@Inject
+	private ReportService rptService;
+	
+	@Resource(name="uploadPath")
+	private String uploadPath;
+	
 	// 차곡 메인사이트 
 	// http://localhost:8080/main
 	@GetMapping(value = "/main")
@@ -61,11 +88,97 @@ public class ChagokController {
 	
 	// 자산관리 파트 메인
 	// http://localhost:8080/assetmain
-	@GetMapping(value = "/assetmain")
-	public String assetmainGET() throws Exception {
+	@GetMapping(value="/assetmain")
+	public String assetmain(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
+		Integer mno = (Integer)session.getAttribute("mno");
+		
+		if (mno==null) {
+			return "redirect:/login?pageInfo=assetmain";
+		} else {
+			Integer mm = 0;
+			mylog.debug("@@@@mno"+mno);
+			UserVO userVO = service.getUser(mno);
+			Map<String, Object> map = new HashMap<String, Object>();
+			model.addAttribute("result", "loginY");
+			
+			int chkAb = abService.chkAb(mno, mm);
+			if(chkAb==0) {
+				model.addAttribute("chkAb", "abN");
+			}
+			
+			else {
+				model.addAttribute("chkAb", "abY");
+				Integer dtSum = rptService.dtSum(mno, mm);
+				Integer dtAvg = rptService.dtAvg(mno, mm);
+				Integer expSum = rptService.expSum(mno, mm);
+				List<Map<String, Object>> cateCntList = rptService.cateCnt(mno, mm);
+				List<Map<String, Object>> cateSumList = rptService.cateSum(mno, mm);
+				
+				String cateCntjson = rptService.listMapToJson(cateCntList);
+				String cateSumjson = rptService.listMapToJson(cateSumList);
+				
+				map.put("cateCntjson", cateCntjson);
+				map.put("cateSumjson", cateSumjson);
+				map.put("dtSum", dtSum);
+				map.put("dtAvg", dtAvg);
+				map.put("expSum", expSum);
+				model.addAttribute("map", map);
+			}
+		
+			// 예산
+			String pMonth = abService.getPMonth(mm);
+			int chkBud = abService.chkBud(mno, pMonth);
+			if(chkBud==0) {
+				model.addAttribute("chkBud", "budN");
+			}
+			else {
+				model.addAttribute("chkBud", "budY");
+				Integer totalBud = abService.totalBud(mno, pMonth);
+				Integer dtSum2 = rptService.dtSum(mno, mm);
+				
+				map.put("totalBud", totalBud);
+				map.put("dtSum2", dtSum2);
+				model.addAttribute("pMonth", pMonth);
+			}
+			
+//			// 계좌 리스트 조회
+//			List<AccountVO> accountList = accountService.getAccountInfo(mno);
+//			model.addAttribute("accountList", accountList);
+//			mylog.debug("accountList : "+accountList.toString());
+//			// 카드 리스트 조회
+//			List<CardInfoVO> cardList = accountService.getCardInfo(userVO.getUser_seq_no());
+//			model.addAttribute("cardList", cardList);
+//			mylog.debug("cardList : "+cardList.toString());
+//			
+//			// 카드 내역/금액 조회
+//			List<List<CardHistoryVO>> cardHistoryList = accountService.getCardHistory(cardList);
+//			model.addAttribute("cardHistoryList", cardHistoryList);
+//			mylog.debug("cardHistoryList : "+cardHistoryList.toString());
+//			
+//			// 현금 내역 조회
+//			CashVO cashVO = accountService.getCashInfo(mno);
+//			if (cashVO != null) {
+//				cashVO.setCash_amt(cashVO.getCash_amt().replaceAll(",", ""));
+//				mylog.debug("cashVO : "+cashVO.toString());
+//			}
+//			model.addAttribute("cashVO", cashVO);
+			model.addAttribute("userVO", userVO);
+		
+			return "/chagok/assetmain";
+		
+		}
+	}	
 
-		return "/chagok/assetmain";
-	}
+	
+	
+	
+	
+	
+//	@GetMapping(value = "/assetmain")
+//	public String assetmainGET() throws Exception {
+//
+//		return "/chagok/assetmain";
+//	}
 
 	// 챌린지 목록 불러오기 (커뮤메인)
 	// http://localhost:8080/commumain
@@ -110,9 +223,14 @@ public class ChagokController {
 
 		mylog.debug(" 로그인 정보 : " +loginMap);
 		
+		ServletContext appliation = request.getSession().getServletContext();
+	    
+		
 		try {
 			UserVO =  service.loginUserCheck(loginMap);
 			mylog.debug("controller : "+UserVO);
+			
+			appliation.setAttribute("userInfo", UserVO.getMno());
 			
 			if (UserVO != null) { // 로그인 성공
 				model.addAttribute("UserVO", UserVO);
@@ -123,7 +241,6 @@ public class ChagokController {
 				session.setAttribute("nick", UserVO.getNick());
 				
 			}else {
-				model.addAttribute("loginResult", "Login Fail!");
 				return "0";
 				
 			}
@@ -131,18 +248,6 @@ public class ChagokController {
 			e.printStackTrace();
 		}
 		return "chagok/main";
-//		// 세션 유지시간 30분
-//		session.setMaxInactiveInterval(60*30);
-//
-//		if(UserVO != null) {
-//			session.setAttribute("mno", UserVO.getMno());
-//			session.setAttribute("nick", UserVO.getNick());
-//			
-//			return UserVO;
-//		} else {
-//			
-//			return 0;
-//		}
 	}
 
 	 // http://localhost:8080/register
@@ -255,27 +360,6 @@ public class ChagokController {
    
    // http://localhost:8080/adminUser
    
-//   public void adminUser
-	
-	
-   @GetMapping("/iframeMyAsset")
-   public String iframeMyAsset() {
-	   
-	   return "/iframe/iframeMyAsset";
-   }
-   
-   @GetMapping("/iframeAbookList")
-   public String iframeAbookList() {
-	   
-	   return "/iframe/iframeAbookList";
-   }
-   
-   @GetMapping("/iframeDateReport")
-   public String iframeDateReport() {
-	   
-	   return "/iframe/iframeDateReport";
-   }
-   
    ////////////// ym 마이페이지 구현중 ////////////// 
    @GetMapping("/myPage")
    public String myPageGET(HttpSession session, Model model) throws Exception{
@@ -290,25 +374,63 @@ public class ChagokController {
 	   return "/chagok/myPage";
    }
    
-   // 마이페이지
-   @PostMapping("/myPage")
-   public String myPagePOST(UserVO vo) throws Exception{
+   // 마이페이지 수정폼
+   @GetMapping("/myPageUpdate")
+   public String myPageUpdateGET(HttpSession session, Model model) throws Exception{
 	   
-	   mylog.debug("@@@@@@@@ userVO : " + vo);
-	   service.updateUserInfo(vo);
+	   if (session.getAttribute("mno") != null) {	
+		   int mno = (int)session.getAttribute("mno");
+		   
+		   UserVO userVO = service.getUser(mno);
+		   model.addAttribute("userVO", userVO);
+	   }
+	   
+	   return "/chagok/myPageUpdate";
+   }
+   
+   // 마이페이지 수정
+   @PostMapping("/myPageUpdate")
+   public String myPageUpdatePOST(HttpSession session, Model model, UserVO vo, MultipartFile file) throws Exception{
+	   
+	   mylog.debug(" myPageUpdatePOST 호출 ");
+	   mylog.debug("file : " + file);
+	   mylog.debug("vo : "+vo);
 	   
 	   
+	   // 사진등록
+//		String imgUploadPath = uploadPath + File.separator + "imgUpload";
+//		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+//		String fileName = null;
+//		
+//		if(file != null) {
+//		   fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+//		   
+//		} else {
+//		   fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
+//		}
+//		
+//		vo.setProfile(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+
+	   service.updateUserInfo(vo);		
+		
+		mylog.debug("new vo : " + vo);
+		
 	   return "redirect:/myPage";
    }
    
    // 내가 쓴 글 ( 브랜치 합치고 구현 )
    @GetMapping("/myBoardWrite")
-   public String myBoardGET(HttpSession session, Model model) {
-	   
+   public String myBoardGET(HttpSession session, Model model,Criteria cri) throws Exception {
 	   String nick = (String)session.getAttribute("nick");
-//	   service.getBoardList(nick);
 	   
-	   return "/chagok/myBoard";
+	   
+		   List<BoardVO> boardList = service2.getMyBoardWrite(cri);
+		   mylog.debug(boardList+"@@@@@@@@@@@@@@@@@@@@");
+		   
+		   model.addAttribute("boardList", boardList);
+		   
+	   
+	   return "/chagok/myBoardWrite";
    }
    
    // 회원 탈퇴
@@ -366,6 +488,96 @@ public class ChagokController {
 	   
 	   return "redirect:/unregist";
    }
+
    
    
+	////////////////////// 관리자 페이지 ///////////////////////////
+
+	// 관리자 챌린지 승인
+	// http://localhost:8080/chManagement
+	@GetMapping("/chManagement")
+	public String chManagement(Criteria cri, Model model) throws Exception {
+		mylog.debug("/chManagement 호출");
+		
+		List<ChallengeVO> chListAll = service2.chListAll(cri);
+		
+		// 페이징 처리
+		cri.setPerPageNum(10);
+	    PageMaker pagevo = new PageMaker();
+	    pagevo.setDisplayPageNum(10);
+	    pagevo.setCri(cri);
+	    pagevo.setTotalCount(service2.chListCnt());
+		
+	    mylog.debug(pagevo.toString());
+	    mylog.debug(""+chListAll.size());
+	    
+	    model.addAttribute("pagevo", pagevo);
+		model.addAttribute("chListAll", chListAll);
+		
+		return "/chagok/adminconfirm";
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/confirm")
+	public int confirm(@RequestParam int status, @RequestParam int cno, RedirectAttributes rttr) throws Exception {
+		mylog.debug("status : "+status+", cno : "+cno);
+		int result=0;
+		
+		service2.confirmChallenge(status, cno);
+
+		if(status==1) {
+			result = 1;
+		} else if(status==6) {
+			result = 6;
+		}
+		mylog.debug("결과"+result);
+		return result;
+	}
+	
+	// http://localhost:8080/bizAccount
+	@GetMapping(value="/bizAccount")
+	public String businessAcc (Criteria cri, Model model) throws Exception {
+		mylog.debug("/businessAcc 호출");
+		
+		List<BusinessAccountVO> bizList = service.getBizList(cri);
+		
+		// 페이징 처리
+		cri.setPerPageNum(10);
+	    PageMaker pagevo = new PageMaker();
+	    pagevo.setDisplayPageNum(10);
+	    pagevo.setCri(cri);
+	    pagevo.setTotalCount(service.getBizCnt());
+		
+	    model.addAttribute("pagevo", pagevo);
+		model.addAttribute("bizList", bizList);
+	   
+		return "/chagok/businessAcc";
+	}
+   
+	// http://localhost:8080/userManagement
+	// 관리자 회원관리
+	@GetMapping("/userManagement")
+	public String userManagementGET(Criteria cri, Model model) throws Exception {
+		mylog.debug("/userManagementGET 호출");
+		
+		List<UserVO> userList = service.getUserList(cri);
+		
+		// 페이징 처리
+		cri.setPerPageNum(10);
+	    PageMaker pagevo = new PageMaker();
+	    pagevo.setDisplayPageNum(10);
+	    pagevo.setCri(cri);
+	    pagevo.setTotalCount(service.getUserCnt());
+		mylog.debug("@@@@"+pagevo.toString());
+		mylog.debug("@@@@"+userList.size());
+		
+	    model.addAttribute("pagevo", pagevo);
+		model.addAttribute("userList", userList);
+		
+		return "/chagok/userManagement";
+	}
+
+	////////////////////// 관리자 페이지 ///////////////////////////	
+	
+	
 }

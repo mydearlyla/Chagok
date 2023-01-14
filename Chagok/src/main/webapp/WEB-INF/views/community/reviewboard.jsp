@@ -39,8 +39,8 @@
 	 	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 			<div class="board_wrap">
 				<div class="board_title">
-					<strong>챌린지 후기글 수정</strong>
-		     	   <p> 참여한 챌린지의 후기를 남기는 곳입니다</p>
+					<strong>챌린지 후기 게시판 </strong>
+		     	   <p> 참여한 챌린지에 남긴 후기를 보는 곳입니다</p>
 				</div>
 			</div>
 		</div>
@@ -101,6 +101,10 @@
 <!--                 <a href="#" class="bt last">>></a> -->
                 </ul>
            </div>
+          
+<!--            <div class="bt_wrap"> -->
+<%--              <input class="sbtn2" type="button" value="후기작성하기" onclick="location.href='/review?cno=${boardList.cno}';" > --%>
+<!-- 			</div> -->
 </body>
 </html>
 

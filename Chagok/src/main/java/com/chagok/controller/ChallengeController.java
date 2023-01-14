@@ -220,9 +220,30 @@ public class ChallengeController {
 	
 	@PostMapping(value = "/minusdetailPOST")
 	@ResponseBody // ajax 값을 바로 jsp에 보내기 위해 사용@RequestParam("ctno") int ctno, 
-	public String minusdetailPOST(@RequestBody Map<String, Object> map,HttpSession session) throws Exception {
+	public String minusdetailPOST(@RequestBody Map<String, Object> map,HttpSession session,@RequestParam("cno") int cno) throws Exception {
 		mylog.debug("minusdetailPOST 호출");
 		mylog.debug(map+"");
+		
+		// 회원정보 저장
+		int mno = (Integer)session.getAttribute("mno");
+		mylog.debug("mno : " +mno);
+		UserVO userVO = uservice.getUser(mno);
+		
+		// 챌린지 정보 저장
+//		int deposit = service.getChallengeInfo(cno).getC_deposit();
+//		
+//		if(userVO.getBuypoint()+userVO.getGetpoint() >= deposit) {
+//			if(userVO.getBuypoint() >= userVO.getGetpoint()) {
+//				uservice.buyChallenge(mno,cno,deposit);
+//				
+//				return "/challenge/minusdetail";
+//			} else {
+//				uservice.usePoint(map);
+//				return "/challenge/minusdetail";
+//			}
+//		} else {
+//			return "/payment/payment";
+//		}
 		
 		String result="";
 		
@@ -239,6 +260,7 @@ public class ChallengeController {
 		}
 	
 		mylog.debug(result);
+		
 		return result;
 }
 	

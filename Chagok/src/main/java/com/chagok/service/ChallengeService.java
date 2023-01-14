@@ -178,5 +178,6 @@ public interface ChallengeService {
 	// 내가 쓴 글 개수 조회
 	public int MyBoardWriteCnt() throws Exception;
 	
+	
 }
 

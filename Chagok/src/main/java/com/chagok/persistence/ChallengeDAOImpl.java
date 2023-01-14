@@ -489,7 +489,10 @@ public class ChallengeDAOImpl implements ChallengeDAO{
 		map.put("mno", mno);
 		
 		return sqlSession.selectOne(NAMESPACE+".challengeResult", map);
-	}	
+	}
+
+	
+	
 	
 	// 내가 쓴 글 조회
 	@Override

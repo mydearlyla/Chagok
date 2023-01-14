@@ -333,7 +333,7 @@
 		select * from board
 		where b_sort = 2
 		order by bno desc, b_date desc
-		limit #{pageStart},#{perPageNum}
+		limit #{pageStart},10
 	</select>
 	
 	<!-- 공지게시판 글 전체 개수 -->
@@ -348,7 +348,7 @@
 	  	select * from board b inner join challenge c
 		where b_sort = 1 and b.cno = c.cno
 		order by bno desc, b_date desc
-		limit #{pageStart},#{perPageNum};
+		limit #{pageStart},10
 	</select>
 	
 	<!-- 후기게시판 글 전체 개수 -->
@@ -416,7 +416,7 @@
 		select * from board
 		where b_sort = 3
 		order by bno desc, b_date desc
-		limit #{pageStart},#{perPageNum}
+		limit #{pageStart},10
 	</select>	
 
 	<!-- 자유게시판 글 전체 개수 -->
@@ -431,7 +431,7 @@
 		select * from board
 		where b_sort = 4
 		order by bno desc, b_date desc
-		limit #{pageStart},#{perPageNum}
+		limit #{pageStart},10
 	</select>	
 
 	<!-- 경제게시판 글 전체 개수 -->
@@ -440,6 +440,7 @@
 		from board
 		where b_sort= 4
 	</select>
+
 
 
 	<!-- 관리자 - 전체 회원 조회  -->
@@ -483,17 +484,10 @@
 		update user set buypoint=#{buypoint} where mno=#{mno}
 	</insert>
 	
-	<!-- 내가 쓴 글 보기 -->
-<!-- 	<select id ="myBoardWrite" resultType="com.chagok.domain.BoardVO"> -->
-<!-- 		select * from board -->
-<!-- 		where b_writer = #{nick} -->
-<!-- 		order by bno desc, b_date desc -->
-<!-- 		limit #{pageStart},10 -->
-<!-- 	</select> -->
 	<select id ="myBoardWrite" resultType="com.chagok.domain.BoardVO">
 		select * from board b inner join user u
-		where b.b_writer = u.nick
-		order by bno desc, b_date desc
+		on b.b_writer = u.nick
+		order by b_date desc
 		limit #{pageStart},10;
 	</select>
 	
@@ -545,5 +539,13 @@
 	  	set getpoint = getpoint-#{getpoint}
 	  	where mno = #{mno};
   	</update>
+  	
+<!--   	챌린지 참여시 예치금 처리  -->
+	<update id="buyChallenge">
+  		update user 
+	  	set buypoint = buypoint-#{buypoint}
+	  	where mno = #{mno}
+  	</update>
+  	
   	
  </mapper>

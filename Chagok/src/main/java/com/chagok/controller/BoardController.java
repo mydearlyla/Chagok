@@ -55,6 +55,8 @@ public class BoardController {
 			
 		// 페이징 처리
 		PageMaker pageMaker = new PageMaker();
+		cri.setPerPageNum(10);
+		pageMaker.setDisplayPageNum(10);
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(service.RboardCount());
 		mylog.debug("@@@@@@@@@@@@@@@@");
@@ -72,11 +74,9 @@ public class BoardController {
 	public String reviewGET(@RequestParam("cno") int cno, Model model, HttpSession session) throws Exception {
 	
 		mylog.debug(cno + "reviewGET 호출");
-		Integer Success = service.getSuccess(cno);
 		ChallengeVO vo2 = service.getCt_top(cno);
 		
 		model.addAttribute("review", service.getChallengeInfo(cno));
-		model.addAttribute("Success",Success);
 		model.addAttribute("vo2", vo2);
 		model.addAttribute("c_end", service.getChallengeEndDate(cno));
 
@@ -203,9 +203,11 @@ public class BoardController {
 		
 		// 페이징 처리
 		PageMaker pageMaker = new PageMaker();
+		cri.setPerPageNum(10);
+		pageMaker.setDisplayPageNum(10);
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(service.NboardCount());
-		mylog.debug("@@@@@@@@@@@@@@@@");
+		mylog.debug(pageMaker+"@@@@@@@@@@@@@@@@");
 		mylog.debug("totalCnt : "+service.NboardCount());
 		model.addAttribute("pageMaker", pageMaker);
 			
@@ -323,6 +325,8 @@ public class BoardController {
 		model.addAttribute("boardList", boardList);
 		
 		PageMaker pageMaker = new PageMaker();
+		cri.setPerPageNum(10);
+		pageMaker.setDisplayPageNum(10);
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(service.RboardCount());
 		mylog.debug("@@@@@@@@@@@@@@@@");
@@ -422,9 +426,11 @@ public class BoardController {
 		model.addAttribute("boardList", boardList);
 		
 		PageMaker pageMaker = new PageMaker();
+		cri.setPerPageNum(10);
+		pageMaker.setDisplayPageNum(10);
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(service.EboardCount());
-		mylog.debug("@@@@@@@@@@@@@@@@ economy");
+		mylog.debug(pageMaker+"@@@@@@@@@@@@@@@@ economy");
 		mylog.debug("totalCnt : "+service.EboardCount());
 		model.addAttribute("pageMaker", pageMaker);
 			

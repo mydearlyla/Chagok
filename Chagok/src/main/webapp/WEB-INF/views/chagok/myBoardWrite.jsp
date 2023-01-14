@@ -102,82 +102,31 @@
 			    </tr>
 			  </thead>
 			<tbody>
-				
-				<c:forEach items="${boardList }" var="boardList" >
-				<c:if test="${boardList.b_sort eq 1 }">
+								
+			<c:forEach items="${boardList }" var="boardList" >
 				<tr>
+				<c:if test="${boardList.b_sort eq 1 }">
 					<th scope="row" style="text-align:center; padding: 15px 0;">후기</th>
 					<td style="text-align:center; padding: 15px 0;"><a href="/reviewcontent?bno=${boardList.bno }&cno=${boardList.cno}">${boardList.b_title }</a></td>
-					<td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList.b_date }" pattern="yyyy-MM-dd"/></td>
-				</tr>
-				</c:if>
-				</c:forEach>
-				
-				<c:forEach items="${boardList }" var="boardList" >
+				</c:if>	
 				<c:if test="${boardList.b_sort eq 3 }">
-				<tr>
 					<th scope="row" style="text-align:center; padding: 15px 0;">자유</th>
 					<td style="text-align:center; padding: 15px 0;"><a href="/freeboard">${boardList.b_title }</a></td>
+				</c:if>
+				<c:if test="${boardList.b_sort eq 4 }">
+					<th scope="row" style="text-align:center; padding: 15px 0;">뉴스 / 재테크</th>
+					<td style="text-align:center; padding: 15px 0;"><a href="/economycontent?bno=${boardList.bno }">${boardList.b_title }</a></td>
+				</c:if>
 					<td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList.b_date }" pattern="yyyy-MM-dd"/></td>
 				</tr>
-				</c:if>
-				</c:forEach>
-				
-				<c:forEach items="${boardList }" var="boardList" >
-				<c:if test="${boardList.b_sort eq 4 }">
-					<tr>	
-						<th scope="row" style="text-align:center; padding: 15px 0;">뉴스 / 재테크</th>
-						<td style="text-align:center; padding: 15px 0;"><a href="/economycontent?bno=${boardList.bno }">${boardList.b_title }</a></td>
-						<td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList.b_date }" pattern="yyyy-MM-dd"/></td>
-					</tr>
-				</c:if>
-				</c:forEach>
-				
-<%-- 				<c:forEach var="board" items="${boardList }"> --%>
-			
-<%-- 				<c:if test="${board.b_sort eq 1 }"> --%>
-<%-- 					<c:set var="category" value="후기"/> --%>
-<%-- 				</c:if> --%>
-<%-- 				<c:if test="${board.b_sort eq 3 }"> --%>
-<%-- 					<c:set var="category" value="자유"/> --%>
-<%-- 				</c:if> --%>
-<%-- 				<c:if test="${board.b_sort eq 4 }"> --%>
-<%-- 					<c:set var="category" value="뉴스 / 재테크"/> --%>
-<%-- 				</c:if> --%>
-				
-<%-- 			</c:forEach> --%>
-				
-				
-<%-- 				<c:forEach items="${boardList }" var="boardList" > --%>
-<%-- 				<c:if test="${boardList.b_sort eq 1 }"> --%>
-<!-- 				<tr> -->
-<%-- 					<th scope="row" style="text-align:center; padding: 15px 0;">${category }</th> --%>
-<%-- 					<td style="text-align:center; padding: 15px 0;"><a href="/reviewcontent?bno=${boardList.bno }&cno=${boardList.cno}">${boardList.b_title }</a></td> --%>
-<%-- 				</c:if>	 --%>
-<%-- 				<c:if test="${boardList.b_sort eq 3 }"> --%>
-<%-- 					<th scope="row" style="text-align:center; padding: 15px 0;">${category }</th> --%>
-<%-- 					<td style="text-align:center; padding: 15px 0;"><a href="/freeboard">${boardList.b_title }</a></td> --%>
-<%-- 				</c:if> --%>
-<%-- 					<td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList.b_date }" pattern="yyyy-MM-dd"/></td> --%>
-<!-- 				</tr> -->
-<%-- 				</c:forEach> --%>
-				
-				
-				
-			
-<%-- 				<th scope="row" style="text-align:center; padding: 15px 0;">${category }</th> --%>
-<%-- 				<td style="text-align:center; padding: 15px 0;"><a href="http://localhost:8080/noticecontent?bno=${boardList.bno }">${boardList.b_title }</a></td> --%>
-<!-- 	<!-- 						  <td  style="text-align:center; padding: 15px 0;">Otto</td> --> 
-<%-- 				<td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList.b_date }" pattern="yyyy-MM-dd"/></td> --%>
-<!-- 						    </tr> -->
-				
-				
+			</c:forEach>
+								
 			</tbody>
 	</table>
 	
 			<div class="board_page">
                 	<ul class= "pagination pagination-sm no-margin pull-right">
-<!--                 <a href="#" class="bt first"><<</a> -->
+
                 	<c:if test="${pageMaker.prev }">
 					<li><a href="/myBoardWrite?page=${pageMaker.startPage-1 }"class="bt prev"><</a></li>
 					</c:if>
@@ -189,7 +138,7 @@
                 <c:if test="${pageMaker.next }">
 					<li><a href="/myBoardWrite?page=${pageMaker.endPage+1 }" class="bt next">></a></li>
 				</c:if>
-<!--                 <a href="#" class="bt last">>></a> -->
+
                 </ul>
            </div>
 </body>

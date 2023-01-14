@@ -539,7 +539,7 @@ opacity:1;
 
 <div class="receipt">
   <h1>챌린지 결과</h1>
-  
+
 	<c:forEach var="vo" items="${challengeList }">
 		<c:if test="${vo.c_sort eq 0 }">
 		<c:set var="sort" value="저축형"/>
@@ -557,7 +557,7 @@ opacity:1;
   <div class="right">
     <ul>
       <li style="font-size: 24px;"><span></span>${vo.c_title }</li>
-      <li><span style="margin-top: -8px; font-size: 12px;"><fmt:formatDate value="${startDate }" pattern="YYYY-MM-dd" /> ~ <fmt:formatDate value="${c_end }" pattern="YYYY-MM-dd" /></span></li>
+      <li><span style="margin-top: -8px; font-size: 12px;">${vo.c_start} ~ <fmt:formatDate value="${c_end }" pattern="YYYY-MM-dd" /></span></li>
     </ul>
         <ul>
       <li>참여 인원 <span>${CList }<b>명</b></span></li>

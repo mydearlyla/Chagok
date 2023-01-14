@@ -129,6 +129,12 @@ public class UserServiceImpl implements UserService {
 		
 		dao.usePoint(map);
 	}
+
+	@Override
+	public void buyChallenge(Integer mno, Integer cno, Integer deposit) {
+		mylog.debug("buyChallenge() 호출 ");
+		dao.buyChallenge(mno, cno, deposit);
+	}
 	
 	
 	

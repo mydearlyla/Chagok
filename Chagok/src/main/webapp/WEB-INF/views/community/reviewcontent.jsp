@@ -9,36 +9,40 @@
 <script>
 			$(document).ready(function(){
 				var formObj = $("form[role='form']");
-				
-// 				// 수정
-// 				$(".btn-danger").click(function(){
-					
-// 					formObj.attr("action","/reviewupdate"); 
-// 					formObj.attr("method","get"); 
-// 					formObj.submit();
-					
-// 				});
-			
+							
 				// 삭제
 				$(".sbtn2").click(function(){
 					
 					formObj.attr("action","/reviewremove");
 					formObj.submit();
 				});
-				
-// 				// 목록가기
-// 				$(".bg-purple").click(function(){
-// 					location.href = "/reviewboard";
-// 				});
-				
-				
+	
 			});
+// function remove() {
+
+//  if (confirm("정말 삭제하시겠습니까??") == true){   
+
+//      document.remove.submit();
+
+//  }else{   
+
+//      return false;
+
+//  }
+
+// }
+
+
 </script> 
+
+
+
+
 
 <h1> 챌린지 후기 글 </h1>
 ${startDate }
 	<section class="content" >
-	 <form role="form" method="post">
+	 <form role="form" method="post" name="remove">
 		<input type="hidden" name="bno" value="${boardChallenge.bno }">
 	</form>
 	<div class="row">
@@ -114,7 +118,7 @@ ${startDate }
  	<c:set var="writer" value="${boardChallenge.b_writer }"/>
 	<c:if test= "${nick == '관리자' || nick == writer}">
         <input class="sbtn" type="button" value="수정하기" onclick="location.href='/reviewupdate?bno=${boardChallenge.bno}&cno=${boardChallenge.cno }';">
-		<input class="sbtn2" type="submit" value="삭제하기">
+		<input class="sbtn2" type="submit" value="삭제하기" onclick="remove()">
 	</c:if>
         <input class="sbtn" type="submit" value="돌아가기" onclick="location.href='/reviewboard';">
      </div>

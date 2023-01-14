@@ -110,7 +110,7 @@
 			<div class="form-group">
 			              <div class="form-group focused">
 			                <label class="form-control-label" for="input-username" >지출 카테고리</label>
-			                <select name="b_ctno_out" id="input-address" class="form-control form-control-alternative" >
+			                <select name="b_ctno_out" id="input-address" class="form-control2 form-control-alternative" >
 			                   <option>--선택--</option>
 			                   <option value="1">식비</option>
 							   <option value="2">의복/미용</option>
@@ -132,7 +132,7 @@
 						<div class="form-group">
 			              <div class="form-group focused">
 			                <label class="form-control-label" for="input-username" >수입 카테고리</label>
-			                <select name="b_ctno_in" id="input-address" class="form-control form-control-alternative" >
+			                <select name="b_ctno_in" id="input-address" class="form-control2 form-control-alternative" >
 			                   <option>--선택--</option>
 			                   <option value="72">주수입</option>
 							   <option value="73">부수입</option>
@@ -145,7 +145,7 @@
 			<div class="form-group">
 			                      <div class="form-group">
 			                        <label class="form-control-label" for="input-email">상세 카테고리</label>
-			                         <select name="ctno" id="input-address" class="form-control form-control-alternative" >
+			                         <select name="ctno" id="input-address" class="form-control2 form-control-alternative" >
 			                           <option>--선택--</option>
 			                        </select>
 			                      </div>
@@ -184,7 +184,6 @@ $(function() {
 		todayHighlight: true
 	});
 });
-
 function grid_Datepicker(text, obj){
     $("#jqGrid").jqGrid("saveCell", rowid, iCol); // cell 저장
 }
@@ -216,7 +215,6 @@ $("#jqGrid").jqGrid({
 				},
     height: 500, 
     width: 1000,
-
     colNames : ['num','분류','날짜','내용','금액','거래수단','ctno','카테고리','소분류','메모'], 
     colModel:[
         {name : 'abno', index : 'abno',width : 0, align : 'left',hidden:true,key:true},    	
@@ -227,7 +225,6 @@ $("#jqGrid").jqGrid({
 //                     }] 
 //                 }
 	        hidden:false,editable:true},
-
         {name:'ab_date', index:'ab_date', width:90, align:'center',editable:true, formatoptions:{newformat: 'Y-M-d h:i'}, 
 	        	editoptions:{size:20, dataInit:function(el){ 
                      $(el).datetimepicker({dateFormat:'yy-mm-dd', onClose :grid_Datepicker}); 
@@ -242,7 +239,6 @@ $("#jqGrid").jqGrid({
                  var year = currentTime.getFullYear(); 
                  return year+"-"+month + "-"+day; 
                }
-
            }},
         {name : 'ab_content',index : 'ab_content',width : 100, align : 'center',hidden:false,editable:true},
         {name : 'ab_amount',index : 'ab_amount',width : 50, align: 'center', resizable : true,align : 'right',editrules:{number:true},hidden:false,editable:true},
@@ -299,17 +295,15 @@ $("#jqGrid").jqGrid({
 		// 								selrt +='</select>';
 		
 		// 						return selrt;
-
 // 	    {name : 'ct_top',index : 'ct_top',width : 70, alian: "center", hidden:false,editable:true},           
 		{name:"ct_bottom",index:"ct_bottom",width:50,align:'center', editable: true, edittype: "select", /* formatter: "select", */
 	
 			    	editoptions:{
-			    		dataUrl: '/asset/catebottom', 
+			    		dataUrl: '/asset/catebottom',
 						buildSelect:function (data){
 							console.log(data);							
 				 			let key = JSON.parse(data)
 							console.log(key);							
-
 						    var rowid = $( "#jqGrid" ).getGridParam( "selrow" );   
 						    var rowdata = jQuery("#jqGrid").getRowData(rowid);  
 						     var ct_top= rowdata['ct_top'];
@@ -336,7 +330,6 @@ $("#jqGrid").jqGrid({
 									      console.log(err);
 									}
 								})
-
 						return rtSlt;
 						}, // build
 			            dataEvents: [
@@ -353,7 +346,6 @@ $("#jqGrid").jqGrid({
 	                       ] //dataeve
 					}	// edit
 			},    	
-
 	
         {name : 'ab_memo',index : 'ab_memo', align: "center", width : 50, align : 'center',hidden:false,editable:true}
       ],
@@ -365,7 +357,6 @@ $("#jqGrid").jqGrid({
 //    	        $("#jqGrid").jqGrid('setRowData',ids[i],{pwReset:chgPw});
 //    	    } 
 //    	},
-
 //       onCellSelect : function(rowid, iCell, content){
 //     	  alert(""+content);
 //     	 } ,
@@ -384,7 +375,6 @@ $("#jqGrid").jqGrid({
     cellEdit: true,
     cellsubmit:'clientArray',
 //     cellurl:'/asset/updateGrid',
-
     
     /* 수정 후 cell 다시 editable flase 로 변경 */
     afterEditCell : function(rowid, cellname, value, iRow, iCol){
@@ -419,14 +409,12 @@ $("#jqGrid").jqGrid({
     //loadonce:false,
     //hidegrid:true
     // =================================================
-
     }); //jqgrid default
     
 //     $(window).on('resize.jqGrid', function () {
 //         jQuery("#jqGrid").jqGrid( 'setGridWidth', $(".main-panel").width() - 100 );
 //     },
     
-
    
  	// 리로딩 처리
     function reload() {
@@ -465,7 +453,6 @@ $("#jqGrid").jqGrid({
         $("#jqGrid").setColProp(gridColData[idx], {editable : param});
     }
 }
-
 	var gridFunc = {
 	        addRow : function() {
 	        	  const options = {
@@ -518,8 +505,6 @@ $("#jqGrid").jqGrid({
         $("#jqGrid").setColProp(gridColData[idx], {editable : param});
     }
 }
-
-
 	///////////////////////////////////////아직 안 쓰는 코드 
     function search() {
     	
@@ -547,7 +532,6 @@ $("#jqGrid").jqGrid({
     	  }
     	  return value;
     	}
-
     	var foo = {foundation: "Mozilla", model: "box", week: 45, transport: "car", month: 7};
     	var jsonString = JSON.stringify(foo, replacer);
     
@@ -608,7 +592,6 @@ $(function(){
         var arrType = getAgreeType();
         var optionType = $(this).parents('.pl-lg-4').find($('select[name="ctno"]'));
         optionType.empty();
-
         if($(this).val() == '1'){ 
             for(prop in arrType['1']){
                 optionType.append('<option value='+prop+' >'+arrType['1'][prop]+'</option>');
@@ -660,7 +643,6 @@ $(function(){
         }
     });
 });
-
 </script>
 
 
@@ -765,7 +747,6 @@ $(function(){
         var arrType = getintype();
         var optionType = $(this).parents('.pl-lg-4').find($('select[name="ctno"]'));
         optionType.empty();
-
         if($(this).val() == '72'){ 
             for(prop in arrType['72']){
                 optionType.append('<option value='+prop+' >'+arrType['72'][prop]+'</option>');
@@ -814,6 +795,29 @@ function getintype() {
 	
 <style>
 
+.col-md-4 {
+    width: 31.333333%;
+}
+
+.form-control2 {
+    display: block;
+    width: 45%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
 .box-body2 {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -827,18 +831,15 @@ function getintype() {
     justify-content: space-between;
 /*     	overflow-x: hidden;	 */
 }
-
 .abbtn-name{
 display: inline-flex;
 }
-
  .switchbtn { 
     min-height: 100%;
     position: relative;
     overflow: hidden !important;
    align-items: flex-end;
  } 
-
 #switch {
   position: absolute;
   /* hidden */
@@ -846,7 +847,6 @@ display: inline-flex;
   -webkit-appearance: none;
   -moz-appearance: none;
 }
-
 .switch_label {
 /*   position: relative; */
   cursor: pointer;
@@ -872,52 +872,39 @@ display: inline-flex;
   background: #FFDB83;
   transition: 0.2s;
 }
-
 /* checking style */
 #switch:checked+.switch_label {
   background: #66BB7A;
   border: 2px solid #66BB7A;
 }
-
 #switch:checked+.switch_label:hover {
   background: #66BB7A;
 }
-
 /* move */
 #switch:checked+.switch_label .onf_btn {
   left: 34px;
   background: #fff;
   box-shadow: 1px 2px 3px #00000020;
 }
-
-
-
-
 .box.box-primary2 {
     border-top-color: #666;
     margin: 0px 5px 0px 5px;
-
-
 #th-bg {
 	background-color: #FDEDBF;
 	font-style: inherit;
 }
-
 th {
 	font-weight: 700;
 }
-
 .Header_root__23iUa {
 	padding: 0;
 	margin-bottom: 10px;
 }
-
 .Header_root__23iUa {
 	padding: 16px 0;
 	display: flex;
 	justify-content: space-between;
 }
-
 .Header_heading__kV24Z {
 	font-weight: 700;
 	font-size: 35px;
@@ -926,31 +913,22 @@ th {
 	display: flex;
 	align-items: center;
 }
-
 .btn-group-xs>.btn, .btn-xs {
     padding: 1px 5px;
     font-size: 12px;
     line-height: 1.5;
     border-radius: 3px;
 }
-
-
-
   .ui-jqgrid .ui-jqgrid-htable{
-
         	overflow: hidden; 
         	position:relative; 
         	height:17px;
         	font-family:inherit,'NanumGothicB','나눔고딕', "돋움", dotum;
         	font-size:15px;
-
         }
-
         .ui-jqgrid-btable, .ui-pg-table  {
-
         	font-family:inherit,'NanumGothicB','나눔고딕', "돋움", dotum;
         	font-size:13px;
-
         }
         
 /*     .rowColumn { */
@@ -978,7 +956,3 @@ th {
     <script src="${pageContext.request.contextPath }/resources/dist/js/demo.js" type="text/javascript"></script>
   </body>
 </html>
-
-
-
-

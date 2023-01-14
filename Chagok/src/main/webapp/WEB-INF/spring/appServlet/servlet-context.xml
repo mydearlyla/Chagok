@@ -51,10 +51,12 @@
 
 	
     <!-- 사진 업로드 기능 업로드 패스 설정 --> 
+    
    <beans:bean class="java.lang.String" id="uploadPath">
     <beans:constructor-arg value="../webapps/ROOT/resources/" />
    </beans:bean>
    
+
 	<!-- 일반 파일 업로드 경로 -->
 	<resources mapping="/imgUpload/**" location="../webapps/ROOT/resources/imgUpload/" />
 	

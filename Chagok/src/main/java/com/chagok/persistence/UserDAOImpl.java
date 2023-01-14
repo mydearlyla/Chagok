@@ -147,5 +147,16 @@ public class UserDAOImpl implements UserDAO {
 		
 		sqlSession.update(NAMESPACE+".usePoint", map);
 	}
+
+	@Override
+	public void buyChallenge(Integer mno, Integer cno, Integer deposit) {
+		mylog.debug("buyChallenge() 호출 ");
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("mno", mno);
+		map.put("cno", cno);
+		map.put("deposit", deposit);
+		sqlSession.update(NAMESPACE+".buyChallenge",map);
+	}
+	
 	
 }

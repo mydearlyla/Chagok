@@ -61,4 +61,7 @@ public interface UserService {
 	
 	// 포인트 차감
 	public void usePoint(Map<String, Object> map) throws Exception;
+	
+	// 챌린지 참여시 예치금 처리 
+	public void buyChallenge(Integer mno, Integer cno, Integer deposit);
 }

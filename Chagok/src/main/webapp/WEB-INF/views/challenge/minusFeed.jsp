@@ -19,7 +19,7 @@
      
      <div class="row">
 		<div class="col-lg-5 mx-6 aos-init aos-animate" data-aos="fade-right" >
-		<img class="img-responsive" src="${pageContext.request.contextPath }/resources${vo.c_file}" alt="Photo" >
+		<img class="img-responsive" src="${pageContext.request.contextPath }/resources${vo.c_thumbFile }" alt="Photo" >
 		</div>
 		<div class="col-lg-6 pt-4 pt-lg-0 content aos-init aos-animate" data-aos="fade-left" >
 			 <h3><span style="color: #66BB7A; font-weight: bold;">[${vo2.ct_top }]</span> ${vo.c_title }</h3>

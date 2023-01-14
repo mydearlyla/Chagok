@@ -5,92 +5,474 @@
 
 <%@ include file="../include/header.jsp"%>
 <%@ include file="../include/sidebar.jsp"%>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/css.css">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
 
-<h1>후기글 남기기</h1>
-<div class="box box-info">
+html {
+    font-size: 10px;
+}
 
-	<div class="box-body">
-		<form role="form" action="/review" method="post">
-		<div class="input-group">
-		
-			
-				<c:if test="${review.c_sort eq 0 }">
-					<c:set var="sort" value="저축형"/>
-				</c:if>
-				<c:if test="${review.c_sort eq 1 }">
-					<c:set var="sort" value="절약형"/>
-				</c:if>
-				
-			<span class="input-group-addon"> 챌린지 유형 </span> 
-			<span class="input-group-addon"> ${sort } </span> 
+ul, li {
+    list-style: none;
+}
 
-		</div>
-		<div class="input-group" >
-			
-			<span class="input-group-addon"> 챌린지 제목 </span>
-			<span class="input-group-addon"> ${review.c_title } </span>
-		</div>
-		<div class="input-group" >
-		<span class="input-group-addon"> 후기 제목 </span>
-		<input type="text" class="form-control" name="b_title" /> 
-		</div>
+a {
+    text-decoration: none;
+    color: inherit;
+}
 
-		<hr>
+.board_wrap {
+    width: 1000px;
+    margin: 40px;
+}
 
-		<div class="row">
-	<div class="col-lg-6">
-		<div class="input-group">
-			<span class="input-group-addon"> 
-				챌린지 기간
-			</span> 
-			<input type="text" class="form-control" value="${review.c_period }" readonly> 
-		</div>
+.board_title {
+    margin-bottom: 30px;
+}
 
-	</div>
+.board_title strong {
+    font-size: 3rem;
+}
 
-	<div class="col-lg-6">
-		<div class="input-group">
-			<span class="input-group-addon"> 
-				챌린지 성공인원
-			</span> 
-			<input type="text" class="form-control"  value="${Success }명" readonly> 
-		</div>
+.board_title p {
+    margin-top: 5px;
+    font-size: 1.4rem;
+}
 
-	</div>
-	<div class="col-lg-6">
-		<div class="input-group">
-			<span class="input-group-addon"> 
-				작성자
-			</span> 
-			<input type="text" class="form-control" name="b_writer"  value="${nick }" readonly>
-		</div>
+.bt_wrap {
+    margin-top: 30px;
+    text-align: center;
+}
 
-	</div>
+.bt_wrap a {
+    display: inline-block;
+    min-width: 80px;
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid #FFDB83;
+    border-radius: 2px;
+    font-size: 1.4rem;
+}
 
-	<div class="col-lg-6">
-		<div class="input-group">
-			<span class="input-group-addon"> 
-				챌린지 기간	
-			</span> 
-			<input type="text" class="form-control" value="<fmt:formatDate value="${c_end }" pattern="YYYY-MM-dd"/>"  readonly/>
-		</div>
+.bt_wrap a:first-child {
+    margin-left: 0;
+}
 
-	</div>
+.bt_wrap a.on {
+    background: #FFDB83;
+    color: #fff;
+}
 
-</div>
-	<hr>
-	<h5> 후기 </h5>
-	
-	<textarea rows="15" cols="100" name="b_content" style="resize: none;"></textarea>
-	
-	 <div class="box-footer">
-          <button type="submit" class="btn btn-primary" >글쓰기</button>
-          <input class="btn btn-block btn-success btn-lg" type="button" value="메인가기" onclick="location.href='/commumain';" style="width:218px; margin-left: 950px;">
-     </div>
-     <input type="hidden" name="b_sort" value="1">
-	</form>
-	</div>
-</div>
+.board_list {
+    width: 100%;
+    border-top: 2px solid #000;
+}
+
+.board_list > div {
+    border-bottom: 1px solid #ddd;
+    font-size: 0;
+}
+
+.board_list > div.top {
+    border-bottom: 1px solid #999;
+}
+
+.board_list > div:last-child {
+    border-bottom: 1px solid #000;
+}
+
+.board_list > div > div {
+    display: inline-block;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.board_list > div.top > div {
+    font-weight: 600;
+}
+
+.board_list .num {
+    width: 10%;
+}
+
+.board_list .title {
+    width: 60%;
+    text-align: left;
+}
+
+.board_list .top .title {
+    text-align: center;
+}
+
+.board_list .writer {
+    width: 10%;
+}
+
+.board_list .date {
+    width: 10%;
+}
+
+.board_list .count {
+    width: 10%;
+}
+
+.board_page {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0;
+}
+
+.board_page a {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    border-left: 0;
+    line-height: 100%;
+}
+
+.board_page a.bt {
+    padding-top: 10px;
+    font-size: 1.2rem;
+    letter-spacing: -1px;
+}
+
+.board_page a.num {
+    padding-top: 9px;
+    font-size: 1.4rem;
+}
+
+.board_page a.num.on {
+    border-color: #000;
+    background: #000;
+    color: #fff;
+}
+
+.board_page a:first-child {
+    border-left: 1px solid #ddd;
+}
+
+.board_view {
+    width: 100%;
+    border-top: 2px solid #66BB7A;
+    margin-left: 20px;
+}
+
+.board_view .title {
+    padding: 20px 15px;
+    border-bottom: 1px dashed #ddd;
+    font-size: 2.2rem;
+}
+
+.board_view .info {
+	padding: 15px 0px 0px 20px;
+    border-bottom: 1px solid #66BB7A;
+    font-size: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.board_view .info dl {
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.board_view .info dl:first-child {
+    padding-left: 0;
+}
+
+.board_view .info dl::before {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 0;
+    display: block;
+    width: 1px;
+    height: 13px;
+    background: #ddd;
+}
+
+.board_view .info dl:first-child::before {
+    display: none;
+}
+
+.board_view .info dl dt,
+.board_view .info dl dd {
+    display: inline-block;
+    font-size: 1.4rem;
+}
+
+.board_view .info dl dt {
+
+}
+
+.board_view .info dl dd {
+    margin-left: 15px;
+    color: #777;
+}
+
+.board_view .cont {
+    padding: 15px;
+    border-bottom: 1px solid #66BB7A;
+    line-height: 160%;
+    font-size: 1.4rem;
+}
+
+.board_write {
+    border-top: 2px solid #66BB7A;
+}
+
+.board_write .title,
+.board_write .info {
+    padding: 15px 0px 0px 15px;
+}
+
+.board_write .info {
+    border-top: 1px dashed #ddd;
+    border-bottom: 1px solid #66BB7A;
+    font-size: 0;
+}
+
+.board_write .title dl {
+    font-size: 0;
+}
+
+.board_write .info dl {
+    display: inline-block;
+    width: 50%;
+    vertical-align: middle;
+}
+
+.board_write .title dt,
+.board_write .title dd,
+.board_write .info dt,
+.board_write .info dd {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 1.4rem;
+}
+
+.board_write .title dt,
+.board_write .info dt {
+    width: 100px;
+}
+
+.board_write .title dd {
+    width: calc(100% - 100px);
+}
+
+.board_write .title input[type="text"],
+.board_write .info input[type="text"],
+.board_write .info input[type="password"] {
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.board_write .title input[type="text"] {
+    width: 80%;
+}
+
+.board_write .cont {
+    border-bottom: 1px solid #66BB7A;
+}
+
+.board_write .cont textarea {
+    display: block;
+    width: 100%;
+    height: 300px;
+    padding: 30px;
+    box-sizing: border-box;
+    border: 0;
+    resize: vertical;
+}
+
+
+@media (max-width: 1000px) {
+    .board_wrap {
+        width: 100%;
+        min-width: 320px;
+        padding: 0 30px;
+        box-sizing: border-box;
+    }
+
+    .board_list .num,
+    .board_list .writer,
+    .board_list .count {
+        display: none;
+    }
+
+    .board_list .date {
+        width: 40%;
+    }
+
+    .board_list .title {
+        text-indent: 10px;
+    }
+
+    .board_list .top .title {
+        text-indent: 0;
+    }
+
+    .board_page a {
+        width: 26px;
+        height: 26px;
+    }
+
+    .board_page a.bt {
+        padding-top: 7px;
+    }
+    
+    .board_page a.num {
+        padding-top: 6px;
+    }
+
+    .board_view .info dl {
+        width: 50%;
+        padding: 0;
+    }
+
+    .board_view .info dl:nth-child(-n+2) {
+        margin-bottom: 5px;
+    }
+
+    .board_view .info dl::before {
+        display: none;
+    }
+
+    .board_view .info dl dt,
+    .board_view .info dl dd {
+        font-size: 1.2rem;
+    }
+
+    .board_write .info dl {
+        width: 49%;
+    }
+
+    .board_write .info dl:first-child {
+        margin-right: 2%;
+    }
+
+    .board_write .title dt,
+    .board_write .info dt {
+        display: none;
+    }
+
+    .board_write .title dd,
+    .board_write .info dd {
+        width: 100%;
+    }
+
+    .board_write .title input[type="text"],
+    .board_write .info input[type="text"],
+    .board_write .info input[type="password"] {
+        width: 100%;
+    }
+}
+
+.bt_wrap input.sbtn {
+	display: inline-block;
+    min-width: 100px;
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid #FFDB83;
+    border-radius: 2px;
+    font-size: 1.4rem;
+    background-color: #FFDB83;
+    color: #fff;
+}
+
+.bt_wrap input.sbtn2 {
+	display: inline-block;
+    min-width: 100px;
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid #FFDB83;
+    border-radius: 2px;
+    font-size: 1.4rem;
+    background-color: #fff;
+    color: #FFDB83;
+}
+
+</style>
+</head>
+
+<body>
+<form role="form" action="/review" method="post">
+    <div class="board_wrap">
+        <div class="board_title">
+            <strong> 후기</strong>
+            <p>참여했던 챌린지에 대한 후기를 남기는 곳입니다.</p>
+        </div>
+        <div class="board_write_wrap">
+            <div class="board_write">
+                <div class="title">
+                    <dl>
+                        <dt>제목</dt>
+                        <dd><input type="text" name="b_title" placeholder="제목을 입력해주세요."></dd>
+                    </dl>
+                </div>
+                <div class="info">
+                    <dl>
+                    	<c:if test="${review.c_sort eq 0 }">
+							<c:set var="sort" value="저축형"/>
+						</c:if>
+						<c:if test="${review.c_sort eq 1 }">
+							<c:set var="sort" value="절약형"/>
+						</c:if>
+                        <dt>챌린지 유형</dt>
+                        <dd>${sort } : ${vo2.ct_top }</dd>
+                    </dl>
+                     <dl>
+                        <dt>챌린지 제목</dt>
+                        <dd>${review.c_title }</dd>
+                    </dl>
+                  
+                 	 <dl>
+                        <dt>챌린지 기간</dt>
+                        <fmt:parseDate value="${review.c_start}" var="startDate" pattern="yyyy-MM-dd"/>
+                        <dd><fmt:formatDate value="${startDate }" pattern="YYYY-MM-dd"/> ~ <fmt:formatDate value="${c_end }" pattern="YYYY-MM-dd"/></dd>
+                    </dl>
+                 	 <dl>
+                        <dt>성공  유무</dt>
+                        <dd>&nbsp; 성공 </dd>
+                    </dl>
+                    
+                </div>
+                <div class="info">
+                    <dl>
+                        <dt>작성자</dt>
+                        <dd><input type="text" name="b_writer" value="${nick }" readonly></dd>
+                    </dl>
+                    
+                </div>
+                <div class="cont">
+                    <textarea name="b_content" placeholder="내용을 작성해주세요"></textarea>
+                </div>
+            </div>
+            <div class="bt_wrap">
+            	<input class="sbtn2" type="button" value="돌아가기" onclick="location.href='/reviewboard';">
+            	<input class="sbtn" type="submit" value="작성하기" >
+<!--                 <a href="view.html" class="on">등록</a> -->
+<!--                 <a href="list.html">취소</a> -->
+            </div>
+        </div>
+    </div>
+    
+    <input type="hidden" value="1" name="b_sort" >
+    <input type="hidden" value="${review.cno }" name="cno">
+</form>
+</body>
 
 
 

@@ -205,7 +205,18 @@ color : rgba(255, 219, 131 / 80%);
 <script type="text/javascript">
 	$(document).ready(function(){
 		var link = window.location.href;
-		var currentURL = link.substring(17);
+
+		var currentURL = "";
+		if ( link.indexOf("localhost") != -1 ) {
+			currentURL = link.substring(22);
+		}
+		if ( link.indexOf("chagok.ga") != -1 ) {
+			currentURL = link.substring(17);
+		}
+		if ( link.indexOf("itwillbs10.cafe24") != -1 ) {
+			currentURL = link.substring(29);
+		}
+		
 // 		alert(currentURL);
 		
 		$('#loginURL').click(function(){

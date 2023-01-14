@@ -120,7 +120,7 @@
 			      <th scope="col" style="text-align:center; padding: 15px 0;">회원번호</th>
 			      <th scope="col" style="text-align:center; padding: 15px 0;">아이디</th>
 			      <th scope="col" style="text-align:center; padding: 15px 0;">닉네임</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">포인트</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0;">꿀머니</th>
 			      <th scope="col" style="text-align:center; padding: 15px 0;">가입일자</th>
 			      <th scope="col" style="text-align:center; padding: 15px 0;">가계부인증</th>
 			      <th scope="col" style="text-align:center; padding: 15px 0;">구독상태</th>
@@ -137,7 +137,9 @@
 				      <td style="text-align:center; padding: 15px 0;">${user.id }</td>
 				      <td style="text-align:center; padding: 15px 0;">${user.nick }</td>
 				      <td style="text-align:center; padding: 15px 0;">
-						<fmt:formatNumber value="${user.buypoint }"/>점
+				      	<c:set var="buy" value="${user.buypoint}"/>
+				      	<c:set var="get" value="${user.getpoint}"/>
+						<fmt:formatNumber value="${buy + get}"/>꿀
 				      </td>
 				      <td style="text-align:center; padding: 15px 0;">
 				      	<fmt:formatDate value="${user.regdate }" pattern="yyyy-MM-dd hh:mm" type="both"/>
@@ -210,7 +212,6 @@ $(document).ready(function(){
 		     obj.prev().show();
 		     obj.parent().parent().next().hide();
 		  }
-// 		});
 	})
 })
 

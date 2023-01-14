@@ -164,7 +164,7 @@
 		      <th scope="col" style="text-align:center; padding: 15px 0;">참여기간</th>
 		      <th scope="col" style="text-align:center; padding: 15px 0;">인원현황</th>
 		      <th scope="col" style="text-align:center; padding: 15px 0;">상태</th>
-		      <th scope="col" style="text-align:center; padding: 15px 0;">승인 / 거절</th>
+		      <th scope="col" style="text-align:center; padding: 15px 0; width:15%;">승인 / 거절</th>
 	    	</tr>
 	  </thead>
 		<tbody>

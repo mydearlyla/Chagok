@@ -83,32 +83,32 @@ public class ChallengeDAOImpl implements ChallengeDAO{
 	
 	// 챌린지 신청 취소하기 (챌린지 테이블에 닉네임 잘라주기)
 	@Override
-	public void cancelChallenge(String nick, Integer cno) {
+	public int cancelChallenge(String nick, Integer cno) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("nick", nick);
 		map.put("cno", cno);
 		mylog.debug(" cancelChallenge 호출 닉네임 잘라내기, c_cnt-1 "+map);
-		sqlSession.update(NAMESPACE+".cancelChallenge", map);
+		return sqlSession.update(NAMESPACE+".cancelChallenge", map);
 	}
 	
 	// 저축형 챌린지 신청 취소 (플러스테이블에 mno랑 cno 없애주기)
 	@Override
-	public void cancelPlus(Integer mno, Integer cno) {
+	public int cancelPlus(Integer mno, Integer cno) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mno", mno);
 		map.put("cno", cno);
 		mylog.debug(" cancelPlus(map) 호출 "+map);
-		sqlSession.delete(NAMESPACE+".cancelPlus", map);
+		return sqlSession.delete(NAMESPACE+".cancelPlus", map);
 	}
 	
 	// 절약형 챌린지 신청 취소 (마이너스 테이블에 mno랑 cno 없애주기)
 	@Override
-	public void cancelMinus(Integer mno, Integer cno) {
+	public int cancelMinus(Integer mno, Integer cno) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("mno", mno);
 		map.put("cno", cno);
 		mylog.debug(" cancelMinus(map) 호출"+map);
-		sqlSession.delete(NAMESPACE+".cancelMinus", map);
+		return sqlSession.delete(NAMESPACE+".cancelMinus", map);
 	}
 	
 	@Override
@@ -489,10 +489,7 @@ public class ChallengeDAOImpl implements ChallengeDAO{
 		map.put("mno", mno);
 		
 		return sqlSession.selectOne(NAMESPACE+".challengeResult", map);
-	}
-
-	
-	
+	}	
 	
 	// 내가 쓴 글 조회
 	@Override

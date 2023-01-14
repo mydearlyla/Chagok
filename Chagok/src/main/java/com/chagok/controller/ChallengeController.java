@@ -220,30 +220,9 @@ public class ChallengeController {
 	
 	@PostMapping(value = "/minusdetailPOST")
 	@ResponseBody // ajax 값을 바로 jsp에 보내기 위해 사용@RequestParam("ctno") int ctno, 
-	public String minusdetailPOST(@RequestBody Map<String, Object> map,HttpSession session,@RequestParam("cno") int cno) throws Exception {
+	public String minusdetailPOST(@RequestBody Map<String, Object> map,HttpSession session) throws Exception {
 		mylog.debug("minusdetailPOST 호출");
 		mylog.debug(map+"");
-		
-		// 회원정보 저장
-		int mno = (Integer)session.getAttribute("mno");
-		mylog.debug("mno : " +mno);
-		UserVO userVO = uservice.getUser(mno);
-		
-		// 챌린지 정보 저장
-//		int deposit = service.getChallengeInfo(cno).getC_deposit();
-//		
-//		if(userVO.getBuypoint()+userVO.getGetpoint() >= deposit) {
-//			if(userVO.getBuypoint() >= userVO.getGetpoint()) {
-//				uservice.buyChallenge(mno,cno,deposit);
-//				
-//				return "/challenge/minusdetail";
-//			} else {
-//				uservice.usePoint(map);
-//				return "/challenge/minusdetail";
-//			}
-//		} else {
-//			return "/payment/payment";
-//		}
 		
 		String result="";
 		
@@ -260,7 +239,6 @@ public class ChallengeController {
 		}
 	
 		mylog.debug(result);
-		
 		return result;
 }
 	
@@ -296,6 +274,7 @@ public class ChallengeController {
 		public String mychallengeGET(Model model, HttpSession session) throws Exception {
 			
 			String nick = (String)session.getAttribute("nick");
+			mylog.debug("nick : "+nick);
 			Integer mno	= (Integer)session.getAttribute("mno");
 			List<Map<String, Object>> challengeResultList = new ArrayList<Map<String,Object>>();
 			
@@ -318,24 +297,33 @@ public class ChallengeController {
 		}
 		
 		// mychallenge에서 신청취소 했을 때
+		@ResponseBody
 		@GetMapping("/cancelChallenge")
-		public String cancelChallengeGET(@RequestParam("cno") Integer cno, @RequestParam("c_sort") Integer c_sort,HttpSession session) throws Exception {
+		public int cancelChallengeGET(@RequestParam int cno, @RequestParam int c_sort, HttpSession session) throws Exception {
 			
 			Integer mno = (Integer)session.getAttribute("mno");
 			mylog.debug(cno+" : cno , "+mno+" : mno, "+c_sort+" : c_sort");
 			String a = ",";
 			String b = uservice.getUser(mno).getNick();
 			String nick = a+b;
-			service.cancelChallenge(nick,cno);
+			int chCancelResult = 0;
+			int feedCancelResult = 0;
+			int result = 0;
+			chCancelResult = service.cancelChallenge(nick,cno);
 			
 			if(c_sort == 0) {
-				service.cancelPlus(mno, cno);
+				feedCancelResult = service.cancelPlus(mno, cno);
 			}else if(c_sort == 1){
-				service.cancelMinus(mno, cno);
+				feedCancelResult = service.cancelMinus(mno, cno);
 			}
 //			cno, mno로챌린지 조회
-			
-			return "redirect:/challenge/mychallenge";
+			mylog.debug("chCancelResult : "+chCancelResult);
+			mylog.debug("feedCancelResult : "+feedCancelResult);
+			if(chCancelResult!=0 && feedCancelResult!=0) {
+				result = 1;
+			}
+			mylog.debug("result"+result);
+			return result;
 		}
 		
 		

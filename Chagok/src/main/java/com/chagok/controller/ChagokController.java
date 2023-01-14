@@ -240,7 +240,8 @@ public class ChagokController {
 				session.setAttribute("mno", UserVO.getMno());
 				session.setAttribute("nick", UserVO.getNick());
 				
-			}
+				return "success";
+			} 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

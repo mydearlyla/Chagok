@@ -569,7 +569,7 @@ public class ChallengeController {
 			int mno = (int)session.getAttribute("mno");
 			UserVO userVO = uservice.getUser(mno);
 			vo.setBiz_holder_name(userVO.getNick());
-			vo.setBiz_inout(1);
+			vo.setBiz_inout(2);
 			vo.setMno(mno);
 		}
 		

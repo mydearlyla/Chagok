@@ -6,12 +6,16 @@
   <mapper namespace="com.chagok.mapper.abookMapper">
   
   <!-- 가계부 목록 -->
-  <select id="getAbookList" resultType="AbookVO" >
+  <select id="getAbookList" resultType="AbookVO" parameterType="map">
        select * from account_book as ab inner join category as c on ab.ctno=c.ctno
-		where ab.mno=1
+		where ab.mno=#{mno}
 		and ab.ab_date between last_day(now() - interval #{mm}+1 month) + interval 1 day 
 		and last_day(now() - interval #{mm} month)
   </select>
+  
+    <select id="getAbookList2" resultType="AbookVO" parameterType="map">
+ 	select * from account_book as ab inner join category as c on ab.ctno=c.ctno where mno=#{mno};
+ 	 </select>
   
   <!-- 카테고리 top -->
   <select id="cttopList" resultType="map">

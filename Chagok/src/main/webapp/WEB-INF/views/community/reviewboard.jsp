@@ -51,7 +51,7 @@
 			      <th scope="col" style="text-align:center; padding: 15px 0;">글 번호</th>
 			      <th scope="col" style="text-align:center; padding: 15px 0;">카테고리</th>
 			      <th scope="col" style="text-align:center; padding: 15px 0;">챌린지 기간</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">후기 제목</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0;">챌린지 제목</th>
 			      <th scope="col" style="text-align:center; padding: 15px 0;">작성자</th>
 			      <th scope="col" style="text-align:center; padding: 15px 0;">작성일</th>
 			    </tr>
@@ -76,7 +76,7 @@
 						      <th scope="row" style="text-align:center; padding: 15px 0;">${boardno }</th>
 						      <th scope="row" style="text-align:center; padding: 15px 0;">[${sort }]</th>
 						      <th scope="row" style="text-align:center; padding: 15px 0;"> ${boardList2.c_period } 주</th>
-						      <td style="text-align:center; padding: 15px 0;"><a href="http://localhost:8080/reviewcontent?bno=${boardList2.bno }&cno=${boardList2.cno}">${boardList2.b_title }</a></td>
+						      <td style="text-align:center; padding: 15px 0;"><a href="/reviewcontent?bno=${boardList2.bno }&cno=${boardList2.cno}">${boardList2.c_title }</a></td>
 						      <th scope="row" style="text-align:center; padding: 15px 0;"> ${boardList2.b_writer}</th>
 							  <td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList2.b_date }" pattern="yyyy-MM-dd"/></td>
 						    </tr>

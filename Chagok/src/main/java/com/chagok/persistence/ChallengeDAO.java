@@ -170,8 +170,9 @@ public interface ChallengeDAO {
 	public int getCtno(Integer cno);
 	
 	// 내가 쓴 글 보기
-	public List<BoardVO> getMyBoardWrite(Criteria cri) throws Exception;
-//	public List<BoardVO> getMyBoardWrite(String nick) throws Exception;
+//	public List<BoardVO> getMyBoardWrite(Criteria cri,String nick) throws Exception;
+	public List<BoardVO> getMyBoardWrite(String nick) throws Exception;
+//	public List<BoardVO> getMyBoardWrite(Criteria cri) throws Exception;
 	
 	// 내가 쓴 글 개수 조회
 	public int MyBoardWriteCnt() throws Exception;

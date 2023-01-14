@@ -44,40 +44,19 @@
 			<div id="gridpager"></div>
 			 <span><a href="#" onclick="javascript:save();">저장</a></span>
 			<span><a href="#" onclick="javascript:gridFunc.addRow();">행 추가</a></span>
-			<!-- <span><a href="#" onclick="javascript:gridFunc.clearGrid();">초기화</a></span> -->
 			<span><a href="#" onclick="javascript:delRow();">삭제</a></span>
          </div>
          
          <div class="col-md-4">
 			<div class="box box-primary2">
-			<div class="box-header with-border">
 			
 			<form role="form" action="/asset/insGrid" method="post">
+			<div class="box-header with-border">
 			<div class="box-body2">
 				<h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수입·지출 등록</font></font></h3>
-<!-- 			<div class="abbtn-name" > -->
-<!-- 			수입<div class="switchbtn" align="right"> -->
-<!-- 			  <input type="checkbox" id="switch" value=2> -->
-<!-- 			  <label for="switch" class="switch_label"> -->
-<!-- 			    <span class="onf_btn"></span> -->
-<!-- 			  </label> -->
-<!-- 			</div>지출 -->
-<!-- 			</div> -->
-			<div class="row" style="padding: 20px;">
-				<label for="ab_inout">지출</label>
-				<input type="checkbox" id="ab_inout" name="ab_inout" value="1" onclick="clickCheck(this)" checked>
-				<label for="ab_inout2">수입</label>
-				<input type="checkbox" id="ab_inout2" name="ab_inout" value="2" onclick="clickCheck(this)">
-			
-<!-- 			<input type="radio" name="r1" class="minimal" value="1" style="position: absolute; opacity: 0;">지출 -->
-<!-- 			<input type="radio" name="r1" class="minimal" value="2" style="position: absolute; opacity: 0;">수 -->
-			
-			<div id="calendar"></div>
+				<label><input name="ab_inout" type="checkbox" value="1" onclick="doOpenCheck(this);">지출 <br /></label>
+				<label><input name="ab_inout" type="checkbox" value="2" onclick="doOpenCheck(this);">수입 <br /></label>
 			</div>
-			</div>
-<!-- 			.text-right { -->
-<!--   text-align: right !important; -->
-<!-- } -->
 			
 			<div class="form-group">
 			<label for="exampleInputPassword1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">날짜</font></font></label>
@@ -162,18 +141,12 @@
 			
 			<div class="box-footer">
 			<button type="submit" class="btn btn-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">저장하기</font></font></button>
+			</div>
 			</form>
 			</div>
 			</div>
 			</div>
          </div>
-<!-- <input type="BUTTON" id="btnC" value="Edit Selected" /> -->
-<!-- <input type="BUTTON" id="btnD" value="Edit Selected" /> -->
-<%-- ${jsonAbook} --%>
-<%-- obj: ${j_abookList }+@@ --%>
-<%-- ${map } --%>
-<!-- $( "#datepicker1" ).datepicker( "getDate" ); -->
-
 
 
 <script type="text/javascript">
@@ -790,14 +763,22 @@ function getintype() {
     return obj;
 }
 </script>
-	
+
+
+<script>
+function doOpenCheck(chk){
+	var obj = document.getElementsByName("ab_inout");
+	for(var i=0; i<obj.length; i++){
+	if(obj[i] != chk){
+	obj[i].checked = false;
+	}
+	}
+}
+</script>
 	
 	
 <style>
 
-.col-md-4 {
-    width: 31.333333%;
-}
 
 .form-control2 {
     display: block;
@@ -823,12 +804,12 @@ function getintype() {
     border-top-right-radius: 0;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
-    padding: 4px;
+    padding: 6px;
     display: flex;
     align-content: center;
     justify-content: flex-start;
     align-items: flex-start;
-    justify-content: space-between;
+/*     justify-content: space-between; */
 /*     	overflow-x: hidden;	 */
 }
 .abbtn-name{

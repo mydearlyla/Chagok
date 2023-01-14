@@ -492,19 +492,26 @@ public class ChallengeDAOImpl implements ChallengeDAO{
 	}	
 	
 	// 내가 쓴 글 조회
+//	@Override
+//	public List<BoardVO> getMyBoardWrite(Criteria cri,String nick) throws Exception {
+//		mylog.debug("  getMyBoardWrite(Criteria cri) 페이징처리 ");
+//		mylog.debug(cri+"@@@@@@@@@@@@@@@@@@@@@@");
+//				
+//		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",cri);
+//	}
 	@Override
-	public List<BoardVO> getMyBoardWrite(Criteria cri) throws Exception {
+	public List<BoardVO> getMyBoardWrite(String nick) throws Exception {
 		mylog.debug("  getMyBoardWrite(Criteria cri) 페이징처리 ");
-		mylog.debug(cri+"@@@@@@@@@@@@@@@@@@@@@@");
-				
-		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",cri);
+		mylog.debug(nick+"@@@@@@@@@@@@@@@@@@@@@@");
+		
+		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",nick);
 	}
 //	@Override
-//	public List<BoardVO> getMyBoardWrite(String nick) throws Exception {
-//		mylog.debug("  getMyBoardWrite(String nick) 페이징처리 ");
-//		mylog.debug(nick+"@@@@@@@@@@@@@@@@@@@@@@");
+//	public List<BoardVO> getMyBoardWrite(Criteria cri) throws Exception {
+//		mylog.debug("  getMyBoardWrite(Criteria cri) 페이징처리 ");
+//		mylog.debug(cri+"@@@@@@@@@@@@@@@@@@@@@@");
 //		
-//		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",nick);
+//		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",cri);
 //	}
 
 	// 내가 쓴 글 개수 조회

@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp"%>
 <%@ include file="../include/sidebar.jsp"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <script type="text/javascript">
 // const IMP = window.IMP; // 생략 가능
 IMP.init("imp44431277"); // 예: imp00000000a (가맹점 식별코드)
@@ -170,7 +174,10 @@ function requestPay2()
                 <h1>꿀 충전 페이지</h1>
                 <h4>
                     <strong>닉네임: </strong>${userVO.nick } <br>
-                    <strong>꿀머니: </strong>${userVO.buypoint+userVO.getpoint} 꿀 <br>
+                    <strong>꿀머니: </strong><fmt:formatNumber value="${userVO.buypoint+userVO.getpoint}"/> 꿀 <br>
+                    
+                    
+                    
                 </h4>
             </div>
         </div>

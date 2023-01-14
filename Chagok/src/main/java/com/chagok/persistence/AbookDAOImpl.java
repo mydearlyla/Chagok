@@ -37,8 +37,10 @@ public class AbookDAOImpl implements AbookDAO{
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mno", mno);
-		map.put("mm", mm);
-		List<Map<String, AbookVO>> AbookList2 = sqlSession.selectList(NAMESPACE+".getAbookList", map); 
+//		map.put("mm", mm);
+		
+		
+		List<Map<String, AbookVO>> AbookList2 = sqlSession.selectList(NAMESPACE+".getAbookList2", map); 
 		
 		return AbookList2;
 	}

@@ -44,7 +44,7 @@ h3 {
 }
 </style>
 
-	<c:if test="${chkAb.equals('abN') }">
+	<c:if test="${chkLogin.equals('loginN') || chkAb.equals('abN') }">
 		<div class="row" style="text-align: center;">
 			<div class="col-md-12">
 				<div class="box-body">

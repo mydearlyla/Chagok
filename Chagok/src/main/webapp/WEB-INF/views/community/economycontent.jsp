@@ -17,7 +17,7 @@
 				var formObj = $("form[role='form']");
 					
 				$(".sbtn2").click(function(){
-					formObj.attr("action","/noticedelete");
+					formObj.attr("action","/economydelete");
 					formObj.submit();
 				});
 						

@@ -11,7 +11,7 @@
 			</div>
 
 <!-- jQuery.number -->
-<script src="/resources/js/jquery.number.min.js"></script>
+<script src="/resources/js/jquery.number.min.js"></script> 
 <!-- fullcalendar CDN -->
 <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css' rel='stylesheet' />
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>
@@ -20,21 +20,25 @@
 <!-- fmt --> 
 <script class="cssdesk" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.0/moment.min.js" type="text/javascript"></script>
 
-<style>
-.calendar{font-size: 30px !important;}
-</style>
-
 
 <div class="row" style="padding: 50px;">
-<input id="chk" class="chk" value="1" type="checkbox" checked>지출
-<input id="chk" class="chk" value="2" type="checkbox" checked>수입
-<div id="calendar"></div>
+	<input id="chk" class="chk" value="1" type="checkbox" style="width:15px;height:15px;" checked>
+		<span style="font-size:20px;">지출</span>
+	<input id="chk" class="chk" value="2" type="checkbox" style="width:15px;height:15px;" checked>
+		<span style="font-size:20px;">수입</span>
+	
+	
+	<div id="calendar" style="margin:2%;"></div>
 </div>
 
 <style>
 .fc-toolbar-chunk {
-  display: flex; // 일렬로 나란히
-  align-items: center; // 수직 가운데 정렬
+  display: flex;
+  align-items: center;
+}
+
+.fc-event-title.fc-sticky {
+    font-size: 15px;
 }
 </style>
 

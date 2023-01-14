@@ -72,9 +72,11 @@ public class AssetController {
 	
 	@GetMapping("/myAsset")
 	public String myAssetGET(HttpSession session, Model model) throws Exception{
-		if (session.getAttribute("mno") != null) {
-			int mno = (int)session.getAttribute("mno");
-			
+		// 로그인 확인
+		Integer mno = (Integer)session.getAttribute("mno");
+		if (mno==null) {
+			model.addAttribute("chkLogin", "loginN");
+		} else {
 			UserVO userVO = userService.getUser(mno);
 			model.addAttribute("userVO", userVO);
 			
@@ -751,13 +753,10 @@ public class AssetController {
 		int mm = 0;
 		int mm2 = 1;
 		if (mno==null) {
-			return "redirect:/login?pageInfo=assetmain";
-		}
-		
-		if(abService.chkAb(mno, mm)==0) {
+			model.addAttribute("chkLogin", "loginN");
+		} else if (abService.chkAb(mno, mm)==0) {
 			model.addAttribute("chkAb", "abN");
-		}
-		else {		
+		} else {	
 			model.addAttribute("chkAb", "abY");
 			String nick = userService.getUser(mno).getNick();
 			
@@ -861,13 +860,10 @@ public class AssetController {
 		Integer mno = (Integer)session.getAttribute("mno");
 		int mm = 0;
 		if (mno==null) {
-			return "redirect:/login?pageInfo=assetmain";
-		}
-		
-		if(abService.chkAb(mno, mm)==0) {
+			model.addAttribute("chkLogin", "loginN");
+		} else if (abService.chkAb(mno, mm)==0) {
 			model.addAttribute("chkAb", "abN");
-		}
-		else {		
+		} else {		
 			model.addAttribute("chkAb", "abY");
 			String nick = userService.getUser(mno).getNick();
 			
@@ -909,8 +905,7 @@ public class AssetController {
 //	http://localhost:8080/asset/budget?mm=0
 	@GetMapping(value = "/budget")
 	public String budgetGET(@RequestParam("mm") int mm, HttpSession session, Model model, RedirectAttributes rttr) throws Exception {	
-		int mno = (int)session.getAttribute("mno");
-
+		Integer mno = (Integer)session.getAttribute("mno");
 		List<String> ctTopList = abService.getctTop();
 		String pMonth = abService.getPMonth(mm);
 		Integer dtAvg3 = rptService.dtAvg3(mno);
@@ -933,7 +928,7 @@ public class AssetController {
 	
 	@PostMapping(value = "/budget")
 	public String budgetPOST(@RequestParam("mm") int mm, @RequestParam Map map, HttpSession session) throws Exception {
-		int mno = (int)session.getAttribute("mno");
+		Integer mno = (Integer)session.getAttribute("mno");
 		
 		List<Map<String, Object>> dataList = new ArrayList<Map<String,Object>>();
 		for(int i=1;i<map.size();i++) {
@@ -957,7 +952,7 @@ public class AssetController {
 	@ResponseBody
 	@GetMapping(value = "/getBud")
 	public List<Map<String, Object>> getBud(@RequestParam("mm") int mm, HttpSession session) throws Exception {
-		int mno = (int)session.getAttribute("mno");
+		Integer mno = (Integer)session.getAttribute("mno");
 		String pMonth = abService.getPMonth(mm);
 		
 		// 예산 조회
@@ -971,7 +966,7 @@ public class AssetController {
 	@GetMapping(value="/updBud")
 	public String updBudGET(@RequestParam("mm") int mm, HttpSession session, Model model) throws Exception {
 		mylog.debug("updBudGET");
-		int mno = (int)session.getAttribute("mno");
+		Integer mno = (Integer)session.getAttribute("mno");
 
 		List<String> ctTopList = abService.getctTop();
 		String pMonth = abService.getPMonth(mm);
@@ -984,7 +979,7 @@ public class AssetController {
 	
 	@PostMapping(value = "/updBud")
 	public String updBudPOST(@RequestParam("mm") int mm, @RequestParam Map map, HttpSession session) throws Exception {
-		int mno = (int)session.getAttribute("mno");
+		Integer mno = (Integer)session.getAttribute("mno");
 
 		// map : form data, tmpmap : 재배치
 		List<Map<String, Object>> updateList = new ArrayList<Map<String,Object>>();
@@ -1003,7 +998,7 @@ public class AssetController {
 
 	@GetMapping(value = "/delBud")
 	public String delBud(@RequestParam("mm") int mm, HttpSession session) throws Exception {
-		int mno = (int)session.getAttribute("mno");
+		Integer mno = (Integer)session.getAttribute("mno");
 		String pMonth = abService.getPMonth(mm);
 		abService.delBud(mno, pMonth);
 		
@@ -1013,11 +1008,7 @@ public class AssetController {
 //	http://localhost:8080/asset/budRpt?mm=0
 	@GetMapping(value="/budRpt")
 	public String budRpt(@RequestParam("mm") int mm, HttpSession session, Model model) throws Exception {
-		// 로그인 확인
-		if(session.getAttribute("mno")==null) {
-			return "/chagok/login";
-		}
-		int mno = (int)session.getAttribute("mno");
+		Integer mno = (Integer)session.getAttribute("mno");
 		String nick = userService.getUser(mno).getNick();
 		String pMonth = abService.getPMonth(mm);
 		
@@ -1050,10 +1041,8 @@ public class AssetController {
 
 //	http://localhost:8080/asset/abookCal
 	@GetMapping(value="/abookCal")
-	public String abookCal() throws Exception {
-		
+	public String abookCal(HttpSession session, Model model) throws Exception {
 		return "/asset/calendar";
-		
 	}
 	
 	@ResponseBody
@@ -1085,87 +1074,6 @@ public class AssetController {
 		return jArr;
 	}
 	
-//	http://localhost:8080/asset/aMain
-	@GetMapping(value="/aMain")
-	public String aMain(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
-		Integer mno = (Integer)session.getAttribute("mno");
-		Integer mm = 0;
-		mylog.debug("@@@@mno"+mno);
-		UserVO userVO = userService.getUser(mno);
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		if (mno!=null) {
-			model.addAttribute("result", "loginY");
-			
-			int chkAb = abService.chkAb(mno, mm);
-			if(chkAb==0) {
-				model.addAttribute("chkAb", "abN");
-			}
-			
-			else {
-				model.addAttribute("chkAb", "abY");
-				Integer dtSum = rptService.dtSum(mno, mm);
-				Integer dtAvg = rptService.dtAvg(mno, mm);
-				Integer expSum = rptService.expSum(mno, mm);
-				List<Map<String, Object>> cateCntList = rptService.cateCnt(mno, mm);
-				List<Map<String, Object>> cateSumList = rptService.cateSum(mno, mm);
-				
-				String cateCntjson = rptService.listMapToJson(cateCntList);
-				String cateSumjson = rptService.listMapToJson(cateSumList);
-				
-				map.put("cateCntjson", cateCntjson);
-				map.put("cateSumjson", cateSumjson);
-				map.put("dtSum", dtSum);
-				map.put("dtAvg", dtAvg);
-				map.put("expSum", expSum);
-				model.addAttribute("map", map);
-			}
-		
-			// 예산
-			String pMonth = abService.getPMonth(mm);
-			int chkBud = abService.chkBud(mno, pMonth);
-			if(chkBud==0) {
-				model.addAttribute("chkBud", "budN");
-			}
-			else {
-				model.addAttribute("chkBud", "budY");
-				Integer totalBud = abService.totalBud(mno, pMonth);
-				Integer dtSum2 = rptService.dtSum(mno, mm);
-				
-				map.put("totalBud", totalBud);
-				map.put("dtSum2", dtSum2);
-				model.addAttribute("pMonth", pMonth);
-			}
-			
-			// 계좌 리스트 조회
-			List<AccountVO> accountList = accountService.getAccountInfo(mno);
-			model.addAttribute("accountList", accountList);
-			mylog.debug("accountList : "+accountList.toString());
-			// 카드 리스트 조회
-			List<CardInfoVO> cardList = accountService.getCardInfo(userVO.getUser_seq_no());
-			model.addAttribute("cardList", cardList);
-			mylog.debug("cardList : "+cardList.toString());
-			
-			// 카드 내역/금액 조회
-			List<List<CardHistoryVO>> cardHistoryList = accountService.getCardHistory(cardList);
-			model.addAttribute("cardHistoryList", cardHistoryList);
-			mylog.debug("cardHistoryList : "+cardHistoryList.toString());
-			
-			// 현금 내역 조회
-			CashVO cashVO = accountService.getCashInfo(mno);
-			if (cashVO != null) {
-				cashVO.setCash_amt(cashVO.getCash_amt().replaceAll(",", ""));
-				mylog.debug("cashVO : "+cashVO.toString());
-			}
-			model.addAttribute("cashVO", cashVO);
-			model.addAttribute("userVO", userVO);
-		
-		return "/chagok/assetmain";
-		
-		} else {
-			return "redirect:/login";
-		}
-	}
 	
 	///////////////////MJ////////////////////
 }

@@ -93,10 +93,11 @@
 	<table class="table table-hover" style="margin-left:10px; margin-right:10px; border-bottom: 1px solid #ddd;border-top: 2px solid #66BB7A;">
 			  <thead style="background-color: #dddddd30;font-size: 16px;">
 			    <tr>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">번호</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">제목</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0; width:15%;">번호</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0; width:55%">제목</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0; width:15%;">작성자</th>
 <!-- 				  <th scope="col" style="text-align:center; padding: 15px 0;">Last</th> -->
-			      <th scope="col" style="text-align:center; padding: 15px 0;">작성일</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0; width:15%;">작성일</th>
 			    </tr>
 			  </thead>
 			  
@@ -107,8 +108,8 @@
 		       	<c:forEach items="${boardList }" var="boardList" >
 						    <tr>
 						      <th scope="row" style="text-align:center; padding: 15px 0;">${boardno }</th>
-						      <td style="text-align:center; padding: 15px 0;"><a href="http://localhost:8080/economycontent?bno=${boardList.bno }">${boardList.b_title }</a></td>
-	<!-- 						  <td  style="text-align:center; padding: 15px 0;">Otto</td> -->
+						      <td style="text-align:center; padding: 15px 0;"><a href="/economycontent?bno=${boardList.bno }">${boardList.b_title }</a></td>
+						      <td style="text-align:center; padding: 15px 0;">${boardList.b_writer }</td>
 						      <td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList.b_date }" pattern="yyyy-MM-dd"/></td>
 						    </tr>
 				<c:set var="boardno" value="${boardno -1 }"></c:set>

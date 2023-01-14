@@ -228,24 +228,25 @@
 						</c:if>
 						
 						<c:if test="${vo.c_status eq 7 }">
-							<button type="button" class="btn" style="background-color:#66BB7A;"
-<%-- 								<c:if test="${result.finish eq 'Y' && vo.cno == result.cno }"> --%>
-	 								onclick="location.href='/challenge/success?cno=${vo.cno }';"
-<%-- 								</c:if> --%>
-<%-- 								<c:if test="${result.finish eq 'N' && vo.cno == result.cno }"> --%>
-<%-- 	 								onclick="location.href='/challenge/defeat?cno=${vo.cno }';" --%>
-<%-- 								</c:if>								 --%>
-							>
-							결과 보기
-							</button>						
+							<c:forEach var="result" items="${challengeResultList }">
+								<c:if test="${result.finish eq 'Y' && vo.cno == result.cno }">
+	 								<button type="button" class="btn" style="background-color:#66BB7A;"
+	 								onclick="location.href='/challenge/success?cno=${vo.cno }';">
+	 									<input type="hidden" value="${vo.cno}" class="cno_hy">
+	 								결과 보기</button>
+								</c:if>
+								<c:if test="${result.finish eq 'N' && vo.cno == result.cno }">
+	 								<button type="button" class="btn" style="background-color:#66BB7A;"
+	 								onclick="location.href='/challenge/defeat?cno=${vo.cno }';">결과 보기</button>
+								</c:if>		
+							</c:forEach>						
 							<button type="button" class="btn" style="background-color:#dd4b39;">
 								후기 쓰기
 							</button>
 						</c:if>			
 					</td>
-					
 			    </tr>
-	    	</c:forEach>   
+		    </c:forEach>
 		</tbody>
 	</table>
 <!-- 게시판 내용 -->

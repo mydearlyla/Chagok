@@ -78,7 +78,7 @@
     color: #FFDB83;
 }
 </style>
- 
+
  <body>
  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -108,16 +108,19 @@
 				<c:if test="${boardList.b_sort eq 1 }">
 					<th scope="row" style="text-align:center; padding: 15px 0;">후기</th>
 					<td style="text-align:center; padding: 15px 0;"><a href="/reviewcontent?bno=${boardList.bno }&cno=${boardList.cno}">${boardList.b_title }</a></td>
+					<td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList.b_date }" pattern="yyyy-MM-dd"/></td>
 				</c:if>	
 				<c:if test="${boardList.b_sort eq 3 }">
 					<th scope="row" style="text-align:center; padding: 15px 0;">자유</th>
 					<td style="text-align:center; padding: 15px 0;"><a href="/freeboard">${boardList.b_title }</a></td>
+					<td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList.b_date }" pattern="yyyy-MM-dd"/></td>
 				</c:if>
 				<c:if test="${boardList.b_sort eq 4 }">
 					<th scope="row" style="text-align:center; padding: 15px 0;">뉴스 / 재테크</th>
 					<td style="text-align:center; padding: 15px 0;"><a href="/economycontent?bno=${boardList.bno }">${boardList.b_title }</a></td>
-				</c:if>
 					<td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList.b_date }" pattern="yyyy-MM-dd"/></td>
+				</c:if>
+					
 				</tr>
 			</c:forEach>
 								

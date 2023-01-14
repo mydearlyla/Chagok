@@ -4,6 +4,20 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/sidebarAsset.jsp" %>
+
+<style>
+.btn1 {
+    width: 250px;
+    background-color: #66bb7a;
+    height: 60px;
+    font-size: 25px;
+    color: #fff;
+    margin:2%;
+	border: none;
+	border-radius: 5px;
+    line-height: normal;
+}
+</style>
 	
 <script src="${pageContext.request.contextPath }/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 	
@@ -107,25 +121,24 @@
 
 </script>
 
-
-	
-	
-	
-	<c:if test="${userVO == null}">
-		<h1>로그인이 필요합니다 !</h1>
+	<c:if test="${chkLogin.equals('loginN')}">
+		<div style="text-align: center;">
+			<h3>로그인이 필요한 서비스입니다.</h3>
+			<h3>사용자님의 자산을 간편하게 조회해보세요.</h3>
+		</div>	
 	</c:if>
+	
+	
 	<c:if test="${userVO != null}">	
 	
 	<c:if test="${userVO.isCheck.equals('N') }">
 		<section class="content">
 			<div class="error-page" style="margin-left: 10%">
-				<div class="error-content">
-					<h3>
-						<i class="fa fa-warning text-yellow"></i> 등록된 자산정보가 없습니다!
-					</h3>
-					<p style="margin-left: 15%">
-						자산 정보를 불러오시겠습니까?
-					</p>
+				<div class="error-content" style="text-align: center;">
+					<div>
+						<h3>등록된 자산정보가 없습니다!</h3>
+						<h3>자산 정보를 불러오시겠습니까?</h3>
+					</div>
 					<form action="https://testapi.openbanking.or.kr/oauth/2.0/authorize" method="get" onsubmit="return userCheck();">
 						<!-- 고정값 : code -->
 						<input type="hidden" name="response_type" value="code">
@@ -140,8 +153,7 @@
 						<!-- 사용자인증타입 구분주 2) (0:최초인증, 1:재인증, 2:인증생략) -->
 						<input type="hidden" name="auth_type" value="0">
 						
-						<input type="submit" class="btn btn-block btn-success btn-lg" id="assetCheck" 
-						style="width: 200px; margin: 20px 10%; background-color: #FFDB83; border-color: #1e282c" value="내 자산 불러오기">	
+						<input type="submit" class="btn1" id="assetCheck" value="내 자산 불러오기">	
 					</form>
 				</div>
 			</div>

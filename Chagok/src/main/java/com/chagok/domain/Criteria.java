@@ -6,7 +6,7 @@ public class Criteria {
 	private int perPageNum;
 	private int rowStart;
 	private int rowEnd;
-	
+		
 	public Criteria() {
 		this.page = 1;
 		this.perPageNum = 9;
@@ -55,6 +55,9 @@ public class Criteria {
 		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", rowStart=" + rowStart + ", rowEnd=" + rowEnd
 				+ "]";
 	}
+
+	
+	
 	
 	
 }

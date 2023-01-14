@@ -24,12 +24,15 @@
 	border: none;
 	border-radius: 5px;
 }
+.progress-bar {
+    height: 40px;
+}
 </style>
 
 <section class="content">
 	<div class="row">
 		<div class="col-md-6">
-				<c:if test="${chkBud.equals('budN') }">
+				<c:if test="${chkLogin.equals('loginN') || chkBud.equals('budN') }">
 					<div class="box-body" style="text-align: center;">
 						<h3>설정된 예산이 없어요!</h3>
 						<h3>예산은 효율적이고 계획적인 소비 습관 생성에 도움이 됩니다.</h3>
@@ -85,21 +88,37 @@
 				</c:if>	
 		</div>
 	
-		<c:if test="${userVO.isCheck.equals('N') }">
+		<c:if test="${chkLogin.equals('loginN') || userVO.isCheck.equals('N') }">
 			<div class="col-md-6">
-	<!-- 			<div class="box"> -->
-					<div class="box-body" style="text-align: center;">
-						<h3>등록된 자산 정보가 없습니다!</h3>
-						<h3>${userVO.nick }님의 자산을 간편하게 조회해보세요.</h3>
-						<input type="button" id="setbud" class="btn1" value="내 자산 불러오기"
-							onclick="location.href='/asset/myAsset';">	
-					</div>	
-	<!-- 			</div>	 -->
+				<div class="box-body" style="text-align: center;">
+					<h3>등록된 자산 정보가 없습니다!</h3>
+					<h3>사용자님의 자산을 간편하게 조회해보세요.</h3>
+					<input type="button" id="setbud" class="btn1" value="내 자산 불러오기"
+						onclick="location.href='/asset/myAsset';">	
+				</div>	
 			</div>	
 		</c:if>
 		
 		
 		<c:if test="${userVO.isCheck.equals('Y') }">
+		
+		<!-- 계좌합 -->
+		<c:set var="accountSum" value="${0 }" />
+		<c:forEach var="sumVO1" items="${accountList }">
+				<c:set var="accountSum" value="${accountSum +  sumVO1.balance_amt}"></c:set>
+		</c:forEach>
+	
+		<!-- 카드합 -->
+		<c:set var="cardSum" value="${0 }"/>
+		<c:forEach items="${cardHistoryList }" var="cardHistoryList2">
+			<c:forEach items="${cardHistoryList2 }" var="cardHistoryVO">
+					<c:if test="${cardHistoryVO.card_tran_date.substring(0,6).equals(now_date) }">
+						<c:set var="cardSum" value="${cardSum + cardHistoryVO.card_tran_amt }"/>
+					</c:if>
+			</c:forEach>
+		</c:forEach>
+		
+		
 			<div class="col-md-6">
 				<div class="box">
 					<div class="box-header with-border">
@@ -108,28 +127,33 @@
 				</div>
 				<div class="info-box bg-green">
 					<span style="font-size: 30px; padding-left: 20px;">계좌</span>
-					<span style="font-size: 30px; padding-left: 20px;">92,050원</span>
+					<span style="font-size: 30px; padding-left: 20px;">총 <fmt:formatNumber value="${accountSum }"/>  원</span>
 				</div>
 		
 				<div class="info-box bg-red">
 					<span style="font-size: 30px; padding-left: 20px;">카드</span>
-					<span style="font-size: 30px; padding-left: 20px;">92,050원</span>
+					<span style="font-size: 30px; padding-left: 20px;">이번달 카드 값 : <fmt:formatNumber value="${cardSum }"/> 원</span>
 				</div>
 		
 				<div class="info-box bg-aqua">
 					<span style="font-size: 30px; padding-left: 20px;">현금</span>
-					<span style="font-size: 30px; padding-left: 20px;">92,050원</span>
+					<span style="font-size: 30px; padding-left: 20px;">
+						총
+						<c:if test="${cashVO == null }">0</c:if>
+						<c:if test="${cashVO != null }"><fmt:formatNumber value="${cashVO.cash_amt }"/></c:if>
+						원					
+					</span>
 				</div>
 			</div>
 		</c:if>
 	</div>
 	
-	<c:if test="${chkAb.equals('abN') }">
+	<c:if test="${chkLogin.equals('loginN') || chkAb.equals('abN') }">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="box-body" style="text-align: center;">
 					<h3>등록된 가계부 정보가 없습니다.</h3>
-					<h3>차곡이 ${uservo.nick }님의 소비 습관을 분석해드릴게요!</h3>
+					<h3>차곡이 사용자님의 소비 습관을 분석해드릴게요!</h3>
 					<input type="button" 
 						class="btn1" value="가계부 쓰기"
 						onclick="location.href='/asset/abookList';">			
@@ -179,33 +203,31 @@
 	
 		<div class="row">
 			<div class="col-md-12">
-	<!-- 			<div class="box"> -->
-						<div class="row">
-							<div class="col-md-6">
-								<div class="box box-primary">
-									<div class="box-header with-border">
-										<h3 class="box-title">이번달 최다 지출</h3>
-									</div>
-									<div class="box-body">
-										<div class="chart">
-											<canvas id="donutchart" style="height: 330px; width: 661px;"></canvas>
-										</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="box box-primary">
+								<div class="box-header with-border">
+									<h3 class="box-title">이번달 최다 지출</h3>
+								</div>
+								<div class="box-body">
+									<div class="chart">
+										<canvas id="donutchart" style="height: 330px; width: 661px;"></canvas>
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
-								<div class="box box-danger">
-									<div class="box-header with-border">
-										<h3 class="box-title">이번달 최대 지출</h3>
-									</div>
-									<div class="box-body">
-											<canvas id="barchart" style="height: 330px; width: 661px;"></canvas>
-									</div>
-								</div>	
-							</div>
-						</div>		
-				</div>
-	<!-- 		</div> -->
+						</div>
+						<div class="col-md-6">
+							<div class="box box-danger">
+								<div class="box-header with-border">
+									<h3 class="box-title">이번달 최대 지출</h3>
+								</div>
+								<div class="box-body">
+										<canvas id="barchart" style="height: 330px; width: 661px;"></canvas>
+								</div>
+							</div>	
+						</div>
+					</div>		
+			</div>
 		</div>
 	</c:if>
 </section>
@@ -330,6 +352,21 @@ $(document).ready(function(){
 });
 
 </script>
+
+<script>
+$(document).ready(function(){
+	var a = ${d};
+	if(a<1){
+		$(".progress-bar").css("background", "#66BB7A");
+		$("#span1").css("color", "#66BB7A");
+	} else {
+		$(".progress-bar").css("background", "#FF7B54");
+		$("#span1").css("color", "#FF7B54");
+	}
+})
+</script>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
 <script>
 $(document).ready(function(){
@@ -345,10 +382,16 @@ $(document).ready(function(){
 		var start = 0;
 		 
 		var colours = {
-		  fill: '#00A65A',
-		  track: '#FFD883',
-		  text: '#00A65A',
-		  stroke: '#fff',
+		  track: '#FFDB83',
+		  stroke: '#fff'
+		}
+		
+		if(${d}<1){
+			colours.fill='#66BB7A'
+			colours.text='#66BB7A'
+		} else {
+			colours.fill='#FF7B54'
+			colours.text='#FF7B54'
 		}
 	
 		var radius = 80;
@@ -407,6 +450,7 @@ $(document).ready(function(){
 	}
 
 	   drawProgress(${d});
+	   
 });
 </script>
 

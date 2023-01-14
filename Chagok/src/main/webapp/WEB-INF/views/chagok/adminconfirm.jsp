@@ -186,7 +186,7 @@
 						</c:choose>				      
 			      </td>
 			      <td style="text-align:center; padding: 15px 0;">${cl.c_period }주</td>
-			      <td style="text-align:center; padding: 15px 0;">${cl.c_min }</b>/ ${cl.c_cnt }</td>
+			      <td style="text-align:center; padding: 15px 0;">${cl.c_cnt } / ${cl.c_pcnt }</td>
 			      <td style="text-align:center; padding: 15px 0;">
 						<c:choose>
 							<c:when test="${cl.c_status eq 0 }">승인 대기</c:when>

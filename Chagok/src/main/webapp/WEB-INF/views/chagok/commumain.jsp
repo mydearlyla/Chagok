@@ -17,28 +17,9 @@
 <h1 class="visually-hidden"></h1>
 <main>
 <form method="get">
- <%--  <div class="search">
-    <select name="searchType">
-      <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
-      <option value="c_title"<c:out value="${scri.searchType eq 'c_title' ? 'selected' : ''}"/>>제목</option>
-      <option value="c_content"<c:out value="${scri.searchType eq 'c_content' ? 'selected' : ''}"/>>내용</option>
-      <option value="c_host"<c:out value="${scri.searchType eq 'c_host' ? 'selected' : ''}"/>>작성자</option>
-      <option value="c_titlec_content"<c:out value="${scri.searchType eq 'c_titlec_content' ? 'selected' : ''}"/>>제목+내용</option>
-    </select>
 
-    <input type="text" name="keyword" id="keywordInput" value="${scri.keyword}"/>
 
-    <button id="searchBtn" type="button">검색</button>
-    <script>
-      $(function(){
-        $('#searchBtn').click(function() {
-          self.location = "commumain" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
-        });
-      });   
-    </script>
-  </div> --%>
-
-	<!-- 명예의 전당 -->
+<!-- 명예의 전당 -->
 <h1>명예의 전당</h1>
 
 <div class="clprofile-container">
@@ -65,14 +46,15 @@
   <!-- 날짜 계산하기 -->
 		<jsp:useBean id="now" class="java.util.Date" />
 			 <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowfmtTime" scope="request"/>
-			 <fmt:parseDate value="${vo.c_start}"	tDate" pattern="yyyy-MM-dd"/>
-			  <fmt:parseNumber value="${(startDate.time + 1000*60*60*24)/ (1000*60*60*24)}" integerOnly="true" var="startTime" scope="request"/>
+
+			 <fmt:parseDate value="${vo.c_start}" var="startDate" pattern="yyyy-MM-dd"/>
+			 <fmt:parseNumber value="${(startDate.time + 1000*60*60*24)/ (1000*60*60*24)}" integerOnly="true" var="startTime" scope="request"/>
 			 <fmt:parseNumber value="${c_end.time / (1000*60*60*24)}" integerOnly="true" var="endTime" scope="request" />
   
-<%--   <c:if test="${startTime - nowfmtTime <= 0 && nowfmtTime - endTime <= 0}"> --%>
-<%--   </c:if> --%>
-  <c:if test="${startTime - nowfmtTime >= 1}">
+  
   <!-- 날짜 계산하기 : 조건에 만족하는 챌린지만 출력 -->
+  <c:if test="${startTime - nowfmtTime >= 1}">
+
   
     <div class="col">
       <div class="card">

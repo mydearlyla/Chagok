@@ -240,14 +240,11 @@ public class ChagokController {
 				session.setAttribute("mno", UserVO.getMno());
 				session.setAttribute("nick", UserVO.getNick());
 				
-			}else {
-				return "0";
-				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "chagok/main";
+		return "0";
 	}
 
 	 // http://localhost:8080/register
@@ -396,20 +393,19 @@ public class ChagokController {
 	   mylog.debug("file : " + file);
 	   mylog.debug("vo : "+vo);
 	   
-	   
 	   // 사진등록
-//		String imgUploadPath = uploadPath + File.separator + "imgUpload";
-//		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
-//		String fileName = null;
-//		
-//		if(file != null) {
-//		   fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
-//		   
-//		} else {
-//		   fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
-//		}
-//		
-//		vo.setProfile(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+		String imgUploadPath = uploadPath + File.separator + "imgUpload";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String fileName = null;
+		
+		if(file != null) {
+		   fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+		   
+		} else {
+		   fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
+		}
+		
+		vo.setProfile(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 
 	   service.updateUserInfo(vo);		
 		

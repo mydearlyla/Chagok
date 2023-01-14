@@ -17,8 +17,7 @@
 <h1 class="visually-hidden"></h1>
 <main>
 <form method="get">
-
-<%--   <div class="search">
+ <%--  <div class="search">
     <select name="searchType">
       <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
       <option value="c_title"<c:out value="${scri.searchType eq 'c_title' ? 'selected' : ''}"/>>제목</option>
@@ -45,7 +44,7 @@
 <div class="clprofile-container">
 <c:forEach var="uvo" items="${ranking }" begin="0" end="2">
       <div class="clprofile-card">
-        <img src="https://i.imgur.com/bZBG9PE.jpg" alt="image1" class="clprofile-icon" />
+        <img src="https://i.imgur.com/bZBG9PE.jpg" width="100px" height="100px" alt="image1" class="clprofile-icon" />
         <div class="clprofile-name">${uvo.nick }</div>
         <div class="clprofile-position"><b>${uvo.success_cnt }</b> 번 도전에 성공하셨습니다.</div>
       </div>
@@ -66,7 +65,7 @@
   <!-- 날짜 계산하기 -->
 		<jsp:useBean id="now" class="java.util.Date" />
 			 <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowfmtTime" scope="request"/>
-			 <fmt:parseDate value="${vo.c_start}" var="startDate" pattern="yyyy-MM-dd"/>
+			 <fmt:parseDate value="${vo.c_start}"	tDate" pattern="yyyy-MM-dd"/>
 			  <fmt:parseNumber value="${(startDate.time + 1000*60*60*24)/ (1000*60*60*24)}" integerOnly="true" var="startTime" scope="request"/>
 			 <fmt:parseNumber value="${c_end.time / (1000*60*60*24)}" integerOnly="true" var="endTime" scope="request" />
   
@@ -92,7 +91,9 @@
       		<p class="card-item-chevron--new-2"><b>오늘<br>마감</b></p>
       	</c:if>
         <a class="card-item-link" href="/challenge/detail?cno=${vo.cno }">
-          <c:if test="${startTime - nowfmtTime >= 2}">
+        
+      	  
+      	  <c:if test="${startTime - nowfmtTime >= 2}">
       		 <img class="card-img-top img-fluid" src="${pageContext.request.contextPath }/resources${vo.c_thumbFile }" alt="" aria-labelledby="title_1" id="c_img">
       	  </c:if>
       	  <c:if test="${startTime - nowfmtTime == 1}">
@@ -775,4 +776,3 @@ main .card .card-item-chevron--new-2 {
 
 
 </style>
-

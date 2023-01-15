@@ -253,7 +253,7 @@
 				JOIN ( SELECT @rownum := 0) R
 													) MP
 		         		<include refid="search"></include>
-		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		WHERE (RNUM BETWEEN #{rowStart} AND #{rowEnd}) and c_status=1
 		ORDER BY cno
 	</select>
 	

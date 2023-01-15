@@ -179,6 +179,7 @@ public class ChagokController {
 	}	
 
 	
+	// 챌린지 상태 업데이트
 	public void ingChallenge() throws Exception {
 		
 		List<ChallengeVO> st =  service2.getChallengeList();
@@ -200,8 +201,12 @@ public class ChagokController {
 			
 			if(a<0) {
 //				result.put("c_status", 2);
-				status = 2;
+				status = 2;				
+				if(st.get(i).getC_min() == 2) {
+					status = 5;
+				}
 			}
+			
 			if(b<0) {
 //				result.put("c_status", 7);
 				status = 7;

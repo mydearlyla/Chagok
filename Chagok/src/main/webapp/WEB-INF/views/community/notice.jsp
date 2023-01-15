@@ -114,18 +114,52 @@
 			  
 			  
 			<tbody>
+				
+<%-- 				<c:set var="boardno" value="${boardList2.size() }"></c:set> --%>
+<%-- 				<fmt:parseNumber var="boardno" value="${boardno }" type="number" /> --%>
+<%-- 		       	<c:forEach items="${boardList2 }" var="boardList2" > --%>
+<!-- 						    <tr> -->
+<%-- 						    <c:if test="${pageMaker.startPage == '1' }"> --%>
+<%-- 						      <th scope="row" style="text-align:center; padding: 15px 0;">${boardno + 10 } </th> --%>
+<%-- 						    </c:if> --%>
+<%-- 						    <c:if test="${pageMaker.startPage == '2' }"> --%>
+<%-- 						      <th scope="row" style="text-align:center; padding: 15px 0;">${boardno } </th> --%>
+<%-- 						    </c:if> --%>
+<%-- 						     <td style="text-align:center; padding: 15px 0;"><a href="/noticecontent?bno=${boardList2.bno }">${boardList2.b_title }</a></td> --%>
+<%-- 						      <td style="text-align:center; padding: 15px 0;">${boardList2.b_writer }</td> --%>
+<%-- 						      <td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList2.b_date }" pattern="yyyy-MM-dd"/></td> --%>
+<!-- 						    </tr> -->
+<%-- 				<c:set var="boardno" value="${boardno -1 }"></c:set> --%>
+<%-- 		    	</c:forEach>   --%>
+
+			<c:if test="${param.page.equals('1')}">
 				<c:set var="boardno" value="${boardList2.size() }"></c:set>
 				<fmt:parseNumber var="boardno" value="${boardno }" type="number" />
-		       	<c:forEach items="${boardList2 }" var="boardList2" >
+		       	<c:forEach items="${boardList2 }" var="boardList2" begin="0" end="10" step="1" >
 						    <tr>
-						      <th scope="row" style="text-align:center; padding: 15px 0;">${boardno }</th>
-						      <td style="text-align:center; padding: 15px 0;"><a href="/noticecontent?bno=${boardList2.bno }">${boardList2.b_title }</a></td>
-	<!-- 						  <td  style="text-align:center; padding: 15px 0;">Otto</td> -->
-						      <td style="text-align:center; padding: 15px 0;">${boardList2.b_writer }</td>
-						      <td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList2.b_date }" pattern="yyyy-MM-dd"/></td>
+						   	 <th scope="row" style="text-align:center; padding: 15px 0;">${boardno + 10 } </th>
+						   	 <td style="text-align:center; padding: 15px 0;"><a href="/noticecontent?bno=${boardList2.bno }">${boardList2.b_title }</a></td>
+						  	  <td style="text-align:center; padding: 15px 0;">${boardList2.b_writer }</td>
+						  	  <td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList2.b_date }" pattern="yyyy-MM-dd"/></td>
 						    </tr>
 				<c:set var="boardno" value="${boardno -1 }"></c:set>
-		    	</c:forEach>   
+		    	</c:forEach>  
+			</c:if>
+			
+			<c:if test="${param.page.equals('2')}">
+				<c:set var="boardno" value="${boardList2.size() }"></c:set>
+				<fmt:parseNumber var="boardno" value="${boardno }" type="number" />
+		       	<c:forEach items="${boardList2 }" var="boardList2" begin="0" end="10" step="1" >
+						    <tr>
+						   	 <th scope="row" style="text-align:center; padding: 15px 0;">${boardno } </th>
+						   	 <td style="text-align:center; padding: 15px 0;"><a href="/noticecontent?bno=${boardList2.bno }">${boardList2.b_title }</a></td>
+						  	  <td style="text-align:center; padding: 15px 0;">${boardList2.b_writer }</td>
+						  	  <td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList2.b_date }" pattern="yyyy-MM-dd"/></td>
+						    </tr>
+				<c:set var="boardno" value="${boardno -1 }"></c:set>
+		    	</c:forEach>  
+			</c:if>				
+		    	
 			</tbody>
 	</table>
 <!-- 게시판 내용 -->

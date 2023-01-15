@@ -122,24 +122,44 @@
 // 			console.log("c_sort : "+c_sort);
 // 			$('.location').attr("href", "/challenge/cancelChallenge?cno="+cno+"&mno="+mno+"&c_sort="+c_sort);
 
-			$.ajax({
-				type : "get",
-				url : "/challenge/cancelChallenge",
-				data : {
-					cno : cno,
-					c_sort : c_sort
-				},
-				dataType: "json",
-				success : function(data){
-					console.log(data);
-					if (data==1){
-						alert('참가 취소 완료!');
-						document.location.reload();
-					} else {
-						alert('본인이 개설한 챌린지는 취소할 수 없습니다.');
-					}
+			Swal.fire({
+				title: '참여를 취소하시겠습니까?',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#00A65A',
+				cancelButtonColor: '#DD4B39',
+				confirmButtonText: '취소하기',
+				cancelButtonText: '아니요'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$.ajax({
+						type : "get",
+						url : "/challenge/cancelChallenge",
+						data : {
+							cno : cno,
+							c_sort : c_sort
+						},
+						dataType: "json",
+						success : function(data){
+							console.log(data);
+							if (data==1){
+								Swal.fire({
+									title: '참가 취소 완료!', 
+									icon: 'success'
+								});
+								document.location.reload();
+							} else {
+								Swal.fire({
+									title: '본인이 개설한 챌린지는 취소할 수 없습니다!', 
+									icon: 'warning'
+								});						
+							}
+						}
+					});	//ajax
+				} else {
+					return false;
 				}
-			});
+			})			
 
 		});
 	});

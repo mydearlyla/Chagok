@@ -462,10 +462,7 @@ a {
 
 
 <body>
-${startDate }
- <form role="form" method="post" name="remove">
-	<input type="hidden" name="bno" value="${boardChallenge.bno }">
-</form>
+
 
     <div class="board_wrap">
         <div class="board_title">
@@ -552,7 +549,7 @@ ${startDate }
 		 	<c:set var="writer" value="${boardChallenge.b_writer }"/>
 			<c:if test= "${nick == '관리자' || nick == writer}">
 		        <input class="sbtn" type="button" value="수정하기" onclick="location.href='/reviewupdate?bno=${boardChallenge.bno}&cno=${boardChallenge.cno }';">
-				<input class="sbtn2" type="submit" value="삭제하기" onclick="remove()">
+				<input class="sbtn2" type="button" value="삭제하기" onclick="location.href='/reviewremove?bno=${boardChallenge.bno}&cno=${boardChallenge.cno }';">
 			</c:if>
 		        <input class="sbtn" type="submit" value="돌아가기" onclick="location.href='/reviewboard';">
 		     </div>

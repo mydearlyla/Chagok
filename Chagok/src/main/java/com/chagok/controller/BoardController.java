@@ -48,7 +48,7 @@ public class BoardController {
 	@GetMapping(value = "/reviewboard")
 	public String reviewboardGET(HttpSession session,Model model,Criteria cri) throws Exception {
 		mylog.debug(" /reviewboard 호출");
-	
+		
 		List<Map<String, Object>> boardList2 = service.getRBoardPage(cri);	
 		
 		mylog.debug(boardList2+"");
@@ -72,14 +72,18 @@ public class BoardController {
 	// http://localhost:8080/review?cno=1
 	@GetMapping(value = "/review")
 	public String reviewGET(@RequestParam("cno") int cno, Model model, HttpSession session) throws Exception {
-	
+		Integer mno = (Integer) session.getAttribute("mno");
+		
 		mylog.debug(cno + "reviewGET 호출");
 		ChallengeVO vo2 = service.getCt_top(cno);
+		
+		Map<String, Object> result = service.challengeResult(cno, mno);
 		
 		model.addAttribute("review", service.getChallengeInfo(cno));
 		model.addAttribute("vo2", vo2);
 		model.addAttribute("c_end", service.getChallengeEndDate(cno));
-
+		model.addAttribute("result", result);
+		
 		return "/community/review";
 	}
 	
@@ -96,7 +100,7 @@ public class BoardController {
 
 		rttr.addFlashAttribute("result", "createOK");
 
-		return "redirect:/reviewboard";
+		return "redirect:/reviewboard?page=1";
 	}
 	
 	
@@ -141,13 +145,13 @@ public class BoardController {
 						
 		}
 							
-		return "redirect:/reviewboard";
+		return "redirect:/reviewboard?page=1";
 							
 	}
 		
 	// 후기 글 삭제하기
 	// http://localhost:8080/reviewremove?bno=4
-	@PostMapping(value = "/reviewremove")
+	@GetMapping(value = "/reviewremove")
 	public String reviewremovePOST(int bno,RedirectAttributes rttr) throws Exception{
 		mylog.debug(bno+"");
 					
@@ -155,7 +159,7 @@ public class BoardController {
 					
 		rttr.addFlashAttribute("result", "delOK");
 					
-		return "redirect:/reviewboard";
+		return "redirect:/reviewboard?page=1";
 					
 	}
 	
@@ -260,7 +264,7 @@ public class BoardController {
 			mylog.debug("@@@@@@@@@@@@@@");
 		rttr.addFlashAttribute("result", "createOK");
 			mylog.debug("!!!!!!!!!!!");
-		return "redirect:/notice";
+		return "redirect:/notice?page=1";
 	}	
 	
 	// 공지 글 수정하기 GET
@@ -292,13 +296,13 @@ public class BoardController {
 						
 		}
 							
-		return "redirect:/notice";
+		return "redirect:/notice?page=1";
 			
 	}
 	
 	// 공지 글 삭제하기
 	// http://localhost:8080/noticedelete
-	@GetMapping(value = "/noticedelete")
+	@PostMapping(value = "/noticedelete")
 	public String noticedeleteGET(int bno,RedirectAttributes rttr,HttpSession session) throws Exception {
 		mylog.debug(bno+"");
 			
@@ -306,7 +310,7 @@ public class BoardController {
 					
 		rttr.addFlashAttribute("result", "delOK");
 					
-		return "redirect:/notice";
+		return "redirect:/notice?page=1";
 	}
 	
 	// =================================================================================
@@ -462,7 +466,7 @@ public class BoardController {
 			mylog.debug("@@@@@@@@@@@@@@ economyPost");
 		rttr.addFlashAttribute("result", "createOK");
 			mylog.debug("!!!!!!!!!!!");
-		return "redirect:/economy";
+		return "redirect:/economy?page=1";
 	}	
 	
 	// 경제 글 상세
@@ -511,7 +515,7 @@ public class BoardController {
 								
 		}
 									
-		return "redirect:/economy";
+		return "redirect:/economy?page=1";
 					
 	}
 		
@@ -524,6 +528,6 @@ public class BoardController {
 					
 		rttr.addFlashAttribute("result", "delOK");
 					
-		return "redirect:/economy";
+		return "redirect:/economy?page=1";
 	}	
 }

@@ -85,8 +85,8 @@ $(document).ready(function(){
 			  title: getpoint+' 원을 환급 할까요?',
 			  icon: 'question',
 			  showCancelButton: true,
-			  confirmButtonColor: '#3085d6',
-			  cancelButtonColor: '#d33',
+			  confirmButtonColor:'#00A65A',
+			  cancelButtonColor: '#DD4B39',
 			  confirmButtonText: '네, 환급받습니다.'
 			}).then((result) => {
 			  if (result.isConfirmed) {

@@ -524,6 +524,15 @@ public class ChallengeDAOImpl implements ChallengeDAO{
 		return sqlSession.selectOne(NAMESPACE+".myBoardWriteCnt");
 			
 	}
+
+	// update minus m_sum
+	@Override
+	public void updateMsum(Map<String, Object> map) throws Exception {
+		
+		sqlSession.update(NAMESPACE+".updateMsum", map);
+	}
+
+	
 	
 	
 	

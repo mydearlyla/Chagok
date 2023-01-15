@@ -406,7 +406,6 @@ a {
 
 </style>
 </head>
-
 <body>
 <form role="form" action="/review" method="post">
     <div class="board_wrap">
@@ -444,8 +443,14 @@ a {
                         <dd><fmt:formatDate value="${startDate }" pattern="YYYY-MM-dd"/> ~ <fmt:formatDate value="${c_end }" pattern="YYYY-MM-dd"/></dd>
                     </dl>
                  	 <dl>
-                        <dt>성공  유무</dt>
-                        <dd>&nbsp; 성공 </dd>
+                 		 <c:if test="${result.finish eq 'N' }">
+							<c:set var="result" value="실패"/>
+						</c:if>
+						<c:if test="${result.finish eq 'Y' }">
+							<c:set var="result" value="성공"/>
+						</c:if>
+                        <dt>성공 유무</dt>
+                        <dd>${result } </dd>
                     </dl>
                     
                 </div>

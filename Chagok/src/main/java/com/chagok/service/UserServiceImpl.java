@@ -110,6 +110,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	// 관리자 - 차곡 계좌내역 조회(환급용)
+	public List<Map<String, Object>> getBizRefundList(Criteria cri) throws Exception {
+		return dao.getBizRefundList(cri);
+	} 
+	
+	@Override
 	public void insertBuy(Integer mno, Integer buypoint) {
 		dao.insertBuy(mno, buypoint);
 	}
@@ -135,6 +141,13 @@ public class UserServiceImpl implements UserService {
 		mylog.debug("buyChallenge() 호출 ");
 		dao.buyChallenge(mno, cno, deposit);
 	}
+
+	@Override
+	public void updateBizAccount(Integer bizno) {
+		
+		dao.updateBizAccount(bizno);
+	}
+	
 	
 	
 	

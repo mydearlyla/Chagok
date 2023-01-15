@@ -171,7 +171,7 @@ public class ChallengeController {
 	public String minusFeedPOST(@RequestParam("cno") int cno,@RequestParam("mno") int mno,Model model,@RequestParam("ab_amount") int ab_amount) throws Exception {
 		mylog.debug("minusFeedPOST 호출 ");
 	
-		
+		//Integer camount = service.getChallengeInfo(cno).getC_amount();
 		service.updateMoney(mno,ab_amount,cno);
 
 		model.addAttribute("cno", cno);
@@ -206,7 +206,7 @@ public class ChallengeController {
 	@GetMapping(value = "/minusdetail")
 	public String minusdetailGET(Model model,@RequestParam("cno") int cno, HttpSession session) throws Exception {
 		mylog.debug("minusdetailGET 호출");
-		mylog.debug(cno+"");
+		mylog.debug("cno : "+cno);
 		
 		ChallengeVO vo = service.getChallengeInfo(cno);
 		model.addAttribute("user", uservice.getUser(vo.getMno())); 
@@ -225,18 +225,18 @@ public class ChallengeController {
 	@ResponseBody // ajax 값을 바로 jsp에 보내기 위해 사용@RequestParam("ctno") int ctno, 
 	public String minusdetailPOST(@RequestBody Map<String, Object> map,HttpSession session) throws Exception {
 		mylog.debug("minusdetailPOST 호출");
-		mylog.debug(map+"");
-		
+		mylog.debug("map1 : "+map);
+		// service.updateMsum(map);
 		String result="";
 		
 		Integer gctno = service.samechallenge(map);	
-		mylog.debug(gctno+"");
+		mylog.debug("gctno : "+gctno);
 		if(gctno != null) {
 			result = "Y";
 		}else {
 			result = "N";
 
-			mylog.debug(map+"");
+			mylog.debug("map2 : "+map);
 			service.joinminusInsert(map); // mno랑 cno필요
 			service.joinplusUpdate(map); // nick이랑 cno
 		}

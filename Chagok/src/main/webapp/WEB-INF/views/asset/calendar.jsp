@@ -5,10 +5,10 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/sidebarAsset.jsp" %>
 	
-			<div class="box-header with-border">
-				<h3 class="box-title"
-				style="font-size: 25px; margin: 10px;">달력형 가계부</h3>
-			</div>
+<div class="box-header with-border">
+	<h3 class="box-title"
+	style="font-size: 25px; margin: 10px;">달력형 가계부</h3>
+</div>
 
 <!-- jQuery.number -->
 <script src="/resources/js/jquery.number.min.js"></script> 

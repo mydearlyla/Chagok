@@ -548,6 +548,8 @@ opacity:1;
 		<c:set var="sort" value="절약형"/>
 		</c:if>
 	</c:forEach>
+   
+   <fmt:formatNumber value="${ChallengeMoney / Success}" pattern="0" var="refund" />
 
   <div class="left">
     <div>
@@ -563,7 +565,8 @@ opacity:1;
       <li>참여 인원 <span>${CList }<b>명</b></span></li>
       <li>성공 인원  <span>${Success }<b>명</b></span></li>
       <li>모인 꿀머니  <span>${ChallengeMoney }<b>꿀</b></span></li>
-      <li style="background-color: #FFDB83;">환급 꿀머니 <span>${ChallengeMoney / Success}<b>꿀</b></span></li>
+      <li style="background-color: #FFDB83;">환급 꿀머니 <span>${refund}<b>꿀</b></span></li>
+      
     </ul>
     
   </div>
@@ -571,18 +574,17 @@ opacity:1;
    <p><i class="fa fa-credit-card" aria-hidden="true"></i></p>
     <p><i class="fa fa-truck" aria-hidden="true"></i></p>
     <div class="qr">
-      <button class="button" type="button" onclick="location.href='/review?cno=${vo.cno}';">후기 작성하기</button>
     </div>
         <div class="address">
           <p><b>🎉축하합니다! 성공적으로 챌린지를 마치셨습니다!</b> <span></span></p>
       </div>
   </div>
   </div>
+      <button class="button" style="z-index: 5; position: absolute; left: 910px; margin-top: 10px; "type="button" onclick="location.href='/review?cno=${vo.cno}';">후기 작성하기</button>
 </div>
 
 </body>
 </html>
-
 
 
 <!-- </div> -->

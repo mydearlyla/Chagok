@@ -144,7 +144,7 @@ $(document).ready(function() {
 						</button>
 						/
 						<button type="submit" class="btn" style="background-color:#dd4b39;"
-								onclick="location.href='/reviewboard?bno=${boardList.bno}&cno=${boardList.cno }';">삭제
+								onclick="location.href='/reviewremove?bno=${boardList.bno}&cno=${boardList.cno }';">삭제
 						</button>
 					</td>
 				</c:if>	

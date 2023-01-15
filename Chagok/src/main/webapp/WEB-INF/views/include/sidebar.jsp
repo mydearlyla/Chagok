@@ -47,13 +47,12 @@
           <div class="user-panel">
             <div class="pull-left image">
               <img 
-	            <c:if test="${userVO.profile != null }">
-		        	src="${pageContext.request.contextPath }/resources${userVO.profile }" alt="User profile picture"
-		        </c:if>
-		        <c:if test="${userVO.profile == null }">
-		        	src="https://ptetutorials.com/images/user-profile.png" alt="User profile picture"
-		        </c:if>
-
+              	<c:if test="${uprofile != null }">
+					src="${pageContext.request.contextPath }/resources${userVO.profile }" alt="User profile picture"
+				</c:if>
+				<c:if test="${uprofile == null }">
+					src="https://ptetutorials.com/images/user-profile.png" alt="User profile picture"
+				</c:if>
               class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
@@ -78,7 +77,7 @@
               <ul class="treeview-menu ">
                 <li><a href="/commumain"></i> 모집 중 챌린지</a></li>
                 <li><a href="/challenge/mychallenge"></i> 내 챌린지</a></li>
-                <li><a href="/reviewboard"></i> 후기 게시판</a></li>
+                <li><a href="/reviewboard?page=1"></i> 후기 게시판</a></li>
                 <li><a href="/payment"></i> 꿀 충전</a></li>
               </ul>
             </li>
@@ -91,7 +90,7 @@
               </a>
               <ul class="treeview-menu active">
 <!--                 <li><a href="../community/canibuy"><i class="fa fa-circle-o"></i> 사도 돼?</a></li> -->
-                <li><a href="/economy"></i> 뉴스 / 재테크</a></li>
+                <li><a href="/economy?page=1"></i> 뉴스 / 재테크</a></li>
 <!--                 <li><a href="../community/balancing"></i> 월말 결산</a></li> -->
                 <li><a href="/freeboard"></i> 자유 게시판</a></li>
               </ul>
@@ -108,7 +107,7 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu active">
-                <li><a href="/notice"></i> 공지 게시판</a></li>
+                <li><a href="/notice?page=1"></i> 공지 게시판</a></li>
 <!--                 <li><a href="/community/report"></i> 신고 게시판</a></li> -->
 <!--                 <li><a href="../charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li> -->
 <!--                 <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li> -->

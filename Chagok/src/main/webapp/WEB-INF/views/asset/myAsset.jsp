@@ -27,59 +27,28 @@
 	
 <script>
 
-function userCheck() {
-// 	Swal.fire({
-// 	  title: 'Are you sure?',
-// // 	  text: "You won't be able to revert this!",
-// 	  icon: 'warning',
-// 	  showCancelButton: true,
-// 	  confirmButtonColor: '#3085d6',
-// 	  cancelButtonColor: '#d33',
-//       confirmButtonText: '인증하기',
-//       cancelButtonText: '취소하기' 
-// // 	}).then((result) => {
-// // 	  if (result.isConfirmed) {
-// // 	    Swal.fire(
-// // 	      'Deleted!',
-// // 	      'Your file has been deleted.',
-// // 	      'success'
-// // 	    )
-// // 	  }
-// // 	})
-	
-// //      Swal.fire({         
-// //            title : '면허증 발급일자를 입력하세요!',
-// //             icon: 'warning',
-// //            confirmButtonText: '확인'
-// //         });
-// 	})
-//     return false;
-// }	// userCheck
-
-// // 	var cfm;
-// // 	var swal = swal({
-// // 		title: "사용자 인증이 필요한 서비스입니다.\n인증 서비스로 이동하시겠습니까?",
-// // // 		text: "",
-// // 		icon: "info",
-// // // 		buttons:buttons:["예", "아니오"]
-// // 		buttons: true
-// // 	}).then((예)) => {
-// // 		if(예) {
-// // 			cfm = true;
-// // 		} else {
-// // 			cfm = false;
-// // 		}
-// // 	});
-
-
-		var cfm = confirm(" 사용자 인증이 필요한 서비스입니다.\n 인증 서비스로 이동 하시겠습니까? ");
-		if (cfm) {
-			return true;
-		} else {
-			return false;
-		}
-};
-</script>
+$(document).ready(function(){
+	$('#assetCheck').click(function(){
+		Swal.fire({
+			title: '사용자 인증이 필요한 서비스입니다.',
+			text: '인증 서비스로 이동하시겠습니까?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#00A65A',
+			cancelButtonColor: '#DD4B39',
+			confirmButtonText: '인증하기',
+			cancelButtonText: '취소'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				document.querySelector('#assetForm').submit();
+			} else {
+				return false;
+			}
+		})			
+	});
+});
+		
+</script>	
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -188,7 +157,8 @@ function userCheck() {
 						<h3>등록된 자산정보가 없습니다!</h3>
 						<h3>자산 정보를 불러오시겠습니까?</h3>
 					</div>
-					<form action="https://testapi.openbanking.or.kr/oauth/2.0/authorize" method="get" onsubmit="return userCheck();">
+					<form action="https://testapi.openbanking.or.kr/oauth/2.0/authorize" method="get"  id="assetForm">
+<!-- 					 onsubmit="return userCheck();"> -->
 						<!-- 고정값 : code -->
 						<input type="hidden" name="response_type" value="code">
 						<!-- 오픈뱅킹에서 발급한 이용기관 앱의 Client ID -->
@@ -202,7 +172,8 @@ function userCheck() {
 						<!-- 사용자인증타입 구분주 2) (0:최초인증, 1:재인증, 2:인증생략) -->
 						<input type="hidden" name="auth_type" value="0">
 						
-						<input type="submit" class="btn1" id="assetCheck" value="내 자산 불러오기">	
+<!-- 						<input type="submit" class="btn1" id="assetCheck" value="내 자산 불러오기">	 -->
+						<input type="button" class="btn1" id="assetCheck" value="내 자산 불러오기">	
 					</form>
 				</div>
 			</div>

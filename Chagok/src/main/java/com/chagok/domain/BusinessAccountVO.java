@@ -14,5 +14,6 @@ public class BusinessAccountVO {
 	private String biz_holder_name;
 	private int biz_balance;
 	private int cno;
+	private int biz_status;
 	
 }

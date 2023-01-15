@@ -421,7 +421,7 @@ a {
              	<div class="title">             	
                     <dl>
                         <dt>제목</dt>
-                        <dd><input type="text" name="b_title" value="${vo.b_title }"></dd>
+                        <dd><input type="text" name="b_title" value="${boardChallenge.b_title }"></dd>
                     </dl>
                 </div>
              	 <div class="info">

@@ -39,6 +39,9 @@
 			<li class="list-group-item"><b>아이디</b> 
 				<a class="pull-right">${userVO.id } </a>
 			</li>
+			<li class="list-group-item"><b>꿀머니</b> 
+				<a class="pull-right">${userVO.buypoint + userVO.getpoint} 꿀</a>
+			</li>
 			<!-- <li class="list-group-item"><b>비밀번호</b> 
 				<a class="pull-right">
 					<button type="button" class="btn btn-block btn-default btn-flat" style="padding: 0 10px 0 10px;">비밀번호 변경</button>

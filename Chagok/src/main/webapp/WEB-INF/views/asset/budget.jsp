@@ -63,7 +63,7 @@
 	</div>
 	
 	<div id="div2">
-		<div class="box box-info" style="width: 90%; margin:auto; border-top-color: #66BB7A;">
+	<div class="box box-info" style="width: 90%; margin:auto; border-top-color: #66BB7A;">
 		<form class="form-horizontal" id="budform" method="post">
 			<div class="box-body">
 				<div class="form-group">
@@ -71,7 +71,7 @@
 					<div class="col-sm-10">
 						<input type="hidden" name="pMonth" value="${a }">
 						<input type="text" class="form-control" id="sumpamt" placeholder="예산을 입력하세요" 
-							maxlength="10" onkeyup="inputNumFmt(this);" style="width: 30%;">
+							maxlength="10" onkeyup="inputNumFmt(this);" style="width: 40%;">
 					</div>
 					<div class="col-sm-10">
 						<span>지난달 예산 : </span><span id="prevsum"></span><br>
@@ -95,7 +95,7 @@
 						<div class="col-sm-10">
 							<input type="hidden" name="ctno${i}" value="${i}">
 							<input type="text" class="form-control" id="pamt${i}" name="p_amount${i}" 
-								placeholder="예산을 입력하세요" maxlength="10" onkeyup="inputNumFmt(this);" style="width: 30%;">
+								placeholder="예산을 입력하세요" maxlength="10" onkeyup="inputNumFmt(this);" style="width: 40%;">
 						</div>
 						<p class="col-sm-2 control-label">지난달 예산 <span id="prevamt${i}"></span>원</p>
 					</div>
@@ -159,14 +159,14 @@ $(document).ready(function(){
 						var top = item.ct_top;
 						var amp = item.p_amount;
 						if(b==top){
-							$('#prevamt'+i+'').text(amp);
+							$('#prevamt'+i+'').text(''+$.number(amp)+'');
 							sum+=amp;
 						}
 					}
 				});
 				for(i=1; i<12; i++){
 					if($('#prevamt'+i+'').text()==''){
-						$('#prevamt'+i+'').text(0);
+						$('#prevamt'+i+'').text(''+0+'');
 					}
 				}
 				$('#prevsum').text(''+$.number(sum)+'원');
@@ -178,7 +178,7 @@ $(document).ready(function(){
    
 	$('#copy').click(function(){
 		for(i=1; i<12; i++){
-			$('#pamt'+i+'').val($('#prevamt'+i+'').text());
+			$('#pamt'+i+'').val($.number($('#prevamt'+i+'').text()));
 		}
 		$('#sumpamt').val($('#prevsum').text());
 	});	// copy
@@ -213,12 +213,10 @@ $(document).ready(function(){
 			return true;
 		} else if(sum2>a) {
 			 $('#textdiv').empty();
-			 if (confirm("카테고리별 예산의 합이 총 예산을 초과했습니다. 초과한 금액으로 등록하시겠습니까?") == true) {
-// 				 return true;
-			 } else {
-			     return false;
-			 }
+			$('#textdiv').html("카테고리별 예산의 합이 총 예산을 초과했습니다.");
+			return false;
 		} else if(sum2<a) {
+			 $('#textdiv').empty();
 			$('#textdiv').html("카테고리별 예산의 합이 총 예산보다 적어요. 모든 금액을 분배해주세요.");
 			return false;
 		}

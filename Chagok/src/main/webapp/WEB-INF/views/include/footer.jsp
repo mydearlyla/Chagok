@@ -231,22 +231,25 @@ $(document).ready(function(){
 		var nick = '${nick}';
 		
 		$('#btnSend').on('click', function(event) {
-			
 			var msg = $('#msg').val();
+			console.log(msg);
 			
-			event.preventDefault();
+			if( msg.length != 0 ){
 			
-			console.log("보낸 메시지>>>>", msg);
-			
-			if (!isStomp && socket.readyState!== 1 ) return;
-				if(isStomp){
-					// send(path, header, message(cno, writer, message, time))형태
-					socket.send('/send/'+cno , {cno}, JSON.stringify({"cno": cno, "writer": nick, "message" : msg, "time": currT}));
-					
-				}else
-					socket.send(msg);
-			
-			console.log("ReceiveMessage:" + msg);
+				event.preventDefault();
+				
+				console.log("보낸 메시지>>>>", msg);
+				
+				if (!isStomp && socket.readyState!== 1 ) return;
+					if(isStomp){
+						// send(path, header, message(cno, writer, message, time))형태
+						socket.send('/send/'+cno , {cno}, JSON.stringify({"cno": cno, "writer": nick, "message" : msg, "time": currT}));
+						
+					}else
+						socket.send(msg);
+				
+				console.log("ReceiveMessage:" + msg);
+			}
 		});
 		
 	});

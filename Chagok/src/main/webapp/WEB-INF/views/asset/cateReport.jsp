@@ -258,7 +258,7 @@ h3 {
 										<div class="img1-div">
 											<c:if test="${card.prop_img != null}">
 												<img src="${pageContext.request.contextPath }/resources${card.prop_img }"
-													class="img1">
+													class="img1" style="boarder-radius: 0%">
 											</c:if>
 											<c:if test="${card.prop_img == null}">
 												<img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"

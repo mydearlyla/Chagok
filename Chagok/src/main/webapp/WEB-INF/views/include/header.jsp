@@ -246,7 +246,7 @@ color : rgba(255, 219, 131 / 80%);
 				<a href="/assetmain"><p style="font-family: 'GmarketSans'">자산관리</p></a>
 			</div>
 			<div class="notice">
-				<a href="/notice"><p style="font-family: 'GmarketSans'">공지사항</p></a>
+				<a href="/notice?page=1"><p style="font-family: 'GmarketSans'">공지사항</p></a>
 			</div>
 		</div>
 		<div class="user_menu" style="font-size: 20px;">

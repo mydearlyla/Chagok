@@ -15,7 +15,7 @@
 		
 		$('#a_biz').click(function(){ // 입금하기 버튼 클릭
 			if(${vo.c_amount} > ${myPlusVO.pl_sum} ) { // 입금해야할 금액보다 현재 입금한 금액이 적을때 (더입금 가능)
-	
+				
 				if ($('#result').text() == "") {
 				   Swal.fire({
 				        title: '금액을 입력하세요!', 
@@ -28,14 +28,32 @@
 					var biz_amount = $('#result').text().replace(/,/gi, "");
 					
 					if (${(vo.c_amount / vo.c_period)} == biz_amount) {
+
+						Swal.fire({
+							title: '입금하시겠습니까?',
+							text: '입금이후 취소할 수 없습니다.',
+							icon: 'warning',
+							showCancelButton: true,
+							confirmButtonColor: '#00A65A',
+							cancelButtonColor: '#DD4B39',
+							confirmButtonText: '입금하기',
+							cancelButtonText: '취소'
+						}).then((result) => {
+							if (result.isConfirmed) {
+// 								$('#a_biz').attr('href', '/challenge/sendBiz?biz_amount='+biz_amount+'&cno='+${vo.cno});
+								var link='/challenge/sendBiz?biz_amount='+biz_amount+'&cno='+${vo.cno};
+								location.href=link;
+							} else {
+								return false;
+							}
+						});					
 						
-						var bizCheck = confirm("진짜 입금 할래?");
-						
-						if (bizCheck) {
-							$('#a_biz').attr('href', '/challenge/sendBiz?biz_amount='+biz_amount+'&cno='+${vo.cno});
-						} else {
-							return false;
-						}
+// 						var bizCheck = confirm("진짜 입금 할래?");
+// 						if (bizCheck) {
+// 							$('#a_biz').attr('href', '/challenge/sendBiz?biz_amount='+biz_amount+'&cno='+${vo.cno});
+// 						} else {
+// 							return false;
+// 						}
 					
 					} else {
 					   Swal.fire({
@@ -45,17 +63,13 @@
 						return false;
 					}
 				}
-			} else { // 더 입금 불가능
+			} else { // 더 입금 불가능 (입금해야할 금액보다 현재 입금한 금액이 많을 때)
 			   Swal.fire({
 			        title: '더 이상 입금할 수 없습니다!', 
 			        icon: 'warning'
 		   	   });				
 			}
 		}); // 입금하기 버튼 끝
-		
-		
-		
-		
 	});
 </script>
 
@@ -135,11 +149,10 @@
        <div class="box box-default">
 		<div class="box-header with-border" style="background: #66BB7A; height: 50px; opacity: 85%; color: #fff;">
 			<div class="text-center">
-			  <h3 class="box-title" > <!-- style="margin-top: 1%;"  -->
+			  <h3 class="box-title" style="margin-top: 1%;">
 			  	총 <span style="color: #3e6c49;"><fmt:formatNumber pattern="0" value="${vo.c_period*7 /vo.c_freq }" /> </span>번을
 		    	<span style="color: #3e6c49;">${vo.c_freq }</span> 일 마다 
 		    	<span style="color: #3e6c49;"><fmt:formatNumber pattern=",000" value="${vo.c_amount }"/></span>원씩 저축하는 조건이 있습니다.<br>
-			  		${vo.c_start} ~ ${startDate }
 			  </h3>
 			</div>
 		</div>
@@ -189,7 +202,7 @@
 			    </div>
 				</div>
 				<div class="modal-footer">
-					<a href="" id="a_biz">
+					<a id="a_biz">
 						<button type="button" class="btn btn-block btn-success btn-sm biz" disabled="disabled">입금하기</button>
 					</a>
 				</div>
@@ -236,11 +249,11 @@
                   
                   <!-- 참가자명  -->
                    <td>${plusPeoList.nick }</td> 
-                   
+                   <fmt:formatNumber value="${vo.c_period*7 /vo.c_freq }" pattern="0" var="total" />
                    <!-- 프로그래스바  -->
                    <td> 
                    <!-- 기간 내   -->
-                  	  <c:if test="${nowfmtTime - endTime < 0}">
+                  	  <c:if test="${nowfmtTime - endTime < 0}"> <!-- 진행중  -->
  	                  	<c:if test="${saveMoney == vo.c_amount }">
 		                  	<c:if test="${plusPeoList.pl_cnt == vo.c_total }">
 			                    <div class="progress progress-xs">
@@ -254,24 +267,24 @@
 		                  	</c:if>
 		                  	<c:if test="${(plusPeoList.pl_cnt / vo.c_total) != 0 && (plusPeoList.pl_cnt / vo.c_total) < 1.0 }">
 			                    <div class="progress progress-xs progress-striped active">
-			                      <div class="progress-bar progress-bar-primary" style="width: ${(plusPeoList.pl_cnt / vo.c_total)*100}%"></div>
+			                      <div class="progress-bar progress-bar-primary" style="width: ${(plusPeoList.pl_cnt / total)*100}%"></div>
 			                    </div>
 		                  	</c:if>
 	                  	</c:if>
 	                  	<c:if test="${saveMoney != vo.c_amount }">
 		                    <c:if test="${plusPeoList.pl_sum != 0 }">
 			                    <div class="progress progress-xs">
-			                      <div class="progress-bar progress-bar-red" style="width: ${(plusPeoList.pl_cnt / vo.c_total)*100}%"></div>
+			                      <div class="progress-bar progress-bar-primary" style="width: ${(plusPeoList.pl_cnt / total)*100}%"></div>
 			                    </div>
 			                </c:if>
 		                    <c:if test="${plusPeoList.pl_sum == 0 }">
 			                    <div class="progress progress-xs ">
-			                      <div class="progress-bar progress-bar-red" style="width: 5%"></div>
+			                      <div class="progress-bar progress-bar-primary" style="width: 5%"></div>
 			                    </div>
 		                  	</c:if>
 	                  	</c:if> 
 	                  </c:if>
-	                  <c:if test="${nowfmtTime - endTime >= 0}">
+	                  <c:if test="${nowfmtTime - endTime >= 0}"> <!-- 종료시 -->
 	                  	<c:if test="${saveMoney == vo.c_amount }">
 	                  		<div class="progress progress-xs">
 		                      <div class="progress-bar progress-bar-success" style="width: 100%"></div>
@@ -279,7 +292,7 @@
 	                  	</c:if>
 	                  	<c:if test="${saveMoney != vo.c_amount }">
 	                  		<div class="progress progress-xs">
-		                      <div class="progress-bar progress-bar-danger" style="width: ${(plusPeoList.pl_cnt / vo.c_total)*100}%"></div>
+		                      <div class="progress-bar progress-bar-primary" style="width: ${(plusPeoList.pl_cnt / total)*100}%"></div>
 		                    </div>
 	                  	</c:if> 
 	                  </c:if>
@@ -287,21 +300,21 @@
                   
                   <!-- 횟수 -->
                   <td>
-                  	<c:if test="${nowfmtTime - endTime >= 0}">
+                  	<c:if test="${nowfmtTime - endTime >= 0}"> <!-- 종료시 -->
                   		<c:if test="${saveMoney == vo.c_amount && plusPeoList.pl_finish == true }">
-	                  		<span class="badge bg-green">${plusPeoList.pl_cnt} / ${vo.c_total }</span>
+	                  		<span class="badge bg-green">${plusPeoList.pl_cnt} / ${total}</span>
 	                  	</c:if>
 	                  	<c:if test="${saveMoney != vo.c_amount && plusPeoList.pl_finish == false}">
-	                  		<span class="badge bg-red">${plusPeoList.pl_cnt} / ${vo.c_total }</span>
+	                  		<span class="badge bg-red">${plusPeoList.pl_cnt} / ${total}</span>
 	                  	</c:if>
                		</c:if>
-               		<c:if test="${nowfmtTime - endTime < 0}">
+               		<c:if test="${nowfmtTime - endTime < 0}"> <!-- 진행중  -->
                   		<c:if test="${saveMoney == vo.c_amount}">
 <%-- 	                  		<span class="badge bg-light-blue">${plusPeoList.pl_cnt} / ${vo.c_total }</span> --%>
-	                  		<span class="badge bg-green">${plusPeoList.pl_cnt} / ${vo.c_total }</span>
+	                  		<span class="badge bg-green">${plusPeoList.pl_cnt} / ${total}</span>
 	                  	</c:if>
 	                  	<c:if test="${saveMoney != vo.c_amount && plusPeoList.pl_finish == false}">
-	                  		<span class="badge bg-red">${plusPeoList.pl_cnt} / ${vo.c_total }</span>
+	                  		<span class="badge bg-blue">${plusPeoList.pl_cnt} / ${total}</span>
 	                  	</c:if>
                   	</c:if>
                   </td>
@@ -316,18 +329,15 @@
 	                  		<span class="label label-success">성공</span>
 	                  	</c:if>
 	                  	<c:if test="${saveMoney != vo.c_amount && plusPeoList.pl_finish == false}">
-	                  		<span class="label label-danger">실패</span>
+	                  		<span class="label label-primary">실패</span>
 	                  	</c:if>
                   	</c:if>
                   	<c:if test="${nowfmtTime - endTime <= 0}"> <!-- 진행중  -->
                   		<c:if test="${saveMoney == vo.c_amount }">
 	                  		<span class="label label-primary">진행중</span>
 	                  	</c:if>
-                  		<c:if test="${saveMoney == vo.c_amount }">
-	                  		<span class="label label-primary">진행중</span>
-	                  	</c:if>
 	                  	<c:if test="${saveMoney != vo.c_amount && plusPeoList.pl_finish == false}">
-	                  		<span class="label label-danger">실패</span>
+	                  		<span class="label label-primary">진행중</span>
 	                  	</c:if>
                   	</c:if>
                   </td>

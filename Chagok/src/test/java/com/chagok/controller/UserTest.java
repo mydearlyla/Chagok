@@ -22,6 +22,8 @@ import com.chagok.persistence.ChallengeDAO;
 import com.chagok.persistence.PayDAO;
 import com.chagok.persistence.UserDAO;
 
+import sun.net.www.content.text.plain;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
 		locations= {"file:src/main/webapp/WEB-INF/spring/root-context.xml"}
@@ -97,7 +99,7 @@ public class UserTest {
 		}
 		
 		
-		@Test
+		//@Test
 		public void 챌린지_등록() throws Exception{
 			
 			ChallengeVO vo = new ChallengeVO();
@@ -110,5 +112,13 @@ public class UserTest {
 			//chdao.challengeRegist(vo);
 			
 			//System.out.println(chdao.challengeRegist(vo));
+		}
+		
+		@Test
+		public void 상태업데이트() throws Exception{
+			
+			dao.updateBizAccount(41);
+			
+			
 		}
 }

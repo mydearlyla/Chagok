@@ -203,7 +203,7 @@
 		values (#{b_title},#{b_content},#{b_writer},#{b_sort},#{b_file})	
 	</insert>
 	
-	<!-- 챌린지 모인 꿀머니 -->
+		<!-- 챌린지 모인 꿀머니 -->
 	<select id="challengemoney" resultType="int">
 		select c_deposit * c_cnt 
 		from challenge
@@ -481,6 +481,15 @@
 	<select id="getBizCnt" resultType="Integer">
 		select count(bizno) from business_account;
 	</select>
+
+	<!-- 관리자 - 차곡 계좌내역 조회(환급용) -->
+	<select id="getBizRefundList" resultType="map">
+		select * from business_account ba inner join user u
+		where ba.mno = u.mno
+		order by biz_date desc
+		limit #{pageStart}, #{perPageNum};
+	</select>
+	
 	
 	<!-- 	insert buypoint -->
 	<insert id="insertBuy">
@@ -551,6 +560,28 @@
 	  	set buypoint = buypoint-#{buypoint}
 	  	where mno = #{mno}
   	</update>
+  	
+  	<!-- 환급 상태 업데이트  -->
+  	<update id="updateBizAccount">
+  		update business_account set biz_status = 2 where bizno = #{bizno}
+  	</update>
+  	
+  	<!-- 다음 입금일 계산 -->
+  	<!-- <select id="">
+  	
+	  	select date_add(sendDate, interval c_freq day) calcDate, sendDate
+		from (select date_add(c_start, interval c_freq day) sendDate, c_start, c_freq, cno 
+				from challenge c
+			  ) fir
+	    where dd.cno=2 and
+	    	<foreach item=""
+  	</select> -->
+  	
+<!--   	updateMsum -->
+	<update id="updateMsum" parameterType="hashMap">
+	update minus m set m_sum =
+ 	(select #{camount} from challenge c where m.cno=#{cno})
+	</update>
   	
   	
  </mapper>

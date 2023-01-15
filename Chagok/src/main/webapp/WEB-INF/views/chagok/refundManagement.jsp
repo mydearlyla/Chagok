@@ -92,7 +92,9 @@
     display: inline-block;
 }
 </style>
- 
+<script type="text/javascript">
+
+</script>
  </head>
 
  
@@ -101,7 +103,20 @@
  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
  <script src="../assets/js/theme.min.js"></script>
-
+<script type="text/javascript">
+	$(document).ready(function(){
+		var msg = ${Msg};
+		
+		if(msg != null || msg != ''){
+			Swal.fire({
+		 	        title: msg, 
+		 	        icon: 'success'
+		 	      });
+		}
+		
+		
+	});
+</script>
 <!-- 게시판 안내 -->
 	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 		<div class="board_wrap">
@@ -111,55 +126,67 @@
 			</div>
 		</div>
 	</div>
-<!-- 게시판 안내 -->			
+<!-- 게시판 안내 -->
+
+<form method="post" action="/refundManagement">
+<%-- ${bizList} --%>
 				
 <!-- 게시판 내용 -->				
 	<table class="table table-hover">
-			  <thead style="background-color: #dddddd30;font-size: 16px;">
-			    <tr>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">회원번호</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">닉네임</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">이름</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">신청일</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">환급금</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">환불계좌정보</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">관리</th>
-		    	</tr>
-			  </thead>
-			  
-			  
-			<tbody>
-		       	<c:forEach items="${userList }" var="user" >
-				    <tr>
-				      <td style="text-align:center; padding: 15px 0;">${user.mno }</td>
-				      <td style="text-align:center; padding: 15px 0;">${user.nick }</td>
-				      <td style="text-align:center; padding: 15px 0;">${user.rname }</td>
-				      <td style="text-align:center; padding: 15px 0;">환급금</td>
-				      <td style="text-align:center; padding: 15px 0;">신청일</td>
-				      <td style="text-align:center; padding: 15px 0;">
+		  <thead style="background-color: #dddddd30;font-size: 16px;">
+		    <tr>
+		      <th scope="col" style="text-align:center; padding: 15px 0;">회원번호</th>
+		      <th scope="col" style="text-align:center; padding: 15px 0;">닉네임</th>
+		      <th scope="col" style="text-align:center; padding: 15px 0;">이름</th>
+		      <th scope="col" style="text-align:center; padding: 15px 0;">신청일</th>
+		      <th scope="col" style="text-align:center; padding: 15px 0;">환급금</th>
+		      <th scope="col" style="text-align:center; padding: 15px 0;">환불계좌정보</th>
+		      <th scope="col" style="text-align:center; padding: 15px 0;">관리</th>
+	    	</tr>
+		  </thead>
+		<tbody>
+			<c:forEach items="${bizList}" var="biz">
+				<c:if test="${biz.biz_inout==1}">
+			<tr>
+			      <td style="text-align:center; padding: 15px 0;">${biz.mno }</td>
+			      <td style="text-align:center; padding: 15px 0;">${biz.biz_holder_name }</td>
+			      <td style="text-align:center; padding: 15px 0;">${biz.rname }</td>
+			      <td style="text-align:center; padding: 15px 0;">${biz.biz_date }</td>
+				  <td style="text-align:center; padding: 15px 0;">${biz.biz_amount } 원</td>
+				  <td style="text-align:center; padding: 15px 0;">
 						<c:choose>
-							<c:when test="${user.rname == null}">정보 없음</c:when>
+							<c:when test="${biz.rname == null}">정보 없음</c:when>
 							<c:otherwise>
 								<a class="detail plus">▼ 환불계좌정보</a>
 								<a class="detail minus" style="display: none">▲ 환불계좌정보</a>
 							</c:otherwise>
 						</c:choose>				      
-				      </td>
-					   <td style="text-align:center; padding: 15px 0;">
-					   <button type="button" class="btn" style="background-color:#66BB7A;">
-								환급하기
-							</button>
-					   </td>
-				    </tr>
-				    <tr style="display:none">
-				    	<td>
-				    	<td colspan="9" style="text-align:center; padding: 15px 0;">
-				    		${user.rbank }은행&nbsp;&nbsp;&nbsp;${user.raccount }&nbsp;&nbsp;&nbsp;(예금주 : ${user.rname })
-				    	</td>
-				    </tr>
-		    	</c:forEach>   
-			</tbody>
+			      </td>
+				  <td style="text-align:center; padding: 15px 0;">
+					<c:if test="${biz.biz_status==1}">
+					  <div class="btn refund1">
+					  <button type="button" class="btn" style="background-color:#66BB7A;">
+							환급하기
+							<input type="hidden" value="${biz.bizno }" name="bizno" class="bizno">
+					  </button>
+					</div>
+					</c:if>
+					<c:if test="${biz.biz_status==2}">
+							환급완료
+					</c:if>
+				</td>
+			</tr>
+			<tr style="display:none">
+		    	<td>
+		    	<td colspan="9" style="text-align:center; padding: 15px 0;">
+		    		${biz.rbank }은행&nbsp;&nbsp;&nbsp;${biz.raccount }&nbsp;&nbsp;&nbsp;(예금주 : ${biz.rname })
+		    	</td>
+		    </tr>
+			</c:if>
+			</c:forEach>
+		</tbody>
 	</table>
+</form>
 <!-- 게시판 내용 -->
 
 					
@@ -184,8 +211,8 @@
  <!-- 페이징 -->
  
  </body>
-
-<script>
+ 
+ <script>
 $(document).ready(function(){
 	$('.detail').click(function(){
 		  var obj = $(this);
@@ -200,8 +227,42 @@ $(document).ready(function(){
 		  }
 	})
 })
-
-
 </script>
+ 
+
+ <script>
+$(function(){
+	$(".btn").click(function(){
+   		//alert("dddd");
+   		var bizno = $(this).children().val();
+//    		var bizno = $(this).children().val();
+   		
+   		//console.log(bizno);
+   		//alert(bizno);
+   		
+		$.ajax({
+   			type : "post",
+   			url : "/refundManagement",
+   			contentType : "application/json",
+   			dataType: "text",
+   			data : bizno,
+   			timeout : 3000,
+   			success : function(data){
+				console.log('통신 성공! ' + data);
+				Swal.fire({
+		 	        title: '환급 완료', 
+		 	        icon: 'success',
+		 	        timer: 1000
+		 	      });
+				window.location.reload();
+				//href="/refundManagement?page="+${idx };
+   			},error : function(error, data){
+   					console.log(error);
+   					}
+   			}); // ajax
+ 	});
+});
+</script>
+
 </div>
 <%@ include file="../include/footer.jsp"%>

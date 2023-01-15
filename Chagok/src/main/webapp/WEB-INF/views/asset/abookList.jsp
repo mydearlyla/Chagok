@@ -5,36 +5,22 @@
 
 <%@ include file="../include/header.jsp"%>
 <%@ include file="../include/sidebarAsset.jsp"%>
-<br>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>  
 <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 
-  <div class="main-content">
+
+<div class="box-header with-border">
+	<h3 class="box-title"
+	style="font-size: 25px; margin: 10px;">달력형 가계부</h3>
+</div>
+<!--   <div class="main-content"> -->
   <div class="container-fluid">
   <!-- <section class="content"> -->
-		<div class="box-body2 table-responsive">
-			<%-- 	${cateList }+@ --%>
-			<div class="box">
-				<!-- 날짜 -->
-				<div class="Header_root__23iUa">
-					<div class="Header_heading__kV24Z" style="font-weight: bold;">12월
-						2022</div>
-					<div class="Header_toolbar__20N2Q">
-						<div class="Header_profile__2hIBf tooltip tooltip--dark">
-							<i class="fa fa-user"></i><span class="tooltip__title">로그인</span>
-						</div>
-						<div class="Header_bars__2n8jJ tooltip tooltip tooltip--dark">
-							<i class="fa fa-ellipsis-v"></i>
-						</div>
-					</div>
-					<!-- 날짜 -->
-				</div>	
-			</div>
-		</div>
+			
 		
 	<!-- 여기까지 위쪽  -->	
-		
+	<form role="form" action="/asset/insGrid" method="post">
       <div class="row">
       	 <div class="col-md-8">
         	<table id="list"></table>
@@ -44,39 +30,47 @@
 			<div id="gridpager"></div>
 			 <span><a href="#" onclick="javascript:save();">저장</a></span>
 			<span><a href="#" onclick="javascript:gridFunc.addRow();">행 추가</a></span>
+			<!-- <span><a href="#" onclick="javascript:gridFunc.clearGrid();">초기화</a></span> -->
 			<span><a href="#" onclick="javascript:delRow();">삭제</a></span>
          </div>
          
-         <div class="col-md-4" id="col-md-4">
+
+         <div class="col-md-4">
 			<div class="box box-primary2">
-			
-			<form role="form" action="/asset/insGrid" method="post">
 			<div class="box-header with-border">
+			
 			<div class="box-body2">
 				<h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수입·지출 등록</font></font></h3>
-				<label><input name="ab_inout" type="checkbox" value="1" onclick="doOpenCheck(this);">지출 <br /></label>
-				<label><input name="ab_inout" type="checkbox" value="2" onclick="doOpenCheck(this);">수입 <br /></label>
+				<div class="row" align="right">
+					<label for="ab_inout">지출</label>
+					<input type="checkbox" id="ab_inout" name="ab_inout" value="1" onclick="clickCheck(this)" checked>
+					<label for="ab_inout2">수입</label>
+					<input type="checkbox" id="ab_inout2" name="ab_inout" value="2" onclick="clickCheck(this)">
+				</div>
+			</div>
+<!-- 			.text-right { -->
+<!--   text-align: right !important; -->
+<!-- } -->
+			
+			<div class="form-group2">
+			<label for="exampleInputPassword1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></label>
+			<input type='text' class='form-control datetimepicker' name='ab_date' placeholder="날짜">
 			</div>
 			
-			<div class="form-group">
-			<label for="exampleInputPassword1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">날짜</font></font></label>
-			<input type='text' class='form-control datetimepicker' name='ab_date'>
+			<div class="form-group2">
+			<label for="exampleInputEmail1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></label>
+			<input type="text" class="form-control" id="exampleInputEmail1" name="ab_content" placeholder="내용">
 			</div>
 			
-			<div class="form-group">
-			<label for="exampleInputEmail1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">내용</font></font></label>
-			<input type="text" class="form-control" id="exampleInputEmail1" name="ab_content">
+			<div class="form-group2">
+			<label for="exampleInputEmail1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></label>
+			<input type="text" class="form-control" id="exampleInputEmail1" name="ab_amount" placeholder="금액">
 			</div>
 			
-			<div class="form-group">
-			<label for="exampleInputEmail1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">금액</font></font></label>
-			<input type="text" class="form-control" id="exampleInputEmail1" name="ab_amount">
-			</div>
-			
-			<div class="form-group">
-			<label for="exampleInputEmail1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">거래수단</font></font></label>
+			<div class="form-group2">
+			<label for="exampleInputEmail1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></label>
 					<select name="ab_method" id="input-address" class="form-control form-control-alternative" >
-			              <option value="0" selected>선택</option>
+			              <option value="none" selected>거래수단</option>
 			              <option value="1">카드</option>
 						  <option value="2">계좌</option>
 						  <option value="3">현금</option>
@@ -86,11 +80,11 @@
 			<div class="pl-lg-4">
 			
 			<!-- 지출 카테고리 -->
-			<div class="form-group">
-			              <div class="form-group focused">
-			                <label class="form-control-label" for="input-username" >지출 카테고리</label>
+			<div class="form-group2">
+			              <div class="form-group2 focused">
+			                <label class="form-control-label" for="input-username" ></label>
 			                <select name="b_ctno_out" id="input-address" class="form-control2 form-control-alternative" >
-			                   <option>--선택--</option>
+			                   <option value="none">지출 카테고리</option>
 			                   <option value="1">식비</option>
 							   <option value="2">의복/미용</option>
 			  				   <option value="3">문화/여가</option>
@@ -108,11 +102,11 @@
 			</div>
 			
 			<!-- 수입 카테고리 -->
-						<div class="form-group">
-			              <div class="form-group focused">
-			                <label class="form-control-label" for="input-username" >수입 카테고리</label>
+						<div class="form-group2">
+			              <div class="form-group2 focused">
+			                <label class="form-control-label" for="input-username" ></label>
 			                <select name="b_ctno_in" id="input-address" class="form-control2 form-control-alternative" >
-			                   <option>--선택--</option>
+			                   <option value="none">수입 카테고리</option>
 			                   <option value="72">주수입</option>
 							   <option value="73">부수입</option>
 			  				   <option value="74">자산이동</option>
@@ -121,34 +115,49 @@
 			</div>
 			
 			<!-- 하위 카테고리 -->
-			<div class="form-group">
-			                      <div class="form-group">
-			                        <label class="form-control-label" for="input-email">상세 카테고리</label>
+			<div class="form-group2">
+			                      <div class="form-group2">
+			                        <label class="form-control-label" for="input-email"></label>
 			                         <select name="ctno" id="input-address" class="form-control2 form-control-alternative" >
-			                           <option>--선택--</option>
+			                           <option value="none">상세 카테고리</option>
 			                        </select>
 			                      </div>
 			</div>
 			</div>
 			
-			<div class="form-group">
-			<label for="exampleInputEmail1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">메모</font></font></label>
-			<input type="text" class="form-control" id="exampleInputEmail1" name="ab_memo">
+			<div class="form-group2">
+				<label for="exampleInputEmail1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></label>
+				<input type="text" class="form-control" id="exampleInputEmail1" name="ab_memo" placeholder="메모">
 			</div>
 			
 			
 			</div>
 			
 			<div class="box-footer">
-			<button type="submit" class="btn btn-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">저장하기</font></font></button>
+				<button type="submit" class="btn btn-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">저장하기</font></font></button>
+			</div>
+			</div>
+			</div>
 			</div>
 			</form>
 			</div>
-			</div>
-			</div>
-         </div>
-		</div>
-		<%@ include file="../include/footer.jsp"%>
+         
+         
+<script type="text/javascript">
+$(function() {
+	$(".datetimepicker").datetimepicker({ 
+		dateFormat:'yy-mm-dd',
+		autoclose: true,
+		todayHighlight: true
+	});
+});
+function grid_Datepicker(text, obj){
+    $("#jqGrid").jqGrid("saveCell", rowid, iCol); // cell 저장
+}
+</script>
+
+
+
 
 <!-- jQuary+grid -->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" /> -->
@@ -176,14 +185,14 @@ $("#jqGrid").jqGrid({
     colNames : ['num','분류','날짜','내용','금액','거래수단','ctno','카테고리','소분류','메모'], 
     colModel:[
         {name : 'abno', index : 'abno',width : 0, align : 'left',hidden:true,key:true},    	
-        {name:"ab_inout",index:"ab_inout",width:30,align:'center',edittype: "select", formatter: "select",editoptions:{value:"1:지출;2:수입;3:이체;"},editable:true,
+        {name:"ab_inout",index:"ab_inout",width:20,align:'center',edittype: "select", formatter: "select",editoptions:{value:"1:지출;2:수입;"},editable:true,
 //                 dataEvents: [{
 //                     type : 'change',
 //                     fn : function(e) {
 //                     }] 
 //                 }
 	        hidden:false,editable:true},
-        {name:'ab_date', index:'ab_date', width:90, align:'center',editable:true, formatoptions:{newformat: 'Y-M-d h:i'}, 
+        {name:'ab_date', index:'ab_date', width:70, align:'center',editable:true, formatoptions:{newformat: 'Y-M-d h:i'}, 
 	        	editoptions:{size:20, dataInit:function(el){ 
                      $(el).datetimepicker({dateFormat:'yy-mm-dd', onClose :grid_Datepicker}); 
                      
@@ -198,11 +207,11 @@ $("#jqGrid").jqGrid({
                  return year+"-"+month + "-"+day; 
                }
            }},
-        {name : 'ab_content',index : 'ab_content',width : 100, align : 'center',hidden:false,editable:true},
+        {name : 'ab_content',index : 'ab_content',width : 90, align : 'center',hidden:false,editable:true},
         {name : 'ab_amount',index : 'ab_amount',width : 50, align: 'center', resizable : true,align : 'right',editrules:{number:true},hidden:false,editable:true},
         {name:"ab_method",index:"ab_method",width:30,align:'center',edittype: "select", formatter: "select",editoptions:{value:"1:카드;2:현금;3:계좌;"},hidden:false,editable:true},
 	    {name : 'ctno', index : 'ctno',width : 0, align : 'center',hidden:true}, 
-		{name: "ct_top", label: 'ct_top', width: 90, align: "center",/* formatter: "select", */ 
+		{name: "ct_top", label: 'ct_top', width: 60, align: "center",/* formatter: "select", */ 
 				editable: true, edittype: "select", 
 				editoptions:{  dataUrl: '/asset/cateSelect',
 				buildSelect:function (data){
@@ -217,8 +226,8 @@ $("#jqGrid").jqGrid({
 							}] 
 				}	// edit
 		}}, //name
-       
-		{name:"ct_bottom",index:"ct_bottom",width:50,align:'center', editable: true, edittype: "select", /* formatter: "select", */
+
+		{name:"ct_bottom",index:"ct_bottom",width:40,align:'center', editable: true, edittype: "select", /* formatter: "select", */
 	
 			    	editoptions:{
 			    		dataUrl: '/asset/catebottom',
@@ -239,13 +248,13 @@ $("#jqGrid").jqGrid({
 									contentType:"application/json",
 									data : test,
 									success:function(val){
+										
 										rtSlt = '<select id="ct_bottom">';
 										for ( var idx = 0 ; idx < val.length ; idx ++) {
 										rtSlt +='<option value="'+val[idx].ctno+'">'+val[idx].ct_bottom+'</option>';
 										}
 										rtSlt +='</select>';
 										
-										alert("입력 성공!");
 									console.log(val);							
 									},error:function(err){
 									      console.log(err);
@@ -271,15 +280,14 @@ $("#jqGrid").jqGrid({
         {name : 'ab_memo',index : 'ab_memo', align: "center", width : 50, align : 'center',hidden:false,editable:true}
       ],
 
-    emptyrecords: "데이터가 없습니다." , 
     autowidth: true,
 // 	shrinkToFit: true, 
     loadtext: "조회 중..",
     caption: "　",
     multiselect : true, // 그리드 왼쪽부분에 셀렉트 박스가 생겨 다중선택이 가능해진다
     emptyrecode : "작성된 내역이 없습니다!", // 뿌려줄 데이터가 없을 경우 보여줄 문자열 지정
-    pager:"#gridpager",
-// 	scroll:true,
+//     pager:"#gridpager",
+	scroll:true,
     rowNum:20,
     rownumbers : true, 
     
@@ -309,7 +317,16 @@ $("#jqGrid").jqGrid({
 	       }
 	       return [(aResult.msg == "success") ? true : false, userMsg];
 	   }
-
+    //rownumbers:true,
+    //viewrecords:true,
+    //pgbuttons:true,
+    //pginput:true,
+    //shrinkToFit:true,
+    //sortable: false,
+    //loadComplete:function(data){},
+    //scroll:true,
+    //loadonce:false,
+    //hidegrid:true
     // =================================================
     }); //jqgrid default
     
@@ -339,11 +356,12 @@ $("#jqGrid").jqGrid({
 			contentType:"application/json",
 			type : 'POST',
 			dataType:'JSON',
-//             postData : {"rows" : JSON.stringify(data)},
 			success:function(data){
-			alert("입력 성공!");
+		         $('#jqGrid').trigger('reloadGrid');	
+			alert("reload 성공!");
 			}
 			})
+			
 	jQuery("#jqGrid").trigger('reloadGrid');	
 	}
 	// update
@@ -381,6 +399,7 @@ $("#jqGrid").jqGrid({
 	function delRow(){
 		alert("삭제 시작");
 		var data =  $("#jqGrid").jqGrid('getGridParam', 'selarrrow');
+//	 	var data =  ["4","5"];  리스트 형태 데이터를 그대로 넘겨주면 됩니다!
 			console.log(data);
 			
 		$.ajax({
@@ -394,9 +413,8 @@ $("#jqGrid").jqGrid({
 			      console.log(err);
 			}
 		});
-		alert("삭제되었습니다");
+		alert("삭제 끝");
 				
-		
 	}
 	
 	
@@ -551,90 +569,90 @@ $(function(){
 <script type="text/javascript">
 function getAgreeType() {    
     var obj = {
-    	       "1" : {
-    	            '13' : '간식',
-    	            '14' : '외식',
-    	            '15' : '카페',            
-    	            '16' : '술/유흥',            
-    	            '17' : '기타',                   
-    	        },
-    	        "2" : {
-    	            '18' : '의류',
-    	            '19' : '패션잡화',
-    	            '20' : '헤어',
-    	            '21' : '뷰티',
-    	            '22' : '기타',
-    	        },
-    	        "3" : {
-    	            '23' : '여행/숙박',
-    	            '24' : '공연/전시',
-    	            '25' : '도서/영화',
-    	            '26' : '취미',
-    	            '27' : '선물',
-    	            '28' : '기타',
-    	        },
-    	        "4" : {
-    	            '29' : '가전/가구',
-    	            '30' : '주방/욕실',
-    	            '31' : '잡화/소모',
-    	            '32' : '반려동물',
-    	            '33' : '기타',
-    	        },
-    	        "5" : {
-    	            '34' : '관리비',
-    	            '35' : '공과금',
-    	            '36' : '통신',
-    	            '37' : '월세',
-    	            '38' : '기타',
-    	        },
-    	        "6" : {
-    	            '39' : '운동',
-    	            '40' : '운동용품',
-    	            '41' : '병원',
-    	            '42' : '약국',
-    	            '43' : '기타',
-    	        },
-    	        "7" : {
-    	            '44' : '등록금',
-    	            '45' : '학원',
-    	            '46' : '교재',
-    	            '47' : '육아용품',
-    	            '48' : '기타',
-    	        },
-    	        "8" : {
-    	            '49' : '대중교통',
-    	            '50' : '택시',
-    	            '51' : '주유소',
-    	            '52' : '장비/부품',
-    	            '53' : '기타',
-    	        },
-    	        "9" : {
-    	            '54' : '경조사',
-    	            '55' : '회비',
-    	            '56' : '용돈',
-    	            '57' : '헌금',
-    	            '58' : '기부',
-    	            '59' : '기타',
-    	        },
-    	        "10" : {
-    	            '60' : '세금',
-    	            '61' : '은행',
-    	            '62' : '이자',
-    	            '63' : '투자',
-    	            '64' : '기타',
-    	        },
-    	        "11" : {
-    	            '65' : '예/적금',
-    	            '66' : '보험',
-    	            '67' : '기타',
-    	        },
-    	        "12" : {
-    	            '68' : '출금',
-    	            '69' : '이체',
-    	            '70' : '카드대금',
-    	            '71' : '기타',
-    	        }
-    	}
+        "1" : {
+            '13' : '식사',
+            '14' : '간식',
+            '15' : '외식',
+            '16' : '카페',            
+            '17' : '술/유흥',            
+            '18' : '기타',                   
+        },
+        "2" : {
+            '19' : '의류',
+            '20' : '패션잡화',
+            '21' : '헤어',
+            '22' : '뷰티',
+            '23' : '기타',
+        },
+        "3" : {
+            '24' : '여행/숙박',
+            '25' : '공연/전시',
+            '26' : '도서/영화',
+            '27' : '취미',
+            '28' : '선물',
+            '29' : '기타',
+        },
+        "4" : {
+            '30' : '가전/가구',
+            '31' : '주방/욕실',
+            '32' : '잡화/소모',
+            '33' : '반려동물',
+            '34' : '기타',
+        },
+        "5" : {
+            '35' : '관리비',
+            '36' : '공과금',
+            '37' : '통신',
+            '38' : '월세',
+            '39' : '기타',
+        },
+        "6" : {
+            '40' : '운동',
+            '41' : '운동용품',
+            '42' : '병원',
+            '43' : '약국',
+            '44' : '기타',
+        },
+        "7" : {
+            '45' : '등록금',
+            '46' : '학원',
+            '47' : '교재',
+            '48' : '육아용품',
+            '49' : '기타',
+        },
+        "8" : {
+            '50' : '대중교통',
+            '51' : '택시',
+            '52' : '주유소',
+            '53' : '장비/부품',
+            '54' : '기타',
+        },
+        "9" : {
+            '55' : '경조사',
+            '56' : '회비',
+            '57' : '용돈',
+            '58' : '헌금',
+            '59' : '기부',
+            '60' : '기타',
+        },
+        "10" : {
+            '61' : '세금',
+            '62' : '은행',
+            '63' : '이자',
+            '64' : '투자',
+            '65' : '기타',
+        },
+        "11" : {
+            '66' : '예/적금',
+            '67' : '보험',
+            '68' : '기타',
+        },
+        "12" : {
+            '69' : '출금',
+            '70' : '이체',
+            '71' : '카드대금',
+            '72' : '기타',
+        }
     }
     return obj;
 }
@@ -692,37 +710,23 @@ function getintype() {
     return obj;
 }
 </script>
-
-
+	
 <script>
-function doOpenCheck(chk){
-	var obj = document.getElementsByName("ab_inout");
-	for(var i=0; i<obj.length; i++){
-	if(obj[i] != chk){
-	obj[i].checked = false;
-	}
-	}
+function clickCheck(target) {
+    document.querySelectorAll(`input[type=checkbox]`)
+        .forEach(el => el.checked = false);
+
+    target.checked = true;
 }
 </script>
 	
-<script type="text/javascript">
-$(function() {
-	$(".datetimepicker").datetimepicker({ 
-		dateFormat:'yy-mm-dd',
-		autoclose: true,
-		todayHighlight: true
-	});
-});
-function grid_Datepicker(text, obj){
-    $("#jqGrid").jqGrid("saveCell", rowid, iCol); // cell 저장
-}
-</script>	
-	
-	
 <style>
+.form-group2 { 
+     margin-bottom: 0px; 
+}
 
-#col-md-4 {
-    width: 30.333333%;
+.col-md-4 {
+    width: 31.333333%;
 }
 
 .form-control2 {
@@ -748,12 +752,13 @@ function grid_Datepicker(text, obj){
     border-top-right-radius: 0;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
-    padding: 6px;
+    padding: 4px;
     display: flex;
     align-content: center;
     justify-content: flex-start;
     align-items: flex-start;
-/*     justify-content: space-between; */
+    justify-content: space-between; 
+    padding: 0 13px;
 /*     	overflow-x: hidden;	 */
 }
 .abbtn-name{
@@ -864,3 +869,20 @@ th {
 
 
 <!-- </section> -->
+</div>
+</div>
+
+
+</div>
+<%@ include file="../include/footer.jsp"%>
+
+    <!-- Bootstrap 3.3.2 JS -->
+    <script src="${pageContext.request.contextPath }/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <!-- FastClick -->
+    <script src='${pageContext.request.contextPath }/resources/plugins/fastclick/fastclick.min.js'></script>
+    <!-- AdminLTE App -->
+    <script src="${pageContext.request.contextPath }/resources/dist/js/app.min.js" type="text/javascript"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="${pageContext.request.contextPath }/resources/dist/js/demo.js" type="text/javascript"></script>
+  </body>
+</html>

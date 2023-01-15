@@ -11,47 +11,42 @@
  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
  <link rel="stylesheet" href="../assets/css/theme.min.css">
  	
+<!-- sweetalert -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+ 	
 <script src="${pageContext.request.contextPath }/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function(){
-// 		alert("성공");
+		var query = { "query":"경제" };
 		
-		
-// 		$('#news_test').click(function(){
+		$.ajax({
+			type: 'get',
+			url: '/news',
+			contentType: "application/json; charset=UTF-8",
+			dataType: 'text',
+// 			data: JSON.stringify(query),
+			success: function(data){
+// 			alert("ajax 성공!");
+			var job = JSON.parse(data);
+			console.log(job);
 			
-			var query = { "query":"경제" };
+			$('#result').empty();
 			
-// 			alert("클릭");
-			
-			$.ajax({
-				type: 'get',
-				url: '/news',
-				contentType: "application/json; charset=UTF-8",
-				dataType: 'text',
-// 				data: JSON.stringify(query),
-				success: function(data){
-// 					alert("ajax 성공!");
-					var job = JSON.parse(data);
-					console.log(job);
-					
-					$('#result').empty();
-					
-					$.each(job, function(index, item){
-						
-						$('#result').append("<a href="+item.link+">"+item.title+"</a><br><br>");
-						$('#result').append(item.description+"<br>");
-						$('#result').append(item.pubDate+"<br>");
-						$('#result').append("<hr>");
-					});
-					
-				}, error: function(data){
-					alert("ajax 실패!");
-					console.log(data);
-				}
+			$.each(job, function(index, item){
+				
+				$('#result').append("<a href="+item.link+">"+item.title+"</a><br><br>");
+				$('#result').append(item.description+"<br>");
+				$('#result').append(item.pubDate+"<br>");
+				$('#result').append("<hr>");
 			});
-// 		});
-		
+			
+		}, error: function(data){
+			console.log("ajax 실패!");
+			console.log(data);
+		}
+	});
 		
 	});
 
@@ -60,15 +55,24 @@
 <script type="text/javascript">
 		var result = '${result}';
 		if(result == 'createOK'){
-			alert(" 글쓰기 완료! ");
+			Swal.fire({
+				title: '글쓰기 완료!', 
+				icon: 'success'
+			});
 		}
 		
 		if(result == 'modOK'){
-			alert(' 글 수정 완료!');
+			Swal.fire({
+				title: '수정 완료!', 
+				icon: 'success'
+			});
 		}
 		
 		if(result == 'delOK'){
-			alert(' 글 삭제 완료!');
+			Swal.fire({
+				title: '삭제 완료!', 
+				icon: 'success'
+			});
 		}
 		
 </script>	
@@ -103,17 +107,33 @@
 			  
 			  
 			<tbody>
+			<c:if test="${param.page.equals('1')}">
 				<c:set var="boardno" value="${boardList.size() }"></c:set>
 				<fmt:parseNumber var="boardno" value="${boardno }" type="number" />
-		       	<c:forEach items="${boardList }" var="boardList" >
+		       	<c:forEach items="${boardList }" var="boardList"  begin="0" end="10" step="1" >
 						    <tr>
-						      <th scope="row" style="text-align:center; padding: 15px 0;">${boardno }</th>
+						      <th scope="row" style="text-align:center; padding: 15px 0;">${boardno+10 }</th>
 						      <td style="text-align:center; padding: 15px 0;"><a href="/economycontent?bno=${boardList.bno }">${boardList.b_title }</a></td>
 						      <td style="text-align:center; padding: 15px 0;">${boardList.b_writer }</td>
 						      <td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList.b_date }" pattern="yyyy-MM-dd"/></td>
 						    </tr>
 				<c:set var="boardno" value="${boardno -1 }"></c:set>
 		    	</c:forEach>   
+		    </c:if>
+
+			<c:if test="${param.page.equals('2')}">
+				<c:set var="boardno" value="${boardList.size() }"></c:set>
+				<fmt:parseNumber var="boardno" value="${boardno }" type="number" />
+		       	<c:forEach items="${boardList }" var="boardList"  begin="0" end="10" step="1" >
+						    <tr>
+						      <th scope="row" style="text-align:center; padding: 15px 0;">${boardno}</th>
+						      <td style="text-align:center; padding: 15px 0;"><a href="/economycontent?bno=${boardList.bno }">${boardList.b_title }</a></td>
+						      <td style="text-align:center; padding: 15px 0;">${boardList.b_writer }</td>
+						      <td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList.b_date }" pattern="yyyy-MM-dd"/></td>
+						    </tr>
+				<c:set var="boardno" value="${boardno -1 }"></c:set>
+		    	</c:forEach>   
+		    </c:if>
 			</tbody>
 	</table>
 	

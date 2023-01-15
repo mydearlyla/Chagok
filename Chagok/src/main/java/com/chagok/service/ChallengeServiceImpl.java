@@ -422,6 +422,19 @@ public class ChallengeServiceImpl implements ChallengeService{
 		mylog.debug(" MyBoardWriteCnt() 호출");
 		return dao.MyBoardWriteCnt();
 	}
+
+	// update minus m_sum
+	@Override
+	public void updateMsum(Map<String, Object> map) throws Exception {
+		mylog.debug(" updateMsum() 호출 ");
+		dao.updateMsum(map);
+	}
+
+	
+
+
+	
+
 	
 	
 }

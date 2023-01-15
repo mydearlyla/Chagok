@@ -909,8 +909,8 @@ body .ui-tooltip {
 	color: #333333;
 }
 .ui-widget-header {
-	border: 1px solid #FFDB83;
-	background: #FFDB83 url("images/ui-bg_gloss-wave_35_f6a828_500x100.png") 50% 50% repeat-x;
+	border: 1px solid #BBDBB0;
+	background: #BBDBB0 url("images/ui-bg_gloss-wave_35_f6a828_500x100.png") 50% 50% repeat-x;
 	color: #666;
 	font-weight: bold;
 	font-size: 15px;

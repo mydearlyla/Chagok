@@ -759,24 +759,29 @@ public class AssetController {
 //	http://localhost:8080/asset/budget?mm=0
 	@GetMapping(value = "/budget")
 	public String budgetGET(@RequestParam("mm") int mm, HttpSession session, Model model, RedirectAttributes rttr) throws Exception {	
+		// 로그인 확인
 		Integer mno = (Integer)session.getAttribute("mno");
-		List<String> ctTopList = abService.getctTop();
-		String pMonth = abService.getPMonth(mm);
-		Integer dtAvg3 = rptService.dtAvg3(mno);
-		
-		model.addAttribute("dtAvg3", dtAvg3);
-		model.addAttribute("ctTopList", ctTopList);
-		model.addAttribute("pMonth", pMonth);
-		model.addAttribute("mm", mm);
-		
-		// chkBud
-		int chkBud = abService.chkBud(mno, pMonth);
-		if(chkBud==0) {
-			mylog.debug(pMonth+"__예산 없음");
-			return "/asset/budget";
+		if (mno==null) {
+			return "redirect:/login?pageInfo=asset/budget?mm="+mm;
 		} else {
-			mylog.debug(pMonth+"__예산 있음");
-			return "redirect:/asset/budRpt?mm="+mm+"";
+			List<String> ctTopList = abService.getctTop();
+			String pMonth = abService.getPMonth(mm);
+			Integer dtAvg3 = rptService.dtAvg3(mno);
+			
+			model.addAttribute("dtAvg3", dtAvg3);
+			model.addAttribute("ctTopList", ctTopList);
+			model.addAttribute("pMonth", pMonth);
+			model.addAttribute("mm", mm);
+			
+			// chkBud
+			int chkBud = abService.chkBud(mno, pMonth);
+			if(chkBud==0) {
+				mylog.debug(pMonth+"__예산 없음");
+				return "/asset/budget";
+			} else {
+				mylog.debug(pMonth+"__예산 있음");
+				return "redirect:/asset/budRpt?mm="+mm+"";
+			}
 		}
 	}
 	

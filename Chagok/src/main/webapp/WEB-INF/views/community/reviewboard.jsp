@@ -12,24 +12,36 @@
  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
  <link rel="stylesheet" href="../assets/css/theme.min.css">
 
+<!-- sweetalert -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 	<script type="text/javascript">
 		var result = '${result}';
 		if(result == 'createOK'){
-			alert(" 글쓰기 완료! ");
+			Swal.fire({
+				title: '글쓰기 완료!', 
+				icon: 'success'
+			});
 		}
 		
 		if(result == 'modOK'){
-			alert(' 글 수정 완료!');
+			Swal.fire({
+				title: '수정 완료!', 
+				icon: 'success'
+			});
 		}
 		
 		if(result == 'delOK'){
-			alert(' 글 삭제 완료!');
+			Swal.fire({
+				title: '삭제 완료!', 
+				icon: 'success'
+			});
 		}
 		
 </script>
 	
 </head>
-
 <body>
  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -48,12 +60,12 @@
  			<table class="table table-hover" style="margin-left:10px; border-bottom: 1px solid #ddd;border-top: 2px solid #66BB7A;">
 			  <thead style="background-color: #dddddd30;font-size: 16px;">
 			    <tr>
-			      <th scope="col" style="text-align:center; padding: 15px 0; width: 10%;">글 번호</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0; width: 15%;">글 번호</th>
 			      <th scope="col" style="text-align:center; padding: 15px 0; width: 10%;">카테고리</th>
 			      <th scope="col" style="text-align:center; padding: 15px 0;">챌린지 제목</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0; width: 10%;">작성자</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0; width: 10%;">챌린지 기간</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0; width: 10%;">작성일</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0; width: 15%;">작성자</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0; width: 15%;">챌린지 기간</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0; width: 15%;">작성일</th>
 			    </tr>
 			  </thead>
 			  
@@ -69,9 +81,25 @@
 			</c:forEach>
 			  
 			<tbody>
+			<c:if test="${param.page.equals('1')}">
 				<c:set var="boardno" value="${boardList2.size() }"></c:set>
 				<fmt:parseNumber var="boardno" value="${boardno }" type="number" />
-				<c:forEach items="${boardList2 }" var="boardList2" >
+				<c:forEach items="${boardList2 }" var="boardList2"  begin="0" end="10" step="1" >
+						    <tr>
+						      <th scope="row" style="text-align:center; padding: 15px 0;">${boardno + 10 }</th>
+						      <th scope="row" style="text-align:center; padding: 15px 0;">[${sort }]</th>
+						      <td style="text-align:center; padding: 15px 0;"><a href="/reviewcontent?bno=${boardList2.bno }&cno=${boardList2.cno}">${boardList2.c_title }</a></td>
+						      <th scope="row" style="text-align:center; padding: 15px 0;"> ${boardList2.b_writer}</th>
+						      <th scope="row" style="text-align:center; padding: 15px 0;"> ${boardList2.c_period } 주</th>
+							  <td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList2.b_date }" pattern="yyyy-MM-dd"/></td>
+						    </tr>
+				<c:set var="boardno" value="${boardno -1 }"></c:set>
+                </c:forEach>
+            </c:if>
+			<c:if test="${param.page.equals('2')}">
+				<c:set var="boardno" value="${boardList2.size() }"></c:set>
+				<fmt:parseNumber var="boardno" value="${boardno }" type="number" />
+				<c:forEach items="${boardList2 }" var="boardList2"  begin="0" end="10" step="1" >
 						    <tr>
 						      <th scope="row" style="text-align:center; padding: 15px 0;">${boardno }</th>
 						      <th scope="row" style="text-align:center; padding: 15px 0;">[${sort }]</th>
@@ -82,6 +110,7 @@
 						    </tr>
 				<c:set var="boardno" value="${boardno -1 }"></c:set>
                 </c:forEach>
+            </c:if>
 			</tbody>
 	</table>
   <div class="board_page">

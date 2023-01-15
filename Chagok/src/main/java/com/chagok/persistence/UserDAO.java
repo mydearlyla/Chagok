@@ -54,6 +54,9 @@ public interface UserDAO {
 	// 관리자 - 차곡 계좌 전체 개수
 	public Integer getBizCnt() throws Exception;
 	
+	// 관리자 - 차곡 계좌내역 조회(환급용)
+	public List<Map<String, Object>> getBizRefundList(Criteria cri) throws Exception;
+	
 	// 구매 꿀 인서트
 	public void insertBuy(Integer mno, Integer buypoint);
 	
@@ -65,4 +68,7 @@ public interface UserDAO {
 	
 	// 챌린지 참여시 예치금 처리 
 	public void buyChallenge(Integer mno, Integer cno, Integer deposit);
+	
+	// 환급처리 
+	public void updateBizAccount(Integer bizno);
 }

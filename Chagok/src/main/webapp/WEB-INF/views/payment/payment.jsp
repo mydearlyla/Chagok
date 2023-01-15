@@ -13,16 +13,7 @@ $(document).ready(function () {
 	    swal.fire({
 	        title: "구독서비스는 준비 중입니다!",
 	        type: "info"
-	        });
-// 	    ,
-// 	     function (isConfirm) {
-// 	        if (isConfirm) {
-// 	            swal("Deleted!", "Your imaginary file has been deleted!", "success");
-// 	            } else {
-// 	                swal("Cancelled", "Your imaginary file is safe :)", "error");
-// 	            }
-// 	        }
-			
+	        });			
 	    });
 
 	});
@@ -270,7 +261,7 @@ h2{
 .pcard::after {
   content: "";
   position: absolute;
-  background: #ededf0;
+  background: #66BB7A;
   width: 100%;
   height: 100%;
   z-index: -1;
@@ -280,7 +271,7 @@ h2{
 }
 
 .pcard:hover {
-  border: 3px solid #7000FF;
+  border: 3px solid #66BB7A;
   background: white;
   cursor: pointer;
 }
@@ -290,14 +281,14 @@ h2{
 }
 
 .pcard:hover .pcard__btn {
-  background: #7000FF;
-  border: 3px solid #7000FF;
+  background: #66BB7A;
+  border: 3px solid #66BB7A;
   color: white;
   transform: scale(1.05);
 }
 
 .pcard:hover::after {
-  background: #c4c6fc;
+  background: #66BB7A;
 }
 </style>
 
@@ -334,7 +325,10 @@ function requestPay()
         msg += '결제 금액 : ' + rsp.paid_amount;
         msg += '카드 승인번호 : ' + rsp.apply_num;
         console.log(msg+"AAAA"); 
-        alert('결제가 완료되었습니다');
+        Swal.fire({
+        	title: '결제가 완료되었습니다!', 
+        	icon: 'success'
+        });
         
         	$.ajax({
         	    type : 'post',           // 타입 (get, post, put 등등)
@@ -382,7 +376,10 @@ function requestPay1()
         msg += '결제 금액 : ' + rsp.paid_amount;
         msg += '카드 승인번호 : ' + rsp.apply_num;
         console.log(msg+"AAAA"); 
-        alert('결제가 완료되었습니다');
+        Swal.fire({
+        	title: '결제가 완료되었습니다!', 
+        	icon: 'success'
+        });
         
         	$.ajax({
         	    type : 'post',           // 타입 (get, post, put 등등)
@@ -430,7 +427,10 @@ function requestPay2()
         msg += '결제 금액 : ' + rsp.paid_amount;
         msg += '카드 승인번호 : ' + rsp.apply_num;
         console.log(msg+"AAAA"); 
-        alert('결제가 완료되었습니다');
+        Swal.fire({
+        	title: '결제가 완료되었습니다!', 
+        	icon: 'success'
+        });
         
         	$.ajax({
         	    type : 'post',           // 타입 (get, post, put 등등)
@@ -478,8 +478,8 @@ function requestPay2()
             </div>
         </div>
         
-        <div class="pbottom">
-            <div class="pleft">
+        <div class="pbottom" style="width: 90%;">
+            <div class="pleft" style="width: 40%;">
                 <h2>환급 & 구독</h2>
                 <div class="pcontainer">
                 	<a href="/refund">
@@ -498,7 +498,7 @@ function requestPay2()
                 </div>
             </div>
             
-       		<div class="pright">
+       		<div class="pright" style="width: 50%;">
                 <h3>환급</h3>
                 <p>
                     꿀머니가 10,000을 넘으면 현금으로 환급 받으실 수 있습니다.<br>
@@ -517,21 +517,21 @@ function requestPay2()
 <!-- 		결제하기 버튼 생성 -->
 <!-- 		</div> -->
 		<div style="border: 1px solid #FEFCF5;"></div>
-		<div class="pcard" style="clear:both;">
+		<div class="pcard" style="width: 30%;">
 			<h1 class="pcard__title">Option 1</h1>
 			<h2 class="pcard__price">
 				<sup></sup>5,000<sup>꿀</sup>
 			</h2>
 			<button class="pcard__btn" onclick="requestPay()" id="pay">충전하기</button> 
 		</div>
-		<div class="pcard">
+		<div class="pcard" style="width: 30%;">
 			<h1 class="pcard__title">Option 2</h1>
 			<h2 class="pcard__price">
 				<sup></sup>10,000<sup>꿀</sup>
 			</h2>
 			<button class="pcard__btn" onclick="requestPay1()" id="pay10000">충전하기</button> 
 		</div>
-		<div class="pcard">
+		<div class="pcard" style="width: 30%;">
 			<h1 class="pcard__title">Option 3</h1>
 			<h2 class="pcard__price">
 				<sup></sup>50,000<sup>꿀</sup>

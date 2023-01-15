@@ -67,7 +67,7 @@
 <!--                     </dl> -->
                 </div>
                 <div class="cont">
-                    <textarea name="b_content"  style="resize: none;" placeholder="내용을 작성해주세요">${vo.b_content }</textarea>
+                    <textarea name="b_content"  style="resize: none;" readonly placeholder="내용을 작성해주세요">${vo.b_content }</textarea>
                 </div>
             </div>
             

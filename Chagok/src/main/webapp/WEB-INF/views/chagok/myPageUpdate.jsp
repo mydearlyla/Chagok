@@ -7,11 +7,7 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/sidebarMyPage.jsp" %>
 
-<!-- sweetalert -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
-
-<script type="text/javascript">
+ <script type="text/javascript">
 	$(document).ready(function(){
 		$('.btn.btn-primary.btn-block.ym').click(function(){
 			
@@ -36,13 +32,22 @@
 			        icon: 'warning'
 		   	   });				
 			} else {
-				var check = confirm("회원정보를 수정하시겠습니까?");
-				
-				if (check) {
-					$('#form').submit();
-				}
+				Swal.fire({
+					title: '회원정보를 수정하시겠습니까?',
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#00A65A',
+					cancelButtonColor: '#DD4B39',
+					confirmButtonText: '수정하기',
+					cancelButtonText: '취소'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						document.querySelector('#form').submit();
+					} else {
+						return false;
+					}
+				})			
 			}
-			
 			
 		});
 	});
@@ -96,6 +101,9 @@
 				<li class="list-group-item"><b>아이디</b> 
 					<a class="pull-right">${userVO.id } </a>
 					<input type="hidden" name="mno" value="${userVO.mno }">
+				</li>
+				<li class="list-group-item"><b>꿀머니</b> 
+					<a class="pull-right">${userVO.buypoint + userVO.getpoint} 꿀</a>
 				</li>
 				<!-- <li class="list-group-item"><b>비밀번호</b> 
 					<a class="pull-right">

@@ -127,6 +127,12 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
+	// 관리자 - 차곡 계좌내역 조회
+	public List<Map<String, Object>> getBizRefundList(Criteria cri) throws Exception {
+		return sqlSession.selectList(NAMESPACE +".getBizRefundList", cri);
+	}
+
+	@Override
 	public void insertBuy(Integer mno, Integer buypoint) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mno", mno);
@@ -157,6 +163,14 @@ public class UserDAOImpl implements UserDAO {
 		map.put("deposit", deposit);
 		sqlSession.update(NAMESPACE+".buyChallenge",map);
 	}
+
+	@Override
+	public void updateBizAccount(Integer bizno) {
+		mylog.debug("updateBizAccount() 호출 ");
+		
+		sqlSession.update(NAMESPACE+".updateBizAccount", bizno);
+	}
+	
 	
 	
 }

@@ -20,7 +20,7 @@
 			<c:if test="${userVO.profile != null }">
 	        	src="${pageContext.request.contextPath }/resources${userVO.profile }" alt="User profile picture"
 	        </c:if>
-	        <c:if test="${minusPeoList.profile == null }">
+	        <c:if test="${userVO.profile == null }">
 	        	src="https://ptetutorials.com/images/user-profile.png" alt="User profile picture"
 	        </c:if>
 				style="margin: 0 auto;" width="200px" height="200px">

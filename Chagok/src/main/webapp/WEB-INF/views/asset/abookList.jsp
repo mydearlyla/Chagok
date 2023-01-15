@@ -157,7 +157,7 @@ function grid_Datepicker(text, obj){
 <script>
 $(document).ready(function(){
    $("#chk_ab_inout").change(function(){
-      alert( $("#chk_ab_inout").val() );
+//       alert( $("#chk_ab_inout").val() );
       
       if ( $("#chk_ab_inout").val() == "1" ) {
          $("#sel_ab_in").css("display", "none");
@@ -173,7 +173,7 @@ $(document).ready(function(){
 <script>
 $(document).ready(function(){
 	   $("#chk_ab_inout2").change(function(){
-	      alert( $("#chk_ab_inout2").val() );
+// 	      alert( $("#chk_ab_inout2").val() );
 	      
 	      if ( $("#chk_ab_inout2").val() == "2" ) {
 	          $("#sel_ab_in").css("display", "inline-block");
@@ -209,12 +209,12 @@ $("#jqGrid").jqGrid({
 				total:'total', // 총 페이지 Count
 				records:'records' // 총 Row Count
 				},
-    height: 500, 
+    height: 410, 
     width: 1000,
     colNames : ['num','분류','날짜','내용','금액','거래수단','ctno','카테고리','소분류','메모'], 
     colModel:[
         {name : 'abno', index : 'abno',width : 0, align : 'left',hidden:true,key:true},    	
-        {name:"ab_inout",index:"ab_inout",width:20,align:'center',edittype: "select", formatter: "select",editoptions:{value:"1:지출;2:수입;"},editable:true,
+        {name:"ab_inout",index:"ab_inout",width:20,align:'center',edittype: "select", formatter: "select",editoptions:{value:"1:지출;2:수입"},editable:true,
 //                 dataEvents: [{
 //                     type : 'change',
 //                     fn : function(e) {
@@ -238,7 +238,7 @@ $("#jqGrid").jqGrid({
            }},
         {name : 'ab_content',index : 'ab_content',width : 90, align : 'center',hidden:false,editable:true},
         {name : 'ab_amount',index : 'ab_amount',width : 50, align: 'center', resizable : true,align : 'right',editrules:{number:true},hidden:false,editable:true},
-        {name:"ab_method",index:"ab_method",width:30,align:'center',edittype: "select", formatter: "select",editoptions:{value:"1:카드;2:현금;3:계좌;"},hidden:false,editable:true},
+        {name:"ab_method",index:"ab_method",width:30,align:'center',edittype: "select", formatter: "select",editoptions:{value:"1:카드;2:현금;3:계좌"},hidden:false,editable:true},
 	    {name : 'ctno', index : 'ctno',width : 0, align : 'center',hidden:true}, 
 		{name: "ct_top", label: 'ct_top', width: 60, align: "center",/* formatter: "select", */ 
 				editable: true, edittype: "select", 
@@ -428,19 +428,19 @@ $("#jqGrid").jqGrid({
 				  timer: 3000
 				});	
 			
-		$.ajax({
+		$.ajax({ 
 			url : "/asset/delGrid",
 			type:"post",    
 			data : {test:data},
 			success:function(val){
-				alert("입력 성공!");
+// 				alert("입력 성공!");
 			},error:function(err){
 		         $('#jqGrid').trigger('reloadGrid');
-				  alert("err");
+// 				  alert("err");
 			      console.log(err);
 			}
 		});
-		alert("삭제 끝");
+// 		alert("삭제 끝");
 				
 	}
 	
@@ -455,7 +455,7 @@ $("#jqGrid").jqGrid({
 	///////////////////////////////////////아직 안 쓰는 코드 
     function search() {
     	
-        alert("저장");
+//         alert("저장");
         var jsonObj = {};
         
         alert(JSON.stringify(jsonObj));

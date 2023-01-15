@@ -330,9 +330,6 @@ for(var i=0; i<outCum.length; i++) {
 </script>
 
 <script type="text/javascript">
-var a = $.number(5000000);
-console.log(a);
-
 
 $(document).ready(function(){
 	var arr = ${map.amtTopjson};
@@ -379,7 +376,7 @@ $(document).ready(function(){
 		$('#tbody3').append("/<tr>");
 	});
 
-	$('#cnttop').append("<h3>"+bottom2[0]+"을 자주 소비했어요</h3>");
+	$('#cnttop').append("<h3>"+bottom2[0]+"에 자주 소비했어요</h3>");
 	$('#cnttop').append("<h3>한 달 간 "+cnt[0]+"회 소비</h3>");
 	$.each (top2, function (i, el) {
 		$('#tbody4').append("<tr>");

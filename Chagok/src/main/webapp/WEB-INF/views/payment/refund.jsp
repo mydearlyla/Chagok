@@ -13,35 +13,31 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#swap').click(function(event){
+	$('#swap').click(function(){
+		
 		var compare = ${getPoint };
 		var getpoint = $('#pamount_one').val();
 		var raccount = $('#raccount').val();
 		var rbank = $('#rbank').val();
 		var rname = $('#rname').val();
-// 		alert(getpoint.length == 0);
-// 		alert(raccount.length);
-// 		alert(rname.length);
-// 		alert(rname.length);
-		
 		
 		if(getpoint.length == 0){
 			Swal.fire({
 				  icon: 'warning',
-				  title: "금액을 다시 확인하세요!",
+				  text: "금액을 다시 확인하세요!",
 				  background: '#fff',
-				  color: '#66BB7A'
+				  color: '#000'
 				});
 				$('#pamount_one').focus();
 				return false;
 		}
 
-		if(getpoint.length == 0 || getpoint > compare){
+		if(getpoint.length == 0 || getpoint > compare || getpoint < 10000 ){
 			Swal.fire({
 				  icon: 'warning',
-				  title: "10,000꿀 이하이거나, <br> 보유한 꿀머니 초과해서 환급할 수 없습니다!",
+				  html: "10,000꿀 이하이거나, <br> 보유한 꿀머니 초과해서 환급할 수 없습니다!",
 				  background: '#fff',
-				  color: '#66BB7A'
+				  color: '#000'
 				});
 				
 				$('#pamount_one').focus();
@@ -51,9 +47,9 @@ $(document).ready(function(){
 		if(rname.length == 0){
 			Swal.fire({
 				  icon: 'warning',
-				  title: "예금주를 입력해주세요",
+				  text: "예금주를 입력해주세요",
 				  background: '#fff',
-				  color: '#66BB7A'
+				  color: '#000'
 				});
 				
 				$('#rname').focus();
@@ -63,9 +59,9 @@ $(document).ready(function(){
 		if(rbank.length == 0){
 			Swal.fire({
 				  icon: 'warning',
-				  title: "환급 은행을 입력해주세요",
+				  text: "환급 은행을 입력해주세요",
 				  background: '#fff',
-				  color: '#66BB7A'
+				  color: '#000'
 				});
 				
 				$('#rbank').focus();
@@ -75,9 +71,9 @@ $(document).ready(function(){
 		if(raccount.length == 0){
 			Swal.fire({
 				  icon: 'warning',
-				  title: "환급 계좌를 입력해주세요",
+				  text: "환급 계좌를 입력해주세요",
 				  background: '#fff',
-				  color: '#66BB7A'
+				  
 				});
 				
 				$('#raccount').focus();
@@ -85,31 +81,37 @@ $(document).ready(function(){
 		}
 		
 		Swal.fire({
-			  title: getpoint+' 원을 환급 할까요?',
-			  icon: 'question',
-			  showCancelButton: true,
-			  confirmButtonColor:'#00A65A',
-			  cancelButtonColor: '#DD4B39',
-			  confirmButtonText: '네, 환급받습니다.'
-			}).then((result) => {
-			  if (result.isConfirmed) {
-			    Swal.fire(
-			      '신청되었습니다',
-			      '영업일 기준 1~2일 이내에 확인하실 수 있습니다!'
-			    )
+			  html : getpoint +'원을 환급이 신청되었습니다. <br> 영업일 기준 1~2일 이내에 확인하실 수 있습니다! ',
+			  icon: 'success',
+			  background: '#fff',
+			  color: '#000',
+			  timer: 5000
+			});
 				
-			    form.attr("action", "/refund");
+		 setTimeout(function(){
+				form.attr("action", "/refund");
 				form.attr("method", "post");
 				form.submit();
-			  }
-			});	
-			
-		
+		   },5000);
 	});
 	
-	
+});
+
+
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#pamount_one").keyup(function(){
+		
+		$("#pamount-two").text($("#pamount_one").val());
+
+		$('input[id=pamount-two]').attr('value',$("#pamount_one").val());
+
+	});
+
 });
 </script>
+
 
 	<div class="pwrapper">
       <img
@@ -137,7 +139,7 @@ $(document).ready(function(){
 <!--           <select id="pcurrency-two"> -->
 <!--             <option value="won">원</option> -->
 <!--           </select> -->
-          <input type="text" id="pamount-two" placeholder="0" value="${getPoint }" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>원
+          <input type="text" placeholder="0" id="pamount-two" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>원
         </div>
       </div>
 	</ul>
@@ -145,7 +147,7 @@ $(document).ready(function(){
 	<c:set var="M" value="${msg }" />
 	<c:if test="${not fn:contains( M, '환불') }">
 		<a class="pull-right">
-		   <input type="text"  class="re" id="BAND" name="rname" placeholder="예금주를 입력해주세요." value="${userVO.rname }" >
+		   <input type="text"  class="re" id="rname" name="rname" placeholder="예금주를 입력해주세요." value="${userVO.rname }" >
 		</a>
 		<a class="pull-right">
 		    <input type="text" class="re" id="rbank"" name="rbank"" placeholder="은행을 입력해주세요." value="${userVO.rbank }">

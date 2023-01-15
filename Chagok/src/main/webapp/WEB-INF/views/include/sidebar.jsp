@@ -48,7 +48,7 @@
             <div class="pull-left image">
               <img 
               	<c:if test="${uprofile != null }">
-					src="${pageContext.request.contextPath }/resources${userVO.profile }" alt="User profile picture"
+					src="${pageContext.request.contextPath }/resources${uprofile.profile }" alt="User profile picture"
 				</c:if>
 				<c:if test="${uprofile == null }">
 					src="https://ptetutorials.com/images/user-profile.png" alt="User profile picture"
@@ -240,3 +240,4 @@
            	<a href="/commumain"><img src="${pageContext.request.contextPath }/resources/plugins/img/double-arrow.png"><small> 메인</small></a>
           </h1>
         </section>
+        

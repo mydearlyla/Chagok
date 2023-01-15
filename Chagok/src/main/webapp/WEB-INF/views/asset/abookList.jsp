@@ -13,8 +13,11 @@
 <div class="box-header with-border">
 	<h3 class="box-title"
 	style="font-size: 25px; margin: 10px;">목록형 가계부</h3>
+	<button onclick="javascript:save();" class="btn btn-info" id="btnyel"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수정하기</font></font></button>
+	<button onclick="javascript:delRow();" class="btn btn-info" id="btnyel"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">삭제하기</font></font></button>
+	
 </div>
-<!--   <div class="main-content"> -->
+<!--   <div class="main-content"> --> 
   <div class="container-fluid">
   <!-- <section class="content"> -->
 			
@@ -34,7 +37,7 @@
          
 
          <div class="col-md-4">
-			<div class="box box-primary2">
+			<div class="box box-primary2" >
 			<div class="box-header with-border">
 			
 			<div class="box-body2">
@@ -131,10 +134,11 @@
 			
 			</div>
 			
-			<div class="box-footer">
-				<button type="submit" class="btn btn-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">저장하기</font></font></button>
+			<div class="box-footer" style="padding-left: 150px;">
+				<button type="submit" class="btn btn-info" id="btngreen"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">저장하기</font></font></button>
+<!-- 				<button type="submit" class="btn btn-info pull-right">Sign in</button> -->
 			</div>
-			</div>
+			</div>	
 			</div>
 			</div>
 			</form>
@@ -419,15 +423,16 @@ $("#jqGrid").jqGrid({
 	}
 	
 	function delRow(){
+		
 		var data =  $("#jqGrid").jqGrid('getGridParam', 'selarrrow');
 			console.log(data);
+			
 			Swal.fire({
 				  title: '삭제 완료!',
 				  icon: 'success',
 				  showConfirmButton: false,
 				  timer: 3000
 				});	
-			
 		$.ajax({ 
 			url : "/asset/delGrid",
 			type:"post",    
@@ -486,49 +491,6 @@ $("#jqGrid").jqGrid({
     
     $('#jqGrid').getRowData();
     
-	 //nav
-	 jQuery("#jqGrid").jqGrid('navGrid','#gridpager',{
-		 //nav 설정						
-		edit : true,
-		add : true,
-		del : true,
-		search : false,
-	}
-	,{						
-		url : '/jq/jqUpdate.do',
-		afterComplete:function(data) {
-		   jqGridFunc.tableReload(data, '수정');
-		},
-		recreateForm: true,
-		closeAfterEdit: true,
-		errorTextFormat: function (data) {
-		   return 'Error: ' + data.resultMsg;
-		},
-	   },
-		 {
-			url : '/jq/jqInsert.do',
-			beforeShowForm: function ($form) {
-			   $form.find(".FormElement[disabled]").prop("disabled", false); 
-			},
-			afterComplete:function(data) {
-			   jqGridFunc.tableReload(data, '저장');
-			},
-			closeAfterAdd: true,
-		 },
-		 {
-			url : '/jq/jqDelete.do',
-			afterComplete:function(data) {
-			   jqGridFunc.tableReload(data, '삭제');
-			},
-			delData : {
-			   csrId : function(){
-				  var selId = $('#jqGrid').jqGrid('getGridParam', 'selrow');
-				  var csrId = $('#jqGrid').jqGrid('getCell', selId, 'csrId');
-				  return csrId.replace(/-9/,'');
-			   }
-			}
-		 }
-	 );//jqgrid nav 
 </script>	 
 
 
@@ -759,7 +721,21 @@ function clickCheck(target) {
 }
 </script>
 	
+	
+	
+	
 <style>
+
+#btngreen{
+    background-color: #BBDBB0;
+    border-color: #BBDBB0;
+}
+
+#btnyel{
+    background-color: #FFDB83;
+    border-color: #FFDB83;
+}
+
 .form-group2 { 
      margin-bottom: 0px; 
 }

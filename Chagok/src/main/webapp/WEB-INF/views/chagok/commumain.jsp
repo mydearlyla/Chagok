@@ -58,8 +58,8 @@
       </div>
 </c:forEach>
       <div class="ranking-button">
-		<button type="button" class="btn btn-success btn-lg" onclick="location.href='/challenge/plusregist';">저축형</button>
-		<button type="button" class="btn btn-warning btn-lg" onclick="location.href='/challenge/minusregist';">절약형</button>
+		<button type="button" class="btn btn-success btn-lg" onclick="location.href='/challenge/plusregist';">저축형 등록</button>
+		<button type="button" class="btn btn-warning btn-lg" onclick="location.href='/challenge/minusregist';">절약형 등록</button>
 	  </div>
 </div>
 <!-- 명예의 전당 -->
@@ -766,7 +766,7 @@ main .card .card-item-chevron--new-2 {
     display: flex;
     flex-direction: column;
     width: 14%;
-    margin-left: 20px;
+    margin-left: 60px;
 }
 
 @media screen and (max-width: 1000px) {

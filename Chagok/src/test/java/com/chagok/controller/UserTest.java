@@ -15,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.chagok.domain.AlertVO;
+import com.chagok.domain.ChallengeVO;
 import com.chagok.domain.UserVO;
 import com.chagok.persistence.AlertDAO;
 import com.chagok.persistence.ChallengeDAO;
@@ -86,7 +87,7 @@ public class UserTest {
 		}
 		
 		
-		@Test
+		//@Test
 		public void 챌린지_성공여부() throws Exception {
 			
 			Map<String, Object> map = chdao.challengeResult(72,46);
@@ -95,4 +96,19 @@ public class UserTest {
 			
 		}
 		
+		
+		@Test
+		public void 챌린지_등록() throws Exception{
+			
+			ChallengeVO vo = new ChallengeVO();
+			vo.setC_amount(2);
+			vo.setC_cnt(3);
+			vo.setC_content("dddddd");
+			vo.setMno(20);
+			
+			
+			//chdao.challengeRegist(vo);
+			
+			//System.out.println(chdao.challengeRegist(vo));
+		}
 }

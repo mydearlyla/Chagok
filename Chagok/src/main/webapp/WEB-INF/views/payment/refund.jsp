@@ -2,8 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-  <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../resources/mainpagecss/css/font.css">
+<link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+  
+  
 <!-- jQuery -->
 <script src="../resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 
@@ -113,58 +117,54 @@ $(document).ready(function(){
 	<form role="form" method="post">
 	<ul class="list-group list-group-unbordered">
       <h1>꿀머니 환급소</h1>
-      <p>보유하신 꿀머니를 환급해드립니다.</p>
+      <p>보유하신 꿀머니를 현금으로 환급해드립니다.</p>
       <div class="pcontainer">
         <div class="pcurrency">
-          <select id="pcurrency-one">
-            <option value="ggul">꿀</option>
-          </select>
-          <input type="text" name="getpoint" id="pamount_one" placeholder="${getPoint }" /> 꿀
+<!--           <select id="pcurrency-one"> -->
+<!--             <option value="ggul">꿀</option> -->
+<!--           </select> -->
+          <input type="text" name="getpoint" id="pamount_one" placeholder="${getPoint }" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/> 꿀
         </div>
        
         <div style="display: flex; justify-content: center;">
-			<img src="${pageContext.request.contextPath }/resources/plugins/img/down-arrow.png" style="justify-content: center;">
+			<img src="${pageContext.request.contextPath }/resources/plugins/img/down-arrow.png" style="justify-content: center; width: 30px;">
         </div>
 
         <div class="pcurrency">
-          <select id="pcurrency-two">
-            <option value="won">원</option>
-          </select>
-          <input type="text" id="pamount-two" placeholder="0" value="${getPoint }" />원
+<!--           <select id="pcurrency-two"> -->
+<!--             <option value="won">원</option> -->
+<!--           </select> -->
+          <input type="text" id="pamount-two" placeholder="0" value="${getPoint }" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>원
         </div>
       </div>
 	</ul>
-	<div class="pcontainer">
-	<ul style="justify-content: center; float: left;">
+	<div class="swap-rate-container">
 	<c:set var="M" value="${msg }" />
 	<c:if test="${not fn:contains( M, '환불') }">
 		<a class="pull-right">
-		        환급 	<input type="text" id="rname" name="rname" placeholder="예금주" value="${userVO.rname }" style="text-align: center; width: 10%;">
+		   <input type="text"  class="re" id="BAND" name="rname" placeholder="예금주를 입력해주세요." value="${userVO.rname }" >
 		</a>
 		<a class="pull-right">
-		        	<input type="text" id="rbank"" name="rbank"" placeholder="은행" value="${userVO.rbank }" style="text-align: center; width: 10%;">
+		    <input type="text" class="re" id="rbank"" name="rbank"" placeholder="은행을 입력해주세요." value="${userVO.rbank }">
 		</a>
 		<a class="pull-right">
-		        	<input type="text" id="raccount" name="raccount" placeholder="계좌번호" value="${userVO.raccount }" style="text-align: center;">
+		    <input type="text" class="re" id="raccount" name="raccount" placeholder="계좌번호 -를 제외하고 입력해주세요." value="${userVO.raccount }" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 		</a>
     </c:if>
 	<c:if test="${fn:contains( M, '환불') }">
 		<a class="pull-right">
-		        환급	<input type="text" id="rname" name="rname" placeholder="예금주" style="text-align: center; width: 10%;">
+		    <input type="text" class="re" id="rname" name="rname" placeholder="예금주를 입력해주세요." ">
 		</a>
 		<a class="pull-right">
-		        <input type="text" id="rbank" name="rbank" placeholder="은행" style="text-align: center; width: 10%;">
+		    <input type="text" class="re" id="rbank" name="rbank" placeholder="은행을 입력해주세요." >
 		</a>
 		<a class="pull-right">
-		        <input type="text" id="raccount" name="raccount" placeholder="계좌번호" style="text-align: center;">
+		    <input type="text" class="re" id="raccount" name="raccount" placeholder="계좌번호 -를 제외하고 입력해주세요." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 		</a>
     </c:if>
+	</div>
 	<button class="pbtn" id="swap" >환급</button>
-		<div class="prate" id="rate"></div>
-	</ul>
 	</form>
-</div>
-        
 </div>
 
     
@@ -178,11 +178,12 @@ $(document).ready(function(){
 
 * {
   box-sizing: border-box;
+  font-family: 'GmarketSans';
 }
 
 body {
   background-color: #070606;
-  font-family: "Roboto", sans-serif;
+  font-family: 'GmarketSans';
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -193,7 +194,7 @@ body {
 }
 
 .pwrapper {
-  background-color: #f4efea;
+  background-color: #fff3d7;
   padding: 2rem;
   border-radius: 10px;
   display: flex;
@@ -203,7 +204,8 @@ body {
 }
 
 h1 {
-  color: var(--primary-color);
+	color: #66BB7A;
+    text-align: center;
 }
 
 p {
@@ -211,14 +213,37 @@ p {
 }
 
 .pbtn {
-  color: #fff;
-  background-color: var(--primary-color);
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 12px;
-  padding: 5px 12px;
-  border: none;
-  margin-left: 130px;
+	color: #fff;
+    background-color: #66BB7A;
+    /* cursor: pointer; */
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 6px 12px;
+    border: none;
+    width: 30%;
+    margin-left: 35%;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.re{
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    margin-top: 3px;
 }
 
 .pmoney-img {
@@ -227,10 +252,10 @@ p {
 }
 
 .pcurrency {
-  padding: 30px 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+	padding: 30px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .pcurrency select {
@@ -263,6 +288,14 @@ p {
   color: var(--primary-color);
   font-size: 14px;
 }
+
+.swap-rate-container{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: stretch;
+}
+
 
 select:focus,
 input:focus,

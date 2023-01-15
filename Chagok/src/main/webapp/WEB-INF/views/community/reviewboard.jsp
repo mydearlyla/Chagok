@@ -39,7 +39,7 @@
 	 	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 			<div class="board_wrap">
 				<div class="board_title">
-					<strong>챌린지 후기 게시판 </strong>
+					<strong> 후기 </strong>
 		     	   <p> 참여한 챌린지에 남긴 후기를 보는 곳입니다</p>
 				</div>
 			</div>
@@ -48,12 +48,12 @@
  			<table class="table table-hover" style="margin-left:10px; border-bottom: 1px solid #ddd;border-top: 2px solid #66BB7A;">
 			  <thead style="background-color: #dddddd30;font-size: 16px;">
 			    <tr>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">글 번호</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">카테고리</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">챌린지 기간</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0; width: 10%;">글 번호</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0; width: 10%;">카테고리</th>
 			      <th scope="col" style="text-align:center; padding: 15px 0;">챌린지 제목</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">작성자</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">작성일</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0; width: 10%;">작성자</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0; width: 10%;">챌린지 기간</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0; width: 10%;">작성일</th>
 			    </tr>
 			  </thead>
 			  
@@ -75,9 +75,9 @@
 						    <tr>
 						      <th scope="row" style="text-align:center; padding: 15px 0;">${boardno }</th>
 						      <th scope="row" style="text-align:center; padding: 15px 0;">[${sort }]</th>
-						      <th scope="row" style="text-align:center; padding: 15px 0;"> ${boardList2.c_period } 주</th>
 						      <td style="text-align:center; padding: 15px 0;"><a href="/reviewcontent?bno=${boardList2.bno }&cno=${boardList2.cno}">${boardList2.c_title }</a></td>
 						      <th scope="row" style="text-align:center; padding: 15px 0;"> ${boardList2.b_writer}</th>
+						      <th scope="row" style="text-align:center; padding: 15px 0;"> ${boardList2.c_period } 주</th>
 							  <td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList2.b_date }" pattern="yyyy-MM-dd"/></td>
 						    </tr>
 				<c:set var="boardno" value="${boardno -1 }"></c:set>
@@ -101,6 +101,12 @@
 <!--                 <a href="#" class="bt last">>></a> -->
                 </ul>
            </div>
+          <div class="bt_wrap">
+             <c:if test= "${not empty nick}">
+				<input class="sbtn2" type="button" value="후기 작성하기" onclick="location.href='/challenge/mychallenge';" >
+			  </c:if>
+				
+          </div>  
           
 <!--            <div class="bt_wrap"> -->
 <%--              <input class="sbtn2" type="button" value="후기작성하기" onclick="location.href='/review?cno=${boardList.cno}';" > --%>
@@ -111,8 +117,9 @@
 <style>
 .board_wrap {
 	width: 1000px;
-	margin: 20px auto;
+	margin-top: 30px;
 }
+
 
 .board_title {
 	margin-bottom: 30px;
@@ -172,6 +179,7 @@
     background-color: #fff;
     color: #FFDB83;
 }
+
 </style>
 
 </div>

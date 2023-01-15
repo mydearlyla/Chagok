@@ -68,19 +68,17 @@
 		</div>
 	</div>
 
-    <div class="row" style="width: 1200px; padding-left: 50px; padding-right: 20px; padding-top: 50px;">
-	    <div class="d-flex justify-content-center">
-		    <div class="box">
-		        <div class="col-md-12 text-center" style="background: #FAF8F1; height: 50px;">
-				    	<h4 style="marfin-top: 14px;">
-				    	총<span style="color: #10A19D;">${vo.c_total }</span>번을
-				    	<span style="color: #10A19D;">${vo.c_freq }</span>일 마다 
-				    	<span style="color: #10A19D;">${vo.c_amount }</span>원씩 저축하는 조건이 있습니다.
-				    	</h4>
-		    	</div>
-		    </div>
+    <div class="box box-default">
+		<div class="box-header with-border" style="background: #66BB7A; height: 50px; opacity: 85%; color: #fff;">
+			<div class="text-center">
+			  <h3 class="box-title" style="margin-top: 1%;">
+			  	총 <span style="color: #3e6c49;"><fmt:formatNumber pattern="0" value="${vo.c_period*7 /vo.c_freq }" /> </span>번을
+		    	<span style="color: #3e6c49;">${vo.c_freq }</span> 일 마다 
+		    	<span style="color: #3e6c49;"><fmt:formatNumber pattern=",000" value="${vo.c_amount }"/></span>원씩 저축하는 조건이 있습니다.
+			  </h3>
+			</div>
 		</div>
-    </div>
+	</div>
 
         <div class="form-group has-warning" style="padding-top: 50px; border-left-width:3px; margin-left:36px; width:1133px;">
                   <label class="control-label" for="inputWarning"><i class="fa fa-bell-o"></i>챌린지 설명</label>
@@ -100,11 +98,16 @@ ex) 저축형 챌린지 [교통] 카테고리 참여 중이라면 절약형 [교
         </div>
         
         <div>
-        <button class="btn btn-block btn-success btn-lg" type="button" id="samechallenge" style="width:218px; margin-left: 950px;">참여하기</button>
-		<div id="result_samechallenge"></div>
+	        <c:if test="${startDate gt now }">
+	        	<button class="btn btn-block btn-success btn-lg" type="button" id="samechallenge" style="width:218px; margin-left: 950px;">참여하기</button>
+	        </c:if>
+	        <c:if test="${startDate lt now  &&  c_end gt now}">
+	        	<button class="btn btn-block btn-success btn-lg" type="button" id="samechallenge" style="width:218px; margin-left: 950px;">피드가기</button>
+	        </c:if>
+			<div id="result_samechallenge"></div>
 		</div>
-	</div>
-	
+
+</div>	
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
 <!-- 카카오톡 공유하기 -->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>

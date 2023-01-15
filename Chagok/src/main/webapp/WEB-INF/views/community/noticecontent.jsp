@@ -46,7 +46,7 @@ a {
 }
 
 .board_wrap {
-    width: 1000px;
+/*     width: 1000px; */
     margin: 40px;
 }
 
@@ -465,7 +465,7 @@ a {
 <!--                     </dl> -->
                 </div>
                 <div class="cont">
-                    <textarea name="b_content" placeholder="내용을 작성해주세요">${vo.b_content }</textarea>
+                    <textarea name="b_content"  style="resize: none;" placeholder="내용을 작성해주세요">${vo.b_content }</textarea>
                 </div>
             </div>
             

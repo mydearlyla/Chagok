@@ -30,7 +30,7 @@ a {
 
 .board_wrap {
     width: 1000px;
-    margin: 40px;
+    margin: 40px auto;
 }
 
 .board_title {
@@ -457,7 +457,7 @@ a {
                     
                 </div>
                 <div class="cont">
-                    <textarea name="b_content" placeholder="내용을 작성해주세요"></textarea>
+                    <textarea name="b_content"  style="resize: none;" placeholder="내용을 작성해주세요"></textarea>
                 </div>
             </div>
             <div class="bt_wrap">
@@ -475,5 +475,5 @@ a {
 </body>
 
 
-
+</div>
 <%@ include file="../include/footer.jsp"%>

@@ -10,50 +10,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/css.css">
-</head>
-
-	<body>
-<form role="form" method="post">
-    <div class="board_wrap">
-        <div class="board_title">
-	        <strong>챌린지 후기글 수정</strong>
-	        <p> 참여한 챌린지의 후기를 남기는 곳입니다</p>
-    	</div>
- 	    <div class="board_write_wrap">
- 	     <div class="board_write">
-             	<div class="title">
-             	<div class="title">             	
-                    <dl>
-                        <dt>제목</dt>
-                        <dd><input type="text" name="b_title" value="${vo.b_title }"></dd>
-                    </dl>
-                </div>
-             	 <div class="info">
-                    <dl>
-                        <dt>작성자</dt>
-                        <dd><input type="text" placeholder="${boardChallenge.b_writer }" readonly ></dd>
-                    </dl>
-                    <dl>
-                        <dt>작성일</dt>
-                        <dd><input type="text" placeholder="<fmt:formatDate value="${boardChallenge.b_date }" pattern="yyyy-MM-dd"/>" readonly ></dd>
-                    </dl>
-                </div>
-			 </div>
-         <div class="cont">
-              <textarea name="b_content">${boardChallenge.b_content }</textarea>
-		 </div>
-		</div>
-       <div class="bt_wrap">
-       <input type="hidden" name="bno" value="${boardChallenge.bno }">
-   	   <input type="hidden" name="cno" value="${boardChallenge.cno }">
-       <input class="sbtn" type="submit" value="수정하기">
-       <input class="sbtn2" type="button" value="목록으로 돌아가기" onclick="location.href='/reviewboard';" >
-  </div>  
-</div> 
-</div>     
-  </form>
-</body>
-</html>
 
 <style>
 * {
@@ -76,7 +32,7 @@ a {
 
 .board_wrap {
     width: 1000px;
-    margin: 40px auto;
+    margin: 40px;
 }
 
 .board_title {
@@ -449,7 +405,53 @@ a {
     background-color: #fff;
     color: #FFDB83;
 }
-</style>
+</style>    
+</head>
+
+	<body>
+<form role="form" method="post">
+    <div class="board_wrap">
+        <div class="board_title">
+	        <strong> 수정 </strong>
+	        <p> 참여한 챌린지의 후기를 남기는 곳입니다</p>
+    	</div>
+ 	    <div class="board_write_wrap">
+ 	     <div class="board_write">
+             	<div class="title">
+             	<div class="title">             	
+                    <dl>
+                        <dt>제목</dt>
+                        <dd><input type="text" name="b_title" value="${vo.b_title }"></dd>
+                    </dl>
+                </div>
+             	 <div class="info">
+                    <dl>
+                        <dt>작성자</dt>
+                        <dd><input type="text" placeholder="${boardChallenge.b_writer }" readonly ></dd>
+                    </dl>
+                    <dl>
+                        <dt>작성일</dt>
+                        <dd><input type="text" placeholder="<fmt:formatDate value="${boardChallenge.b_date }" pattern="yyyy-MM-dd"/>" readonly ></dd>
+                    </dl>
+                </div>
+			 </div>
+         <div class="cont">
+              <textarea name="b_content">${boardChallenge.b_content }</textarea>
+		 </div>
+		</div>
+       <div class="bt_wrap">
+       <input type="hidden" name="bno" value="${boardChallenge.bno }">
+   	   <input type="hidden" name="cno" value="${boardChallenge.cno }">
+       <input class="sbtn" type="submit" value="수정하기">
+       <input class="sbtn2" type="button" value="목록으로 돌아가기" onclick="location.href='/reviewboard';" >
+  </div>  
+</div> 
+</div>     
+  </form>
+</body>
+</html>
 
 
+
+</div>
 <%@ include file="../include/footer.jsp"%>

@@ -167,7 +167,10 @@
 	<!-- 챌린지 등록하기 --> 
   	<insert id="challengeRegist">
      	insert into challenge (cno,c_title,ctno,c_period,c_start,c_pcnt,c_deposit,c_freq,c_amount,c_content,c_status,c_sort,c_min,c_file,c_thumbFile,c_cnt,mno,c_person,c_total) 
-     	values (#{cno},#{c_title},#{ctno},#{c_period},#{c_start},#{c_pcnt},#{c_deposit},#{c_freq},#{c_amount},#{c_content},#{c_status},#{c_sort},#{c_min},#{c_file},#{c_thumbFile},#{c_cnt},#{mno},#{c_person},#{c_total})  
+     	values (#{cno},#{c_title},#{ctno},#{c_period},#{c_start},#{c_pcnt},#{c_deposit},#{c_freq},#{c_amount},#{c_content},#{c_status},#{c_sort},#{c_min},#{c_file},#{c_thumbFile},#{c_cnt},#{mno},#{c_person},#{c_total}) 
+        <selectKey keyColumn="cno" keyProperty="cno" order="AFTER" resultType="Integer">
+           select cno from challenge where mno=#{mno} ORDER BY cno DESC LIMIT 1
+        </selectKey>
   	</insert>
   	
   	<!-- 챌린지 목록 -->
@@ -200,7 +203,7 @@
 		values (#{b_title},#{b_content},#{b_writer},#{b_sort},#{b_file})	
 	</insert>
 	
-		<!-- 챌린지 모인 꿀머니 -->
+	<!-- 챌린지 모인 꿀머니 -->
 	<select id="challengemoney" resultType="int">
 		select c_deposit * c_cnt 
 		from challenge
@@ -221,13 +224,12 @@
 		where c.cno = #{cno} and (pl_finish = 'Y' or m_finish = 'Y')
 	</select>
 	
-	
-	
 	<!-- 명예의 전당 순위 -->
 	<select id="ranking" resultType="com.chagok.domain.UserVO">
 		select * from user
 		order by success_cnt desc  
 	</select>
+	
 	<!-- userseqno 업데이트 -->
 	<update id="updateSeqNo">
 		update user set user_seq_no = #{user_seq_no} where mno = #{mno}
@@ -379,12 +381,12 @@
 
 	<!-- 비지니스 계좌 입금(송금) -->
 	<insert id="sendBiz">
-		insert into business_account(biz_inout, biz_amount, mno, biz_holder_name, biz_balance, cno) 
-		<if test="biz_inout == 1">
-		values(#{biz_inout}, #{biz_amount}, #{mno}, #{biz_holder_name}, #{biz_balance}-#{biz_amount}, #{cno})
+		insert into business_account(biz_inout, biz_amount, mno, biz_holder_name, biz_balance, cno, biz_status) 
+		<if test="biz_inout == 1"> <!-- 출금  -->
+		values(#{biz_inout}, #{biz_amount}, #{mno}, #{biz_holder_name}, #{biz_balance}-#{biz_amount}, #{cno}, 1)
 		</if>
-		<if test="biz_inout == 2">
-		values(#{biz_inout}, #{biz_amount}, #{mno}, #{biz_holder_name}, #{biz_balance}+#{biz_amount}, #{cno})
+		<if test="biz_inout == 2"> <!-- 입금  -->
+		values(#{biz_inout}, #{biz_amount}, #{mno}, #{biz_holder_name}, #{biz_balance}+#{biz_amount}, #{cno}, 0)
 		</if>
 	</insert>
 	

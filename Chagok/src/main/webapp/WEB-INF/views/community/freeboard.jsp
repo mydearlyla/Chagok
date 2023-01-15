@@ -62,7 +62,7 @@
 						</h3>
 						<div class="timeline-body">
 							<i style="color: #66BB7A; font-weight: bold;"> Content </i> <br><br>
-							<textarea style="width:30%; height:200px; resize: none; border: none;" readonly  name="b_content" placeholder="내용을 작성해주세요">${board.b_content }</textarea>
+							<textarea style="width:100%; height:100%; resize: none; border: none;" readonly  name="b_content" placeholder="내용을 작성해주세요">${board.b_content }</textarea>
 							
 						</div>
 						<div class="timeline-footer">

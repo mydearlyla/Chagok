@@ -39,7 +39,7 @@
                     </dl>
                 </div>
              <div class="cont">
-             	<textarea name="b_content">${vo.b_content }</textarea>
+             	<textarea name="b_content" style="resize: none;">${vo.b_content }</textarea>
 			 </div>
          </div>
        <div class="bt_wrap">

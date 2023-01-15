@@ -47,7 +47,7 @@
 			<span><a href="#" onclick="javascript:delRow();">삭제</a></span>
          </div>
          
-         <div class="col-md-4">
+         <div class="col-md-4" id="col-md-4">
 			<div class="box box-primary2">
 			
 			<form role="form" action="/asset/insGrid" method="post">
@@ -147,23 +147,8 @@
 			</div>
 			</div>
          </div>
-
-
-<script type="text/javascript">
-$(function() {
-	$(".datetimepicker").datetimepicker({ 
-		dateFormat:'yy-mm-dd',
-		autoclose: true,
-		todayHighlight: true
-	});
-});
-function grid_Datepicker(text, obj){
-    $("#jqGrid").jqGrid("saveCell", rowid, iCol); // cell 저장
-}
-</script>
-
-
-
+		</div>
+		<%@ include file="../include/footer.jsp"%>
 
 <!-- jQuary+grid -->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" /> -->
@@ -232,43 +217,7 @@ $("#jqGrid").jqGrid({
 							}] 
 				}	// edit
 		}}, //name
-		//            	data = $.parseJSON({"rows":JSON.stringify(data)});
-		// 				console.log(data[0]);	  
-		
-		// 	        	  var ctno = new Array(); 
-		// 	        	  var ct_top = new Array();
-		
-		// 	        	  for(var i=0; i<data.length; i++){
-		// 	        	  	var d = data[i];
-		// 	        	  	ctno.push(d.ctno);
-		// 	        	  	ct_top.push(d.ct_top);
-		// 	        	  console.log(d.ct_top);
-		// 	        	 }
-			        	  
-		// 	 				let jsonData = JSON.parse(data)
-		// 	 				let key1 = Object.keys(data);
-		// 	 				let key2 = Object.values(jsonData);
-		// 	        	  console.log(key1);
-		// 	          	console.log(O)
-		// 	            if(typeof(data)=='String') {
-		// 	            	data = $.parseJSON({"rows":JSON.stringify(data)});
-		// 					var selrt = '<select name="cateSelect">';
-		// 				let jsonData = JSON.parse(data)
-		// 				let key1 = Object.keys(jsonData);
-		// 				let key2 = Object.values(jsonData);
-		
-		// 	            console.log(JSON.parse(data)[0]);       
-		// 	            console.log(JSON.parse(data)[0].);       
-		// 						for ( var i = 0 ; i < 85 ; i ++) {
-		// 				 			let key = JSON.parse(data)
-		// 								selrt +='<option value="'+key[i].ctno+'">'+key[i].ct_top+'</option>';
-		// // 								console.log(data.[i]);
-		// 							console.log(JSON.parse(data)[1]);
-		// 							}
-		// 								selrt +='</select>';
-		
-		// 						return selrt;
-// 	    {name : 'ct_top',index : 'ct_top',width : 70, alian: "center", hidden:false,editable:true},           
+       
 		{name:"ct_bottom",index:"ct_bottom",width:50,align:'center', editable: true, edittype: "select", /* formatter: "select", */
 	
 			    	editoptions:{
@@ -290,7 +239,6 @@ $("#jqGrid").jqGrid({
 									contentType:"application/json",
 									data : test,
 									success:function(val){
-										
 										rtSlt = '<select id="ct_bottom">';
 										for ( var idx = 0 ; idx < val.length ; idx ++) {
 										rtSlt +='<option value="'+val[idx].ctno+'">'+val[idx].ct_bottom+'</option>';
@@ -322,18 +270,8 @@ $("#jqGrid").jqGrid({
 	
         {name : 'ab_memo',index : 'ab_memo', align: "center", width : 50, align : 'center',hidden:false,editable:true}
       ],
-//      gridComplete: function(){
-//    	    var ids = $("#jqGrid").jqGrid('ab_memo');
-//    	    for(var i=0;i < ids.length;i++){
-//    	        var cl = ids[i];
-//    	        chgPw = "<input style='height:22px;width:50px;' type='button' value='RESET' onclick=\"F\"  />"; 
-//    	        $("#jqGrid").jqGrid('setRowData',ids[i],{pwReset:chgPw});
-//    	    } 
-//    	},
-//       onCellSelect : function(rowid, iCell, content){
-//     	  alert(""+content);
-//     	 } ,
-    
+
+    emptyrecords: "데이터가 없습니다." , 
     autowidth: true,
 // 	shrinkToFit: true, 
     loadtext: "조회 중..",
@@ -371,16 +309,7 @@ $("#jqGrid").jqGrid({
 	       }
 	       return [(aResult.msg == "success") ? true : false, userMsg];
 	   }
-    //rownumbers:true,
-    //viewrecords:true,
-    //pgbuttons:true,
-    //pginput:true,
-    //shrinkToFit:true,
-    //sortable: false,
-    //loadComplete:function(data){},
-    //scroll:true,
-    //loadonce:false,
-    //hidegrid:true
+
     // =================================================
     }); //jqgrid default
     
@@ -452,7 +381,6 @@ $("#jqGrid").jqGrid({
 	function delRow(){
 		alert("삭제 시작");
 		var data =  $("#jqGrid").jqGrid('getGridParam', 'selarrrow');
-//	 	var data =  ["4","5"];  리스트 형태 데이터를 그대로 넘겨주면 됩니다!
 			console.log(data);
 			
 		$.ajax({
@@ -466,8 +394,9 @@ $("#jqGrid").jqGrid({
 			      console.log(err);
 			}
 		});
-		alert("삭제 끝");
+		alert("삭제되었습니다");
 				
+		
 	}
 	
 	
@@ -622,90 +551,90 @@ $(function(){
 <script type="text/javascript">
 function getAgreeType() {    
     var obj = {
-        "1" : {
-            '13' : '식사',
-            '14' : '간식',
-            '15' : '외식',
-            '16' : '카페',            
-            '17' : '술/유흥',            
-            '18' : '기타',                   
-        },
-        "2" : {
-            '19' : '의류',
-            '20' : '패션잡화',
-            '21' : '헤어',
-            '22' : '뷰티',
-            '23' : '기타',
-        },
-        "3" : {
-            '24' : '여행/숙박',
-            '25' : '공연/전시',
-            '26' : '도서/영화',
-            '27' : '취미',
-            '28' : '선물',
-            '29' : '기타',
-        },
-        "4" : {
-            '30' : '가전/가구',
-            '31' : '주방/욕실',
-            '32' : '잡화/소모',
-            '33' : '반려동물',
-            '34' : '기타',
-        },
-        "5" : {
-            '35' : '관리비',
-            '36' : '공과금',
-            '37' : '통신',
-            '38' : '월세',
-            '39' : '기타',
-        },
-        "6" : {
-            '40' : '운동',
-            '41' : '운동용품',
-            '42' : '병원',
-            '43' : '약국',
-            '44' : '기타',
-        },
-        "7" : {
-            '45' : '등록금',
-            '46' : '학원',
-            '47' : '교재',
-            '48' : '육아용품',
-            '49' : '기타',
-        },
-        "8" : {
-            '50' : '대중교통',
-            '51' : '택시',
-            '52' : '주유소',
-            '53' : '장비/부품',
-            '54' : '기타',
-        },
-        "9" : {
-            '55' : '경조사',
-            '56' : '회비',
-            '57' : '용돈',
-            '58' : '헌금',
-            '59' : '기부',
-            '60' : '기타',
-        },
-        "10" : {
-            '61' : '세금',
-            '62' : '은행',
-            '63' : '이자',
-            '64' : '투자',
-            '65' : '기타',
-        },
-        "11" : {
-            '66' : '예/적금',
-            '67' : '보험',
-            '68' : '기타',
-        },
-        "12" : {
-            '69' : '출금',
-            '70' : '이체',
-            '71' : '카드대금',
-            '72' : '기타',
-        }
+    	       "1" : {
+    	            '13' : '간식',
+    	            '14' : '외식',
+    	            '15' : '카페',            
+    	            '16' : '술/유흥',            
+    	            '17' : '기타',                   
+    	        },
+    	        "2" : {
+    	            '18' : '의류',
+    	            '19' : '패션잡화',
+    	            '20' : '헤어',
+    	            '21' : '뷰티',
+    	            '22' : '기타',
+    	        },
+    	        "3" : {
+    	            '23' : '여행/숙박',
+    	            '24' : '공연/전시',
+    	            '25' : '도서/영화',
+    	            '26' : '취미',
+    	            '27' : '선물',
+    	            '28' : '기타',
+    	        },
+    	        "4" : {
+    	            '29' : '가전/가구',
+    	            '30' : '주방/욕실',
+    	            '31' : '잡화/소모',
+    	            '32' : '반려동물',
+    	            '33' : '기타',
+    	        },
+    	        "5" : {
+    	            '34' : '관리비',
+    	            '35' : '공과금',
+    	            '36' : '통신',
+    	            '37' : '월세',
+    	            '38' : '기타',
+    	        },
+    	        "6" : {
+    	            '39' : '운동',
+    	            '40' : '운동용품',
+    	            '41' : '병원',
+    	            '42' : '약국',
+    	            '43' : '기타',
+    	        },
+    	        "7" : {
+    	            '44' : '등록금',
+    	            '45' : '학원',
+    	            '46' : '교재',
+    	            '47' : '육아용품',
+    	            '48' : '기타',
+    	        },
+    	        "8" : {
+    	            '49' : '대중교통',
+    	            '50' : '택시',
+    	            '51' : '주유소',
+    	            '52' : '장비/부품',
+    	            '53' : '기타',
+    	        },
+    	        "9" : {
+    	            '54' : '경조사',
+    	            '55' : '회비',
+    	            '56' : '용돈',
+    	            '57' : '헌금',
+    	            '58' : '기부',
+    	            '59' : '기타',
+    	        },
+    	        "10" : {
+    	            '60' : '세금',
+    	            '61' : '은행',
+    	            '62' : '이자',
+    	            '63' : '투자',
+    	            '64' : '기타',
+    	        },
+    	        "11" : {
+    	            '65' : '예/적금',
+    	            '66' : '보험',
+    	            '67' : '기타',
+    	        },
+    	        "12" : {
+    	            '68' : '출금',
+    	            '69' : '이체',
+    	            '70' : '카드대금',
+    	            '71' : '기타',
+    	        }
+    	}
     }
     return obj;
 }
@@ -776,9 +705,25 @@ function doOpenCheck(chk){
 }
 </script>
 	
+<script type="text/javascript">
+$(function() {
+	$(".datetimepicker").datetimepicker({ 
+		dateFormat:'yy-mm-dd',
+		autoclose: true,
+		todayHighlight: true
+	});
+});
+function grid_Datepicker(text, obj){
+    $("#jqGrid").jqGrid("saveCell", rowid, iCol); // cell 저장
+}
+</script>	
+	
 	
 <style>
 
+#col-md-4 {
+    width: 30.333333%;
+}
 
 .form-control2 {
     display: block;
@@ -798,7 +743,6 @@ function doOpenCheck(chk){
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
-
 .box-body2 {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -920,20 +864,3 @@ th {
 
 
 <!-- </section> -->
-</div>
-</div>
-
-
-</div>
-<%@ include file="../include/footer.jsp"%>
-
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="${pageContext.request.contextPath }/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <!-- FastClick -->
-    <script src='${pageContext.request.contextPath }/resources/plugins/fastclick/fastclick.min.js'></script>
-    <!-- AdminLTE App -->
-    <script src="${pageContext.request.contextPath }/resources/dist/js/app.min.js" type="text/javascript"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="${pageContext.request.contextPath }/resources/dist/js/demo.js" type="text/javascript"></script>
-  </body>
-</html>

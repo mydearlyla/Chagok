@@ -56,7 +56,7 @@ public interface ChallengeService {
 	public BoardVO getBoardContent(Integer bno);
 
 	// 챌린지 등록
-	public void challengeRegist(ChallengeVO vo) throws Exception;
+	public Integer challengeRegist(ChallengeVO vo) throws Exception;
 	
 	// 챌린지 목록
 	public List<ChallengeVO> getChallengeList() throws Exception;

@@ -68,25 +68,23 @@
 	               	<b><fmt:formatDate value="${c_end }" pattern="YYYY-MM-dd"/></b>
 	               </span>
 	           </div>
-       </div>
+       		</div>
 			</div>
 		</div>
 	</div>
 
-    <div class="row" style="width: 1200px; padding-left: 50px; padding-right: 20px; padding-top: 50px;">
-	    <div class="d-flex justify-content-center">
-		    <div class="box">
-		        <div class="col-md-12 text-center" style="background: #FAF8F1; height: 50px;">
-				    	<h4 style="marfin-top: 14px;">
-				    	<span style="color: #10A19D;">${vo.c_period }</span>주 동안
-				    	<span style="color: #10A19D;">${vo2.ct_top }</span>의 비용을
-				    	총 <span style="color: #10A19D;">${vo.c_amount }</span>원 절약합니다.
-				    	</h4>
-		    	</div>
-		    </div>
+	<div class="box box-default">
+		<div class="box-header with-border" style="background: #66BB7A; height: 50px; opacity: 85%; color: #fff;">
+			<div class="text-center">
+			  <h3 class="box-title" style="margin-top: 1%;">
+			  	<span style="color: #3e6c49;">${vo.c_period }</span>주 동안 
+		    	<span style="color: #3e6c49;">${vo2.ct_top }</span>를
+		    	총 <span style="color: #3e6c49;">${vo.c_amount }</span>원 절약합니다.
+			  </h3>
+			</div>
 		</div>
-    </div>
-
+	</div>
+		    	
         <div class="form-group has-warning" style="padding-top: 50px; border-left-width:3px; margin-left:36px; width:1133px;">
                   <label class="control-label" for="inputWarning"><i class="fa fa-bell-o"></i>챌린지 설명</label>
                   <textarea class="form-control" id="inputWarning" style="height: 180px; font-size: 15px;" readonly>
@@ -102,13 +100,18 @@ ex) 저축형 챌린지 [교통] 카테고리 참여 중이라면 절약형 [교
         		  </textarea>
         </div>
         
+      <!--  성공시 onclick="location.href='/minusdetailPOST';" 변경 -->
         <div>
-<!--        성공시 onclick="location.href='/minusdetailPOST';" 변경 -->
-        <button class="btn btn-block btn-success btn-lg" type="button" id="samechallenge" style="width:218px; margin-left: 950px;">참여하기</button>
-		<div id="result_samechallenge"></div>
+	        <c:if test="${startDate gt now }">
+	        	<button class="btn btn-block btn-success btn-lg" type="button" id="samechallenge" style="width:218px; margin-left: 950px;">참여하기</button>
+	        </c:if>
+	        <c:if test="${startDate lt now  &&  c_end gt now}">
+	        	<button class="btn btn-block btn-success btn-lg" type="button" id="samechallenge" style="width:218px; margin-left: 950px;">피드가기</button>
+	        </c:if>
+			<div id="result_samechallenge"></div>
 		</div>
-	</div>
-	
+
+</div> <!-- ./ contents -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
 <!-- 카카오톡 공유하기 -->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -117,6 +120,49 @@ ex) 저축형 챌린지 [교통] 카테고리 참여 중이라면 절약형 [교
 	Kakao.isInitialized();
 </script>
 	
+<<<<<<< HEAD
+ <script>
+$(function(){
+   	$("#samechallenge").click(function(){
+   		
+   		var ctno = ${vo.ctno};
+   		var mno = ${mno};
+   		var cno = ${vo.cno};
+   		
+   		var test = {"ctno":ctno,"mno":mno, "cno":cno};
+   		var confirmm = confirm("참여 가능한 챌린지입니다! \n 단, 저축형 챌린지는 하나만 참여 가능합니다. \n 참여하시겠습니까?");
+   		
+   		if (confirmm) {
+			$.ajax({
+    			type : "post",
+    			url : "/challenge/minusdetailPOST",
+    			contentType : "application/json",
+    			dataType :'text',
+    			data : JSON.stringify(test),
+    			timeout : 3000,
+    			async : false,
+    			success : function(data){
+					console.log('통신 성공! ' + data);
+    				if(data == "N"){ // 중복된 카테고리num이 아닐 때
+      					alert('챌린지 참여완료!');
+    					location.href="/commumain";
+    				}else if(data == "Y"){ // 중복된 챌린지 or 중복된 상세카테고리 챌린지 
+    					alert("해당 카테고리로 참여 중인 챌린지가 있습니다.");
+    					return false;
+    				}
+    			},
+    				error : function(error, data){
+    					console.log(error);
+    					console.log(data);
+    					}
+    			});
+   		} else {
+   			alert('챌린지 참여를 취소하였습니다.');
+   		}
+ 	});
+});
+</script>
+=======
 	
         <script>
         $(function(){
@@ -132,7 +178,7 @@ ex) 저축형 챌린지 [교통] 카테고리 참여 중이라면 절약형 [교
         		if (confirmm) {
 					$.ajax({
 	        			type : "post",
-	        			url : "/challenge/minusdetailPOST",
+	        			url : "/challenge/plusregist",
 	        			contentType : "application/json",
 	        			dataType :'text',
 	        			data : JSON.stringify(test),
@@ -142,7 +188,7 @@ ex) 저축형 챌린지 [교통] 카테고리 참여 중이라면 절약형 [교
 							console.log('통신 성공! ' + data);
 	        				if(data == "N"){ // 중복된 카테고리num이 아닐 때
 			        			alert('챌린지 참여완료!');
-	        					location.href="/commumain";
+	        					location.href="/minusdetailPOST";
 	        				}else if(data == "Y"){ // 중복된 챌린지 or 중복된 상세카테고리 챌린지 
 	        					alert("해당 카테고리로 참여 중인 챌린지가 있습니다.");
 	        					return false;
@@ -159,6 +205,7 @@ ex) 저축형 챌린지 [교통] 카테고리 참여 중이라면 절약형 [교
         		});
         	});
         </script>
+>>>>>>> branch 'develop' of https://github.com/Ju-Yeongmin/Final_Project_Team2.git
 
 <script type="text/javascript">   
 	$(document).ready(function(){
@@ -175,4 +222,6 @@ ex) 저축형 챌린지 [교통] 카테고리 참여 중이라면 절약형 [교
 	});
 });
 </script>
+
+
 <%@ include file="../include/footer.jsp" %>

@@ -1,8 +1,10 @@
 package com.chagok.controller;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -177,19 +179,29 @@ public class ChagokController {
 	}	
 
 	
+//	public void ingChallenge() throws Exception {
+//		
+//		List<ChallengeVO> result =  service2.getChallengeList();
+//		LocalDate now = LocalDate.now();
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//		String formatedNow = now.format(formatter);
+//		for(int i=0; i<result.size(); i++) {
+//			String start = result.get(i).getC_start(); 
+//		}
+//		 
+//	}
+
+
 	// 챌린지 목록 불러오기 (커뮤메인)
 	// http://localhost:8080/commumain
 	@GetMapping(value="/commumain")
-	public String getChallengeList(Model model, @ModelAttribute("scri") SearchCriteria scri) throws Exception {
+	public String getChallengeList(Model model, HttpSession session, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr) throws Exception {
 		mylog.debug(" /commumain 호출 ");
 				
-		// 서비스 -> DAO 게시판 리스트 가져오기
 		List<ChallengeVO> challengeList = service2.getChallengeList();
 		List<UserVO> ranking = service2.ranking();
 //		List<ChallengeVO> cList = service2.cList(scri);
 		
-		
-		// 연결되어 있는 뷰페이지로 정보 전달 (Model 객체)
 		model.addAttribute("challengeList", challengeList);
 		model.addAttribute("ranking", ranking);
 //		model.addAttribute("cList", cList);
@@ -204,6 +216,8 @@ public class ChagokController {
 		
 		return "/chagok/commumain";
 	}
+	
+	
 	
 	// http://localhost:8080/login
 	@GetMapping(value = "/login")
@@ -583,6 +597,30 @@ public class ChagokController {
 		model.addAttribute("userList", userList);
 		
 		return "/chagok/userManagement";
+	}
+	
+	
+	// http://localhost:8080/refundManagement
+	// 저축형 환불관리
+	@GetMapping("/refundManagement")
+	public String refundManagementGET(Criteria cri, Model model) throws Exception {
+		mylog.debug("/userManagementGET 호출");
+		
+		List<UserVO> userList = service.getUserList(cri);
+		
+		// 페이징 처리
+		cri.setPerPageNum(10);
+		PageMaker pagevo = new PageMaker();
+		pagevo.setDisplayPageNum(10);
+		pagevo.setCri(cri);
+		pagevo.setTotalCount(service.getUserCnt());
+		mylog.debug("@@@@"+pagevo.toString());
+		mylog.debug("@@@@"+userList.size());
+		
+		model.addAttribute("pagevo", pagevo);
+		model.addAttribute("userList", userList);
+		
+		return "/chagok/refundManagement";
 	}
 
 	////////////////////// 관리자 페이지 ///////////////////////////	

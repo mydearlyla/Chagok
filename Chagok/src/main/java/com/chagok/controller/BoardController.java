@@ -298,7 +298,7 @@ public class BoardController {
 	
 	// 공지 글 삭제하기
 	// http://localhost:8080/noticedelete
-	@PostMapping(value = "/noticedelete")
+	@GetMapping(value = "/noticedelete")
 	public String noticedeleteGET(int bno,RedirectAttributes rttr,HttpSession session) throws Exception {
 		mylog.debug(bno+"");
 			
@@ -516,7 +516,7 @@ public class BoardController {
 	}
 		
 	// 경제 게시판 삭제
-	@PostMapping(value = "/economydelete")
+	@GetMapping(value = "/economydelete")
 	public String economydeleteGET(int bno,RedirectAttributes rttr,HttpSession session) throws Exception {
 		mylog.debug(bno+"");
 			

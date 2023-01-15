@@ -11,8 +11,13 @@
 
 </script>
 
+<style>
+.content-wrapper{
+ 	min-height: 0px !important; 
+}
+</style>
 
-<div class="box box-primary" style="margin: 15px 0 0 100px; width: 50%; border-top-color: #FFDB83;">
+<div class="box box-primary" style="margin: 0% 25% 0% 25%; width: 50%; border-top-color: #FFDB83;">
 <h2 class="profile-username text-center">마 이 페 이 지</h2><br>
 	<div class="box-body box-profile">
 	

@@ -106,7 +106,7 @@
 	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 		<div class="board_wrap">
 			<div class="board_title">
-				<strong>회원 관리</strong>
+				<strong>환급 관리</strong>
 					<p>관리자 전용 페이지입니다.</p>
 			</div>
 		</div>
@@ -118,14 +118,12 @@
 			  <thead style="background-color: #dddddd30;font-size: 16px;">
 			    <tr>
 			      <th scope="col" style="text-align:center; padding: 15px 0;">회원번호</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">아이디</th>
 			      <th scope="col" style="text-align:center; padding: 15px 0;">닉네임</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">꿀머니</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">가입일자</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">가계부인증</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">구독상태</th>
-			      <th scope="col" style="text-align:center; padding: 15px 0;">전화번호</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0;">이름</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0;">신청일</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0;">환급금</th>
 			      <th scope="col" style="text-align:center; padding: 15px 0;">환불계좌정보</th>
+			      <th scope="col" style="text-align:center; padding: 15px 0;">관리</th>
 		    	</tr>
 			  </thead>
 			  
@@ -134,27 +132,10 @@
 		       	<c:forEach items="${userList }" var="user" >
 				    <tr>
 				      <td style="text-align:center; padding: 15px 0;">${user.mno }</td>
-				      <td style="text-align:center; padding: 15px 0;">${user.id }</td>
 				      <td style="text-align:center; padding: 15px 0;">${user.nick }</td>
-				      <td style="text-align:center; padding: 15px 0;">
-				      	<c:set var="buy" value="${user.buypoint}"/>
-				      	<c:set var="get" value="${user.getpoint}"/>
-						<fmt:formatNumber value="${buy + get}"/>꿀
-				      </td>
-				      <td style="text-align:center; padding: 15px 0;">
-				      	<fmt:formatDate value="${user.regdate }" pattern="yyyy-MM-dd hh:mm" type="both"/>
-				      </td>
-				      <td style="text-align:center; padding: 15px 0;">${user.isCheck }</td>
-				      <td style="text-align:center; padding: 15px 0;">${user.isSub }</td>
-				      <td style="text-align:center; padding: 15px 0;">
-						<c:set var="tel" value="${user.tel}"/>
-						<c:choose>
-	   						<c:when test="${tel == null}">정보 없음</c:when>
-							<c:otherwise>
-								${fn:substring(tel,0,3) }-${fn:substring(tel,3,7) }-${fn:substring(tel,7,11) }
-							</c:otherwise>
-						</c:choose>
-				      </td>
+				      <td style="text-align:center; padding: 15px 0;">${user.rname }</td>
+				      <td style="text-align:center; padding: 15px 0;">환급금</td>
+				      <td style="text-align:center; padding: 15px 0;">신청일</td>
 				      <td style="text-align:center; padding: 15px 0;">
 						<c:choose>
 							<c:when test="${user.rname == null}">정보 없음</c:when>
@@ -164,6 +145,11 @@
 							</c:otherwise>
 						</c:choose>				      
 				      </td>
+					   <td style="text-align:center; padding: 15px 0;">
+					   <button type="button" class="btn" style="background-color:#66BB7A;">
+								환급하기
+							</button>
+					   </td>
 				    </tr>
 				    <tr style="display:none">
 				    	<td>
@@ -181,17 +167,17 @@
 		  <div class="board_page">
                 	<ul class= "pagination pagination-sm no-margin pull-right">
 					<c:if test="${pagevo.prev }">
-			            <li><a href="/userManagement?page=${pagevo.startPage-1 }">«</a></li>
+			            <li><a href="/refundManagement?page=${pagevo.startPage-1 }">«</a></li>
 			        </c:if>
 					<c:forEach var="idx" begin="${pagevo.startPage }" end="${pagevo.endPage }" step="1">
 						<li
 							<c:out value="${idx == pagevo.cri.page? 'class=active':'' }"/>
 							>
-							<a href="/userManagement?page=${idx }">${idx }</a>
+							<a href="/refundManagement?page=${idx }">${idx }</a>
 						</li>
 					</c:forEach>
 			        <c:if test="${pagevo.next }">
-			            <li><a href="/userManagement?page=${pagevo.endPage+1 }">»</a></li>
+			            <li><a href="/refundManagement?page=${pagevo.endPage+1 }">»</a></li>
 			        </c:if>
                 </ul>
            </div>
@@ -217,6 +203,5 @@ $(document).ready(function(){
 
 
 </script>
-
 </div>
 <%@ include file="../include/footer.jsp"%>

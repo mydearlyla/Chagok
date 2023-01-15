@@ -52,6 +52,7 @@
 		        <c:if test="${userVO.profile == null }">
 		        	src="https://ptetutorials.com/images/user-profile.png" alt="User profile picture"
 		        </c:if>
+
               class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">

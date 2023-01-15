@@ -7,18 +7,34 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/sidebarMyPage.jsp" %>
 
+<!-- sweetalert -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.btn.btn-primary.btn-block.ym').click(function(){
 			
 			if ( $('#tel').val() == "" ) {
-				alert('전화번호를 입력하세요.')
+			   Swal.fire({
+			        title: '전화번호를 입력하세요.', 
+			        icon: 'warning'
+		   	   });				
 			} else if ( $('#rname').val() == "" ) {
-				alert('환불계좌 예금주명을 입력하세요.');
+			   Swal.fire({
+			        title: '환불계좌 예금주명을 입력하세요.', 
+			        icon: 'warning'
+		   	   });				
 			} else if ( $('#rbank').val() == "" ) {
-				alert('환불계좌 은행을 입력하세요.');
+			   Swal.fire({
+			        title: '환불계좌 은행을 입력하세요.', 
+			        icon: 'warning'
+		   	   });				
 			} else if ( $('#rname').val() == "" ) {
-				alert('환불계좌 계좌번호를 입력하세요.');
+			   Swal.fire({
+			        title: '환불계좌 계좌번호를 입력하세요.', 
+			        icon: 'warning'
+		   	   });				
 			} else {
 				var check = confirm("회원정보를 수정하시겠습니까?");
 				

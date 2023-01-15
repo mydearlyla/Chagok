@@ -8,7 +8,7 @@
 <%@ include file="../include/sidebarMyPage.jsp" %>
 
 <head>
-  <head>
+ 
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
  <link rel="stylesheet" href="../assets/css/theme.min.css">
@@ -78,7 +78,35 @@
     color: #FFDB83;
 }
 </style>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#b_update').click(function() {
+       var val= $('#b_update').val();
+   	   if() {
+		   Swal.fire({
+		        title: '정말 수정하시겠습니까?', 
+		        icon: 'warning'
+		      });
+   		  $(this).val('');
+	   }
+  	});
+});
 
+$(document).ready(function() {
+    $('#b_delete').change(function() {
+       var val= $('#b_delete').val();
+       if() {
+		   Swal.fire({
+		        title: '정말 삭제하시겠습니까?', 
+		        icon: 'warning'
+		      });
+   		  $(this).val('');
+	   }
+  	});
+});
+</script>
+
+</head>
  <body>
  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -99,6 +127,7 @@
 			      <th scope="col" style="text-align:center; padding: 15px 0;"> 게시판 종류 </th>
 			      <th scope="col" style="text-align:center; padding: 15px 0;"> 제목 </th>
 				  <th scope="col" style="text-align:center; padding: 15px 0;"> 작성일 </th>
+				  <th scope="col" style="text-align:center; padding: 15px 0;"> 수정 / 삭제 </th>
 			    </tr>
 			  </thead>
 			<tbody>
@@ -109,21 +138,48 @@
 					<th scope="row" style="text-align:center; padding: 15px 0;">후기</th>
 					<td style="text-align:center; padding: 15px 0;"><a href="/reviewcontent?bno=${boardList.bno }&cno=${boardList.cno}">${boardList.b_title }</a></td>
 					<td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList.b_date }" pattern="yyyy-MM-dd"/></td>
+					<td style="text-align:center; padding: 15px 0;">
+						<button type="submit" id="b_update" class="btn" style="background-color:#66BB7A;"
+								onclick="location.href='/reviewupdate?bno=${boardList.bno}&cno=${boardList.cno }';">수정
+						</button>
+						/
+						<button type="submit" class="btn" style="background-color:#dd4b39;"
+								onclick="location.href='/reviewboard?bno=${boardList.bno}&cno=${boardList.cno }';">삭제
+						</button>
+					</td>
 				</c:if>	
 				<c:if test="${boardList.b_sort eq 3 }">
 					<th scope="row" style="text-align:center; padding: 15px 0;">자유</th>
 					<td style="text-align:center; padding: 15px 0;"><a href="/freeboard">${boardList.b_title }</a></td>
 					<td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList.b_date }" pattern="yyyy-MM-dd"/></td>
+					<td style="text-align:center; padding: 15px 0;">
+						<button type="submit" id="b_update" class="btn" style="background-color:#66BB7A;"
+								onclick="location.href='/freeboardupdate?bno=${boardList.bno}';">수정
+						</button>
+						/
+						<button type="submit" class="btn" style="background-color:#dd4b39;"
+								onclick="location.href='/freedelete?bno=${boardList.bno}';"	>삭제
+						</button>
+					</td>
 				</c:if>
 				<c:if test="${boardList.b_sort eq 4 }">
 					<th scope="row" style="text-align:center; padding: 15px 0;">뉴스 / 재테크</th>
 					<td style="text-align:center; padding: 15px 0;"><a href="/economycontent?bno=${boardList.bno }">${boardList.b_title }</a></td>
 					<td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList.b_date }" pattern="yyyy-MM-dd"/></td>
+					<td style="text-align:center; padding: 15px 0;">
+						<button type="submit" id="b_update" class="btn" style="background-color:#66BB7A;"
+								onclick="location.href='/economyupdate?bno=${boardList.bno}';">수정
+						</button>
+						/
+						<button type="submit" class="btn" style="background-color:#dd4b39;"
+								onclick="location.href='/economydelete?bno=${boardList.bno}';"	>삭제
+						</button>
+					</td>
 				</c:if>
 					
 				</tr>
 			</c:forEach>
-								
+					
 			</tbody>
 	</table>
 	

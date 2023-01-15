@@ -18,7 +18,7 @@
  <style>
 .board_wrap {
 	width: 1000px;
-	margin: 20px auto;
+	margin: 50px;
 }
 
 .board_title {
@@ -124,10 +124,16 @@
 				success : function(data){
 					console.log(data);
 					if (data==1){
-						alert('승인 완료!');
+					   Swal.fire({
+					        title: '승인 완료!', 
+					        icon: 'success'
+				   	   });		
 						document.location.reload();
 					} else if (data==6){
-						alert('거절 완료!');
+						   Swal.fire({
+						        title: '거절 완료!', 
+						        icon: 'success'
+					   	   });	
 						document.location.reload();
 					}
 				}
@@ -259,4 +265,5 @@ $(document).ready(function(){
 
 </script>
 
+</div>
 <%@ include file="../include/footer.jsp"%>

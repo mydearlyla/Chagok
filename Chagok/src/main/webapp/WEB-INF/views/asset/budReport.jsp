@@ -82,7 +82,7 @@ h4 {
 
 <div class="row">
 	<div class="col-md-12">
-		<div class="box">
+		<div class="box" style="border-top-color: #66BB7A;">
 			<div class="box-header with-border">
 				<h3 class="box-title"
 				style="font-size: 25px; margin: 10px;">${pMonth } 예산 리포트</h3>

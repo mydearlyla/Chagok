@@ -31,32 +31,61 @@
   <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../resources/mainpagecss/css/font.css">
   
   <!-- sweetalert -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
   
+ <style>
+ .btn-primary{
+ background-color: #66BB7A;
+    border-color: #66BB7A;
+ }
+ 
+ .btn-primary:hover{
+ background-color: #539763;
+    border-color: #539763;
+ }
+ 
+ 
+ .text-center{
+   text-align: center;
+   display: flex;
+   justify-content: flex-end;
+ }
+ 
+ .checkbox label, .radio label{
+ 	min-height: 20px;
+    padding-left: 10px;
+    margin-bottom: 0;
+    font-weight: 400;
+    cursor: pointer;
+ }
+ </style>
+ 
+  
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="font-family: 'GmarketSans';">
 <div class="login-box">
   <div class="login-logo">
-  	<a href="#" style="font-family: 'Hi Melody', cursive;"><img src="${pageContext.request.contextPath }/resources/plugins/img/chagok_pig-removebg.png"><b>차곡</b></a>
+  	<a href="#" style="font-family: 'GmarketSans';"><img src="${pageContext.request.contextPath }/resources/plugins/img/chagok_pig-removebg.png"><b>차곡</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg" style="font-family: 'Gowun Dodum', sans-serif; font-size: 18px;"><b>로그인</b></p>
+    <p class="login-box-msg" style="font-family: 'GmarketSans'; font-size: 18px;"><b>로그인</b></p>
 	<!-- <p class="login-box-msg">Sign in to start your session</p> -->
 	
 
     <form action="/login" method="post"> 
       <div class="form-group has-feedback"> 
-        <input type="email" class="form-control" id="id" name="id" placeholder="이메일">
+        <input type="email" class="form-control" id="id" name="id"  style="font-size: 12px;" placeholder="이메일">
 
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
 
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" id="pw" name="pw" placeholder="비밀번호">
+        <input type="password" class="form-control" id="pw" name="pw"  style="font-size: 12px;" placeholder="비밀번호">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <input type="hidden" value="${param.pageInfo }" class="form-control" id="pageInfo" name="pageInfo">

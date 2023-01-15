@@ -7,6 +7,10 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/sidebarMyPage.jsp" %>
 
+<!-- sweetalert -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#pw2').blur(function(){
@@ -51,7 +55,10 @@
 
 <script type="text/javascript">
 	if ( ${deleteOK.equals("NO") } ) {
-		alert("비밀번호를 잘못 입력하셨습니다 !");
+	   Swal.fire({
+	        title: '비밀번호가 틀렸습니다!', 
+	        icon: 'warning'
+   	   });
 	}
 </script>
 

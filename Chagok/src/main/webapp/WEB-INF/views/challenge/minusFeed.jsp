@@ -85,13 +85,18 @@
    </div>
 </section>
 <section class="content" style="min-height:10%;">
+   
    <div class="box box-default">
-      <div class="box-header with-border">
-      	<div class="text-center">
-         <h3 class="box-title">${vo2.ct_top }을(를) ${vo.c_amount }원 절약하는 조건이 있습니다.</h3>
-      </div>
-      </div>
-   </div>
+		<div class="box-header with-border" style="background: #66BB7A; height: 50px; opacity: 85%; color: #fff;">
+			<div class="text-center">
+			  <h3 class="box-title" style="margin-top: 1%;">
+			  	<span style="color: #3e6c49;">${vo.c_period }</span>주 동안 
+		    	<span style="color: #3e6c49;">${vo2.ct_top }</span>를
+		    	총 <span style="color: #3e6c49;">${vo.c_amount }</span>원 절약합니다.
+			  </h3>
+			</div>
+		</div>
+	</div>
    
    
 <!--    가계부 연동하기 모달 -->

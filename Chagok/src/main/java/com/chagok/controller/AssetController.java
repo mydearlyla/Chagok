@@ -337,7 +337,6 @@ public class AssetController {
 	// 0. abokkList페이지 get으로 호출 ============================================================
 //	http://localhost:8080/asset/abookList
 	@GetMapping(value="/abookList", produces = "application/json; charset=utf8")
-//	@ResponseBody
 	public String abookList(HttpSession session,Model model, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		// 0. mno 세션에서 받기 
@@ -375,10 +374,6 @@ public class AssetController {
 		
 		String formatDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		
-//		System.out.println("ddddd"+formatDate);
-		
-		
-		
 		// list: 그리드 구성할 때 필요한 데이터(page,sidx,sord) 리스트 
 		// list2: 서버 데이터(VO) 리스트
 		JsonObj obj = new JsonObj();
@@ -408,9 +403,7 @@ public class AssetController {
 			map.put("ab_memo", vo.getAb_memo());
 			
 			list.add(map);
-//			mylog.debug("&&& for문 직후 "+list);
 	}
-//		}
 	    obj.setRows(list);  // list<map> -> obj
 	    
 	    //page : 현재 페이지
@@ -420,7 +413,7 @@ public class AssetController {
 	    obj.setRecords(list.size());
 		
 	    //total : rows에 의한 총 페이지수
-		// 총 페이지 갯수는 데이터 갯수 / 한페이지에 보여줄 갯수 이런 식
+		// 총 페이지 갯수는 데이터 갯수 / 한페이지에 보여줄 개수
 		int totalPage = (int)Math.ceil(list.size()/Double.parseDouble(rows));
 		obj.setTotal(totalPage); // 총 페이지 수 (마지막 페이지 번호)
 		
@@ -429,7 +422,6 @@ public class AssetController {
 	    return obj;
 	    
 	} // ===========================================================================================================
-	
 	
 	
 	// 그리드 -> DB(서버 데이터)로 수정하고 저장하는 코드
@@ -493,21 +485,8 @@ public class AssetController {
 		UserVO userVO = userService.getUser(mno);
 		mylog.debug("mno@@@@@@@@:"+mno);
 		
-//		JsonObj obj = new JsonObj();
-//		int int_page = Integer.parseInt(page);// 1 2 3
-//		int perPageNum = (int)Double.parseDouble(rows);
-		
-		
 		List<Map<String, Object>> ctList = abService.cateList();
 		mylog.debug("****vo -> list "+ctList);
-		
-//	    obj.setRows(ctList);  // list<map> -> obj
-	    	
-//	    Map<String, Object> map = new HashMap<String, Object>();
-	    
-//	    String st = rptService.listMapToJson(ctList);
-//	    map.put("st",st);
-	    
 
 		JSONArray jArr = new JSONArray();
 		for(Map<String, Object> map : ctList) {
@@ -521,7 +500,6 @@ public class AssetController {
 			    
 			}
 			jArr.add(jsonobj2);
-//			jArr.add(jsonobj);
 		}
 
 		return jArr;
@@ -535,21 +513,6 @@ public class AssetController {
 		
 		mylog.debug(pre_ct_top.get("ct_top"));
 		String ct_top = pre_ct_top.get("ct_top");
-		
-//		String ct_top2 = ct_top3.substring(0,1);				
-//		String ct_top = ct_top2.substring(0,-1);				
-		
-//		String ct_top = ct_top0.replaceAll("\"", "");
-//		mylog.debug("ct_top 가공 버전@"+ct_top);		 
-
-		
-//		mylog.debug("pre_ct_top"+pre_ct_top.values());		 
-//		String ctname = String.valueOf(pre_ct_top.values());
-//		String ct_top1 = ctname.replace("[", "");				
-//		String ct_top2 = ct_top1.replace("]", "");				
-//		String ct_top = ct_top2.replaceAll("\"", "");				
-		
-//		mylog.debug("[]떼기"+ct_top);		 
 		
 		List<Map<String, Object>> ctbottomList = abService.ctbottomList(ct_top);
 		mylog.debug("****vo -> list "+ctbottomList);
@@ -572,30 +535,7 @@ public class AssetController {
 		return jArrB;
 		
 	}
-//	
-//	@ResponseBody
-//	@RequestMapping(value = "/catebottom2", method = {RequestMethod.GET,RequestMethod.POST})
-//	public JSONArray cateBottom (@RequestParam(value = "cateB", required=false) String cateB,		
-//			HttpSession session) throws Exception {
-//		
-//		List<Map<String, Object>> ctbottomList = abService.ctbottomList();
-//		mylog.debug("****vo -> list "+ctbottomList);
-//		
-//		JSONArray jArrB = new JSONArray();
-//		for(Map<String, Object> map : ctbottomList) {
-//			JSONObject jsonobjb = new JSONObject();
-//			for(Map.Entry<String, Object> entry : map.entrySet()) {
-//				String key = entry.getKey();
-//				Object value = entry.getValue();
-//				jsonobjb.put(key, value);
-//
-//			}
-//			jArrB.add(jsonobjb);
-//		}
-////		mylog.debug("&&&"+jArrB);
-//		return jArrB;
-//	}
-	
+
 	
 	// =======================================================================================================
 	// insert 
@@ -613,13 +553,8 @@ public class AssetController {
 		abService.insAbookList(vo);
 		mylog.debug(" 쓰기 완료 ");
 		
-		//model.addAttribute("result", "createOK");
-//		rttr.addFlashAttribute("result", "createOK");
-		
 		return "redirect:/asset/abookList";
-//		return "redirect:/board/list";
 	}
-
 	
 	
 	// ===============================================================
@@ -628,10 +563,7 @@ public class AssetController {
 	 @ResponseBody
 	 public Object delList(HttpServletRequest request,@RequestParam(value="test[]") List<String> list)  throws Exception {
 		mylog.debug("#그리드에서 선택한 abno"+list);
-//		 Map <String, String> resultMap =  new HashMap<String, String>();
 		List<AbookVO> delRow = new ArrayList<AbookVO>();
-//		  int abno = Integer.parseInt(list.get(0));
-//		mylog.debug("abno란다"+abno);
 		  String result = "ok";
 		  String resultMsg = "";
 		  
@@ -655,87 +587,9 @@ public class AssetController {
 	  resultMap.put("resultMsg", resultMsg);
 	  mylog.debug("##삭제resultMap"+resultMap);
 	  
-	  return resultMap;
+	  return resultMap; 
 	}
 	
-	
-
-	// =====================================버려진 코드===============================================================
-//	// 그리드 -> DB(서버 데이터)로 수정하고 저장하는 코드
-//	@RequestMapping(value = "/saveRows", method = {RequestMethod.GET})
-//	@ResponseBody
-//	 public Object saveRows(HttpServletRequest request, @RequestParam Map<String,Object> param, HttpSession session) throws Exception {
-//		
-//		int mno = (int)session.getAttribute("mno");
-//		UserVO userVO = userService.getUser(mno);
-//		
-////		mylog.debug("##그리드 뽑 리스트"+inlist);
-//		mylog.debug("##param"+param);
-//		 Map <String, String> resultMap =  new HashMap<String, String>();
-//		
-//		  String result = "ok";
-//		  String resultMsg = "";
-		  
-//	  try {
-//		  
-//	   for(int i = 0; i < param.size(); i++) {
-//		AbookVO vo = new AbookVO();
-//	    vo.setMno(mno);
-//	    vo.setAbno(Integer.parseInt(param.get(i).get("abno").toString()));
-//	    vo.setAb_inout(Integer.parseInt(param.get(i).get("ab_inout").toString()));
-//	    vo.setAb_amount(Integer.parseInt(param.get(i).get("ab_amount").toString()));
-//	    vo.setCtno(Integer.parseInt(param.get(i).get("ctno").toString()));
-//	    
-//	    vo.setAb_date(param.get(i).get("ab_date").toString());
-//	    vo.setAb_content(param.get(i).get("ab_content").toString());
-//	    vo.setAb_memo(param.get(i).get("ab_memo").toString());
-//	    vo.setAb_method(param.get(i).get("ab_method").toString());
-//	    vo.setCt_top(param.get(i).get("ct_top").toString());
-//	    vo.setCt_bottom(param.get(i).get("ct_bottom").toString());
-//	   
-//	    mylog.debug("insert -> vo 넣기"+vo);
-//	    abService.setAbookList(vo);
-//	    mylog.debug(vo+"%%%%%%%%%%cont");
-//	   }
-//	    result = "success";
-//	    resultMsg = "성공" ;
-//	     
-//	   }catch (Exception e) { 
-//	    result = "failure";
-//	    resultMsg = "실패" ;
-//	   }
-//	  
-//	  resultMap.put("result", result);
-//	  resultMap.put("resultMsg", resultMsg);
-//	  mylog.debug("#######resultMap"+resultMap);
-//	  
-//	  return resultMap;
-//	}
-	
-	
-//	@RequestMapping(value="/getGrid", method = RequestMethod.POST, produces="application/json;charset=utf-8")
-//	@ResponseBody
-//		public void getGrid (@RequestParam Map<String,Object> rows, RedirectAttributes rttr) throws Exception {
-//			
-//			mylog.debug("getGrid@@@@@"+rows);	        
-//		 
-//		 ObjectMapper mapper = new ObjectMapper();
-////		 AbookVO vo = mapper.readValue(param, AbookVO.class);
-//		 AbookVO vo = mapper.convertValue(rows, AbookVO.class);
-//		 
-//		 // 서비스 - DAO : 정보 수정 메서드 호출
-////		 Integer result = abService.updateAbook(vo);
-////		 
-////			if(result > 0) {
-////				// "수정완료" - 정보 전달 
-////					rttr.addFlashAttribute("result", "modOK");
-////				}
-////				// 페이지 이동(/board/list) 
-//				
-//			mylog.debug("수정 처리 완료!!");
-//		 
-//	}
-
 	
 	// ===================================================================================
 	

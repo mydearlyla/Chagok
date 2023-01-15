@@ -5,17 +5,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<!-- sweetalert -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 <!-- 영민 입금하기 (비지니스계좌 구현중) -->
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-			
 		$('#a_biz').click(function(){ // 입금하기 버튼 클릭
 			if(${vo.c_amount} > ${myPlusVO.pl_sum} ) { // 입금해야할 금액보다 현재 입금한 금액이 적을때 (더입금 가능)
 	
 				if ($('#result').text() == "") {
-					alert('금액을 입력하세요 !');
-					
+				   Swal.fire({
+				        title: '금액을 입력하세요!', 
+				        icon: 'warning'
+			   	   });
 					return false;
 					
 				} else {
@@ -33,13 +38,18 @@
 						}
 					
 					} else {
-						alert("입금 금액이 일치하지 않습니다.\n금액을 확인하세요.");
-						
+					   Swal.fire({
+					        title: '입금 금액이 일치하지 않습니다.\n금액을 확인하세요.', 
+					        icon: 'warning'
+				   	   });						
 						return false;
 					}
 				}
 			} else { // 더 입금 불가능
-				alert("더 이상 입금할 수 없습니다!");
+			   Swal.fire({
+			        title: '더 이상 입금할 수 없습니다!', 
+			        icon: 'warning'
+		   	   });				
 			}
 		}); // 입금하기 버튼 끝
 		
@@ -51,7 +61,10 @@
 
 <script>
 	if (${sendOK == "OK"}) {
-		alert("송금 완료!");
+		   Swal.fire({
+		        title: '송금 완료!', 
+		        icon: 'success'
+	   	   });	
 	}
 </script>
 
@@ -105,8 +118,7 @@
 	             </div>  
 	             <div class="progress-group" style="width: 280px;">
 	               <span class="progress-text">챌린지 시작일</span>
-	               <span class="progress-number">
-	               	<b><fmt:formatDate value="${startDate }" pattern="YYYY-MM-dd"/></b>
+	               <span class="progress-number">${vo.c_start}</b>
 	               </span>
 	              </div>
 	             <div class="progress-group" style="width: 280px;">
@@ -119,33 +131,34 @@
 	       </div>
 		</div>
 	</div>
-	<br>
-    <div class="row" style="width: 1200px; padding-left: 50px; padding-right: 20px; padding-top: 50px;">
-	    <div class="d-flex justify-content-center">
-		    <div class="box">
-		        <div class="col-md-12 text-center" style="background: #FAF8F1;">
-				    	<h4 style="marfin-top: 14px;">
-				    	총<span style="color: #10A19D;">${vo.c_total }</span>번을
-				    	<span style="color: #10A19D;">${vo.c_freq }</span>일 마다 
-				    	<span style="color: #10A19D;">${vo.c_amount }</span>원씩 저축하는 조건이 있습니다.
-				    	</h4>
-		    	</div>
-		    </div>
+	
+       <div class="box box-default">
+		<div class="box-header with-border" style="background: #66BB7A; height: 50px; opacity: 85%; color: #fff;">
+			<div class="text-center">
+			  <h3 class="box-title" > <!-- style="margin-top: 1%;"  -->
+			  	총 <span style="color: #3e6c49;"><fmt:formatNumber pattern="0" value="${vo.c_period*7 /vo.c_freq }" /> </span>번을
+		    	<span style="color: #3e6c49;">${vo.c_freq }</span> 일 마다 
+		    	<span style="color: #3e6c49;"><fmt:formatNumber pattern=",000" value="${vo.c_amount }"/></span>원씩 저축하는 조건이 있습니다.<br>
+			  		${vo.c_start} ~ ${startDate }
+			  </h3>
+			</div>
 		</div>
-    </div>
-   <br> 
+	</div>
+	
 <!-- 입금하기 기능용 모달창 -->
+<div class="box-header with-border">
 <c:if test="${vo.c_amount > myPlusVO.pl_sum}">
-    <button class="btn btn-success" data-toggle="modal" data-target="#modal-default" style="margin-left: 90%">
+    <button class="btn btn-success" data-toggle="modal" data-target="#modal-default" 
+    style="margin-left: 90%; border: none;">
    			입금하기</button>
   </c:if>
 <c:if test="${vo.c_amount == myPlusVO.pl_sum}">
 	<button class="btn btn-success" data-toggle="modal" data-target="#modal-default" style="margin-left: 90%" disabled="disabled">
    			입금완료</button>
 </c:if>
-
+</div>
 <!-- 모달 css 파일 : resources -> plugins -> modal -> minusModal.css  -->
-	<div class="modal fade" id="modal-default" style="margin-top: 10%;">
+	<div class="modal fade" id="modal-default" style="position: fixed;">
 		<div class="modal-dialog" style=" height: 800px;">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -176,8 +189,6 @@
 			    </div>
 				</div>
 				<div class="modal-footer">
-					<!-- <button type="button" class="btn btn-default pull-left"
-						data-dismiss="modal">닫기</button> -->
 					<a href="" id="a_biz">
 						<button type="button" class="btn btn-block btn-success btn-sm biz" disabled="disabled">입금하기</button>
 					</a>
@@ -222,7 +233,11 @@
                 <c:set var="i" value="${i+1 }"/>
                 <tr>
                   <td>${i }</td>
+                  
+                  <!-- 참가자명  -->
                    <td>${plusPeoList.nick }</td> 
+                   
+                   <!-- 프로그래스바  -->
                    <td> 
                    <!-- 기간 내   -->
                   	  <c:if test="${nowfmtTime - endTime < 0}">
@@ -270,6 +285,7 @@
 	                  </c:if>
                   </td>
                   
+                  <!-- 횟수 -->
                   <td>
                   	<c:if test="${nowfmtTime - endTime >= 0}">
                   		<c:if test="${saveMoney == vo.c_amount && plusPeoList.pl_finish == true }">
@@ -288,11 +304,14 @@
 	                  		<span class="badge bg-red">${plusPeoList.pl_cnt} / ${vo.c_total }</span>
 	                  	</c:if>
                   	</c:if>
-                  		
                   </td>
+                  
+                  <!-- 저축금액  -->
                   <td style="text-align: right; padding-right: 4%; vertical-align: 10%;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${plusPeoList.pl_sum}" /><b>&nbsp;원</b></td>
+                  
+                  <!-- status -->
                   <td>
-                  	<c:if test="${nowfmtTime - endTime > 0}">
+                  	<c:if test="${nowfmtTime - endTime > 0}"> <!-- 종료시 -->
 	                  	<c:if test="${saveMoney == vo.c_amount && plusPeoList.pl_finish == true }">
 	                  		<span class="label label-success">성공</span>
 	                  	</c:if>
@@ -300,7 +319,10 @@
 	                  		<span class="label label-danger">실패</span>
 	                  	</c:if>
                   	</c:if>
-                  	<c:if test="${nowfmtTime - endTime <= 0}">
+                  	<c:if test="${nowfmtTime - endTime <= 0}"> <!-- 진행중  -->
+                  		<c:if test="${saveMoney == vo.c_amount }">
+	                  		<span class="label label-primary">진행중</span>
+	                  	</c:if>
                   		<c:if test="${saveMoney == vo.c_amount }">
 	                  		<span class="label label-primary">진행중</span>
 	                  	</c:if>
@@ -309,6 +331,7 @@
 	                  	</c:if>
                   	</c:if>
                   </td>
+                  
                 </tr>
                 </c:forEach>
               </table>
@@ -454,7 +477,7 @@
 	height: 80%;
 }
 .modal-body .frame2 {
-  width: 85%;
+  width: 98%;
   height: 400px;
   position: fixed;
   top: 35%;
@@ -471,13 +494,13 @@
 }
 .calculator2 {
   margin-left: 2%;
-  width: 75%;
-  height: 75%;
+  width: 95%;
+  height: 100%;
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
   background: rgba( 250, 250, 250, 0.8);
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.7 );
+/*   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.7 ); */
   backdrop-filter: blur(4px);
   border-radius: 0.5rem;
   border: 1px solid rgba( 255, 255, 255, 0.18 );

@@ -146,7 +146,7 @@
 <style>
 .board_wrap {
 	width: 1000px;
-	margin: 20px auto;
+	margin: 20px;
 }
 
 .board_title {
@@ -207,6 +207,7 @@
     background-color: #fff;
     color: #FFDB83;
 }
+
 </style>
 
 </div>

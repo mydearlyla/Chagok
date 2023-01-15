@@ -7,8 +7,10 @@
 <%@ include file="../include/header.jsp"%>
 <%@ include file="../include/sidebar.jsp"%>
 
-<!-- 전체 페이지 (밑부분 스타일까지) 긁어가야 합니다~ -->
-<!-- 전체 페이지 (밑부분 스타일까지) 긁어가야 합니다~ -->
+<!-- sweetalert -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 			
  <head>
  <meta charset="utf-8">
@@ -18,7 +20,7 @@
  <style>
 .board_wrap {
 	width: 1000px;
-	margin: 20px auto;
+	margin: 50px;
 }
 
 .board_title {
@@ -106,7 +108,8 @@
 }
 </style>
 
- </head>
+</head>
+
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -149,6 +152,16 @@
  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
  <script src="../assets/js/theme.min.js"></script>
 
+<script type="text/javascript">
+   var result = '${result}';
+   if(result == 'Noverlap'){
+	   Swal.fire({
+	        title: '1일 이내로 승인이 완료된 후 챌린지가 등록되니 잠시만 기다려주세요.', 
+	        icon: 'info'
+	      });
+   }
+</script>
+ 
 <!-- 게시판 안내 -->
 	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 		<div class="board_wrap">
@@ -159,20 +172,27 @@
 		</div>
 	</div>
 <!-- 게시판 안내 -->			
-				
+
 <!-- 게시판 내용 -->				
 	<table class="table table-hover">
 	  <thead style="background-color: #dddddd30;font-size: 16px;">
 		    <tr>
 		      <th scope="col" style="text-align:center; padding: 15px 0;">유형</th>
 		      <th scope="col" style="text-align:center; padding: 15px 0;">카테고리</th>
-		      <th scope="col" style="text-align:center; padding: 15px 0;">제목</th>
+		      <th scope="col" style="text-align:center; padding: 15px 0; width:40%;">제목</th>
 		      <th scope="col" style="text-align:center; padding: 15px 0;">기간</th>
 		      <th scope="col" style="text-align:center; padding: 15px 0;">상태</th>
-		      <th scope="col" style="text-align:center; padding: 15px 0; width:20%;"></th>
+		      <th scope="col" style="text-align:center; padding: 15px 0; width:10%;"></th>
 	    	</tr>
 	  </thead>
 		<tbody>
+		<c:if test="${mychallengeList.size() == 0}">
+			 <tr>
+			 	<td colspan="6" align="center">현재 참여중인 챌린지가 없습니다!</td>
+			 <tr>
+		</c:if> 
+		
+		
 			<c:forEach var="vo" items="${mychallengeList }">
 			    <tr>
 					<td style="text-align:center; padding: 15px 0;">
@@ -240,7 +260,8 @@
 	 								onclick="location.href='/challenge/defeat?cno=${vo.cno }';">결과 보기</button>
 								</c:if>		
 							</c:forEach>						
-							<button type="button" class="btn" style="background-color:#dd4b39;">
+							<button type="button" class="btn" style="background-color:#dd4b39;"
+									onclick="location.href='/review?cno=${vo.cno}';">
 								후기 쓰기
 							</button>
 						</c:if>			
@@ -273,5 +294,5 @@
  <!-- 페이징 -->
  
  </body>
-
+</div>
 <%@ include file="../include/footer.jsp"%>

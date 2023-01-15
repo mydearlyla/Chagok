@@ -288,6 +288,7 @@
 				<include refid="top4cate"/>
 			)
 		)
+		and c_status='1'
 		order by rand() limit 4;
 	</select>
 	

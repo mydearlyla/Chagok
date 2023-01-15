@@ -41,12 +41,15 @@
 			
 			if ( $('#form-card-benefit-type-discount').is(":checked") == false &&
 					$('#form-card-benefit-type-mileage').is(":checked") == false ) {
-				
-				alert('거래 유형을 선택하세요.');
-
+				   Swal.fire({
+				        title: '거래 유형을 선택하세요.', 
+				        icon: 'warning'
+			   	   });		
 			} else if ( $('.input_3Pz_8').val() == "0" ) {
-				
-				alert('금액을 입력하세요.');
+				   Swal.fire({
+				        title: '금액을 입력하세요.', 
+				        icon: 'warning'
+			   	   });						
 			} else {
 				
 				var cash_inout = $("input[name='form-card-benefit-type']:checked").val();

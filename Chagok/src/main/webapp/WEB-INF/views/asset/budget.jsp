@@ -7,13 +7,13 @@
 <%@ include file="../include/sidebarAsset.jsp" %>
 
 <style>
+.row {
+	margin: 3%;
+}
 .a1 {
 	font-size: 20px;
 	text-align: left;
 	margin:5px;
-}
-.row {
-	margin: 3%;
 }
 .btn1 {
     width: 250px;
@@ -36,12 +36,12 @@
 	border-radius: 5px;
 	float: right;
 }
-.box.box-info {
-	width : 50%;
-	margin: 0 auto; 
-}
 </style>
 
+
+<!-- sweetalert -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 
 <div class="row">
 	<a class="a1" href="/asset/budget?mm=0">이번 달</a>
@@ -63,7 +63,7 @@
 	</div>
 	
 	<div id="div2">
-		<div class="box box-info">
+		<div class="box box-info" style="width: 90%; margin:auto; border-top-color: #66BB7A;">
 		<form class="form-horizontal" id="budform" method="post">
 			<div class="box-body">
 				<div class="form-group">
@@ -74,8 +74,8 @@
 							maxlength="10" onkeyup="inputNumFmt(this);" style="width: 30%;">
 					</div>
 					<div class="col-sm-10">
-						<span>지난달 예산 : </span><span id="prevsum"></span>원<br>
-						<span>최근 3개월 간 평균 지출 : </span><fmt:formatNumber value="${dtAvg3 }"/>원</span>
+						<span>지난달 예산 : </span><span id="prevsum"></span><br>
+						<span>최근 3개월 간 평균 지출 : </span><span id="prevavg"><fmt:formatNumber value="${dtAvg3 }"/>원</span>
 					</div>
 				</div>
 			</div>
@@ -169,7 +169,7 @@ $(document).ready(function(){
 						$('#prevamt'+i+'').text(0);
 					}
 				}
-				$('#prevsum').text($.number(sum));
+				$('#prevsum').text(''+$.number(sum)+'원');
 			}, error : function(data){
 				console.log('ajax 오류');
 			}
@@ -190,8 +190,12 @@ $(document).ready(function(){
 			var b = $('#pamt'+i+'').val();
 			// 입력하지 않았을 때
 			if($('#pamt'+i+'').val()==''){
-				alert('예산을 입력하세요');
-				return false;
+				Swal.fire({
+					title: '예산을 입력하세요.', 
+					icon: 'warning'
+				});
+				$('#pamt'+i+'').focus();
+				return false;				
 			} else {
 				// 총예산<카테고리별 예산의 합
 				a = Number($('#sumpamt').val().replace(/,/g, ""));		// 총예산(숫자)
@@ -201,7 +205,6 @@ $(document).ready(function(){
 		}
 		console.log('sum2 : '+sum2);
 		if(sum2==a) {
-// 			alert('일치');
 			// 숫자로 변환 후 컨트롤러로 넘기기
 			for(i=1; i<12; i++){
 				var b = $('#pamt'+i+'').val();

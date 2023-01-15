@@ -120,7 +120,6 @@ h3 {
 							<h4>지난달보다 <fmt:formatNumber value="${d }" type="percent"/> 많이 쓰고 있습니다.</h4>
 					    </c:when>
 					    <c:when test="${d==0 }">
-					    
 							<h3>이대로만 유지해도 좋아요</h3>
 							<h4>지난달과 동일하게 쓰고있습니다.</h4>
 					    </c:when>
@@ -147,7 +146,7 @@ h3 {
 			<div class="col-md-6">
 				<div class="box box-warnn">
 					<div class="box-header with-border">
-						<h3 class="box-title">최다 지출 카테고리 분석</h3>
+						<h3 class="box-title">한 주 요약</h3>
 					</div>
 		
 					<div class="box-body">

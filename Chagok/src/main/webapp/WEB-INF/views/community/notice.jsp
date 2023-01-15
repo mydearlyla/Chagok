@@ -17,7 +17,7 @@
  <style>
 .board_wrap {
 	width: 1000px;
-	margin: 20px auto;
+	margin: 20px;
 }
 
 .board_title {

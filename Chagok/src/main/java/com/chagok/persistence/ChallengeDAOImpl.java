@@ -157,17 +157,20 @@ public class ChallengeDAOImpl implements ChallengeDAO{
 	}
 	
 	
-	
 	// 챌린지 등록
 	@Override
-	public void challengeRegist(ChallengeVO vo) throws Exception {
-		mylog.debug(" challengeRegist(ChallengeVO vo) 호출 ");
-		
-		sqlSession.insert(NAMESPACE + ".challengeRegist", vo);
-		mylog.debug(" 챌린지 등록(저축형) 완료! ");
-		
-	}
-	
+   public Integer challengeRegist(ChallengeVO vo) throws Exception {
+      mylog.debug(" challengeRegist(ChallengeVO vo) 호출 ");
+      
+      sqlSession.insert(NAMESPACE + ".challengeRegist", vo);
+      
+      Integer cno = vo.getCno();
+      
+      mylog.debug(cno + "번 챌린지 등록 완료! ");
+      
+      return cno;
+   }
+
 	
 	// 챌린지 목록
 	@Override

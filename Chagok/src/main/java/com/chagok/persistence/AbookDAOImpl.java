@@ -52,22 +52,11 @@ public class AbookDAOImpl implements AbookDAO{
 		List<Map<String, Object>> cttopList = sqlSession.selectList(NAMESPACE+".cttopList");
 		List<Map<Object,Object>> ctList = new ArrayList<Map<Object,Object>>();
 			
-		// TOP CATEGORY
-//			for (int i = 0; i < cttopList.size(); i++) {
-//
-//				Map<Object, Object> cttopmap = new HashMap<Object, Object>();
-//				CategoryVO cvo =(CategoryVO) cttopList.get(i);
-//				
-//				String ctno = String.valueOf(cvo.getCtno());
-//				cttopmap.put(ctno, cvo.getCt_top());
-//				ctList.add(cttopmap);
-//			}
-//			mylog.debug("***dao에서 topmap"+ctList);
 		return cttopList;
 
 	}
 	
-	// BOTTOM CATEGORY
+	// 하위 카테고리
 	@Override
 	public List<Map<String, Object>> ctbottomList(String ct_top) throws Exception {
 		mylog.debug("DAOIM처리전"+ct_top);
@@ -76,22 +65,9 @@ public class AbookDAOImpl implements AbookDAO{
 		
 		mylog.debug("ct_top####"+ct_top);
 		ctbottomList = sqlSession.selectList(NAMESPACE+".ctbottomList", ct_top);
-//
-//		if("식비".equals(ct_top)) {
-//			mylog.debug("if문");
-//			ctbottomList = sqlSession.selectList(NAMESPACE+".ctbottomList", ct_top);
-//
-//		}else {
-//			mylog.debug("else");
-//			ctbottomList = sqlSession.selectList(NAMESPACE+".ctbottomList2", ct_top);
-//		}
-//		
+
 	return ctbottomList;
 }	
-	
-	
-	
-	
 	
 	// 가계부 수정 저장
 	@Override

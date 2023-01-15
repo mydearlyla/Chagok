@@ -29,13 +29,13 @@
 </head>	
 <body>
 
-<form role="form" method="post">
-	<input type="hidden" name="bno" value="${vo.bno }">
-</form>
+<!-- <form role="form" method="post"> -->
+<%-- 	<input type="hidden" name="bno" value="${vo.bno }"> --%>
+<!-- </form> -->
 
     <div class="board_wrap">
         <div class="board_title">
-            <strong> 뉴스 / 재태크 게시글 </strong>
+            <strong> 뉴스 / 재테크 </strong>
             <p>여러가지 정보를 공유합시다.</p>
         </div>
 	</div>
@@ -51,7 +51,7 @@
                 <div class="info">
                     <dl>
                         <dt>글번호</dt>
-                        <dd>${vo.b_title }</dd>
+                        <dd>${vo.bno }</dd>
                     </dl>
                     <dl>
                         <dt>작성자</dt>
@@ -67,7 +67,7 @@
 <!--                     </dl> -->
                 </div>
                 <div class="cont">
-                    <textarea name="b_content" placeholder="내용을 작성해주세요">${vo.b_content }</textarea>
+                    <textarea name="b_content"  style="resize: none;" placeholder="내용을 작성해주세요">${vo.b_content }</textarea>
                 </div>
             </div>
             
@@ -77,7 +77,7 @@
 				<c:set var="writer" value="${vo.b_writer }"/>
                 <c:if test="${nick == '관리자' || nick == writer}">
                 	<input class="sbtn" type="button" value="수정하기" onclick="location.href='/economyupdate?bno=${vo.bno}';" >
-            	    <input class="sbtn2" type="submit" value="삭제하기">
+            	    <input class="sbtn2" type="submit" value="삭제하기" onclick="location.href='/economydelete?bno=${vo.bno}';">
                 </c:if>
             </div>
         </div>

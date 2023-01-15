@@ -347,6 +347,7 @@ public class AssetController {
 		int mno = (int)session.getAttribute("mno");
 		UserVO userVO = userService.getUser(mno);
 		
+	
 		mylog.debug("mno : "+mno);
 
 		return "asset/abookList"; 
@@ -385,8 +386,6 @@ public class AssetController {
 		int int_page = Integer.parseInt(page);// 1 2 3
 		int perPageNum = (int)Double.parseDouble(rows);
 		
-		// db에서 가져온 데이터의 갯수가 10개라고 가정하고 임의로 수행	
-//		for(int i= (int_page-1)*perPageNum+1 ; i<(int_page*perPageNum) ; i++){
 		for(int i=0; i<list2.size(); i++){
 			AbookVO vo = (AbookVO) list2.get(i);
 			
@@ -407,7 +406,7 @@ public class AssetController {
 	    obj.setRows(list);  // list<map> -> obj
 	    
 	    //page : 현재 페이지
-	    obj.setPage(int_page);// 현재 페이지를 매개변수로 넘어온 page로 지정해준다. 
+	    obj.setPage(int_page);// 현재 페이지를 매개변수로 넘어온 page로 지정 
 		
 	    //records : 페이지에 보여지는 데이터 개수
 	    obj.setRecords(list.size());
@@ -552,6 +551,8 @@ public class AssetController {
 		
 		abService.insAbookList(vo);
 		mylog.debug(" 쓰기 완료 ");
+		
+		rttr.addFlashAttribute("result", "createOK");
 		
 		return "redirect:/asset/abookList";
 	}

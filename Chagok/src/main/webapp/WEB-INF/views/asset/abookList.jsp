@@ -12,7 +12,7 @@
 
 <div class="box-header with-border">
 	<h3 class="box-title"
-	style="font-size: 25px; margin: 10px;">달력형 가계부</h3>
+	style="font-size: 25px; margin: 10px;">목록형 가계부</h3>
 </div>
 <!--   <div class="main-content"> -->
   <div class="container-fluid">
@@ -23,8 +23,6 @@
 	<form role="form" action="/asset/insGrid" method="post">
       <div class="row">
       	 <div class="col-md-8">
-        	<table id="list"></table>
-			<div id="pager"></div>	
 				
 			<table id="jqGrid"></table>
 			<div id="gridpager"></div>
@@ -42,10 +40,10 @@
 			<div class="box-body2">
 				<h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수입·지출 등록</font></font></h3>
 				<div class="row" align="right">
-					<label for="ab_inout">지출</label>
-					<input type="checkbox" id="ab_inout" name="ab_inout" value="1" onclick="clickCheck(this)" checked>
-					<label for="ab_inout2">수입</label>
-					<input type="checkbox" id="ab_inout2" name="ab_inout" value="2" onclick="clickCheck(this)">
+					<label for="chk_ab_inout">지출</label>
+					<input type="checkbox" id="chk_ab_inout" name="ab_inout" value="1" onclick="clickCheck(this)" checked>
+					<label for="chk_ab_inout">수입</label>
+					<input type="checkbox" id="chk_ab_inout2" name="ab_inout" value="2" onclick="clickCheck(this)">
 				</div>
 			</div>
 <!-- 			.text-right { -->
@@ -83,7 +81,7 @@
 			<div class="form-group2">
 			              <div class="form-group2 focused">
 			                <label class="form-control-label" for="input-username" ></label>
-			                <select name="b_ctno_out" id="input-address" class="form-control2 form-control-alternative" >
+			                <select name="b_ctno_out" id="sel_ab_out" class="form-control2 form-control-alternative" >
 			                   <option value="none">지출 카테고리</option>
 			                   <option value="1">식비</option>
 							   <option value="2">의복/미용</option>
@@ -105,7 +103,7 @@
 						<div class="form-group2">
 			              <div class="form-group2 focused">
 			                <label class="form-control-label" for="input-username" ></label>
-			                <select name="b_ctno_in" id="input-address" class="form-control2 form-control-alternative" >
+			                <select name="b_ctno_in" id="sel_ab_in" class="form-control2 form-control-alternative" >
 			                   <option value="none">수입 카테고리</option>
 			                   <option value="72">주수입</option>
 							   <option value="73">부수입</option>
@@ -155,6 +153,37 @@ function grid_Datepicker(text, obj){
     $("#jqGrid").jqGrid("saveCell", rowid, iCol); // cell 저장
 }
 </script>
+
+<script>
+$(document).ready(function(){
+   $("#chk_ab_inout").change(function(){
+      alert( $("#chk_ab_inout").val() );
+      
+      if ( $("#chk_ab_inout").val() == "1" ) {
+         $("#sel_ab_in").css("display", "none");
+         $("#sel_ab_out ").css("display", "inline-block");
+      }
+      else if ( $("#chk_ab_inout").val() == "2" ) {
+          $("#sel_ab_in").css("display", "inline-block");
+          $("#sel_ab_out ").css("display", "none");
+       }
+   });
+});
+</script>
+<script>
+$(document).ready(function(){
+	   $("#chk_ab_inout2").change(function(){
+	      alert( $("#chk_ab_inout2").val() );
+	      
+	      if ( $("#chk_ab_inout2").val() == "2" ) {
+	          $("#sel_ab_in").css("display", "inline-block");
+	          $("#sel_ab_out ").css("display", "none");
+	       }
+	      });
+});
+
+</script>
+
 
 
 
@@ -288,9 +317,9 @@ $("#jqGrid").jqGrid({
     emptyrecode : "작성된 내역이 없습니다!", // 뿌려줄 데이터가 없을 경우 보여줄 문자열 지정
 //     pager:"#gridpager",
 	scroll:true,
-    rowNum:20,
+//     rowNum:20,
     rownumbers : true, 
-    
+    rowNum:10000,
     cellEdit: true,
     cellsubmit:'clientArray',
 //     cellurl:'/asset/updateGrid',
@@ -316,16 +345,9 @@ $("#jqGrid").jqGrid({
 	           userMsg = "데이터가 변경되었습니다.";
 	       }
 	       return [(aResult.msg == "success") ? true : false, userMsg];
-	   }
-    //rownumbers:true,
-    //viewrecords:true,
-    //pgbuttons:true,
-    //pginput:true,
-    //shrinkToFit:true,
-    //sortable: false,
-    //loadComplete:function(data){},
-    //scroll:true,
-    //loadonce:false,
+	   },
+
+    sortable: true
     //hidegrid:true
     // =================================================
     }); //jqgrid default
@@ -333,7 +355,6 @@ $("#jqGrid").jqGrid({
 //     $(window).on('resize.jqGrid', function () {
 //         jQuery("#jqGrid").jqGrid( 'setGridWidth', $(".main-panel").width() - 100 );
 //     },
-    
    
  	// 리로딩 처리
     function reload() {
@@ -345,9 +366,14 @@ $("#jqGrid").jqGrid({
 	 
 	// 저장하고 컨트롤러로 보내는 코드 
 	function save(){
-		alert("");
 		var data =  $("#jqGrid").getRowData();
 		data = JSON.stringify(data);
+		Swal.fire({
+			  title: '저장 중.. 조금만 기다려주세요!',
+			  icon: 'success',
+			  showConfirmButton: false,
+			  timer: 3000
+			});
 		
 		$.ajax({
 			url : "/asset/saveGrid",
@@ -358,13 +384,11 @@ $("#jqGrid").jqGrid({
 			dataType:'JSON',
 			success:function(data){
 		         $('#jqGrid').trigger('reloadGrid');	
-			alert("reload 성공!");
 			}
 			})
 			
 	jQuery("#jqGrid").trigger('reloadGrid');	
 	}
-	// update
 	
 	// col edit 가능하게 일괄 처리하기 
 	function setColData(param){
@@ -391,24 +415,27 @@ $("#jqGrid").jqGrid({
 	            
 	            $("#jqGrid").addRowData(totCnt+1, addData);
 	            $("#jqGrid").setColProp("name", {editable: true}); // 수정 필요함 
-	        
 	        }
-			
 	}
 	
 	function delRow(){
-		alert("삭제 시작");
 		var data =  $("#jqGrid").jqGrid('getGridParam', 'selarrrow');
-//	 	var data =  ["4","5"];  리스트 형태 데이터를 그대로 넘겨주면 됩니다!
 			console.log(data);
+			Swal.fire({
+				  title: '삭제 완료!',
+				  icon: 'success',
+				  showConfirmButton: false,
+				  timer: 3000
+				});	
 			
 		$.ajax({
 			url : "/asset/delGrid",
-			type:"post",    //반드시 post 방식
+			type:"post",    
 			data : {test:data},
 			success:function(val){
 				alert("입력 성공!");
 			},error:function(err){
+		         $('#jqGrid').trigger('reloadGrid');
 				  alert("err");
 			      console.log(err);
 			}
@@ -460,7 +487,7 @@ $("#jqGrid").jqGrid({
     $('#jqGrid').getRowData();
     
 	 //nav
-	 jQuery("#list1").jqGrid('navGrid','#gridpager',{
+	 jQuery("#jqGrid").jqGrid('navGrid','#gridpager',{
 		 //nav 설정						
 		edit : true,
 		add : true,
@@ -710,6 +737,18 @@ function getintype() {
     return obj;
 }
 </script>
+	
+<script type="text/javascript"> 
+var result = '${result}';
+if(result == 'createOK'){
+	Swal.fire({
+		title: '작성 완료!', 
+		icon: 'success'
+	});
+}
+</script>
+	
+	
 	
 <script>
 function clickCheck(target) {

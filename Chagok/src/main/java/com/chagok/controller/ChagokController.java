@@ -179,24 +179,36 @@ public class ChagokController {
 	}	
 
 	
-//	public void ingChallenge() throws Exception {
-//		
-//		List<ChallengeVO> result =  service2.getChallengeList();
-//		
-//		LocalDate now = LocalDate.now();
-//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//		String formatedNow = now.format(formatter);
-//		
-//		for(int i=0; i<result.size(); i++) {
-//			String start = result.get(i).getC_start(); 
-//			int a = start.compareTo(formatedNow);
-//			if(a>=0) {
-//				mylog.debug("");
-//			}
-//			mylog.debug("");
-//		}
-//		 
-//	}
+	public void ingChallenge() throws Exception {
+		
+		List<ChallengeVO> st =  service2.getChallengeList();
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		Date now = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String formatedNow = formatter.format(now);
+		
+		for(int i=0; i<st.size(); i++) {
+			String start = st.get(i).getC_start(); 
+			
+			Integer cno = st.get(i).getCno(); 
+			Date endDate = service2.getChallengeEndDate(cno);
+			
+			int a = start.compareTo(formatedNow);
+			int b = endDate.compareTo(now);
+			Integer status = null;
+			
+			if(a<0) {
+//				result.put("c_status", 2);
+				status = 2;
+			}
+			if(b<0) {
+//				result.put("c_status", 7);
+				status = 7;
+			}
+			service2.confirmChallenge(status, cno);
+		}
+	}
 
 
 	// 챌린지 목록 불러오기 (커뮤메인)
@@ -208,6 +220,7 @@ public class ChagokController {
 		List<ChallengeVO> challengeList = service2.getChallengeList();
 		List<UserVO> ranking = service2.ranking();
 //		List<ChallengeVO> cList = service2.cList(scri);
+		ingChallenge();
 		
 		model.addAttribute("challengeList", challengeList);
 		model.addAttribute("ranking", ranking);

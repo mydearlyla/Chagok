@@ -91,9 +91,11 @@
 				<li><i class="fa fa-clock-o bg-gray"></i></li>
 			</ul>
 		  </c:forEach>
+		</div>
+
 		  <div class="board_page">
-<!--                 <ul class= "pagination pagination-sm no-margin pull-right"> -->
-                <ul>
+                <ul class= "pagination pagination-sm no-margin pull-right">
+                
 <!--                 <a href="#" class="bt first"><<</a> -->
                 <c:if test="${pageMaker.prev }">
 					<li><a href="/freeboard?page=${pageMaker.startPage-1 }"class="bt prev"><</a></li>
@@ -110,8 +112,6 @@
 <!--                 <a href="#" class="bt last">>></a> -->
                 </ul>
                 </div>
-		</div>
-
 	</div>
 
 </section>

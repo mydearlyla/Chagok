@@ -14,8 +14,7 @@
   </select>
   
     <select id="getAbookList2" resultType="AbookVO" parameterType="map">
- 	select * from account_book as ab inner join category as c on ab.ctno=c.ctno where mno=#{mno};
- 	 </select>
+        select * from account_book as ab inner join category as c on ab.ctno=c.ctno where mno=#{mno} order by ab_date desc 	 </select>
   
   <!-- 카테고리 top -->
   <select id="cttopList" resultType="map">

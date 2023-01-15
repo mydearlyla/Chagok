@@ -169,7 +169,7 @@ $(document).ready(function(){
 						$('#prevamt'+i+'').text(''+0+'');
 					}
 				}
-				$('#prevsum').text(''+$.number(sum)+'원');
+				$('#prevsum').text(''+$.number(sum));
 			}, error : function(data){
 				console.log('ajax 오류');
 			}
@@ -178,7 +178,7 @@ $(document).ready(function(){
    
 	$('#copy').click(function(){
 		for(i=1; i<12; i++){
-			$('#pamt'+i+'').val($.number($('#prevamt'+i+'').text()));
+			$('#pamt'+i+'').val($('#prevamt'+i+'').text());
 		}
 		$('#sumpamt').val($('#prevsum').text());
 	});	// copy

@@ -144,7 +144,7 @@ h3 {
 		<section class="content1">
 		<div class="row">	
 			<div class="col-md-6">
-				<div class="box box-warnn">
+				<div class="box box-primary">
 					<div class="box-header with-border">
 						<h3 class="box-title">한 주 요약</h3>
 					</div>
@@ -189,7 +189,7 @@ h3 {
 		<section class="content1">
 		<div class="row">
 			<div class="col-md-6">
-				<div class="box box-primary">
+				<div class="box box-info">
 					<div class="box-header with-border">
 						<h3 class="box-title">일간 지출 추이</h3>
 					</div>
@@ -398,7 +398,7 @@ var dataline1 = {
 	datasets: [{
 		data: value1,
 	    fill: false,
-	    borderColor: '#66BB7A',
+	    borderColor: '#00c0ef',
 	    tension: 0.1
 	}]
 };

@@ -563,7 +563,7 @@ public class ChagokController {
 	
 	@ResponseBody
 	@GetMapping(value="/confirm")
-	public int confirm(@RequestParam int status, @RequestParam int cno, RedirectAttributes rttr, @RequestParam int camount) throws Exception {
+	public int confirm(@RequestParam int status, @RequestParam int cno, RedirectAttributes rttr) throws Exception {
 		mylog.debug("status : "+status+", cno : "+cno);
 		int result=0;
 		

@@ -19,10 +19,13 @@ $(document).ready(function(){
 		var raccount = $('#raccount').val();
 		var rbank = $('#rbank').val();
 		var rname = $('#rname').val();
+// 		alert(getpoint.length == 0);
+// 		alert(raccount.length);
+// 		alert(rname.length);
+// 		alert(rname.length);
 		
 		
-		
-		if(getpoint == 0 || getpoint == ''){
+		if(getpoint.length == 0){
 			Swal.fire({
 				  icon: 'warning',
 				  title: "금액을 다시 확인하세요!",
@@ -33,7 +36,7 @@ $(document).ready(function(){
 				return false;
 		}
 
-		if(getpoint < 10000 || getpoint > compare){
+		if(getpoint.length == 0 || getpoint > compare){
 			Swal.fire({
 				  icon: 'warning',
 				  title: "10,000꿀 이하이거나, <br> 보유한 꿀머니 초과해서 환급할 수 없습니다!",
@@ -45,7 +48,7 @@ $(document).ready(function(){
 				return false;
 		}
 		
-		if(rname == null || rname == ''){
+		if(rname.length == 0){
 			Swal.fire({
 				  icon: 'warning',
 				  title: "예금주를 입력해주세요",
@@ -57,7 +60,7 @@ $(document).ready(function(){
 				return false;
 		}
 		
-		if(rbank == null || rbank == ''){
+		if(rbank.length == 0){
 			Swal.fire({
 				  icon: 'warning',
 				  title: "환급 은행을 입력해주세요",
@@ -69,7 +72,7 @@ $(document).ready(function(){
 				return false;
 		}
 		
-		if(raccount == null || raccount == ''){
+		if(raccount.length == 0){
 			Swal.fire({
 				  icon: 'warning',
 				  title: "환급 계좌를 입력해주세요",

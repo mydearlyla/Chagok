@@ -106,40 +106,55 @@
 		$(".btn").click(function(){
 			var cno = $(this).children().val();
 			var status = 0;
+			var a = '';
 			if($(this).children().hasClass("confirm")){
 				status=1;
+				a = '승인';
 			}
 			else if ($(this).children().hasClass("reject")){
 				status=6;
+				a = '거절';
 			}
 			
-			$.ajax({
-				type : "get",
-				url : "/confirm",
-				data : {
-					status : status,
-					cno : cno,
-					camount : c_amount
-				},
-				dataType: "json",
-				success : function(data){
-					console.log(data);
-					if (data==1){
-					   Swal.fire({
-					        title: '승인 완료!', 
-					        icon: 'success'
-				   	   });		
-						document.location.reload();
-					} else if (data==6){
-						   Swal.fire({
-						        title: '거절 완료!', 
-						        icon: 'success'
-					   	   });	
-						document.location.reload();
-					}
+			Swal.fire({
+				title: a+'하시겠습니까?',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#00A65A',
+				cancelButtonColor: '#DD4B39',
+				confirmButtonText: a+'하기',
+				cancelButtonText: '취소'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$.ajax({
+						type : "get",
+						url : "/confirm",
+						data : {
+							status : status,
+							cno : cno
+						},
+						dataType: "json",
+						success : function(data){
+							console.log(data);
+							if (data==1){
+							   Swal.fire({
+							        title: '승인 완료!', 
+							        icon: 'success'
+						   	   });		
+								document.location.reload();
+							} else if (data==6){
+								   Swal.fire({
+								        title: '거절 완료!', 
+								        icon: 'success'
+							   	   });	
+								document.location.reload();
+							}
+						}
+					});	//ajax
+				} else {
+					return false;
 				}
-			});
-			
+			})	
 		});
 	});
 </script> 

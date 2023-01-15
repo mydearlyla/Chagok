@@ -77,6 +77,9 @@ h3 {
 .rowa {
 	padding:0;
 }
+.users-list>li img {
+    border-radius: 0px;
+}
 </style>
 
 

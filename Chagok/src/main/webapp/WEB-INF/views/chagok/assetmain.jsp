@@ -125,17 +125,17 @@
 						<h3 class="box-title">내 자산 요약</h3>
 					</div>
 				</div>
-				<div class="info-box bg-green">
+				<div class="info-box bg-green" style="padding-top: 25px;">
 					<span style="font-size: 30px; padding-left: 20px;">계좌</span>
 					<span style="font-size: 30px; padding-left: 20px;">총 <fmt:formatNumber value="${accountSum }"/>  원</span>
 				</div>
 		
-				<div class="info-box bg-red">
+				<div class="info-box bg-red" style="padding-top: 25px;">
 					<span style="font-size: 30px; padding-left: 20px;">카드</span>
 					<span style="font-size: 30px; padding-left: 20px;">이번달 카드 값 : <fmt:formatNumber value="${cardSum }"/> 원</span>
 				</div>
 		
-				<div class="info-box bg-aqua">
+				<div class="info-box bg-aqua" style="padding-top: 25px;">
 					<span style="font-size: 30px; padding-left: 20px;">현금</span>
 					<span style="font-size: 30px; padding-left: 20px;">
 						총

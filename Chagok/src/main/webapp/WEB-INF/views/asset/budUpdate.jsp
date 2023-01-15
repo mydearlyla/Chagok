@@ -67,7 +67,7 @@
 	
 	<div class="box-footer">
 		<input type="submit" class="btn2" value="등록하기"/>
-		<button type="button" class="btn2" onclick="location.href='/asset/delBud?mm='+${mm}+'';">예산 삭제하기</button>
+		<button type="button" class="btn2" id="delete">예산 삭제하기</button>
 		<button type="button" class="btn2" id="copy" >지난달 예산 복사하기</button>
 	</div>	
 		      
@@ -232,10 +232,30 @@ $(document).ready(function(){
 			return false;
 		}
 	});	// submit
+	
+	$('#delete').click(function(){
+		Swal.fire({
+			title: '삭제하시겠습니까?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#00A65A',
+			cancelButtonColor: '#DD4B39',
+			confirmButtonText: '삭제하기',
+			cancelButtonText: '취소'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				var link='/asset/delBud?mm='+${mm}+'';
+				location.href=link;
+			} else {
+				return false;
+			}
+		});			
+	});	//delete
+				
+	
 });
 
 </script>
-
 
 
 

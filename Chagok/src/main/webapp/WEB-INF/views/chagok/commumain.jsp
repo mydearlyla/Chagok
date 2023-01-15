@@ -29,7 +29,7 @@
 
 <form method="get">
 
-<div class="search">
+<%-- <div class="search">
     <select name="searchType">
       <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
       <option value="c_title"<c:out value="${scri.searchType eq 'c_title' ? 'selected' : ''}"/>>제목</option>
@@ -49,7 +49,7 @@
         });
       });   
     </script>
-  </div> 
+  </div>  --%>
 
 <!-- 명예의 전당 -->
 <h2 style="margin-left: 30px;">명예의 전당</h2>

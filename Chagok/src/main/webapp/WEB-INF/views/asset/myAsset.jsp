@@ -28,57 +28,57 @@
 <script>
 
 function userCheck() {
-	Swal.fire({
-	  title: 'Are you sure?',
-// 	  text: "You won't be able to revert this!",
-	  icon: 'warning',
-	  showCancelButton: true,
-	  confirmButtonColor: '#3085d6',
-	  cancelButtonColor: '#d33',
-      confirmButtonText: '인증하기',
-      cancelButtonText: '취소하기' 
-// 	}).then((result) => {
-// 	  if (result.isConfirmed) {
-// 	    Swal.fire(
-// 	      'Deleted!',
-// 	      'Your file has been deleted.',
-// 	      'success'
-// 	    )
-// 	  }
-// 	})
+// 	Swal.fire({
+// 	  title: 'Are you sure?',
+// // 	  text: "You won't be able to revert this!",
+// 	  icon: 'warning',
+// 	  showCancelButton: true,
+// 	  confirmButtonColor: '#3085d6',
+// 	  cancelButtonColor: '#d33',
+//       confirmButtonText: '인증하기',
+//       cancelButtonText: '취소하기' 
+// // 	}).then((result) => {
+// // 	  if (result.isConfirmed) {
+// // 	    Swal.fire(
+// // 	      'Deleted!',
+// // 	      'Your file has been deleted.',
+// // 	      'success'
+// // 	    )
+// // 	  }
+// // 	})
 	
-//      Swal.fire({         
-//            title : '면허증 발급일자를 입력하세요!',
-//             icon: 'warning',
-//            confirmButtonText: '확인'
-//         });
-	})
-    return false;
-}	// userCheck
+// //      Swal.fire({         
+// //            title : '면허증 발급일자를 입력하세요!',
+// //             icon: 'warning',
+// //            confirmButtonText: '확인'
+// //         });
+// 	})
+//     return false;
+// }	// userCheck
 
-// 	var cfm;
-// 	var swal = swal({
-// 		title: "사용자 인증이 필요한 서비스입니다.\n인증 서비스로 이동하시겠습니까?",
-// // 		text: "",
-// 		icon: "info",
-// // 		buttons:buttons:["예", "아니오"]
-// 		buttons: true
-// 	}).then((예)) => {
-// 		if(예) {
-// 			cfm = true;
-// 		} else {
-// 			cfm = false;
-// 		}
-// 	});
+// // 	var cfm;
+// // 	var swal = swal({
+// // 		title: "사용자 인증이 필요한 서비스입니다.\n인증 서비스로 이동하시겠습니까?",
+// // // 		text: "",
+// // 		icon: "info",
+// // // 		buttons:buttons:["예", "아니오"]
+// // 		buttons: true
+// // 	}).then((예)) => {
+// // 		if(예) {
+// // 			cfm = true;
+// // 		} else {
+// // 			cfm = false;
+// // 		}
+// // 	});
 
 
-// 		var cfm = confirm(" 사용자 인증이 필요한 서비스입니다.\n 인증 서비스로 이동 하시겠습니까? ");
-// 		if (cfm) {
-// 			return true;
-// 		} else {
-// 			return false;
-// 		}
-// };
+		var cfm = confirm(" 사용자 인증이 필요한 서비스입니다.\n 인증 서비스로 이동 하시겠습니까? ");
+		if (cfm) {
+			return true;
+		} else {
+			return false;
+		}
+};
 </script>
 
 <script type="text/javascript">

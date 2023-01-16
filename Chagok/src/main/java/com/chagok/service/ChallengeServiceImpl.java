@@ -242,6 +242,23 @@ public class ChallengeServiceImpl implements ChallengeService{
 		
 		return dao.cListCount(scri);
 	}
+	
+	// 챌린지 목록 (페이징)
+	@Override
+	public List<ChallengeVO> cListM(SearchCriteria scri) throws Exception {
+		mylog.debug(" cListM(SearchCriteria scri) 호출 ");
+		
+		return dao.cListM(scri);
+	}
+	
+	
+	// 챌린지 총 갯수 (페이징)
+	@Override
+	public Integer cListCountM(SearchCriteria scri) throws Exception {
+		mylog.debug(" cListCountM(SearchCriteria scri) 호출 ");
+		
+		return dao.cListCountM(scri);
+	}
 
 	// 챌린지 + 게시판 리스트
 	@Override

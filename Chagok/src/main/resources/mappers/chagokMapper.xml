@@ -245,6 +245,29 @@
 		delete from user where mno = #{mno} and pw = #{pw}
 	</delete>
 	
+	<!-- 메인 검색1 -->
+	<select id="cListM" resultType="com.chagok.domain.ChallengeVO" parameterType="com.chagok.domain.SearchCriteria">
+SELECT  *
+FROM (
+   select *, @rownum := @rownum + 1 AS RNUM
+   from chl
+   JOIN ( SELECT @rownum := 0) R
+) MP
+where c_status='1'
+order by c_status limit 9;
+	</select>
+	
+	<!-- 메인 검색2 -->
+	<select id="cListCountM" resultType="Integer" parameterType="com.chagok.domain.SearchCriteria">
+		SELECT COUNT(c_status=1)
+		   FROM challenge
+		   WHERE c_status=1
+		<include refid="search"></include>	
+		   AND cno > 0
+	</select>
+	
+	
+	
 	<!-- 검색1 -->
 	<select id="cList" resultType="com.chagok.domain.ChallengeVO" parameterType="com.chagok.domain.SearchCriteria">
 	SELECT  *
@@ -253,18 +276,21 @@
 				JOIN ( SELECT @rownum := 0) R
 													) MP
 		         		<include refid="search"></include>
-		WHERE (RNUM BETWEEN #{rowStart} AND #{rowEnd}) and c_status=1
-		ORDER BY cno
+      WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+      ORDER BY cno
 	</select>
 	
 	<!-- 검색2 -->
 	<select id="cListCount" resultType="Integer" parameterType="com.chagok.domain.SearchCriteria">
-		SELECT COUNT(cno)
+        SELECT COUNT(cno)
 		   FROM challenge
 		   WHERE 1=1
 		<include refid="search"></include>	
 		   AND cno > 0
 	</select>
+	
+	
+	
 	
 	<sql id="search">
 		<if test="searchType != null">

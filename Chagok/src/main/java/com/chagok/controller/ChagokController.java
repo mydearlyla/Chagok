@@ -179,40 +179,52 @@ public class ChagokController {
 	}	
 
 	
-//	// 챌린지 상태 업데이트
-//	public void ingChallenge() throws Exception {
-//		
-//		List<ChallengeVO> st =  service2.getChallengeList();
-//		Map<String, Object> result = new HashMap<String, Object>();
-//		
-//		Date now = new Date();
-//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//		String formatedNow = formatter.format(now);
-//		
-//		for(int i=0; i<st.size(); i++) {
-//			String start = st.get(i).getC_start(); 
-//			
-//			Integer cno = st.get(i).getCno(); 
-//			Date endDate = service2.getChallengeEndDate(cno);
-//			
-//			int a = start.compareTo(formatedNow);
-//			int b = endDate.compareTo(now);
-//			Integer status = st.get(i).getC_status();
-//			
-//			if(a<0) {
-//				status = 2;				
-//				if(st.get(i).getC_min() == 2) {
-//					status = 5;
-//				}
-//			}
-//			
-//			if(b<0) {
-//				status = 7;
-//			}
-//			
-//			service2.confirmChallenge(status, cno);
-//		}
-//	}
+	// 챌린지 상태 업데이트
+	public void ingChallenge() throws Exception {
+		
+		List<ChallengeVO> st =  service2.getChallengeList();
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		Date now = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String formatedNow = formatter.format(now);
+		
+		for(int i=0; i<st.size(); i++) {
+			String start = st.get(i).getC_start(); 
+			Integer cno = st.get(i).getCno(); 
+			Integer max = st.get(i).getC_pcnt();
+			Integer join = st.get(i).getC_cnt();
+			Date endDate = service2.getChallengeEndDate(cno);
+			
+			int a = start.compareTo(formatedNow);
+			int b = endDate.compareTo(now);
+			Integer status = st.get(i).getC_status();
+			
+			
+			if(join >= max) {
+				status = 2;
+			}
+			
+			if(a<0) {
+				if(join <= 2) {
+					status = 5;
+				}else {
+					status = 2;		
+				}
+						
+			}
+			
+			if(b<0) {
+				if(join <= 2) {
+					status = 5;
+				}else {
+					status = 2;		
+				}
+			}
+			
+			service2.confirmChallenge(status, cno);
+		}
+	}
 
 
 	// 챌린지 목록 불러오기 (커뮤메인)
@@ -224,19 +236,19 @@ public class ChagokController {
 		List<ChallengeVO> challengeList = service2.getChallengeList();
 		List<UserVO> ranking = service2.ranking();
 //		List<ChallengeVO> cList = service2.cList(scri);
-//		ingChallenge();
+		ingChallenge();
 		
 		model.addAttribute("challengeList", challengeList);
 		model.addAttribute("ranking", ranking);
 //		model.addAttribute("cList", cList);
-		model.addAttribute("cList", service2.cList(scri));
+		model.addAttribute("cListM", service2.cListM(scri));
 		
 		// 페이징 처리
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
-		pageMaker.setTotalCount(service2.cListCount(scri));
+		pageMaker.setTotalCount(service2.cListCountM(scri));
 		
-		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("pageMaker", pageMaker);	
 		
 		return "/chagok/commumain";
 	}

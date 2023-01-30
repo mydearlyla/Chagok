@@ -14,7 +14,7 @@
 	$(document).ready(function(){
 		
 		$('#a_biz').click(function(){ // 입금하기 버튼 클릭
-			if(${vo.c_amount} > ${myPlusVO.pl_sum} ) { // 입금해야할 금액보다 현재 입금한 금액이 적을때 (더입금 가능)
+			if(${vo.c_amount*(vo.c_period*7 /vo.c_freq) } > ${myPlusVO.pl_sum} ) { // 입금해야할 금액보다 현재 입금한 금액이 적을때 (더입금 가능)
 				
 				if ($('#result').text() == "") {
 				   Swal.fire({
@@ -27,7 +27,7 @@
 					
 					var biz_amount = $('#result').text().replace(/,/gi, "");
 					
-					if (${(vo.c_amount / vo.c_period)} == biz_amount) {
+					if (${vo.c_amount} == biz_amount) {
 
 						Swal.fire({
 							title: '입금하시겠습니까?',
@@ -85,8 +85,8 @@
 <!-- 영민 입금하기 (비지니스계좌 구현중) -->
 
 
-
 <h1 style="padding: 0 15px 0 15px;"> 저축형 차곡 챌린지 </h1>
+
 
  <!-- Main content -->
 <section class="content">
@@ -160,12 +160,12 @@
 	
 <!-- 입금하기 기능용 모달창 -->
 <div class="box-header with-border">
-<c:if test="${vo.c_amount > myPlusVO.pl_sum}">
+<c:if test="${vo.c_amount*(vo.c_period*7 /vo.c_freq) > myPlusVO.pl_sum}">
     <button class="btn btn-success" data-toggle="modal" data-target="#modal-default" 
     style="margin-left: 90%; border: none;">
    			입금하기</button>
   </c:if>
-<c:if test="${vo.c_amount == myPlusVO.pl_sum}">
+<c:if test="${vo.c_amount*(vo.c_period*7 /vo.c_freq) == myPlusVO.pl_sum}">
 	<button class="btn btn-success" data-toggle="modal" data-target="#modal-default" style="margin-left: 90%" disabled="disabled">
    			입금완료</button>
 </c:if>
@@ -189,7 +189,7 @@
   						<h3>1234-1231-12345</h3>
   						<h4>보내는 사람 : ${nick}</h4>
   					</div>
-						<div class="result2" id="result" align="right"><fmt:formatNumber value="${vo.c_amount / vo.c_period}" pattern=",000"/></div>
+						<div class="result2" id="result" align="right"><fmt:formatNumber value="${vo.c_amount}" pattern=",000"/></div>
 							<div class="calc-wrap" id="calc-wrap">
 								<span style="text-align: right;">원</span>
 							</div>
@@ -253,7 +253,7 @@
                    <!-- 프로그래스바  -->
                    <td> 
                    <!-- 기간 내   -->
-                  	  <c:if test="${nowfmtTime - endTime < 0}"> <!-- 진행중  -->
+                  	  <c:if test="${startTime - nowfmtTime <= 0 && nowfmtTime - endTime <= 0}"> <!-- 진행중  -->
  	                  	<c:if test="${saveMoney == vo.c_amount }">
 		                  	<c:if test="${plusPeoList.pl_cnt == vo.c_total }">
 			                    <div class="progress progress-xs">
@@ -271,9 +271,8 @@
 			                    </div>
 		                  	</c:if>
 	                  	</c:if>
-	                  	<c:if test="${saveMoney != vo.c_amount }">
-		                    <c:if test="${plusPeoList.pl_sum != 0 }">
-			                    <div class="progress progress-xs">
+		                    <c:if test="${plusPeoList.pl_sum!=0 }">
+			                    <div class="progress progress-xs ">
 			                      <div class="progress-bar progress-bar-primary" style="width: ${(plusPeoList.pl_cnt / total)*100}%"></div>
 			                    </div>
 			                </c:if>
@@ -282,9 +281,20 @@
 			                      <div class="progress-bar progress-bar-primary" style="width: 5%"></div>
 			                    </div>
 		                  	</c:if>
+	                  </c:if>
+	                  <c:if test="${nowfmtTime - endTime > 0}"> <!-- 종료시 -->
+	                  	<c:if test="${saveMoney == vo.c_amount }">
+	                  		<div class="progress progress-xs">
+		                      <div class="progress-bar progress-bar-success" style="width: 100%"></div>
+		                    </div>
+	                  	</c:if>
+	                  	<c:if test="${saveMoney != vo.c_amount }">
+	                  		<div class="progress progress-xs">
+		                      <div class="progress-bar progress-bar-primary" style="width: ${(plusPeoList.pl_cnt / total)*100}%"></div>
+		                    </div>
 	                  	</c:if> 
 	                  </c:if>
-	                  <c:if test="${nowfmtTime - endTime >= 0}"> <!-- 종료시 -->
+	                  <c:if test="${nowfmtTime - endTime >= 0}"> <!-- 기간 전 -->
 	                  	<c:if test="${saveMoney == vo.c_amount }">
 	                  		<div class="progress progress-xs">
 		                      <div class="progress-bar progress-bar-success" style="width: 100%"></div>

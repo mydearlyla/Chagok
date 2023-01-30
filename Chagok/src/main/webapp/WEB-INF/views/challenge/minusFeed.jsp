@@ -23,8 +23,8 @@
 			 <fmt:parseDate value="${vo.c_start}" var="startDate" pattern="yyyy-MM-dd"/>
 			 <fmt:parseNumber value="${(startDate.time + 1000*60*60*24)/ (1000*60*60*24)}" integerOnly="true" var="startTime" scope="request"/>
 			 <fmt:parseNumber value="${c_end.time / (1000*60*60*24)}" integerOnly="true" var="endTime" scope="request" />
+			
 			<c:if test="${startTime - nowfmtTime <= 0 && nowfmtTime - endTime <= 0}">
-
 				<p class="fst-italic">챌린지가 <b>시작</b>되었습니다!</p>
 			</c:if>
 			<c:if test="${startTime - nowfmtTime > 0}">
@@ -80,12 +80,16 @@
 </section>
 <section class="content" style="min-height:10%;">
    <div class="box box-default">
-      <div class="box-header with-border">
-      	<div class="text-center">
-         <h3 class="box-title">${vo2.ct_top }을(를) ${vo.c_amount }원 절약하는 조건이 있습니다.</h3>
-      </div>
-      </div>
-   </div>
+		<div class="box-header with-border" style="background: #66BB7A; height: 50px; opacity: 85%; color: #fff;">
+			<div class="text-center">
+			  <h3 class="box-title" style="margin-top: 1%;">
+			  	<span style="color: #3e6c49;">${vo.c_period }</span>주 동안 
+		    	<span style="color: #3e6c49;">${vo2.ct_top }</span>를
+		    	총 <span style="color: #3e6c49;">${vo.c_amount }</span>원 절약합니다.
+			  </h3>
+			</div>
+		</div>
+	</div>
    
    
 <!--    가계부 연동하기 모달 -->
@@ -202,17 +206,32 @@
                               style="width: ${minusPeople.m_sum/vo.c_amount *100}%"></div>
                         </div>
                      </td>
-                     <td><span class="badge bg-red">${minusPeople.m_sum }</span></td>
-                  <td>
-                  	<c:if test="${minusPeople.m_sum > 0 }">
-                  		<span class="label label-success">진행중</span>
-                  	</c:if>
-                  	<c:if test="${minusPeople.m_sum <= 0 }">
-                  		<span class="label label-danger">실패</span>
-                  	</c:if>
-                  </td>
+                     <td><span class="badge bg-green">${vo.c_amount - minusPeople.m_sum }</span></td>
+	                  <td>
+		                  <c:if test="${startTime - nowfmtTime > 0}"> <!-- 시작 전   -->
+		                  		<span class="label label-success">진행 예정</span>
+						 </c:if>
+		                  <c:if test="${startTime - nowfmtTime <= 0 && nowfmtTime - endTime <= 0}"> <!-- 진행 중   -->
+		                  	<c:if test="${minusPeople.m_sum > 0 }">
+		                  		<span class="label label-success">진행중</span>
+		                  	</c:if>
+		                  	<c:if test="${minusPeople.m_sum > vo.c_amount }">
+		                  		<span class="label label-danger">실패</span>
+		                  	</c:if>
+						 </c:if>
+						 <c:if test="${nowfmtTime - endTime > 0}"> <!-- 종료 후  -->
+							<c:if test="${minusPeople.m_sum <= vo.c_amount }">
+		                  		<span class="label label-success">성공</span>
+		                  	</c:if>
+							<c:if test="${minusPeople.m_sum > vo.c_amount }">
+		                  		<span class="label label-danger">실패</span>
+		                  	</c:if>
+						 </c:if>
+                     </td>
                   </tr>
                   </c:forEach>
+                  
+                  
                </table>
             </div>
          </div>
@@ -234,7 +253,7 @@
 	          </div>
          <!-- <div class="chat_list active_chat"> 어두운색 배경으로 비활성화 가능 -->
 	          <div class="inbox_chat">
-          <c:forEach var="minusPeoList" begin="0" end="${minusPeoList.size()-1}" items="${minusPeoList}">
+          <c:forEach var="minusPeoList" items="${minusPeoList}">
 	            <div class="chat_list">
 	              <div class="chat_people">
 	                <div class="chat_img"> 

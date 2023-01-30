@@ -63,12 +63,12 @@
 	  </div>
 </div>
 <!-- 명예의 전당 -->
-<%-- ${cList } --%>
+<%-- ${cListM } --%>
 
 <!-- 챌린지 리스트 -->
   <h2 class="visually-hidden"></h2>
   <div class="row row-cols-lg-4 g-2">
-  <c:forEach var="vo" items="${cList }">
+  <c:forEach var="vo" items="${cListM }">
   <!-- 날짜 계산하기 -->
 		<jsp:useBean id="now" class="java.util.Date" />
 			 <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowfmtTime" scope="request"/>
@@ -79,7 +79,7 @@
   
   
   <!-- 날짜 계산하기 : 조건에 만족하는 챌린지만 출력 -->
-  <c:if test="${startTime - nowfmtTime >= 1}">
+<%--   <c:if test="${startTime - nowfmtTime >= 1}"> --%>
 
   
     <div class="col">
@@ -142,11 +142,11 @@
           </div>
         </div>
       </div>
-      </c:if>
+<%--       </c:if> --%>
    </c:forEach>
- </div>
-   
-
+ </div>        
+</form>
+</main>
 
             <div class="box-footer clearfix">
               <ul class="pagination pagination-sm no-margin pull-right">
@@ -165,8 +165,8 @@
                 
               </ul>
             </div>
-</form>
-</main>
+
+
 </div>
 <%@ include file="../include/footer.jsp" %>
 

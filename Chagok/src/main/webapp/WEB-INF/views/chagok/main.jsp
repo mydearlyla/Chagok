@@ -305,9 +305,7 @@
 					<h3 class="blind">차곡</h3>
 					<div class="cnt_bx">
 						<dl>
-							<dt>
-								<div class="bubble">
-									<div class="txt">
+							<dd class="txt_bx">
 										<p>
 											차곡과 함께 <i class="mob">개인 자산</i>
 										</p>
@@ -315,18 +313,17 @@
 											<i class="pc">개인 자산</i> 차곡차곡
 										</p>
 										<p>모아보세요!</p>
+							</dd>			
 									</div>
-								</div>
-							</dt>
-							<dd>
+							<dd class="txt_bx">
 									<button type="button" class="btn_demo border" onclick="location.href='/register';"
 									style="margin:10px 150px 50px 50px;">
 									지금 가입하기</button>
 							</dd>
 						</dl>
 					</div>
-				</div>
 			</section>
+				</div>
 		</div>
 
 

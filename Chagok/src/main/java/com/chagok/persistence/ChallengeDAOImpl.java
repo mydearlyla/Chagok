@@ -274,6 +274,24 @@ public class ChallengeDAOImpl implements ChallengeDAO{
 	
 	// 챌린지 목록 (페이징)
 	@Override
+	public List<ChallengeVO> cListM(SearchCriteria scri) throws Exception {
+		mylog.debug(" cLisMt(SearchCriteria scri) 호출 ");
+		List<ChallengeVO> cListM = sqlSession.selectList(NAMESPACE +".cListM", scri);
+		
+		return cListM;
+	}
+
+	// 챌린지 총 갯수 (페이징)
+	@Override
+	public Integer cListCountM(SearchCriteria scri) throws Exception {
+		mylog.debug("cListCountM(SearchCriteria scri) 호출 ");
+		Integer cListCountM = sqlSession.selectOne(NAMESPACE + ".cListCountM", scri);
+		
+		return cListCountM;
+	}
+	
+	// 챌린지 목록 (페이징)
+	@Override
 	public List<ChallengeVO> cList(SearchCriteria scri) throws Exception {
 		mylog.debug(" cList(SearchCriteria scri) 호출 ");
 		List<ChallengeVO> cList = sqlSession.selectList(NAMESPACE +".cList", scri);

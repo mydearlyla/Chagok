@@ -89,6 +89,12 @@ public interface ChallengeDAO {
 	public List<UserVO> ranking() throws Exception;
 	
 	// 챌린지 목록 (페이징)
+	public List<ChallengeVO> cListM(SearchCriteria scri) throws Exception;
+	
+	// 챌린지 총 갯수 (페이징)
+	public Integer cListCountM(SearchCriteria scri) throws Exception;
+	
+	// 챌린지 목록 (페이징)
 	public List<ChallengeVO> cList(SearchCriteria scri) throws Exception;
 	
 	// 챌린지 총 갯수 (페이징)

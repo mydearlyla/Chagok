@@ -10,15 +10,15 @@
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=yes,viewport-fit=cover">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="스마트한 자산관리 솔루션, 회사의 자산관리가 쉬워진다.">
-<meta name="keywords" content="SAMQ,샘큐,노버스,노버스메이,자산관리">
-<meta name="author" content="Novusmay">
+<meta name="description" content="즐거운 자산관리, 함께하는 자산관리!">
+<meta name="keywords" content="차곡,챌린지,커뮤니티,자산관리">
+<meta name="author" content="차곡">
 <meta property="og:title"
-	content="SAMQ - 스마트한 자산관리 솔루션, 회사의 자산관리가 쉬워진다.">
-<meta property="og:description" content="스마트한 자산관리 솔루션, 회사의 자산관리가 쉬워진다.">
-<meta property="og:site_name" content="SAMQ">
-<meta property="og:url" content="https://www.novusmay.com/samq/">
-<meta property="og:image" content="https://i.imgur.com/syK7Oa0.jpg">
+	content="차곡 - 즐거운 자산관리, 함께하는 자산관리!">
+<meta property="og:description" content="즐거운 자산관리, 함께하는 자산관리!">
+<meta property="og:site_name" content="차곡">
+<meta property="og:url" content="https://chagok.ga/main">
+<meta property="og:image" content="http://chagok.ga/resources/dist/img/credit/pre-logo4.png">
 <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath }/resources/mainpagecss/css/vendor/slick.css">
@@ -240,7 +240,7 @@ color : rgba(255, 219, 131 / 80%);
 				<a href="/commumain"><p style="font-family: 'GmarketSans'">챌린지</p></a>
 			</div>
 			<div class="community">
-				<a href="/commumain"><p style="font-family: 'GmarketSans'">커뮤니티</p></a>
+				<a href="/boardMain"><p style="font-family: 'GmarketSans'">커뮤니티</p></a>
 			</div>
 			<div class="management">
 				<a href="/assetmain"><p style="font-family: 'GmarketSans'">자산관리</p></a>

@@ -431,9 +431,9 @@ public class AssetController {
 		int mno = (int)session.getAttribute("mno");
 		UserVO userVO = userService.getUser(mno);
 		
-		mylog.debug("mno@@@@@@@@:"+mno);
+		mylog.debug("mno:"+mno);
 		
-		mylog.debug("##그리드 뽑 리스트"+list);
+		mylog.debug("#그리드 뽑 리스트"+list);
 		 Map <String, String> resultMap =  new HashMap<String, String>();
 		  String result = "ok";
 		  String resultMsg = "";
@@ -546,7 +546,7 @@ public class AssetController {
 		UserVO userVO = userService.getUser(mno);
 		
 		mylog.debug(" cont- insGrid 호출 ");	
-		mylog.debug("인서트 실험 중 "+vo.toString());
+		mylog.debug("인서트 진행 중 "+vo.toString());
 		vo.setMno(mno);
 		
 		abService.insAbookList(vo);

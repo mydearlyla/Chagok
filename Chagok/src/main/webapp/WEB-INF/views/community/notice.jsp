@@ -6,6 +6,43 @@
 <%@ include file="../include/header.jsp"%>
 <%@ include file="../include/sidebar.jsp"%>
 
+
+<!-- 로딩 코드 start -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style type="text/css">
+#waiting {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: flex;
+    background: white;
+    z-index: 999;
+    opacity: 0.9;
+}
+#waiting > img {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+}
+</style>
+<div id="waiting">
+   <img src="./resources/imgUpload/new-loading.gif">
+</div>
+
+<script type="text/javascript">
+    $(window).on('load', function() {
+        setTimeout(function(){
+            $("#waiting").fadeOut();
+        }, 300);
+    });
+</script>
+<!-- 로딩 코드 end -->
+
+
+
 <!-- 전체 페이지 (밑부분 스타일까지) 긁어가야 합니다~ -->
 <!-- 전체 페이지 (밑부분 스타일까지) 긁어가야 합니다~ -->
 			
@@ -163,11 +200,11 @@
 			</tbody>
 	</table>
 <!-- 게시판 내용 -->
-
+<!-- (n페이지-1)*10+1 -->
 					
 <!-- 페이징 -->					
-		  <div class="board_page">
-                	<ul class= "pagination pagination-sm no-margin pull-right">
+		  <div class="board_page" style="text-align:center;">
+                	<ul class= "pagination pagination-sm no-margin pull-center">
 <!--                 <a href="#" class="bt first"><<</a> -->
                 	<c:if test="${pageMaker.prev }">
 					<li><a href="/notice?page=${pageMaker.startPage-1 }"class="bt prev"><</a></li>

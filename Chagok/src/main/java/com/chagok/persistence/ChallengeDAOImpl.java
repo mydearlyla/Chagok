@@ -55,12 +55,7 @@ public class ChallengeDAOImpl implements ChallengeDAO{
 		
 		return PPeopleList;
 	}
-	// 후기글 작성
-	@Override
-	public void createReview(BoardVO vo) {
-		
-		sqlSession.insert(NAMESPACE + ".create", vo);
-	}
+
 	// 챌린지 리스트
 	@Override
 	public List<ChallengeVO> getChallengeList(Integer cno) {
@@ -128,32 +123,10 @@ public class ChallengeDAOImpl implements ChallengeDAO{
 		return end;
 	}
 	 
-	// 게시판 글 목록	
-	@Override
-	public List<BoardVO> getBoard(Integer b_sort) {
-		mylog.debug(" getBoard() 호출");
-		
-		List<BoardVO> boardList = sqlSession.selectList(NAMESPACE+".boardList",b_sort);
-		
-		mylog.debug("게시판 글 개수 : "+boardList.size()+"");
-		
-		return boardList;
-	}
-
 	@Override
 	public Integer samechallenge(Map<String, Object> map) {
 		mylog.debug("dao : samechallenge 호출");
 		return sqlSession.selectOne(NAMESPACE+".samechallenge", map);
-	}
-
-	// 게시글 내용
-	@Override
-	public BoardVO getBoardContent(Integer bno) {
-		
-		BoardVO vo = sqlSession.selectOne(NAMESPACE+".board", bno);
-		
-		return vo;
-		
 	}
 	
 	
@@ -189,35 +162,6 @@ public class ChallengeDAOImpl implements ChallengeDAO{
 		int CList = sqlSession.selectOne(NAMESPACE+".CList",cno);
 		mylog.debug(CList+"");
 		return CList;
-	}
-
-	// 게시글 수정
-	@Override
-	public Integer updateBoard(BoardVO vo) throws Exception {
-		
-		mylog.debug("updateBoard() 호출 ");
-		
-		return sqlSession.update(NAMESPACE+".updateBoard", vo);
-	}
-
-	// 게시글 삭제
-	@Override
-	public void deleteBoard(Integer bno) throws Exception {
-		
-		mylog.debug(" deleteBoard() 호출 ");
-		
-		sqlSession.delete(NAMESPACE+".deleteBoard",bno);
-		
-	}
-
-	// 게시글 등록 (후기 제외)
-	@Override
-	public void insertBoard(BoardVO vo) throws Exception {
-		
-		mylog.debug(" inserBoard 호출 ");
-		
-		sqlSession.insert(NAMESPACE+".insertBoard", vo);
-		
 	}
 
 	// 챌린지 예치금 합산
@@ -329,14 +273,6 @@ public class ChallengeDAOImpl implements ChallengeDAO{
 		return minusAbook;
 	}
 	
-	// 게시판 + 챌린지
-	@Override
-	public Map<String, Object> getBoardChallenge(Integer cno) throws Exception {
-		mylog.debug("getBoardChallenge 호출");
-		Map<String, Object> boardChallenge = sqlSession.selectOne(NAMESPACE+".boardChallenge", cno);
-		return boardChallenge;
-	}
-
 	// 가계부 값 연동하기 
 	@Override
 	public void updateMoney(Integer mno, Integer ab_amount, Integer cno) {
@@ -346,23 +282,6 @@ public class ChallengeDAOImpl implements ChallengeDAO{
 		map.put("ab_amount",ab_amount);
 		map.put("cno", cno);
 		sqlSession.update(NAMESPACE+".updateMoney", map);
-	}
-
-	// 공지리스트 조회
-	@Override
-	public List<BoardVO> getNBoardPage(Criteria cri) throws Exception {
-		mylog.debug("  getBoardPage(Criteria cri) 페이징처리 ");
-		mylog.debug(cri+"@@@@@@@@@@@@@@@@@@@@@@");
-		
-		return sqlSession.selectList(NAMESPACE + ".nboardPageNo",cri);
-	}
-
-	// 전체 공지게시판 글 개수 조회
-	@Override
-	public int NBoardCount() throws Exception {
-		
-		return sqlSession.selectOne(NAMESPACE+".nboardCount");
-	
 	}
 
 	// 관리자 챌린지 승인
@@ -424,25 +343,6 @@ public class ChallengeDAOImpl implements ChallengeDAO{
 		return vo;
 	}
 	
-	
-	// 후기리스트 조회
-	@Override
-//	public List<BoardVO> getRBoardPage(Criteria cri) throws Exception {
-	public List<Map<String, Object>> getRBoardPage(Criteria cri) throws Exception {
-		mylog.debug("  getBoardPage(Criteria cri) 페이징처리 ");
-		mylog.debug(cri+"@@@@@@@@@@@@@@@@@@@@@@");
-			
-		return sqlSession.selectList(NAMESPACE + ".rboardPageNo",cri);
-	}
-
-	// 전체 후기게시판 글 개수 조회
-	@Override
-	public int RBoardCount() throws Exception {
-			
-		return sqlSession.selectOne(NAMESPACE+".rboardCount");
-		
-	}
-
 	@Override
 	public List<ChallengeVO> chListAll(Criteria cri) throws Exception {
 //	    mylog.debug("chListAll 페이징처리 ");
@@ -454,41 +354,7 @@ public class ChallengeDAOImpl implements ChallengeDAO{
 	public Integer chListCnt() throws Exception {
 		return sqlSession.selectOne(NAMESPACE +".chListCnt");
 	}
-
-	// 자유게시판 조회
-	@Override
-	public List<BoardVO> getFBoardPage(Criteria cri) throws Exception {
-		mylog.debug("  getBoardPage(Criteria cri) 페이징처리 ");
-		mylog.debug(cri+"@@@@@@@@@@@@@@@@@@@@@@");
-		
-		return sqlSession.selectList(NAMESPACE + ".fboardPageNo",cri);
-	}
-
-	// 전체 자유게시판 글 개수 조회
-	@Override
-	public int FBoardCount() throws Exception {
-		
-		return sqlSession.selectOne(NAMESPACE+".fboardCount");
-	
-	}	
-		
-	// 경제게시판 조회
-	@Override
-	public List<BoardVO> getEBoardPage(Criteria cri) throws Exception {
-		mylog.debug("  getBoardPage(Criteria cri) 페이징처리 ");
-		mylog.debug(cri+"@@@@@@@@@@@@@@@@@@@@@@");
 			
-		return sqlSession.selectList(NAMESPACE + ".eboardPageNo",cri);
-	}
-		
-	// 경제 자유게시판 글 개수 조회
-	@Override
-	public int EBoardCount() throws Exception {
-			
-		return sqlSession.selectOne(NAMESPACE+".eboardCount");
-			
-	}
-
 	// ctno 가져오기
 	@Override
 	public int getCtno(Integer cno) {
@@ -512,36 +378,6 @@ public class ChallengeDAOImpl implements ChallengeDAO{
 		return sqlSession.selectOne(NAMESPACE+".challengeResult", map);
 	}	
 	
-	// 내가 쓴 글 조회
-//	@Override
-//	public List<BoardVO> getMyBoardWrite(Criteria cri,String nick) throws Exception {
-//		mylog.debug("  getMyBoardWrite(Criteria cri) 페이징처리 ");
-//		mylog.debug(cri+"@@@@@@@@@@@@@@@@@@@@@@");
-//				
-//		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",cri);
-//	}
-	@Override
-	public List<BoardVO> getMyBoardWrite(String nick) throws Exception {
-		mylog.debug("  getMyBoardWrite(Criteria cri) 페이징처리 ");
-		mylog.debug(nick+"@@@@@@@@@@@@@@@@@@@@@@");
-		
-		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",nick);
-	}
-//	@Override
-//	public List<BoardVO> getMyBoardWrite(Criteria cri) throws Exception {
-//		mylog.debug("  getMyBoardWrite(Criteria cri) 페이징처리 ");
-//		mylog.debug(cri+"@@@@@@@@@@@@@@@@@@@@@@");
-//		
-//		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",cri);
-//	}
-
-	// 내가 쓴 글 개수 조회
-	@Override
-	public int MyBoardWriteCnt() throws Exception {
-				
-		return sqlSession.selectOne(NAMESPACE+".myBoardWriteCnt");
-			
-	}
 
 	// update minus m_sum
 	@Override

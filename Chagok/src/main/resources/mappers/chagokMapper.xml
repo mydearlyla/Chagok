@@ -247,26 +247,25 @@
 	
 	<!-- 메인 검색1 -->
 	<select id="cListM" resultType="com.chagok.domain.ChallengeVO" parameterType="com.chagok.domain.SearchCriteria">
-SELECT  *
-FROM (
-   select *, @rownum := @rownum + 1 AS RNUM
-   from chl
-   JOIN ( SELECT @rownum := 0) R
-) MP
-where c_status='1'
-order by c_status limit 9;
+	SELECT  *
+		 FROM (
+				SELECT *, @rownum := @rownum + 1 AS RNUM FROM chl 
+				JOIN ( SELECT @rownum := 0) R
+				WHERE c_status=1 OR c_status=7
+													) MP
+		         		<include refid="search"></include>
+      WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+      ORDER BY cno
 	</select>
 	
 	<!-- 메인 검색2 -->
 	<select id="cListCountM" resultType="Integer" parameterType="com.chagok.domain.SearchCriteria">
-		SELECT COUNT(c_status=1)
+		SELECT COUNT(c_status=1 OR c_status=7) AS c_status
 		   FROM challenge
-		   WHERE c_status=1
+		   WHERE  c_status=1 OR c_status=7
 		<include refid="search"></include>	
 		   AND cno > 0
 	</select>
-	
-	
 	
 	<!-- 검색1 -->
 	<select id="cList" resultType="com.chagok.domain.ChallengeVO" parameterType="com.chagok.domain.SearchCriteria">
@@ -288,8 +287,6 @@ order by c_status limit 9;
 		<include refid="search"></include>	
 		   AND cno > 0
 	</select>
-	
-	
 	
 	
 	<sql id="search">
@@ -326,7 +323,7 @@ order by c_status limit 9;
 <!-- 	가계부 값 연동하기  -->
 	<update id="updateMoney">
 		update minus set m_sum =
-		(select m_sum-#{ab_amount} from (select * from minus) m where m.mno = #{mno})
+		(select m_sum+#{ab_amount} from (select * from minus) m where m.mno = #{mno} and m.cno=#{cno})
 		where mno = #{mno} and cno = #{cno}
 	</update>
 	
@@ -603,11 +600,23 @@ order by c_status limit 9;
 	    	<foreach item=""
   	</select> -->
   	
-<!--   	updateMsum -->
+	<!-- updateMsum -->
 	<update id="updateMsum" parameterType="hashMap">
 	update minus m set m_sum =
  	(select #{camount} from challenge c where m.cno=#{cno})
 	</update>
   	
+  	<!-- 댓글 리스트 조회 -->
+  	<select id="">
+  	
+  	
+  	</select>
+  	
+  	<!-- 모든 게시판 작성물 확인 -->
+  	<select id="AllboardList" resultType="com.chagok.domain.BoardVO">
+		select * from board
+		order by b_date desc
+		limit 0,5
+	</select>
   	
  </mapper>

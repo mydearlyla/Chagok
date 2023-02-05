@@ -52,12 +52,7 @@
 }
 
 </style>
-
-
-
 </head>
-
-
 
 <body>
 	<div class="inner">

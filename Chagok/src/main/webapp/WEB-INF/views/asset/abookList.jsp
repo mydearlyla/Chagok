@@ -4,150 +4,187 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ include file="../include/header.jsp"%>
-<%@ include file="../include/sidebarAsset.jsp"%>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>  
-<link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<%@ include file="../include/sidebarGrid.jsp"%>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 
 
 <div class="box-header with-border">
 	<div class="row">
-		<div class=col-lg-6 >
-			<h3 class="box-title"
-			style="font-size: 25px; margin: 10px;" >목록형 가계부</h3>
-		</div>
-		
 		<div class=col-lg-6>
-			<button onclick="javascript:save();" class="btn btn-info" id="btnyel"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수정하기</font></font></button>
-			<button onclick="javascript:delRow();" class="btn btn-info" id="btnyel"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">삭제하기</font></font></button>
+			<h3 class="box-title" style="font-size: 25px; margin: 10px;">목록형
+				가계부</h3>
 		</div>
+
+		<div class=col-lg-6 style="padding-left: 40px">
+			<button onclick="javascript:save();" class="btn btn-info" id="btnyel">
+				<font style="vertical-align: inherit;"><font
+					style="vertical-align: inherit;">수정하기</font></font>
+			</button>
+			<button onclick="javascript:delRow();" class="btn btn-info"
+				id="btnyel">
+				<font style="vertical-align: inherit;"><font
+					style="vertical-align: inherit;">삭제하기</font></font>
+			</button>
 		</div>
-<!--   <div class="main-content"> --> 
-  <div class="container-fluid">
-  <!-- <section class="content"> -->
-			
-		
-	<!-- 여기까지 위쪽  -->	
-	<form role="form" action="/asset/insGrid" method="post">
-      <div class="row">
-      	 <div class="col-md-8">
-				
-			<table id="jqGrid"></table>
-			<div id="gridpager"></div>
+	</div>
+	<!--   <div class="main-content"> -->
+	<div class="container-fluid">
+		<!-- <section class="content"> -->
 
-         </div>
-         
 
-         <div class="col-md-4">
-			<div class="box box-primary2" >
-			<div class="box-header with-border"> 
-			
-			<div class="box-body2">
-				<h3 class="box-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수입·지출 등록</font></font></h3>
-				<div class="row" align="right">
-					<label for="chk_ab_inout">지출</label>
-					<input type="checkbox" id="chk_ab_inout" name="ab_inout" value="1" onclick="clickCheck(this)" checked>
-					<label for="chk_ab_inout2">수입</label>
-					<input type="checkbox" id="chk_ab_inout2" name="ab_inout" value="2" onclick="clickCheck(this)">
+		<!-- 여기까지 위쪽  -->
+		<form role="form" action="/asset/insGrid" method="post">
+			<div class="row">
+				<div class="col-md-8">
+
+					<table id="jqGrid"></table>
+					<!-- 			<div id="gridpager"></div> -->
+
+				</div>
+
+
+				<div class="col-md-4">
+					<div class="box box-primary2">
+						<div class="box-header with-border">
+
+							<div class="box-body2">
+								<h3 class="box-title">
+									<font style="vertical-align: inherit;"><font
+										style="vertical-align: inherit;">수입·지출 등록</font></font>
+								</h3>
+								<div class="row" align="right">
+									<label for="chk_ab_inout">지출</label> <input type="checkbox"
+										id="chk_ab_inout" name="ab_inout" value="1"
+										onclick="clickCheck(this)" checked> <label
+										for="chk_ab_inout2">수입</label> <input type="checkbox"
+										id="chk_ab_inout2" name="ab_inout" value="2"
+										onclick="clickCheck(this)">
+								</div>
+							</div>
+							<!-- 			.text-right { -->
+							<!--   text-align: right !important; -->
+							<!-- } -->
+
+							<div class="form-group2">
+								<label for="exampleInputPassword1"><font
+									style="vertical-align: inherit;"><font
+										style="vertical-align: inherit;"></font></font></label> <input type='text'
+									class='form-control datetimepicker' name='ab_date'
+									placeholder="날짜">
+							</div>
+
+							<div class="form-group2">
+								<label for="exampleInputEmail1"><font
+									style="vertical-align: inherit;"><font
+										style="vertical-align: inherit;"></font></font></label> <input type="text"
+									class="form-control" id="exampleInputEmail1" name="ab_content"
+									placeholder="내용">
+							</div>
+
+							<div class="form-group2">
+								<label for="exampleInputEmail1"><font
+									style="vertical-align: inherit;"><font
+										style="vertical-align: inherit;"></font></font></label> <input type="text"
+									class="form-control" id="exampleInputEmail1" name="ab_amount"
+									placeholder="금액">
+							</div>
+
+							<div class="form-group2">
+								<label for="exampleInputEmail1"><font
+									style="vertical-align: inherit;"><font
+										style="vertical-align: inherit;"></font></font></label> <select
+									name="ab_method" id="input-address"
+									class="form-control form-control-alternative">
+									<option value="none" selected>거래수단</option>
+									<option value="1">카드</option>
+									<option value="2">계좌</option>
+									<option value="3">현금</option>
+								</select>
+							</div>
+
+							<div class="pl-lg-4" style="display: flex;">
+
+								<!-- 지출 카테고리 -->
+								<div class="form-group2" style="margin-right: 20px;">
+									<div class="form-group2 focused">
+										<label class="form-control-label" for="input-username"></label>
+										<select name="b_ctno_out" id="sel_ab_out"
+											class="form-control2 form-control-alternative">
+											<option value="none">지출 카테고리</option>
+											<option value="1">식비</option>
+											<option value="2">의복/미용</option>
+											<option value="3">문화/여가</option>
+											<option value="4">생활</option>
+											<option value="5">주거/통신</option>
+											<option value="6">건강/운동</option>
+											<option value="7">교육/육아</option>
+											<option value="8">교통/차량</option>
+											<option value="9">경조사/회비</option>
+											<option value="10">금융</option>
+											<option value="11">저축/보험</option>
+											<option value="12">자산이동</option>
+										</select>
+									</div>
+								</div>
+
+								<!-- 수입 카테고리 -->
+								<div class="form-group2" style="margin-right: 20px;">
+									<div class="form-group2 focused">
+										<label class="form-control-label" for="input-username"></label>
+										<select name="b_ctno_in" id="sel_ab_in"
+											class="form-control2 form-control-alternative">
+											<option value="none">수입 카테고리</option>
+											<option value="72">주수입</option>
+											<option value="73">부수입</option>
+											<option value="74">자산이동</option>
+										</select>
+									</div>
+								</div>
+
+								<!-- 하위 카테고리 -->
+								<div class="form-group2">
+									<div class="form-group2">
+										<label class="form-control-label" for="input-email"></label> <select
+											name="ctno" id="input-address"
+											class="form-control2 form-control-alternative">
+											<option value="none">상세 카테고리</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group2">
+								<label for="exampleInputEmail1"><font
+									style="vertical-align: inherit;"><font
+										style="vertical-align: inherit;"></font></font></label> <input type="text"
+									class="form-control" id="exampleInputEmail1" name="ab_memo"
+									placeholder="메모">
+							</div>
+
+
+						</div>
+
+						<div class="box-footer" style="padding-left: 150px;">
+							<button type="submit" class="btn btn-info" id="btngreen">
+								<font style="vertical-align: inherit;"><font
+									style="vertical-align: inherit;">입력하기</font></font>
+							</button>
+							<!-- 				<button type="submit" class="btn btn-info pull-right">Sign in</button> -->
+						</div>
+					</div>
 				</div>
 			</div>
-<!-- 			.text-right { -->
-<!--   text-align: right !important; -->
-<!-- } -->
-			
-			<div class="form-group2">
-			<label for="exampleInputPassword1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></label>
-			<input type='text' class='form-control datetimepicker' name='ab_date' placeholder="날짜">
-			</div>
-			
-			<div class="form-group2">
-			<label for="exampleInputEmail1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></label>
-			<input type="text" class="form-control" id="exampleInputEmail1" name="ab_content" placeholder="내용">
-			</div>
-			
-			<div class="form-group2">
-			<label for="exampleInputEmail1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></label>
-			<input type="text" class="form-control" id="exampleInputEmail1" name="ab_amount" placeholder="금액">
-			</div>
-			
-			<div class="form-group2">
-			<label for="exampleInputEmail1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></label>
-					<select name="ab_method" id="input-address" class="form-control form-control-alternative" >
-			              <option value="none" selected>거래수단</option>
-			              <option value="1">카드</option>
-						  <option value="2">계좌</option>
-						  <option value="3">현금</option>
-					</select>
-			</div>
-			
-			<div class="pl-lg-4">
-			
-			<!-- 지출 카테고리 -->
-			<div class="form-group2">
-			              <div class="form-group2 focused">
-			                <label class="form-control-label" for="input-username" ></label>
-			                <select name="b_ctno_out" id="sel_ab_out" class="form-control2 form-control-alternative" >
-			                   <option value="none">지출 카테고리</option>
-			                   <option value="1">식비</option>
-							   <option value="2">의복/미용</option>
-			  				   <option value="3">문화/여가</option>
-			  				   <option value="4">생활</option>
-							   <option value="5">주거/통신</option>
-			  				   <option value="6">건강/운동</option>
-			  				   <option value="7">교육/육아</option>
-			  				   <option value="8">교통/차량</option>
-			  				   <option value="9">경조사/회비</option>
-			  				   <option value="10">금융</option>
-			  				   <option value="11">저축/보험</option>
-			  				   <option value="12">자산이동</option>
-			                </select>
-			              </div>
-			</div>
-			
-			<!-- 수입 카테고리 -->
-						<div class="form-group2">
-			              <div class="form-group2 focused">
-			                <label class="form-control-label" for="input-username" ></label>
-			                <select name="b_ctno_in" id="sel_ab_in" class="form-control2 form-control-alternative" >
-			                   <option value="none">수입 카테고리</option>
-			                   <option value="72">주수입</option>
-							   <option value="73">부수입</option>
-			  				   <option value="74">자산이동</option>
-			                </select>
-			              </div>
-			</div>
-			
-			<!-- 하위 카테고리 -->
-			<div class="form-group2">
-			                      <div class="form-group2">
-			                        <label class="form-control-label" for="input-email"></label>
-			                         <select name="ctno" id="input-address" class="form-control2 form-control-alternative" >
-			                           <option value="none">상세 카테고리</option>
-			                        </select>
-			                      </div>
-			</div>
-			</div>
-			
-			<div class="form-group2">
-				<label for="exampleInputEmail1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></label>
-				<input type="text" class="form-control" id="exampleInputEmail1" name="ab_memo" placeholder="메모">
-			</div>
-			
-			
-			</div>
-			
-			<div class="box-footer" style="padding-left: 150px;">
-				<button type="submit" class="btn btn-info" id="btngreen"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">저장하기</font></font></button>
-<!-- 				<button type="submit" class="btn btn-info pull-right">Sign in</button> -->
-			</div>
-			</div>	
-			</div>
-			</div>
-			</form>
-			</div>
-         
-         
-<script type="text/javascript">
+		</form>
+	</div>
+
+
+	<script type="text/javascript">
 $(function() {
 	$(".datetimepicker").datetimepicker({ 
 		dateFormat:'yy-mm-dd',
@@ -160,8 +197,9 @@ function grid_Datepicker(text, obj){
 }
 </script>
 
-<script>
+	<script>
 $(document).ready(function(){
+	$("#sel_ab_in").hide();
    $("#chk_ab_inout").change(function(){
 //       alert( $("#chk_ab_inout").val() );
       
@@ -176,7 +214,7 @@ $(document).ready(function(){
    });
 });
 </script>
-<script>
+	<script>
 $(document).ready(function(){
 	   $("#chk_ab_inout2").change(function(){
 // 	      alert( $("#chk_ab_inout2").val() );
@@ -191,17 +229,17 @@ $(document).ready(function(){
 </script>
 
 
+	<!-- jQuary+grid -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" /> -->
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css" />
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
 
-
-
-<!-- jQuary+grid -->
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" /> -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css" />
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
-
- <script>
+	<script>
  
 $("#jqGrid").jqGrid({
     url : '/asset/reqGrid',
@@ -215,21 +253,21 @@ $("#jqGrid").jqGrid({
 				total:'total', // 총 페이지 Count
 				records:'records' // 총 Row Count
 				},
-    height: 410, 
-    width: 1000,
+    height: 372, 
+    width: 820,
     colNames : ['num','분류','날짜','내용','금액','거래수단','ctno','카테고리','소분류','메모'], 
     colModel:[
         {name : 'abno', index : 'abno',width : 0, align : 'left',hidden:true,key:true},    	
-        {name:"ab_inout",index:"ab_inout",width:20,align:'center',edittype: "select", formatter: "select",editoptions:{value:"1:지출;2:수입"},editable:true,
+        {name:"ab_inout",index:"ab_inout",width:10,align:'center',edittype: "select", formatter: "select",editoptions:{value:"1:지출;2:수입"},editable:true,
 //                 dataEvents: [{
 //                     type : 'change',
 //                     fn : function(e) {
 //                     }] 
 //                 }
 	        hidden:false,editable:true},
-        {name:'ab_date', index:'ab_date', width:70, align:'center',editable:true, formatoptions:{newformat: 'Y-M-d h:i'}, 
+        {name:'ab_date', index:'ab_date', width:20, align:'center',editable:true, formatoptions:{newformat: 'Y-M-d h:i'}, 
 	        	editoptions:{size:20, dataInit:function(el){ 
-                     $(el).datetimepicker({dateFormat:'yy-mm-dd', onClose :grid_Datepicker}); 
+                     $(el).datetimepicker({dateFormat:'yy-mm-d d', onClose :grid_Datepicker}); 
                      
                }, 
                defaultValue: function(){ 
@@ -242,12 +280,12 @@ $("#jqGrid").jqGrid({
                  return year+"-"+month + "-"+day; 
                }
            }},
-        {name : 'ab_content',index : 'ab_content',width : 90, align : 'center',hidden:false,editable:true},
-        {name : 'ab_amount',index : 'ab_amount',width : 50, align: 'center', resizable : true,align : 'right',editrules:{number:true},hidden:false,editable:true},
-        {name:"ab_method",index:"ab_method",width:30,align:'center',edittype: "select", formatter: "select",editoptions:{value:"1:카드;2:현금;3:계좌"},hidden:false,editable:true},
+        {name : 'ab_content',index : 'ab_content',width : 20, align : 'center',hidden:false,editable:true},
+        {name : 'ab_amount',index : 'ab_amount',width : 15, align: 'center', resizable : true,align : 'right',editrules:{number:true},hidden:false,editable:true},
+        {name:"ab_method",index:"ab_method",width : 15,align:'center',edittype: "select", formatter: "select",editoptions:{value:"1:카드;2:현금;3:계좌"},hidden:false,editable:true},
 	    {name : 'ctno', index : 'ctno',width : 0, align : 'center',hidden:true}, 
-		{name: "ct_top", label: 'ct_top', width: 60, align: "center",/* formatter: "select", */ 
-				editable: true, edittype: "select", 
+		{name: "ct_top", label: 'ct_top', width: 20, align: "center",/* formatter: "select", */ 
+				editable: false, edittype: "select", 
 				editoptions:{  dataUrl: '/asset/cateSelect',
 				buildSelect:function (data){
 				 			let key = JSON.parse(data)
@@ -262,7 +300,7 @@ $("#jqGrid").jqGrid({
 				}	// edit
 		}}, //name
 
-		{name:"ct_bottom",index:"ct_bottom",width:40,align:'center', editable: true, edittype: "select", /* formatter: "select", */
+		{name:"ct_bottom",index:"ct_bottom",width:20,align:'center', editable: false, edittype: "select", /* formatter: "select", */
 	
 			    	editoptions:{
 			    		dataUrl: '/asset/catebottom',
@@ -312,22 +350,22 @@ $("#jqGrid").jqGrid({
 					}	// edit
 			},    	
 	
-        {name : 'ab_memo',index : 'ab_memo', align: "center", width : 50, align : 'center',hidden:false,editable:true}
+        {name : 'ab_memo',index : 'ab_memo', align: "center", width : 15, align : 'center',hidden:false,editable:true}
       ],
 
-    autowidth: true,
+//     autowidth: true,
 // 	shrinkToFit: true, 
     loadtext: "조회 중..",
     caption: "　",
     multiselect : true, // 그리드 왼쪽부분에 셀렉트 박스가 생겨 다중선택이 가능해진다
-    emptyrecode : "작성된 내역이 없습니다!", // 뿌려줄 데이터가 없을 경우 보여줄 문자열 지정
+    emptyrecords : "작성된 내역이 없습니다!", // 뿌려줄 데이터가 없을 경우 보여줄 문자열 지정
 //     pager:"#gridpager",
 	scroll:true,
 //     rowNum:20,
     rownumbers : true, 
     rowNum:10000,
     cellEdit: true,
-    cellsubmit:'clientArray',
+    cellsubmit:'clientArray', 
 //     cellurl:'/asset/updateGrid',
     
     /* 수정 후 cell 다시 editable flase 로 변경 */
@@ -336,8 +374,6 @@ $("#jqGrid").jqGrid({
         	$("#jqGrid").jqGrid("editCell", 0, 0, false);
        	    $("#jqGrid").jqGrid("saveCell", iRow, iCol);
         });
-//         $('#jqGrid').trigger('reloadGrid');
-//         $(this).setColProp(cellname, {editable : false}); //수정 후 cell 다시 editable flase 로 변경
     },   
 	    beforeSubmitCell : function(rowid, cellname, value) {   // submit 전
 	        return {"id":rowid, "cellName":cellname, "cellValue":value}
@@ -353,6 +389,9 @@ $("#jqGrid").jqGrid({
 	       return [(aResult.msg == "success") ? true : false, userMsg];
 	   },
 
+	   
+	   
+	   
     sortable: true
     //hidegrid:true
     // =================================================
@@ -362,14 +401,6 @@ $("#jqGrid").jqGrid({
 //         jQuery("#jqGrid").jqGrid( 'setGridWidth', $(".main-panel").width() - 100 );
 //     },
    
- 	// 리로딩 처리
-    function reload() {
-    jQuery("#jqGrid").trigger('reloadGrid');
-    
-	$('#jqGrid').jqGrid('setGridParam', { 'datatype' : 'json' });
-	
-    }//setGridParam 
-	 
 	// 저장하고 컨트롤러로 보내는 코드 
 	function save(){
 		var data =  $("#jqGrid").getRowData();
@@ -393,7 +424,7 @@ $("#jqGrid").jqGrid({
 			}
 			})
 			
-	jQuery("#jqGrid").trigger('reloadGrid');	
+// 	jQuery("#jqGrid").trigger('reloadGrid');	
 	}
 	
 	// col edit 가능하게 일괄 처리하기 
@@ -441,8 +472,8 @@ $("#jqGrid").jqGrid({
 			data : {test:data},
 			success:function(val){
 // 				alert("입력 성공!");
-			},error:function(err){
 		         $('#jqGrid').trigger('reloadGrid');
+			},error:function(err){
 // 				  alert("err");
 			      console.log(err);
 			}
@@ -493,11 +524,11 @@ $("#jqGrid").jqGrid({
     
     $('#jqGrid').getRowData();
     
-</script>	 
+</script>
 
 
-<!-- 지출 카테고리  -->
-<script type="text/javascript">
+	<!-- 지출 카테고리  -->
+	<script type="text/javascript">
 $(function(){
     $('select[name="b_ctno_out"] ').on('change', function()  {
         var arrType = getAgreeType();
@@ -557,8 +588,7 @@ $(function(){
 });
 </script>
 
-
-<script type="text/javascript">
+	<script type="text/javascript">
 function getAgreeType() {    
     var obj = {
         "1" : {
@@ -652,8 +682,8 @@ function getAgreeType() {
 
 
 
-<!-- 수입 카테고리 -->
-<script type="text/javascript">
+	<!-- 수입 카테고리 -->
+	<script type="text/javascript">
 $(function(){
     $('select[name="b_ctno_in"] ').on('change', function()  {
         var arrType = getintype();
@@ -677,7 +707,7 @@ $(function(){
 </script>
 
 
-<script type="text/javascript">
+	<script type="text/javascript">
 function getintype() {    
     var obj = {
         "72" : {
@@ -702,8 +732,8 @@ function getintype() {
     return obj;
 }
 </script>
-	
-<script type="text/javascript"> 
+
+	<script type="text/javascript"> 
 var result = '${result}';
 if(result == 'createOK'){
 	Swal.fire({
@@ -712,9 +742,7 @@ if(result == 'createOK'){
 	});
 }
 </script>
-	
-	
-	
+
 <script>
 function clickCheck(target) {
     document.querySelectorAll(`input[type=checkbox]`)
@@ -723,142 +751,168 @@ function clickCheck(target) {
     target.checked = true;
 }
 </script>
-	
-	
-	
-	
-<style>
+
+	<style>
+.content-wrapper2, .right-side {
+	/*     min-height: 100%; */
+	background-color: #ffffff;
+	    margin-bottom: 150px;
+	z-index: 800;
+}
+
+.content-wrapper2, .right-side, .main-footer {
+	-webkit-transition: -webkit-transform .3s ease-in-out, margin .3s
+		ease-in-out;
+	-moz-transition: -moz-transform .3s ease-in-out, margin .3s ease-in-out;
+	-o-transition: -o-transform .3s ease-in-out, margin .3s ease-in-out;
+	transition: transform .3s ease-in-out, margin .3s ease-in-out;
+	margin-left: 230px;
+	z-index: 820;
+}
 
 .btn-info {
-    color: #666;
-    background-color: #5bc0de;
-    border-color: #46b8da;
+	color: #666;
+	background-color: #5bc0de;
+	border-color: #46b8da;
 }
 
-#btngreen{
-    background-color: #BBDBB0;
-    border-color: #BBDBB0;
+#btngreen {
+	background-color: #FFDB83;
+	border-color: #FFDB83;
 }
 
-#btnyel{
-    background-color: #FFDB83;
-    border-color: #FFDB83;
+#btnyel {
+	background-color: #FFDB83;
+	border-color: #FFDB83;
 }
 
-.form-group2 { 
-     margin-bottom: 0px; 
+.form-group2 {
+	margin-bottom: 0px;
 }
 
-.col-md-4 {
-    width: 31.333333%;
-}
+/* .col-md-4 { */
+/* 	width: 31.333333%; */
+/* } */
 
 .form-control2 {
-    display: block;
-    width: 45%;
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
-    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
-    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	display: block;
+	width: 165px;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgb(0 0 0/ 8%);
+	box-shadow: inset 0 1px 1px rgb(0 0 0/ 8%);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
+
 .box-body2 {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 3px;
-    border-bottom-left-radius: 3px;
-    padding: 4px;
-    display: flex;
-    align-content: center;
-    justify-content: flex-start;
-    align-items: flex-start;
-    justify-content: space-between; 
-    padding: 0 13px;
-/*     	overflow-x: hidden;	 */
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+	padding: 4px;
+	display: flex;
+	align-content: center;
+	justify-content: flex-start;
+	align-items: flex-start;
+	justify-content: space-between;
+	padding: 0 13px;
+	/*     	overflow-x: hidden;	 */
 }
-.abbtn-name{
-display: inline-flex;
+
+.abbtn-name {
+	display: inline-flex;
 }
- .switchbtn { 
-    min-height: 100%;
-    position: relative;
-    overflow: hidden !important;
-   align-items: flex-end;
- } 
+
+.switchbtn {
+	min-height: 100%;
+	position: relative;
+	overflow: hidden !important;
+	align-items: flex-end;
+}
+
 #switch {
-  position: absolute;
-  /* hidden */
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+	position: absolute;
+	/* hidden */
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
 }
+
 .switch_label {
-/*   position: relative; */
-  cursor: pointer;
-  display: inline-block;
-  width: 58px;
-  height: 28px;
-  background: #fff;
-  border: 2px solid #FFDB83;
-  border-radius: 20px;
-  transition: 0.2s;
+	/*   position: relative; */
+	cursor: pointer;
+	display: inline-block;
+	width: 58px;
+	height: 28px;
+	background: #fff;
+	border: 2px solid #FFDB83;
+	border-radius: 20px;
+	transition: 0.2s;
 }
+
 .switch_label:hover {
-  background: #efefef;
+	background: #efefef;
 }
+
 .onf_btn {
-  position: absolute;
-  top: 4px;
-  left: 3px;
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border-radius: 20px;
-  background: #FFDB83;
-  transition: 0.2s;
+	position: absolute;
+	top: 4px;
+	left: 3px;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border-radius: 20px;
+	background: #FFDB83;
+	transition: 0.2s;
 }
 /* checking style */
 #switch:checked+.switch_label {
-  background: #66BB7A;
-  border: 2px solid #66BB7A;
+	background: #66BB7A;
+	border: 2px solid #66BB7A;
 }
+
 #switch:checked+.switch_label:hover {
-  background: #66BB7A;
+	background: #66BB7A;
 }
 /* move */
 #switch:checked+.switch_label .onf_btn {
-  left: 34px;
-  background: #fff;
-  box-shadow: 1px 2px 3px #00000020;
+	left: 34px;
+	background: #fff;
+	box-shadow: 1px 2px 3px #00000020;
 }
+
 .box.box-primary2 {
-    border-top-color: #666;
-    margin: 0px 5px 0px 5px;
-#th-bg {
-	background-color: #FDEDBF;
+	border-top-color: #666;
+	margin: 0px 5px 0px 5px; # th-bg { background-color : #FDEDBF;
 	font-style: inherit;
 }
+
 th {
 	font-weight: 700;
 }
+
 .Header_root__23iUa {
 	padding: 0;
 	margin-bottom: 10px;
 }
+
 .Header_root__23iUa {
 	padding: 16px 0;
 	display: flex;
 	justify-content: space-between;
 }
+
 .Header_heading__kV24Z {
 	font-weight: 700;
 	font-size: 35px;
@@ -867,24 +921,27 @@ th {
 	display: flex;
 	align-items: center;
 }
+
 .btn-group-xs>.btn, .btn-xs {
-    padding: 1px 5px;
-    font-size: 12px;
-    line-height: 1.5;
-    border-radius: 3px;
+	padding: 1px 5px;
+	font-size: 12px;
+	line-height: 1.5;
+	border-radius: 3px;
 }
-  .ui-jqgrid .ui-jqgrid-htable{
-        	overflow: hidden; 
-        	position:relative; 
-        	height:17px;
-        	font-family:inherit,'NanumGothicB','나눔고딕', "돋움", dotum;
-        	font-size:15px;
-        }
-        .ui-jqgrid-btable, .ui-pg-table  {
-        	font-family:inherit,'NanumGothicB','나눔고딕', "돋움", dotum;
-        	font-size:13px;
-        }
-        
+
+.ui-jqgrid .ui-jqgrid-htable {
+	overflow: hidden;
+	position: relative;
+	height: 17px;
+	font-family: inherit, 'NanumGothicB', '나눔고딕', "돋움", dotum;
+	font-size: 15px;
+}
+
+.ui-jqgrid-btable, .ui-pg-table {
+	font-family: inherit, 'NanumGothicB', '나눔고딕', "돋움", dotum;
+	font-size: 13px;
+}
+
 /*     .rowColumn { */
 /* 	border-radius: 5px; */
 /* 	margin: 5px; */
@@ -892,21 +949,27 @@ th {
 </style>
 
 
-<!-- </section> -->
-</div>
+	<!-- </section> -->
 </div>
 
 
 </div>
 <%@ include file="../include/footer.jsp"%>
 
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="${pageContext.request.contextPath }/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <!-- FastClick -->
-    <script src='${pageContext.request.contextPath }/resources/plugins/fastclick/fastclick.min.js'></script>
-    <!-- AdminLTE App -->
-    <script src="${pageContext.request.contextPath }/resources/dist/js/app.min.js" type="text/javascript"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="${pageContext.request.contextPath }/resources/dist/js/demo.js" type="text/javascript"></script>
-  </body>
+<!-- Bootstrap 3.3.2 JS -->
+<script
+	src="${pageContext.request.contextPath }/resources/bootstrap/js/bootstrap.min.js"
+	type="text/javascript"></script>
+<!-- FastClick -->
+<script
+	src='${pageContext.request.contextPath }/resources/plugins/fastclick/fastclick.min.js'></script>
+<!-- AdminLTE App -->
+<script
+	src="${pageContext.request.contextPath }/resources/dist/js/app.min.js"
+	type="text/javascript"></script>
+<!-- AdminLTE for demo purposes -->
+<script
+	src="${pageContext.request.contextPath }/resources/dist/js/demo.js"
+	type="text/javascript"></script>
+</body>
 </html>

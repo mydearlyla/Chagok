@@ -17,6 +17,40 @@
 <h1 class="visually-hidden"></h1>
 <main>
 
+<!-- 로딩 코드 start -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style type="text/css">
+#waiting {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: flex;
+    background: white;
+    z-index: 999;
+    opacity: 0.9;
+}
+#waiting > img {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+}
+</style>
+<div id="waiting">
+   <img src="./resources/imgUpload/new-loading.gif">
+</div>
+
+<script type="text/javascript">
+    $(window).on('load', function() {
+        setTimeout(function(){
+            $("#waiting").fadeOut();
+        }, 300);
+    });
+</script>
+<!-- 로딩 코드 end -->
+
 <script type="text/javascript">
    var result = '${result}';
    if(result == 'overlap'){
@@ -28,7 +62,16 @@
 </script>
 
 <form method="get">
+  <div class="search">
+<!--     <select name="searchType"> -->
+<%--       <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option> --%>
+<%--       <option value="c_title"<c:out value="${scri.searchType eq 'c_title' ? 'selected' : ''}"/>>제목</option> --%>
+<%--       <option value="c_content"<c:out value="${scri.searchType eq 'c_content' ? 'selected' : ''}"/>>내용</option> --%>
+<%--       <option value="c_host"<c:out value="${scri.searchType eq 'c_host' ? 'selected' : ''}"/>>작성자</option> --%>
+<%--       <option value="c_titlec_content"<c:out value="${scri.searchType eq 'c_titlec_content' ? 'selected' : ''}"/>>제목+내용</option> --%>
+<!--     </select> -->
 
+<%--     <input type="text" name="keyword" id="keywordInput" value="${scri.keyword}"/> --%>
 
 <!--     <button id="searchBtn" type="button">검색</button> -->
     <script>
@@ -38,6 +81,7 @@
         });
       });   
     </script>
+  </div> 
 
 <!-- 명예의 전당 -->
 <h2 style="margin-left: 30px;">명예의 전당</h2>
@@ -45,14 +89,15 @@
 <div class="clprofile-container">
 <c:forEach var="uvo" items="${ranking }" begin="0" end="2">
       <div class="clprofile-card">
+<%--       <c:if test="${uvo.f != null}"> --%>
         <img 
-			<c:if test="${userVO.profile != null }">
-				src="${pageContext.request.contextPath }/resources${userVO.profile }"
+	        <c:if test="${uvo.profile != null }">
+				src="${pageContext.request.contextPath }/resources${uvo.profile }"
 			</c:if>
-			<c:if test="${userVO.profile == null }">
+			<c:if test="${uvo.profile == null }">
 				src="https://ptetutorials.com/images/user-profile.png"
-			</c:if> 
-        alt="image1" class="clprofile-icon" />
+			</c:if>
+        	alt="image1" class="clprofile-icon" />
         <div class="clprofile-name">${uvo.nick }</div>
         <div class="clprofile-position"><b>${uvo.success_cnt }</b> 번 도전에 성공하셨습니다.</div>
       </div>
@@ -72,7 +117,6 @@
   <!-- 날짜 계산하기 -->
 		<jsp:useBean id="now" class="java.util.Date" />
 			 <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowfmtTime" scope="request"/>
-
 			 <fmt:parseDate value="${vo.c_start}" var="startDate" pattern="yyyy-MM-dd"/>
 			 <fmt:parseNumber value="${(startDate.time + 1000*60*60*24)/ (1000*60*60*24)}" integerOnly="true" var="startTime" scope="request"/>
 			 <fmt:parseNumber value="${c_end.time / (1000*60*60*24)}" integerOnly="true" var="endTime" scope="request" />
@@ -100,12 +144,11 @@
       	</c:if>
         <a class="card-item-link" href="/challenge/detail?cno=${vo.cno }">
         
-      	  
-      	  <c:if test="${startTime - nowfmtTime >= 2}">
-      		 <img class="card-img-top img-fluid" src="${pageContext.request.contextPath }/resources${vo.c_thumbFile }" alt="" aria-labelledby="title_1" id="c_img">
+          <c:if test="${startTime - nowfmtTime >= 2}">
+      		<img class="card-img-top img-fluid" src="${vo.c_thumbFile }" alt="" aria-labelledby="title_1" id="c_img">
       	  </c:if>
       	  <c:if test="${startTime - nowfmtTime == 1}">
-      		<img class="card-img-top img-fluid-2" src="${pageContext.request.contextPath }/resources${vo.c_thumbFile }" alt="" aria-labelledby="title_1" id="c_img">
+      		<img class="card-img-top img-fluid-2" src="${vo.c_thumbFile }" alt="" aria-labelledby="title_1" id="c_img">
       	  </c:if>
         
         </a>
@@ -791,3 +834,4 @@ main .card .card-item-chevron--new-2 {
 
 
 </style>
+

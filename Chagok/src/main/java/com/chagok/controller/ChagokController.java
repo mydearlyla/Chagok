@@ -49,6 +49,7 @@ import com.chagok.interceptor.SessionNames;
 import com.chagok.service.AbookService;
 import com.chagok.service.AccountService;
 import com.chagok.service.AlertService;
+import com.chagok.service.BoardService;
 //import com.chagok.service.AlertService;
 import com.chagok.service.ChallengeService;
 import com.chagok.service.ReportService;
@@ -65,6 +66,9 @@ public class ChagokController {
 	
 	@Inject
 	private ChallengeService service2;
+	
+	@Inject
+	private BoardService service3;
 	
 	@Inject
 	private AlertService alertService;
@@ -201,7 +205,7 @@ public class ChagokController {
 			Integer status = st.get(i).getC_status();
 			
 			
-			if(join >= max) {
+			if(join == max) {
 				status = 2;
 			}
 			
@@ -218,7 +222,7 @@ public class ChagokController {
 				if(join <= 2) {
 					status = 5;
 				}else {
-					status = 2;		
+					status = 7;		
 				}
 			}
 			
@@ -472,13 +476,11 @@ public class ChagokController {
    public String myBoardGET(HttpSession session, Model model,Criteria cri) throws Exception {
 	   String nick = (String)session.getAttribute("nick");
 	    
-	    mylog.debug(nick+"닉네임뜨는거냐");
+	    mylog.debug(nick+"");
 	  
-//		   List<BoardVO> boardList = service2.getMyBoardWrite(cri);
-	  
+//		   List<BoardVO> boardList = service2.getMyBoardWrite(cri);	  
 //		   List<BoardVO> boardList = service2.getMyBoardWrite(cri,nick);
-		   List<BoardVO> boardList = service2.getMyBoardWrite(nick);
-		   mylog.debug(boardList+"@@@@@@@@@@@@@@@@@@@@");
+		   List<BoardVO> boardList = service3.getMyBoardWrite(nick);
 		   
 		   model.addAttribute("boardList", boardList);
 		   
@@ -486,7 +488,7 @@ public class ChagokController {
 			cri.setPerPageNum(10);
 			pageMaker.setDisplayPageNum(10);
 			pageMaker.setCri(cri);
-			pageMaker.setTotalCount(service2.MyBoardWriteCnt());
+			pageMaker.setTotalCount(service3.MyBoardWriteCnt());
 			model.addAttribute("pageMaker", pageMaker);
 	   
 	 
@@ -681,7 +683,38 @@ public class ChagokController {
 		return "/refundManagement";
 	}
 
-	////////////////////// 관리자 페이지 ///////////////////////////	
+	////////////////////// 관리자 페이지 ///////////////////////////
+	
+	
+	////////////////////// 커뮤 메인 페이지 ///////////////////////////	
+	@GetMapping("/boardMain")
+	public String AllBoardList(HttpSession session, Model model,Criteria cri) throws Exception {
+		
+		List<BoardVO> NboardList = service3.getNBoardPage(cri);
+		List<BoardVO> FboardList = service3.getFBoardPage(cri);
+		List<BoardVO> EboardList = service3.getEBoardPage(cri);
+		List<Map<String, Object>> RboardList = service3.getRBoardPage(cri);
+		   
+		model.addAttribute("NboardList", NboardList);
+		model.addAttribute("FboardList", FboardList);
+		model.addAttribute("EboardList", EboardList);
+		model.addAttribute("RboardList", RboardList);
+		   
+		PageMaker pageMaker = new PageMaker();
+		cri.setPerPageNum(5);
+		pageMaker.setDisplayPageNum(5);
+//		pageMaker.setTotalCount(service3.NboardCount());
+//		pageMaker.setTotalCount(service3.FboardCount());
+//		pageMaker.setTotalCount(service3.EboardCount());
+//		pageMaker.setTotalCount(service3.RboardCount());
+		model.addAttribute("pageMaker", pageMaker);
+		return "/chagok/boardMain";
+	}
+	
+	
+	
+	////////////////////// 커뮤 메인 페이지 ///////////////////////////	
+	
 	
 	
 }

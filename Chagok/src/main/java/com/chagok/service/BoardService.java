@@ -60,5 +60,14 @@ public interface BoardService {
 	
 	// 전체 경제 게시판 글 개수 조회
 	public int EboardCount() throws Exception;	
+	
+	// 내가 쓴 글(페이징처리 cri)
+	public List<BoardVO> getMyBoardWrite(String nick) throws Exception;
+		
+	// 내가 쓴 글 개수 조회
+	public int MyBoardWriteCnt() throws Exception;
+	
+	// 전체 게시판 조회
+	public List<BoardVO> getAllboardList(Criteria cri) throws Exception;
 }
 

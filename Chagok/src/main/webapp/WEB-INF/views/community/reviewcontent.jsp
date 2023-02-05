@@ -7,6 +7,43 @@
 <%@ include file="../include/sidebar.jsp" %>
 
 
+
+<!-- 로딩 코드 start -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style type="text/css">
+#waiting {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: flex;
+    background: white;
+    z-index: 999;
+    opacity: 0.9;
+}
+#waiting > img {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+}
+</style>
+<div id="waiting">
+   <img src="./resources/imgUpload/new-loading.gif">
+</div>
+
+<script type="text/javascript">
+    $(window).on('load', function() {
+        setTimeout(function(){
+            $("#waiting").fadeOut();
+        }, 300);
+    });
+</script>
+<!-- 로딩 코드 end -->
+
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,6 +63,12 @@
 			});
 </script> 
 
+<script type="text/javascript">
+	function back(){
+		window.history.back();
+	}
+	
+</script>
 
 <style>
 * {
@@ -496,12 +539,7 @@ a {
             			<dd style="width: calc(100% - 120px); font-size: 20px; background-color: #66bb7a3b; color: #333;">${boardChallenge.b_title }<dd>
                 	</dl>
                 </div>
-<!--             	<div class="title"> -->
-<!--             		<dl> -->
-<!--             			<dt style="width: 120px; ">참여 챌린지 제목</dt> -->
-<%--             			<dd style="width: calc(100% - 120px);">${vo.c_title }<dd> --%>
-<!--                 	</dl> -->
-<!--                 </div> -->
+
 				<div class="info">
                     <dl>
                         <dt style="width: 120px;">참여 챌린지 제목</dt>
@@ -551,7 +589,7 @@ a {
 		        <input class="sbtn" type="button" value="수정하기" onclick="location.href='/reviewupdate?bno=${boardChallenge.bno}&cno=${boardChallenge.cno }';">
 				<input class="sbtn2" type="button" value="삭제하기" onclick="location.href='/reviewremove?bno=${boardChallenge.bno}&cno=${boardChallenge.cno }';">
 			</c:if>
-		        <input class="sbtn" type="submit" value="돌아가기" onclick="location.href='/reviewboard';">
+		        <input class="sbtn" type="submit" value="돌아가기" onclick="back()">
 		     </div>
         </div>
      

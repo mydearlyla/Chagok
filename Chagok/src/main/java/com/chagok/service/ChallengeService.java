@@ -25,9 +25,6 @@ public interface ChallengeService {
 	// [저축형]챌린지 참가자 조회 
 	public List<Map<String, Object>> getPlusPeople(Integer cno);
 
-	// 후기글 작성
-	public void createReview(BoardVO vo);
-	
 	// 챌린지 정보 (리스트)
 	public List<ChallengeVO> getChallengeList(Integer cno);
 	
@@ -48,12 +45,6 @@ public interface ChallengeService {
 	
 	// 챌린지 종료일자 정보 가져오기
 	public Date getChallengeEndDate(Integer cno);
-
-	// 게시판 리스트
-	public List<BoardVO> getBoardList(Integer b_sort);
-	
-	// 게시판 글 확인
-	public BoardVO getBoardContent(Integer bno);
 
 	// 챌린지 등록
 	public Integer challengeRegist(ChallengeVO vo) throws Exception;
@@ -76,16 +67,7 @@ public interface ChallengeService {
 	// 챌린지 피드 인원 조회
 //	public List<Map<String, Object>> getCList(Integer cno);
 	public int getCList(Integer cno) throws Exception;
-	
-	// 게시판 글 수정
-	public Integer updateBoard(BoardVO vo) throws Exception;
-	
-	// 게시판 글 삭제
-	public void deleteBoard(Integer bno) throws Exception;
-	
-	// 게시판 글 작성
-	public void insertBoard(BoardVO vo) throws Exception;
-	
+		
 	// 명예의 전당 순위
 	public List<UserVO> ranking() throws Exception;
 	
@@ -115,18 +97,9 @@ public interface ChallengeService {
 	
 	// 가계부 가져오기
 	public List<Map<String, Object>> getMinusAbook(Integer mno, Integer cno, Integer ctno);
-	
-	// 게시판 + 챌린지 리스트
-	public Map<String, Object> getBoardChallenge(Integer cno) throws Exception;
-	
+
 	// 가계부 값 연동하기
 	public void updateMoney(Integer mno, Integer ab_amount, Integer cno);
-	
-	// 공지글 정보 조회(페이징처리 cri)
-	public List<BoardVO> getNBoardPage(Criteria cri) throws Exception;
-		
-	// 전체 공지 게시판 글 개수 조회
-	public int NboardCount() throws Exception;
 	
 	// 관리자 챌린지 승인
 	public void confirmChallenge(Integer status, Integer cno) throws Exception;
@@ -134,13 +107,6 @@ public interface ChallengeService {
 	// 관리자 모달창 회원mno
 	public List<UserVO> adminmodal(Map<String, Object> map) throws Exception;
 
-	// 후기글 정보 조회(페이징처리 cri)
-//	public List<BoardVO> getRBoardPage(Criteria cri) throws Exception;
-	public List<Map<String, Object>> getRBoardPage(Criteria cri) throws Exception;
-		
-	// 전체 후기 게시판 글 개수 조회
-	public int RboardCount() throws Exception;	
-	
 	// 비즈니스 계좌 송금
 	public void sendBiz(BusinessAccountVO vo) throws Exception;
 	
@@ -156,18 +122,6 @@ public interface ChallengeService {
 	// 관리자 챌린지 총 개수
 	public Integer chListCnt() throws Exception;
 
-	// 자유게시판 정보 조회(페이징처리 cri)
-	public List<BoardVO> getFBoardPage(Criteria cri) throws Exception;
-		
-	// 전체 자유 게시판 글 개수 조회
-	public int FboardCount() throws Exception;
-	
-	// 자유게시판 경제 조회(페이징처리 cri)
-	public List<BoardVO> getEBoardPage(Criteria cri) throws Exception;
-	
-	// 전체 경제 게시판 글 개수 조회
-	public int EboardCount() throws Exception;
-	
 	// ctno 가져오기
 	public int getCtno(Integer cno);
 	
@@ -176,14 +130,6 @@ public interface ChallengeService {
 	
 	// 챌린지 성공/실패 여부 가져옴(한 명만)
 	public Map<String, Object> challengeResult(Integer cno, Integer mno) throws Exception;
-
-	// 내가 쓴 글(페이징처리 cri)
-//	public List<BoardVO> getMyBoardWrite(Criteria cri,String nick) throws Exception;
-	public List<BoardVO> getMyBoardWrite(String nick) throws Exception;
-//	public List<BoardVO> getMyBoardWrite(Criteria cri) throws Exception;
-		
-	// 내가 쓴 글 개수 조회
-	public int MyBoardWriteCnt() throws Exception;
 	
 	// update minus m_sum
 	public void updateMsum(Map<String, Object> map) throws Exception;

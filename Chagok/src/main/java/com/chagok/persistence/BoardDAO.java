@@ -60,5 +60,17 @@ public interface BoardDAO {
 		
 	// 경제 자유게시판 글 개수 조회
 	public int EBoardCount() throws Exception;	
+	
+	// 내가 쓴 글 보기
+	public List<BoardVO> getMyBoardWrite(String nick) throws Exception;
+	
+	// 내가 쓴 글 개수 조회
+	public int MyBoardWriteCnt() throws Exception;
+	
+	// 댓글 조회
+	
+	// 모든 게시판 글 조회(종류불문)
+	public List<BoardVO> getAllboardList(Criteria cri) throws Exception;
+	
 
 }

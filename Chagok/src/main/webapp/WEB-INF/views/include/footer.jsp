@@ -267,14 +267,14 @@ $(document).ready(function(){
 	function connectSockJS(){
 
 		//STOMP Client
-		var sock = new SockJS("/plusFeed"); // endpoint
+		var sock = new SockJS("/plusFeed"); // endpoint ws://localhost:8080  // http://
 		var client = Stomp.over(sock);
 		isStomp = true;
 		socket = client;
 		
 		
 		// 소켓 연결확인
-// 		console.log(client);
+		console.log(client);
 		
 		client.connect({}, function(frame){
 			console.log("Connected stomp!");

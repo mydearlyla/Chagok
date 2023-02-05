@@ -167,7 +167,29 @@ public class BoardDAOImpl implements BoardDAO{
 			
 	}	
 	
-	
+	// 내가 쓴 글 조회
+	@Override
+	public List<BoardVO> getMyBoardWrite(String nick) throws Exception {
+		mylog.debug("  getMyBoardWrite(Criteria cri) 페이징처리 ");
+		mylog.debug(nick+"@@@@@@@@@@@@@@@@@@@@@@");
+		
+		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",nick);
+	}
+
+	// 내가 쓴 글 개수 조회
+	@Override
+	public int MyBoardWriteCnt() throws Exception {
+					
+		return sqlSession.selectOne(NAMESPACE+".myBoardWriteCnt");
+				
+	}
+
+	// 모든 게시판 글 조회
+	@Override
+	public List<BoardVO> getAllboardList(Criteria cri) throws Exception {
+		
+		return sqlSession.selectList(NAMESPACE+".AllboardList");
+	}
 	
 	
 	

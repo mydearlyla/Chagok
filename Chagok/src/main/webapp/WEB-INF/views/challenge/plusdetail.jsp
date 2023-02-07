@@ -30,7 +30,7 @@
 }
 </style>
 <div id="waiting">
-   <img src="./resources/imgUpload/new-loading.gif">
+   <img src="../resources/imgUpload/new-loading.gif">
 </div>
 
 <script type="text/javascript">

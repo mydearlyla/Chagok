@@ -133,7 +133,7 @@ ${vo.c_content }
                   <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>주의사항</label>
                   <textarea class="form-control" id="inputError" style="height: auto; font-size: 15px; resize: none; overflow: hidden;" readonly>
 저축형과 절약형 챌린지 모두 가계부 하나의 상세 카테고리로만 참여 가능합니다.
-ex) 저축형 챌린지 [교통] 카테고리 참여 중이라면 절약형 [교통] 카테고리 챌린지 참여 불가!
+ex) 절약형 챌린지 [교통] 카테고리 참여 중이라면 [교통] 카테고리의 다른 절약형 & 저축형 챌린지 참여 불가!
         		  </textarea>
         </div>
         

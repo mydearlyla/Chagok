@@ -240,6 +240,25 @@ $(document).ready(function() {
 
                 </ul>
            </div>
+           
+           <div class="board_page" style="text-align:center;">
+                	<ul class= "pagination pagination-sm no-margin pull-center">
+<!--                 <a href="#" class="bt first"><<</a> -->
+                	<c:if test="${pageMaker.prev }">
+					<li><a href="/myBoardWrite?page=${pageMaker.startPage-1 }"class="bt prev"><</a></li>
+					</c:if>
+               <c:forEach var="idx" begin="${pageMaker.startPage }" end="${pageMaker.endPage }" step="1">
+					<li 
+						<c:out value="${idx == pageMaker.cri.page? 'class=active':'' }"/>
+						><a href="/myBoardWrite?page=${idx }" class="num">${idx }</a></li>
+				</c:forEach>
+                <c:if test="${pageMaker.next }">
+					<li><a href="/myBoardWrite?page=${pageMaker.endPage+1 }" class="bt next">></a></li>
+				</c:if>
+<!--                 <a href="#" class="bt last">>></a> -->
+                </ul>
+         </div>
+           
 </body>
 </html> 
 

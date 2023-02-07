@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <link rel="stylesheet" type="text/css" href="../resources/mainpagecss/css/font.css">
 <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
@@ -165,9 +166,8 @@ $(document).ready(function(){
 <!--           <select id="pcurrency-one"> -->
 <!--             <option value="ggul">꿀</option> -->
 <!--           </select> -->
-          <input type="text" name="getpoint" id="pamount_one" placeholder="${getPoint }" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/> 꿀
+          <input type="text" name="getpoint" id="pamount_one" placeholder="${getPoint}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/> 꿀
         </div>
-       
         <div style="display: flex; justify-content: center;">
 			<img src="${pageContext.request.contextPath }/resources/plugins/img/down-arrow.png" style="justify-content: center; width: 30px;">
         </div>

@@ -114,7 +114,7 @@
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="register-logo">
-    <a href="#" style="font-family: 'GmarketSans';"><img src="${pageContext.request.contextPath }/resources/plugins/img/chagok_pig-removebg.png"><b>차곡</b></a>
+    <a href="/main" style="font-family: 'GmarketSans';"><img src="${pageContext.request.contextPath }/resources/plugins/img/chagok_pig-removebg.png"><b>차곡</b></a>
   </div>
 
   <div class="register-box-body">

@@ -347,14 +347,13 @@ public class AssetController {
 		int mno = (int)session.getAttribute("mno");
 		UserVO userVO = userService.getUser(mno);
 		
-	
 		mylog.debug("mno : "+mno);
 
 		return "asset/abookList"; 
 	}
 	
 	
-	// 1. 서버 Data 불러서 그리드에 뿌리기 ==========================================================
+	// 서버 Data 불러서 그리드에 뿌리기 ==========================================================
 	@ResponseBody
 	@RequestMapping(value = "/reqGrid", method = {RequestMethod.GET,RequestMethod.POST})
 	public JsonObj test (
@@ -370,7 +369,6 @@ public class AssetController {
 		int mno = (int)session.getAttribute("mno");
 		UserVO userVO = userService.getUser(mno);
 		
-		mylog.debug("mno@@@:"+mno);
 		int mm=0;
 		
 		String formatDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -381,7 +379,6 @@ public class AssetController {
 		
 		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
 		List<?> list2 = abService.getAbookList(mno, mm);
-		mylog.debug("vo -> list "+list2);
 		
 		int int_page = Integer.parseInt(page);// 1 2 3
 		int perPageNum = (int)Double.parseDouble(rows);
@@ -416,8 +413,6 @@ public class AssetController {
 		int totalPage = (int)Math.ceil(list.size()/Double.parseDouble(rows));
 		obj.setTotal(totalPage); // 총 페이지 수 (마지막 페이지 번호)
 		
-		mylog.debug("cont -> 그리드로"+obj);
-		
 	    return obj;
 	    
 	} // ===========================================================================================================
@@ -433,7 +428,6 @@ public class AssetController {
 		
 		mylog.debug("mno:"+mno);
 		
-		mylog.debug("#그리드 뽑 리스트"+list);
 		 Map <String, String> resultMap =  new HashMap<String, String>();
 		  String result = "ok";
 		  String resultMsg = "";
@@ -441,8 +435,8 @@ public class AssetController {
 	  try {
 		  
 	   for(int i = 0; i < list.size(); i++) {
+		   
 		AbookVO vo = new AbookVO(); 
-//	    vo.setMno(mno);
 	    vo.setAbno(Integer.parseInt(list.get(i).get("abno").toString()));
 	    vo.setAb_inout(Integer.parseInt(list.get(i).get("ab_inout").toString()));
 	    vo.setAb_amount(Integer.parseInt(list.get(i).get("ab_amount").toString()));
@@ -453,7 +447,6 @@ public class AssetController {
 	    vo.setAb_memo(list.get(i).get("ab_memo").toString());
 	    vo.setAb_method(list.get(i).get("ab_method").toString());
 
-//	    mylog.debug("!!!!!!!!!!!!!!!!!"+vo);
 	    abService.setAbookList(vo);
 	   }
 	    result = "success";
@@ -466,7 +459,6 @@ public class AssetController {
 	  
 	  resultMap.put("result", result);
 	  resultMap.put("resultMsg", resultMsg);
-	  mylog.debug("#######resultMap"+resultMap);
 	  
 	  return resultMap;
 	}
@@ -477,15 +469,12 @@ public class AssetController {
 	@RequestMapping(value = "/cateSelect", method = {RequestMethod.GET,RequestMethod.POST})
 	public JSONArray cateSelect (@RequestParam(value = "cate", required=false) String test,		
 			HttpSession session) throws Exception {
-		mylog.debug("%%json controller cate"+test);
 		
 		// 로그인 확인
 		int mno = (int)session.getAttribute("mno");
 		UserVO userVO = userService.getUser(mno);
-		mylog.debug("mno@@@@@@@@:"+mno);
 		
 		List<Map<String, Object>> ctList = abService.cateList();
-		mylog.debug("****vo -> list "+ctList);
 
 		JSONArray jArr = new JSONArray();
 		for(Map<String, Object> map : ctList) {
@@ -508,13 +497,11 @@ public class AssetController {
 	@RequestMapping("/catebottom")
 	 @ResponseBody
 	 public JSONArray ctbottomList(HttpServletRequest request,/*@RequestParam("ct_top") String ct_top*/@RequestParam Map<String, String> pre_ct_top) throws Exception {
-		mylog.debug("처음"+pre_ct_top);		 
 		
 		mylog.debug(pre_ct_top.get("ct_top"));
 		String ct_top = pre_ct_top.get("ct_top");
 		
 		List<Map<String, Object>> ctbottomList = abService.ctbottomList(ct_top);
-		mylog.debug("****vo -> list "+ctbottomList);
 		
 		JSONArray jArrB = new JSONArray();
 		
@@ -529,7 +516,6 @@ public class AssetController {
 			}
 			jArrB.add(jsonobjb);
 		}
-		mylog.debug("&&&"+jArrB);
 		
 		return jArrB;
 		
@@ -546,7 +532,6 @@ public class AssetController {
 		UserVO userVO = userService.getUser(mno);
 		
 		mylog.debug(" cont- insGrid 호출 ");	
-		mylog.debug("인서트 진행 중 "+vo.toString());
 		vo.setMno(mno);
 		
 		abService.insAbookList(vo);

@@ -1,46 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ include file="../include/header.jsp"%>
 <%@ include file="../include/sidebar.jsp"%>
-
-
-<!-- 로딩 코드 start -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<style type="text/css">
-#waiting {
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    position: fixed;
-    display: flex;
-    background: white;
-    z-index: 999;
-    opacity: 0.9;
-}
-#waiting > img {
-    display: flex;
-    width: fit-content;
-    height: fit-content;
-    margin: auto;
-}
-</style>
-<div id="waiting">
-   <img src="./resources/imgUpload/new-loading.gif">
-</div>
-
-<script type="text/javascript">
-    $(window).on('load', function() {
-        setTimeout(function(){
-            $("#waiting").fadeOut();
-        }, 300);
-    });
-</script>
-<!-- 로딩 코드 end -->
-
-
-
 
 <head>
 
@@ -51,577 +12,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 
-
 <!-- Datepicker -->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<script type="text/javascript">
-	/* 설정 */
-$.datepicker.setDefaults({
-	  dateFormat: 'yy-mm-dd',
-	  prevText: '이전 달',
-	  nextText: '다음 달',
-	  monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-	  monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-	  dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-	  dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-	  dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-	  showMonthAfterYear: true,
-	  yearSuffix: '년'
-});
-</script> 
-
-<script>
-$(document).ready(function(){
-     $("#datepicker").datepicker({ 
-    	   minDate: "0",
-    	   maxDate: "+6D", 
-     });
-});
-</script>
-
-<style>
-.ui-widget-header { border: 0px solid #dddddd; background: #fff; } 
-
- .ui-datepicker-calendar>thead>tr>th { font-size: 14px !important; } 
-
- .ui-datepicker .ui-datepicker-header { position: relative; padding: 10px 0; } 
-
- .ui-state-default,
- .ui-widget-content .ui-state-default,
- .ui-widget-header .ui-state-default,
- .ui-button,
- html .ui-button.ui-state-disabled:hover,
- html .ui-button.ui-state-disabled:active { border: 0px solid #c5c5c5; background-color: transparent; font-weight: normal; color: #454545; text-align: center; } 
-
- .ui-datepicker .ui-datepicker-title { margin: 0 0em; line-height: 16px; text-align: center; font-size: 14px; padding: 0px; font-weight: bold; } 
-
- .ui-datepicker { display: none; background-color: #fff; border-radius: 4px; margin-top: 10px; margin-left: 0px; margin-right: 0px; padding: 20px; padding-bottom: 10px; width: 300px; box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.1); } 
-
- .ui-widget.ui-widget-content { border: 1px solid #eee; } 
-
- #datepicker:focus>.ui-datepicker { display: block; } 
-
- .ui-datepicker-prev,
- .ui-datepicker-next { cursor: pointer; } 
-
- .ui-datepicker-next { float: right; } 
-
- .ui-state-disabled { cursor: auto; color: hsla(0, 0%, 80%, 1); } 
-
- .ui-datepicker-title { text-align: center; padding: 10px; font-weight: 100; font-size: 20px; } 
-
- .ui-datepicker-calendar { width: 100%; } 
-
- .ui-datepicker-calendar>thead>tr>th { padding: 5px; font-size: 20px; font-weight: 400; } 
-
- .ui-datepicker-calendar>tbody>tr>td>a { color: #000; font-size: 12px !important; font-weight: bold !important; text-decoration: none;}
-
- .ui-datepicker-calendar>tbody>tr>.ui-state-disabled:hover { cursor: auto; background-color: #fff; } 
-
- .ui-datepicker-calendar>tbody>tr>td { border-radius: 100%; width: 44px; height: 30px; cursor: pointer; padding: 5px; font-weight: 100; text-align: center; font-size: 12px; } 
-
- .ui-datepicker-calendar>tbody>tr>td:hover { background-color: transparent; opacity: 0.6; } 
-
- .ui-state-hover,
- .ui-widget-content .ui-state-hover,
- .ui-widget-header .ui-state-hover,
- .ui-state-focus,
- .ui-widget-content .ui-state-focus,
- .ui-widget-header .ui-state-focus,
- .ui-button:hover,
- .ui-button:focus { border: 0px solid #cccccc; background-color: transparent; font-weight: normal; color: #2b2b2b; } 
-
- .ui-widget-header .ui-icon { background-image: url('./src/main/webapp/WEB-INF/views/challenge/btns.png'); } 
-
- .ui-icon-circle-triangle-e { background-position: -20px 0px; background-size: 36px; } 
-
- .ui-icon-circle-triangle-w { background-position: -0px -0px; background-size: 36px; } 
-
- .ui-datepicker-calendar>tbody>tr>td:first-child a { color: red !important; } 
-
- .ui-datepicker-calendar>tbody>tr>td:last-child a { color: #0099ff !important; } 
-
- .ui-datepicker-calendar>thead>tr>th:first-child { color: red !important; } 
-
- .ui-datepicker-calendar>thead>tr>th:last-child { color: #0099ff !important; } 
-
- .ui-state-highlight,
- .ui-widget-content .ui-state-highlight,
- .ui-widget-header .ui-state-highlight {    
-border: 0px;
-    background: #66c14a38;
-    border-radius: 50%;
-   } 
-
- .inp { padding: 10px 10px; background-color: #f1f1f1; border-radius: 4px; border: 0px; } 
-
- .inp:focus { outline: none; background-color: #eee; } 
-</style>
-<!-- Datepicker -->
-
-
-<!-- 유효성 검사 -->
-<script type="text/javascript">
-$(document).ready(function(){
-	   
-   $('#regist').click(function(){
-   
-	var file =  $('#customFile').val(); 
-    var title = $('#c_title').val();   
-    var cate = $('#b_ctno').val();   
-    var start = $('#datepicker').val();
-    var person = $('#c_pcnt').val();
-    var deposit = $('#c_deposit').val();
-    var amount = $('#c_amount').val();
-    var content = $('#c_content').val();
-    
-    
-    if (file == "" || file == null) {
-  	   Swal.fire({
-  	        title: '사진을 등록해주세요.', 
-  	        icon: 'warning'
-  	      });
-  	     $('#customFile').focus();
-  	     return false;
-  	}
-    
-	if (title == "" || title == null) {
-	   Swal.fire({
-	        title: '챌린지 제목을 입력해주세요.', 
-	        icon: 'warning'
-	      });
-	     $('#c_title').focus();
-	     return false;
-	}
-	
-	if (cate == "0") {
-		   Swal.fire({
-		        title: '카테고리를 선택해주세요.', 
-		        icon: 'warning'
-		      });
-		     $('#b_ctno').focus();
-		     return false;
-		}
-	
-	if (start == "" || start == null) {
-		   Swal.fire({
-		        title: '시작일을 선택해주세요.', 
-		        icon: 'warning'
-		      });
-		     $('#datepicker').focus();
-		     return false;
-	}
-	
-	if (person == "" || person == null) {
-		   Swal.fire({
-		        title: '모집인원을 입력해주세요.', 
-		        icon: 'warning'
-		      });
-		     $('#c_pcnt').focus();
-		     return false;
-	}
-	
-	if (deposit == "" || deposit == null) {
-		   Swal.fire({
-		        title: '예치금을 입력해주세요.', 
-		        icon: 'warning'
-		      });
-		     $('#c_deposit').focus();
-		     return false;
-	}
-	
-	if (amount == "" || amount == null) {
-		   Swal.fire({
-		        title: '저축 금액을 입력해주세요.', 
-		        icon: 'warning'
-		      });
-		     $('#c_amount').focus();
-		     return false;
-	} 
-	
-	if (content == "" || content == null) {
-		   Swal.fire({
-		        title: '챌린지 내용을 입력해주세요.', 
-		        icon: 'warning'
-		      });
-		     $('#c_content').focus();
-		     return false;
-	}
-});
-});
-</script>
-
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#c_pcnt').change(function() {
-       var val= $('#c_pcnt').val();
-   	   if(val < 3 || val > 10) {
-		   Swal.fire({
-		        title: '3명~10명까지만 모집가능합니다.', 
-		        icon: 'warning'
-		      });
-   		  $(this).val('');
-	   }
-  	});
-});
-
-$(document).ready(function() {
-    $('#c_deposit').change(function() {
-       var val= $('#c_deposit').val();
-       if(val < 1000 || val > 200000) {
-		   Swal.fire({
-		        title: '1,000원~200,000원내로 입력해주세요.', 
-		        icon: 'warning'
-		      });
-   		  $(this).val('');
-	   }
-  	});
-});
-</script> 
-
-
-<script type="text/javascript">
-$(function(){
-    $('select[name="b_ctno"] ').on('change', function()  {
-        var arrType = getAgreeType();
-        var optionType = $(this).parents('.pl-lg-4').find($('select[name="ctno"]'));
-        optionType.empty();
-
-        if($(this).val() == '1'){ 
-            for(prop in arrType['1']){
-                optionType.append('<option value='+prop+' >'+arrType['1'][prop]+'</option>');
-            }
-        }else if($(this).val() == '2'){                            
-            for(prop in arrType['2']){
-                optionType.append('<option value='+prop+' >'+arrType['2'][prop]+'</option>');
-            }                  
-        }else if($(this).val() == '3'){                            
-            for(prop in arrType['3']){
-                optionType.append('<option value='+prop+' >'+arrType['3'][prop]+'</option>');
-            }                  
-        }else if($(this).val() == '4'){                            
-            for(prop in arrType['4']){
-                optionType.append('<option value='+prop+' >'+arrType['4'][prop]+'</option>');
-            }     
-        }else if($(this).val() == '5'){                            
-            for(prop in arrType['5']){
-                optionType.append('<option value='+prop+' >'+arrType['5'][prop]+'</option>');
-            }  
-        }else if($(this).val() == '6'){                            
-            for(prop in arrType['6']){
-                optionType.append('<option value='+prop+' >'+arrType['6'][prop]+'</option>');
-            }  
-        }else if($(this).val() == '7'){                            
-            for(prop in arrType['7']){
-                optionType.append('<option value='+prop+' >'+arrType['7'][prop]+'</option>');
-            }  
-        }else if($(this).val() == '8'){                            
-            for(prop in arrType['8']){
-                optionType.append('<option value='+prop+' >'+arrType['8'][prop]+'</option>');
-            }  
-        }else if($(this).val() == '9'){                            
-            for(prop in arrType['9']){
-                optionType.append('<option value='+prop+' >'+arrType['9'][prop]+'</option>');
-            }  
-        }else if($(this).val() == '10'){                            
-            for(prop in arrType['10']){
-                optionType.append('<option value='+prop+' >'+arrType['10'][prop]+'</option>');
-            }  
-        }else if($(this).val() == '11'){                            
-            for(prop in arrType['11']){
-                optionType.append('<option value='+prop+' >'+arrType['11'][prop]+'</option>');
-            } 
-        }else if($(this).val() == '12'){                            
-            for(prop in arrType['12']){
-                optionType.append('<option value='+prop+' >'+arrType['12'][prop]+'</option>');
-            } 
-        }
-    });
-});
-</script>
-<script type="text/javascript">
-function getAgreeType() {    
-    var obj = {
-        "1" : {
-            '13' : '간식',
-            '14' : '외식',
-            '15' : '카페',            
-            '16' : '술/유흥',            
-            '17' : '기타',                   
-        },
-        "2" : {
-            '18' : '의류',
-            '19' : '패션잡화',
-            '20' : '헤어',
-            '21' : '뷰티',
-            '22' : '기타',
-        },
-        "3" : {
-            '23' : '여행/숙박',
-            '24' : '공연/전시',
-            '25' : '도서/영화',
-            '26' : '취미',
-            '27' : '선물',
-            '28' : '기타',
-        },
-        "4" : {
-            '29' : '가전/가구',
-            '30' : '주방/욕실',
-            '31' : '잡화/소모',
-            '32' : '반려동물',
-            '33' : '기타',
-        },
-        "5" : {
-            '34' : '관리비',
-            '35' : '공과금',
-            '36' : '통신',
-            '37' : '월세',
-            '38' : '기타',
-        },
-        "6" : {
-            '39' : '운동',
-            '40' : '운동용품',
-            '41' : '병원',
-            '42' : '약국',
-            '43' : '기타',
-        },
-        "7" : {
-            '44' : '등록금',
-            '45' : '학원',
-            '46' : '교재',
-            '47' : '육아용품',
-            '48' : '기타',
-        },
-        "8" : {
-            '49' : '대중교통',
-            '50' : '택시',
-            '51' : '주유소',
-            '52' : '장비/부품',
-            '53' : '기타',
-        },
-        "9" : {
-            '54' : '경조사',
-            '55' : '회비',
-            '56' : '용돈',
-            '57' : '헌금',
-            '58' : '기부',
-            '59' : '기타',
-        },
-        "10" : {
-            '60' : '세금',
-            '61' : '은행',
-            '62' : '이자',
-            '63' : '투자',
-            '64' : '기타',
-        },
-        "11" : {
-            '65' : '예/적금',
-            '66' : '보험',
-            '67' : '기타',
-        },
-        "12" : {
-            '68' : '출금',
-            '69' : '이체',
-            '70' : '카드대금',
-            '71' : '기타',
-        }
-    }
-    return obj;
-}
-</script>
-</head>
-
-<body>
-<h2 style="margin-left: 35px;">절약형 챌린지 등록</h2>
-<form action=""  method="post" enctype="multipart/form-data">
-  <div class="main-content">
-  
-  <div class="container-fluid">
-
-    
-      <div class="row">
-        <div class="col-xl-4 order-xl-1 mb-5 mb-xl-0">
-          <div class="card card-profile shadow">
-					<!-- Upload profile -->
-					<div class="bg-secondary-soft px-4 py-5 rounded">
-						<div class="row1">
-							
-							<div class="text-center">
-								<div class="square position-relative display-2 mb-3">
-								<h4 class="mb-4 mt-0">챌린지 사진 등록</h4>
-									<div class="select_img"><img src="" /></div>
-								</div>
-								<button type="reset" class="btn btn-danger-soft">취소</button>
-								<input type="file" id="customFile" name="file" hidden="">
-								<label class="btn btn-success-soft btn-block" for="customFile">업로드</label>
-								<p class="text-muted mt-3 mb-0">
-									<span class="me-1">주의:</span>최소사이즈 300px x 300px
-								</p>
-								
-								 	<script>
-									  $("#customFile").change(function(){
-									   if(this.files && this.files[0]) {
-									    var reader = new FileReader;
-									    reader.onload = function(data) {
-									     $(".select_img img").attr("src", data.target.result).width(500);        
-									    }
-									    reader.readAsDataURL(this.files[0]);
-									   }
-									  });
-									 </script>
-									 
-<%-- 								<%=request.getRealPath("/") %> --%>
-								
-							</div>
-							
-						</div>
-					</div>
-				</div>
-        </div>
-        
-        
-        <div class="col-xl-8 order-xl-2">
-          <div class="card bg-secondary shadow">
-            <div class="card-header bg-white border-0">
-              <div class="row align-items-center">
-                <div class="col-8">
-                  <h3 class="mb-0">챌린지 등록</h3>
-                </div>
-                <div class="col-4 text-right">
-                  <a href="#" class="btn btn-sm btn-primary">절약형</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              
-                <!-- 챌린지 등록 -->
-                <div class="pl-lg-4">
-                  <div class="row">
-                  
-                  
-                    <div class="col-md-12">
-                      <div class="form-group focused">
-                        <label class="form-control-label" for="input-address">챌린지 제목</label>
-                        <input type="text" name="c_title" id="c_title" class="form-control form-control-alternative" placeholder="챌린지 제목을 입력하세요."  required>
-                      </div>
-                    </div>
-                    
-                   <div class="col-lg-6">
-                      <div class="form-group focused">
-                        <label class="form-control-label" for="input-username" >카테고리</label>
-                        <select name="b_ctno" id="b_ctno" class="form-control form-control-alternative" required >
-                           <option value="0">카테고리</option>
-                           <option value="1">식비</option>
-        				   <option value="2">의복/미용</option>
-          				   <option value="3">문화/여가</option>
-          				   <option value="4">생활</option>
-        				   <option value="5">주거/통신</option>
-          				   <option value="6">건강/운동</option>
-          				   <option value="7">교육/육아</option>
-          				   <option value="8">교통/차량</option>
-          				   <option value="9">경조사/회비</option>
-          				   <option value="10">금융</option>
-          				   <option value="11">저축/보험</option>
-          				   <option value="12">자산이동</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-email">상세 카테고리</label>
-                         <select name="ctno" id="input-address" class="form-control form-control-alternative" >
-                           <option>상세 카테고리</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-4">
-                      <div class="form-group focused">
-                        <label class="form-control-label" for="input-city">챌린지 기간</label>
-                        <select name="c_period" id="input-city" class="form-control form-control-alternative">
-                           <option value="2">2주</option>
-        				   <option value="4">4주</option>
-          				   <option value="8">2달</option>
-          				   <option value="12">3달</option>
-                        </select>
-                      </div>
-                    </div>
-                    
-                    <div class="col-lg-4">
-                      <div class="form-group focused">
-                        <label class="form-control-label" for="input-country">챌린지 시작일</label>
-                        <input type="text" name="c_start" id="datepicker" class="form-control form-control-alternative" placeholder="7일이내로 날짜를 선택해주세요. " required>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-country">모집인원</label>
-                        <input type="text" name="c_pcnt" id="c_pcnt" class="form-control form-control-alternative" placeholder="3~10명까지 모집가능합니다" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
-                      </div>
-                    </div>
-                    
-                    
-                   <div class="col-md-12">
-                      <div class="form-group focused">
-                        <label class="form-control-label" for="input-address">예치금 설정</label>
-                        <input type="text" name="c_deposit" id="c_deposit" class="form-control form-control-alternative" placeholder="최소 1,000원~ 최대 200,000원" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
-                      </div>
-                    </div>
-                    
-                    
-               		<div class="col-lg-7">
-                      <div class="form-group focused">
-                        <label class="form-control-label" for="input-first-name">총 금액</label>
-                        <input type="text" name="c_amount" id="c_amount" class="form-control form-control-alternative" placeholder="금액을 자유롭게 입력해주세요." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required >
-                      </div>
-                    </div>
-					
-					<div class="textstyle"> (으)로 예산을 설정합니다. </div>
-                  
-                   </div>
-               
-                
-                 </div>
-               
-                
-                <hr class="my-4">
-				<!-- Description -->
-                <div class="pl-lg-4">
-                  <div class="form-group focused">
-                    <label class="form-control-label" for="input-city">챌린지 설명</label>
-                    <textarea rows="4" name="c_content" id="c_content" class="form-control form-control-alternative" placeholder="해당 챌린지에 대한 설명을 간략히 작성해주세요." required></textarea>
-                  </div>
-                </div>
-                
-                <!-- button -->
-				<div class="gap-3 d-md-flex justify-content-md-end text-center">
-					<button type="reset" class="btn btn-danger btn-lg">취소하기</button>
-					<button type="submit" class="btn btn-primary btn-lg" id="regist">등록하기</button>
-				</div>
-                
-                
-                <input type="hidden" name="c_status" value="0">
-                <input type="hidden" name="c_sort" value="1">
-                <input type="hidden" name="c_min" value="2">
-                <input type="hidden" name="c_cnt" value="1">
-                
-            </div>
-          </div>
-        </div>
-      </div>
-	</div>
-</div>
-</form>
-</body>
-
-
-
-</div>
-<%@ include file="../include/footer.jsp" %>
 
 <style>
 
@@ -2768,3 +2162,628 @@ p {
 }
 
 </style>
+
+<!-- 로딩 코드 start -->
+<style type="text/css">
+#waiting {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: flex;
+    background: white;
+    z-index: 999;
+    opacity: 0.9;
+}
+#waiting > img {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+}
+</style>
+<div id="waiting">
+   <img src="./resources/imgUpload/new-loading.gif">
+</div>
+
+<script type="text/javascript">
+    $(window).on('load', function() {
+        setTimeout(function(){
+            $("#waiting").fadeOut();
+        }, 300);
+    });
+</script>
+<!-- 로딩 코드 end -->
+
+
+<script type="text/javascript">
+	/* 설정 */
+$.datepicker.setDefaults({
+	  dateFormat: 'yy-mm-dd',
+	  prevText: '이전 달',
+	  nextText: '다음 달',
+	  monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	  monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	  dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+	  dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+	  dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+	  showMonthAfterYear: true,
+	  yearSuffix: '년'
+});
+</script> 
+
+<script>
+$(document).ready(function(){
+     $("#datepicker").datepicker({ 
+    	   minDate: "0",
+    	   maxDate: "+6D", 
+     });
+});
+</script>
+
+<style>
+.ui-widget-header { border: 0px solid #dddddd; background: #fff; } 
+
+ .ui-datepicker-calendar>thead>tr>th { font-size: 14px !important; } 
+
+ .ui-datepicker .ui-datepicker-header { position: relative; padding: 10px 0; } 
+
+ .ui-state-default,
+ .ui-widget-content .ui-state-default,
+ .ui-widget-header .ui-state-default,
+ .ui-button,
+ html .ui-button.ui-state-disabled:hover,
+ html .ui-button.ui-state-disabled:active { border: 0px solid #c5c5c5; background-color: transparent; font-weight: normal; color: #454545; text-align: center; } 
+
+ .ui-datepicker .ui-datepicker-title { margin: 0 0em; line-height: 16px; text-align: center; font-size: 14px; padding: 0px; font-weight: bold; } 
+
+ .ui-datepicker { display: none; background-color: #fff; border-radius: 4px; margin-top: 10px; margin-left: 0px; margin-right: 0px; padding: 20px; padding-bottom: 10px; width: 300px; box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.1); } 
+
+ .ui-widget.ui-widget-content { border: 1px solid #eee; } 
+
+ #datepicker:focus>.ui-datepicker { display: block; } 
+
+ .ui-datepicker-prev,
+ .ui-datepicker-next { cursor: pointer; } 
+
+ .ui-datepicker-next { float: right; } 
+
+ .ui-state-disabled { cursor: auto; color: hsla(0, 0%, 80%, 1); } 
+
+ .ui-datepicker-title { text-align: center; padding: 10px; font-weight: 100; font-size: 20px; } 
+
+ .ui-datepicker-calendar { width: 100%; } 
+
+ .ui-datepicker-calendar>thead>tr>th { padding: 5px; font-size: 20px; font-weight: 400; } 
+
+ .ui-datepicker-calendar>tbody>tr>td>a { color: #000; font-size: 12px !important; font-weight: bold !important; text-decoration: none;}
+
+ .ui-datepicker-calendar>tbody>tr>.ui-state-disabled:hover { cursor: auto; background-color: #fff; } 
+
+ .ui-datepicker-calendar>tbody>tr>td { border-radius: 100%; width: 44px; height: 30px; cursor: pointer; padding: 5px; font-weight: 100; text-align: center; font-size: 12px; } 
+
+ .ui-datepicker-calendar>tbody>tr>td:hover { background-color: transparent; opacity: 0.6; } 
+
+ .ui-state-hover,
+ .ui-widget-content .ui-state-hover,
+ .ui-widget-header .ui-state-hover,
+ .ui-state-focus,
+ .ui-widget-content .ui-state-focus,
+ .ui-widget-header .ui-state-focus,
+ .ui-button:hover,
+ .ui-button:focus { border: 0px solid #cccccc; background-color: transparent; font-weight: normal; color: #2b2b2b; } 
+
+ .ui-widget-header .ui-icon { background-image: url('./src/main/webapp/WEB-INF/views/challenge/btns.png'); } 
+
+ .ui-icon-circle-triangle-e { background-position: -20px 0px; background-size: 36px; } 
+
+ .ui-icon-circle-triangle-w { background-position: -0px -0px; background-size: 36px; } 
+
+ .ui-datepicker-calendar>tbody>tr>td:first-child a { color: red !important; } 
+
+ .ui-datepicker-calendar>tbody>tr>td:last-child a { color: #0099ff !important; } 
+
+ .ui-datepicker-calendar>thead>tr>th:first-child { color: red !important; } 
+
+ .ui-datepicker-calendar>thead>tr>th:last-child { color: #0099ff !important; } 
+
+ .ui-state-highlight,
+ .ui-widget-content .ui-state-highlight,
+ .ui-widget-header .ui-state-highlight {    
+border: 0px;
+    background: #66c14a38;
+    border-radius: 50%;
+   } 
+
+ .inp { padding: 10px 10px; background-color: #f1f1f1; border-radius: 4px; border: 0px; } 
+
+ .inp:focus { outline: none; background-color: #eee; } 
+</style>
+<!-- 데이트피커 -->
+
+<!-- 로딩 코드 start -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style type="text/css">
+#waiting {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: flex;
+    background: white;
+    z-index: 999;
+    opacity: 0.9;
+}
+#waiting > img {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+}
+</style>
+<div id="waiting">
+   <img src="../resources/imgUpload/new-loading.gif">
+</div>
+
+<script type="text/javascript">
+    $(window).on('load', function() {
+        setTimeout(function(){
+            $("#waiting").fadeOut();
+        }, 300);
+    });
+</script>
+<!-- 로딩 코드 end -->
+<!-- 유효성 검사 -->
+<script type="text/javascript">
+$(document).ready(function(){
+	   
+   $('#regist').click(function(){
+   
+	var file =  $('#customFile').val(); 
+    var title = $('#c_title').val();   
+    var cate = $('#b_ctno').val();   
+    var start = $('#datepicker').val();
+    var person = $('#c_pcnt').val();
+    var deposit = $('#c_deposit').val();
+    var amount = $('#c_amount').val();
+    var content = $('#c_content').val();
+    
+    
+    if (file == "" || file == null) {
+  	   Swal.fire({
+  	        title: '사진을 등록해주세요.', 
+  	        icon: 'warning'
+  	      });
+  	     $('#customFile').focus();
+  	     return false;
+  	}
+    
+	if (title == "" || title == null) {
+	   Swal.fire({
+	        title: '챌린지 제목을 입력해주세요.', 
+	        icon: 'warning'
+	      });
+	     $('#c_title').focus();
+	     return false;
+	}
+	
+	if (cate == "0") {
+		   Swal.fire({
+		        title: '카테고리를 선택해주세요.', 
+		        icon: 'warning'
+		      });
+		     $('#b_ctno').focus();
+		     return false;
+		}
+	
+	if (start == "" || start == null) {
+		   Swal.fire({
+		        title: '시작일을 선택해주세요.', 
+		        icon: 'warning'
+		      });
+		     $('#datepicker').focus();
+		     return false;
+	}
+	
+	if (person == "" || person == null) {
+		   Swal.fire({
+		        title: '모집인원을 입력해주세요.', 
+		        icon: 'warning'
+		      });
+		     $('#c_pcnt').focus();
+		     return false;
+	}
+	
+	if (deposit == "" || deposit == null) {
+		   Swal.fire({
+		        title: '예치금을 입력해주세요.', 
+		        icon: 'warning'
+		      });
+		     $('#c_deposit').focus();
+		     return false;
+	}
+	
+	if (amount == "" || amount == null) {
+		   Swal.fire({
+		        title: '저축 금액을 입력해주세요.', 
+		        icon: 'warning'
+		      });
+		     $('#c_amount').focus();
+		     return false;
+	} 
+	
+	if (content == "" || content == null) {
+		   Swal.fire({
+		        title: '챌린지 내용을 입력해주세요.', 
+		        icon: 'warning'
+		      });
+		     $('#c_content').focus();
+		     return false;
+	}
+});
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#c_pcnt').change(function() {
+       var val= $('#c_pcnt').val();
+   	   if(val < 3 || val > 10) {
+		   Swal.fire({
+		        title: '3명~10명까지만 모집가능합니다.', 
+		        icon: 'warning'
+		      });
+   		  $(this).val('');
+	   }
+  	});
+});
+
+$(document).ready(function() {
+    $('#c_deposit').change(function() {
+       var val= $('#c_deposit').val();
+       if(val < 1000 || val > 200000) {
+		   Swal.fire({
+		        title: '1,000원~200,000원내로 입력해주세요.', 
+		        icon: 'warning'
+		      });
+   		  $(this).val('');
+	   }
+  	});
+});
+</script> 
+
+
+<script type="text/javascript">
+$(function(){
+    $('select[name="b_ctno"] ').on('change', function()  {
+        var arrType = getAgreeType();
+        var optionType = $(this).parents('.pl-lg-4').find($('select[name="ctno"]'));
+        optionType.empty();
+
+        if($(this).val() == '1'){ 
+            for(prop in arrType['1']){
+                optionType.append('<option value='+prop+' >'+arrType['1'][prop]+'</option>');
+            }
+        }else if($(this).val() == '2'){                            
+            for(prop in arrType['2']){
+                optionType.append('<option value='+prop+' >'+arrType['2'][prop]+'</option>');
+            }                  
+        }else if($(this).val() == '3'){                            
+            for(prop in arrType['3']){
+                optionType.append('<option value='+prop+' >'+arrType['3'][prop]+'</option>');
+            }                  
+        }else if($(this).val() == '4'){                            
+            for(prop in arrType['4']){
+                optionType.append('<option value='+prop+' >'+arrType['4'][prop]+'</option>');
+            }     
+        }else if($(this).val() == '5'){                            
+            for(prop in arrType['5']){
+                optionType.append('<option value='+prop+' >'+arrType['5'][prop]+'</option>');
+            }  
+        }else if($(this).val() == '6'){                            
+            for(prop in arrType['6']){
+                optionType.append('<option value='+prop+' >'+arrType['6'][prop]+'</option>');
+            }  
+        }else if($(this).val() == '7'){                            
+            for(prop in arrType['7']){
+                optionType.append('<option value='+prop+' >'+arrType['7'][prop]+'</option>');
+            }  
+        }else if($(this).val() == '8'){                            
+            for(prop in arrType['8']){
+                optionType.append('<option value='+prop+' >'+arrType['8'][prop]+'</option>');
+            }  
+        }else if($(this).val() == '9'){                            
+            for(prop in arrType['9']){
+                optionType.append('<option value='+prop+' >'+arrType['9'][prop]+'</option>');
+            }  
+        }else if($(this).val() == '10'){                            
+            for(prop in arrType['10']){
+                optionType.append('<option value='+prop+' >'+arrType['10'][prop]+'</option>');
+            }  
+        }else if($(this).val() == '11'){                            
+            for(prop in arrType['11']){
+                optionType.append('<option value='+prop+' >'+arrType['11'][prop]+'</option>');
+            } 
+        }else if($(this).val() == '12'){                            
+            for(prop in arrType['12']){
+                optionType.append('<option value='+prop+' >'+arrType['12'][prop]+'</option>');
+            } 
+        }
+    });
+});
+</script>
+<script type="text/javascript">
+function getAgreeType() {    
+    var obj = {
+        "1" : {
+            '13' : '간식',
+            '14' : '외식',
+            '15' : '카페',            
+            '16' : '술/유흥',            
+            '17' : '기타',                   
+        },
+        "2" : {
+            '18' : '의류',
+            '19' : '패션잡화',
+            '20' : '헤어',
+            '21' : '뷰티',
+            '22' : '기타',
+        },
+        "3" : {
+            '23' : '여행/숙박',
+            '24' : '공연/전시',
+            '25' : '도서/영화',
+            '26' : '취미',
+            '27' : '선물',
+            '28' : '기타',
+        },
+        "4" : {
+            '29' : '가전/가구',
+            '30' : '주방/욕실',
+            '31' : '잡화/소모',
+            '32' : '반려동물',
+            '33' : '기타',
+        },
+        "5" : {
+            '34' : '관리비',
+            '35' : '공과금',
+            '36' : '통신',
+            '37' : '월세',
+            '38' : '기타',
+        },
+        "6" : {
+            '39' : '운동',
+            '40' : '운동용품',
+            '41' : '병원',
+            '42' : '약국',
+            '43' : '기타',
+        },
+        "7" : {
+            '44' : '등록금',
+            '45' : '학원',
+            '46' : '교재',
+            '47' : '육아용품',
+            '48' : '기타',
+        },
+        "8" : {
+            '49' : '대중교통',
+            '50' : '택시',
+            '51' : '주유소',
+            '52' : '장비/부품',
+            '53' : '기타',
+        },
+        "9" : {
+            '54' : '경조사',
+            '55' : '회비',
+            '56' : '용돈',
+            '57' : '헌금',
+            '58' : '기부',
+            '59' : '기타',
+        },
+        "10" : {
+            '60' : '세금',
+            '61' : '은행',
+            '62' : '이자',
+            '63' : '투자',
+            '64' : '기타',
+        },
+        "11" : {
+            '65' : '예/적금',
+            '66' : '보험',
+            '67' : '기타',
+        },
+        "12" : {
+            '68' : '출금',
+            '69' : '이체',
+            '70' : '카드대금',
+            '71' : '기타',
+        }
+    }
+    return obj;
+}
+</script>
+<!-- 유효성 검사 -->
+</head>
+
+
+
+<body>
+<h2 style="margin-left: 35px;">절약형 챌린지 등록</h2>
+<form action=""  method="post" enctype="multipart/form-data">
+<div class="main-content">
+<!-- 사진등록 -->
+  <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-4 order-xl-1 mb-5 mb-xl-0">
+          <div class="card card-profile shadow">
+			<div class="bg-secondary-soft px-4 py-5 rounded">
+				<div class="row1">
+					
+					<div class="text-center">
+						<div class="square position-relative display-2 mb-3">
+						<h4 class="mb-4 mt-0">챌린지 사진 등록</h4>
+							<div class="select_img"><img src="" /></div>
+						</div>
+						<button type="reset" class="btn btn-danger-soft">취소</button>
+						<input type="file" id="customFile" name="file" hidden="">
+						<label class="btn btn-success-soft btn-block" for="customFile">업로드</label>
+						<p class="text-muted mt-3 mb-0">
+							<span class="me-1">주의:</span>최소사이즈 300px x 300px
+						</p>
+						
+						 <script>
+							  $("#customFile").change(function(){
+							   if(this.files && this.files[0]) {
+							    var reader = new FileReader;
+							    reader.onload = function(data) {
+							     $(".select_img img").attr("src", data.target.result).width(500);        
+							    }
+							    reader.readAsDataURL(this.files[0]);
+							   }
+							  });
+						 </script>
+									 
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+<!-- 사진등록 -->  
+  
+
+<!-- 챌린지 등록 -->
+<div class="col-xl-8 order-xl-2">
+  <div class="card bg-secondary shadow">
+    <div class="card-header bg-white border-0">
+      <div class="row align-items-center">
+        <div class="col-8">
+            <h3 class="mb-0">챌린지 등록</h3>
+         </div>
+             <div class="col-4 text-right">
+                <a href="#" class="btn btn-sm btn-primary">절약형</a>
+              </div>
+         </div>
+      	</div>
+      	
+            <div class="card-body">
+                <div class="pl-lg-4">
+                  <div class="row">
+                  
+                    <div class="col-md-12">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-address">챌린지 제목</label>
+                        <input type="text" name="c_title" id="c_title" class="form-control form-control-alternative" placeholder="챌린지 제목을 입력하세요."  required>
+                      </div>
+                    </div>
+                    
+                   <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-username" >카테고리</label>
+                        <select name="b_ctno" id="b_ctno" class="form-control form-control-alternative" required >
+                           <option value="0">카테고리</option>
+                           <option value="1">식비</option>
+        				   <option value="2">의복/미용</option>
+          				   <option value="3">문화/여가</option>
+          				   <option value="4">생활</option>
+        				   <option value="5">주거/통신</option>
+          				   <option value="6">건강/운동</option>
+          				   <option value="7">교육/육아</option>
+          				   <option value="8">교통/차량</option>
+          				   <option value="9">경조사/회비</option>
+          				   <option value="10">금융</option>
+          				   <option value="11">저축/보험</option>
+          				   <option value="12">자산이동</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">상세 카테고리</label>
+                         <select name="ctno" id="input-address" class="form-control form-control-alternative" >
+                           <option>상세 카테고리</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-city">챌린지 기간</label>
+                        <select name="c_period" id="input-city" class="form-control form-control-alternative">
+                           <option value="2">2주</option>
+        				   <option value="4">4주</option>
+          				   <option value="8">2달</option>
+          				   <option value="12">3달</option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-country">챌린지 시작일</label>
+                        <input type="text" name="c_start" id="datepicker" class="form-control form-control-alternative" placeholder="7일이내로 날짜를 선택해주세요. " required>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">모집인원</label>
+                        <input type="text" name="c_pcnt" id="c_pcnt" class="form-control form-control-alternative" placeholder="3~10명까지 모집가능합니다" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
+                      </div>
+                    </div>
+                    
+                    
+                   <div class="col-md-12">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-address">예치금 설정</label>
+                        <input type="text" name="c_deposit" id="c_deposit" class="form-control form-control-alternative" placeholder="최소 1,000원~ 최대 200,000원" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
+                      </div>
+                    </div>
+                    
+                    
+               		<div class="col-lg-7">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-first-name">총 금액</label>
+                        <input type="text" name="c_amount" id="c_amount" class="form-control form-control-alternative" placeholder="금액을 자유롭게 입력해주세요." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required >
+                      </div>
+                    </div>
+					
+					<div class="textstyle"> (으)로 예산을 설정합니다. </div>
+                  
+                   </div>
+                 </div>
+               
+             <hr class="my-4">
+                <div class="pl-lg-4">
+                  <div class="form-group focused">
+                    <label class="form-control-label" for="input-city">챌린지 설명</label>
+                    <textarea rows="4" name="c_content" id="c_content" class="form-control form-control-alternative" placeholder="해당 챌린지에 대한 설명을 간략히 작성해주세요." required></textarea>
+                  </div>
+                </div>
+                
+				<div class="gap-3 d-md-flex justify-content-md-end text-center">
+					<button type="reset" class="btn btn-danger btn-lg">취소하기</button>
+					<button type="submit" class="btn btn-primary btn-lg" id="regist">등록하기</button>
+				</div>
+                
+                
+                <input type="hidden" name="c_status" value="0">
+                <input type="hidden" name="c_sort" value="1">
+                <input type="hidden" name="c_min" value="2">
+                <input type="hidden" name="c_cnt" value="1">
+                
+            </div>
+          </div>
+        </div>
+      </div>
+	</div>
+</div>
+</form>
+</body>
+
+
+
+</div>
+<%@ include file="../include/footer.jsp" %>

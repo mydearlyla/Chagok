@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<%@ include file="../include/header.jsp"%>
+<%@ include file="../include/header.jsp"%> 
 <%@ include file="../include/sidebarGrid.jsp"%>
 
 <script
@@ -108,11 +108,11 @@
 								</select>
 							</div>
 
-							<div class="pl-lg-4" style="display: flex;">
+							<div class="pl-lg-4" style="display: flex; justify-content: flex-start;">
 
 								<!-- 지출 카테고리 -->
-								<div class="form-group2" style="margin-right: 20px;">
-									<div class="form-group2 focused">
+								<div class="form-group2" >
+									<div class="form-group2 focused"> 
 										<label class="form-control-label" for="input-username"></label>
 										<select name="b_ctno_out" id="sel_ab_out"
 											class="form-control2 form-control-alternative">
@@ -482,50 +482,6 @@ $("#jqGrid").jqGrid({
 				
 	}
 	
-	
-	// col edit 가능하게 일괄 처리하기 
-	function setColData(param){
-    const gridColData = ["abno", "ab_inout", "ab_date", "ab_content", "ab_amount", "ctno", "ct_top", "ct_bottom", "ab_memo"];
-    for(var idx in gridColData){
-        $("#jqGrid").setColProp(gridColData[idx], {editable : param});
-    }
-}
-	///////////////////////////////////////아직 안 쓰는 코드 
-    function search() {
-    	
-//         alert("저장");
-        var jsonObj = {};
-        
-        alert(JSON.stringify(jsonObj));
-        
-        $("#jqGrid").setGridParam({
-            datatype : "json",
-            postData : {"param" : JSON.stringify(jsonObj)},
-            loadComplete : function(data) {
-                
-            },
-            
-            gridComplete : function() {
-                
-            }
-        }).trigger("reloadGrid");
-    }
-    
-    function replacer(key, value) {
-    	  if (typeof value === "string") {
-    	    return undefined;
-    	  }
-    	  return value;
-    	}
-    	var foo = {foundation: "Mozilla", model: "box", week: 45, transport: "car", month: 7};
-    	var jsonString = JSON.stringify(foo, replacer);
-    
-    
-    
-    $('#jqGrid').getRowData();
-    
-</script>
-
 
 	<!-- 지출 카테고리  -->
 	<script type="text/javascript">
@@ -588,7 +544,7 @@ $(function(){
 });
 </script>
 
-	<script type="text/javascript">
+<script type="text/javascript">
 function getAgreeType() {    
     var obj = {
         "1" : {
@@ -682,8 +638,8 @@ function getAgreeType() {
 
 
 
-	<!-- 수입 카테고리 -->
-	<script type="text/javascript">
+<!-- 수입 카테고리 -->
+<script type="text/javascript">
 $(function(){
     $('select[name="b_ctno_in"] ').on('change', function()  {
         var arrType = getintype();
@@ -707,7 +663,7 @@ $(function(){
 </script>
 
 
-	<script type="text/javascript">
+<script type="text/javascript">
 function getintype() {    
     var obj = {
         "72" : {
@@ -733,15 +689,6 @@ function getintype() {
 }
 </script>
 
-	<script type="text/javascript"> 
-var result = '${result}';
-if(result == 'createOK'){
-	Swal.fire({
-		title: '작성 완료!', 
-		icon: 'success'
-	});
-}
-</script>
 
 <script>
 function clickCheck(target) {
@@ -752,7 +699,7 @@ function clickCheck(target) {
 }
 </script>
 
-	<style>
+<style>
 .content-wrapper2, .right-side {
 	/*     min-height: 100%; */
 	background-color: #ffffff;

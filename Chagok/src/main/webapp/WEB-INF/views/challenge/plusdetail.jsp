@@ -222,8 +222,6 @@ ex) 저축형 챌린지 [교통] 카테고리 참여 중이라면 절약형 [교
 			  container: '#kakaotalk-sharing-btn',
 			  templateId: ${87844},
 			  templateArgs: {
-// 			  file: '${pageContext.request.contextPath }/resources${vo.c_thumbFile}',
-			  file: '${vo.c_thumbFile}',
 			  title: '${vo.c_title}',
 			  description: '지금 친구와 함께 챌린지에 도전해보세요! ( ´͈ ᵕ `͈ )◞♡ '
 			  

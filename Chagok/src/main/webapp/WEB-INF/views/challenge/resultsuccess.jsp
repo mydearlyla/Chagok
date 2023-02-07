@@ -586,7 +586,7 @@ opacity:1;
 		</c:if>
 	</c:forEach>
    
-   <fmt:formatNumber value="${ChallengeMoney / Success}" pattern="0" var="refund" />
+   <fmt:formatNumber value="${(ChallengeMoney / Success)*0.9}" pattern="0" var="refund" />
 
   <div class="left">
     <div>
@@ -603,6 +603,7 @@ opacity:1;
       <li>성공 인원  <span>${Success }<b>명</b></span></li>
       <li>모인 꿀머니  <span>${ChallengeMoney }<b>꿀</b></span></li>
       <li style="background-color: #FFDB83;">환급 꿀머니 <span>${refund}<b>꿀</b></span></li>
+      <li><span style="font-size: 6px;"><small>부가세 10%를 제외한 나머지 금액으로 환급됩니다.</small></span></li>
       
     </ul>
     

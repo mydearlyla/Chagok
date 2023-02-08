@@ -149,14 +149,21 @@
 	<insert id="joinminusInsert" parameterType="map">
 		insert into minus(mno,cno) values(#{mno},#{cno});
 	</insert>
-	<!-- 성공/실패 -->
-<!-- 	<select id=""> -->
-<!-- 		select * from challenge  -->
-<!-- 	</select> -->
-<!-- 	<insert id="joinplus" parameterType="com.chagok.domain.PlusVO"> -->
-<!-- 		insert into plus(plcno,mno,cno,pl_finish,pl_cnt,pl_sum)  -->
-<!-- 		values(#{plcno},#{mno},#{cno},#{pl_finish},#{pl_cnt},#{pl_sum})  -->
-<!-- 	</insert> -->
+	
+	<!-- 성공/실패(저축형) -->
+	<update id="updatePlusResult">
+		update plus set pl_finish="Y" where mno=#{mno} and cno=#{cno}
+	</update>
+	
+	<!-- 챌린지 성공시 포인트  1번만 지급용 저축형 0, 절약형1-->	
+	<update id="justOne">
+		<if test="c_sort == 0">
+			update plus set pl_chk=1 where mno=#{mno} and cno=#{cno}
+		</if>
+		<if test="c_sort == 1">
+			update minus set m_chk=1 where mno=#{mno} and cno=#{cno}
+		</if>
+	</update>
 	
 	<!-- 챌린지 종료일자 정보 가져오기  -->
 	<select id="getChallengeEndDate" resultType="date">
@@ -601,7 +608,7 @@
 	</select>
 	<!-- 해당 챌린지내의 모든 참가자 성공,실패 여부 가져옴(리스트)  -->
   	<select id="challengeResultList" resultType="map" >
-  		select coalesce(p.mno, m.mno) mno, coalesce(pl_finish, m_finish) finish, c.cno, coalesce(pl_sum, m_sum) sum, pl_cnt, c_status, c.mno, ctno 
+  		select coalesce(p.mno, m.mno) mno, coalesce(pl_finish, m_finish) finish, c.cno, coalesce(pl_sum, m_sum) sum, pl_cnt, c_status, c.mno, ctno, coalesce(pl_chk, m_chk) chk 
 		from plus p 
 		right join challenge c 
 		on p.cno = c.cno 
@@ -610,10 +617,10 @@
 		where c.cno = #{cno};
   	</select>
 	
-	<!-- 해당 챌린지내의 모든 참가자 성공,실패 여부 가져옴(한명만)  -->
+	<!-- 해당 챌린지내의 참가자 한 명의 성공,실패 여부 가져옴 -->
   	<select id="challengeResult" resultType="map">
   		select distinct(chall.mno) dis, chall.*
-		from user u, (select coalesce(p.mno, m.mno) mno, coalesce(pl_finish, m_finish) finish, c.cno, coalesce(pl_sum, m_sum) sum, pl_cnt, c_status, ctno 
+		from user u, (select coalesce(p.mno, m.mno) mno, coalesce(pl_finish, m_finish) finish, c.cno, coalesce(pl_sum, m_sum) sum, pl_cnt, c_status, ctno, coalesce(pl_chk, m_chk) chk 
 						from plus p 
 						right join challenge c 
 						on p.cno = c.cno 

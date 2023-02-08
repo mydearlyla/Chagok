@@ -417,6 +417,20 @@ public class ChallengeDAOImpl implements ChallengeDAO{
 		sqlSession.update(NAMESPACE+".updateMsum", map);
 	}
 
+	// 성공여부 plus테이블에 업데이트
+	@Override
+	public void updatePlusResult(Map<String, Object> map) throws Exception {
+		
+		sqlSession.update(NAMESPACE+".updatePlusResult",map);
+	}
+
+	// 챌린지 성공시 포인트  1번만 지급용 저축형 0, 절약형1
+	@Override
+	public void justOne(Map<String, Object> map) throws Exception {
+		sqlSession.update(NAMESPACE+".justOne",map);
+		
+	}
+
 	
 	
 	

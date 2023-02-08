@@ -9,5 +9,5 @@ public class MinusVO {
 	private boolean m_finish;
 	private int m_sum;
 	private int cno;
-	
+	private int m_chk;
 }

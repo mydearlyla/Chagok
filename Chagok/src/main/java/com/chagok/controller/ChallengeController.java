@@ -34,7 +34,6 @@ import com.chagok.domain.MessageVO;
 import com.chagok.domain.MinusVO;
 import com.chagok.domain.PageMaker;
 import com.chagok.domain.PlusVO;
-import com.chagok.domain.SysLogVO;
 import com.chagok.domain.UserVO;
 import com.chagok.service.AbookService;
 import com.chagok.service.AlertService;
@@ -68,7 +67,7 @@ public class ChallengeController {
 	// http://localhost:8080/challenge/plusFeed?cno=2
 	@GetMapping(value = "/plusFeed")
 	public String plusfeedGET(Model model, @RequestParam("cno") int cno, HttpSession session, UserVO vo,
-			HttpServletRequest req ) throws Exception {
+			HttpServletRequest req, RedirectAttributes rttr) throws Exception {
 		mylog.debug("plusfeedGET() 호출");
 		
 		List<Map<String, Object>> plusPeoList = service.getPlusPeople(cno);
@@ -138,7 +137,6 @@ public class ChallengeController {
 		ChallengeVO vo2 = service.getCt_top(cno);
 		
 		mylog.debug("minusFeedGET()에서 id : "+session.getId());
-		SysLogVO sysLogVO = new SysLogVO();
 
 		// 회원정보 저장
 		int mno = (Integer)session.getAttribute("mno");
@@ -156,7 +154,6 @@ public class ChallengeController {
 				
 		// 연결된 뷰페이지로 정보 전달(model)
 		model.addAttribute("mno", mno);
-		model.addAttribute("sessionId", sysLogVO.getUserId());
 		model.addAttribute("vo", vo);
 		model.addAttribute("minusPeoList", minusPeoList);
 		model.addAttribute("vo2", vo2);
@@ -476,10 +473,10 @@ public class ChallengeController {
 		return "redirect:/challenge/mychallenge";
 	}
 	
-	// 챌린지 결과(성공)
+		// 챌린지 결과(성공)
 		// http://localhost:8080/challenge/success?cno=1
 		@GetMapping(value="/success")
-		public String victoryGET(Model model, @RequestParam("cno") int cno, HttpSession session) throws Exception{
+		public String victoryGET(Model model, @RequestParam("cno") int cno, HttpSession session, RedirectAttributes rttr) throws Exception{
 			Integer mno = (Integer) session.getAttribute("mno");
 		
 		ChallengeVO vo = service.getChallengeInfo(cno);
@@ -498,14 +495,39 @@ public class ChallengeController {
 		model.addAttribute("Success", Success); // 성공인원
 		model.addAttribute("result", result);
 		
-		// 포인트 처리(biz계좌)
-		Map<String, Object> giveInfo = new HashMap<String, Object>();
-	    giveInfo.put("mno", mno);
-	    giveInfo.put("getpoint", (ChallengeMoney/Success)*0.9);
-	    
-		uservice.givePoint(giveInfo);
+		boolean nowCompEnd = compare(c_end);
+		
+		// 포인트 지급되지 않은 경우
+		if(Integer.parseInt(service.challengeResult(cno, mno).get("chk").toString()) == 0) {
+			if(nowCompEnd && result.containsValue("Y")) { // 성공하고, 종료일 이후에 포인트 지급
+				// 포인트 처리(biz계좌)
+				Map<String, Object> giveInfo = new HashMap<String, Object>();
+				giveInfo.put("mno", mno);
+				giveInfo.put("cno", cno);
+				giveInfo.put("c_sort", vo.getC_sort());
+				giveInfo.put("getpoint", (ChallengeMoney/Success)*0.9);
+				
+				service.justOne(giveInfo); // 포인트 지급 컬럼 1로 업데이트
+				uservice.givePoint(giveInfo); // 포인트 지급
+			}
+		}
+
 		
 		return "/challenge/resultsuccess";
+	}
+	
+	// 챌린지가 종료 판단 메서드
+	public boolean compare(Date endDate) {
+		boolean result = false;
+		
+		Date now = new Date();
+		int tmp = now.compareTo(endDate);
+		
+		if(tmp > 0) {
+			result = true;
+		}
+		
+		return result;
 	}
 
 	// 챌린지 결과(실패)
@@ -531,6 +553,16 @@ public class ChallengeController {
 		return "/challenge/resultdefeat";
 	}
 	
+	// 챌린지 결과 반환
+	@PostMapping(value = "/sendResult")
+	public void sendChallengResult(@RequestBody Map<String, Object> map) throws Exception {
+		
+		service.updatePlusResult(map);
+		
+	}
+	
+	
+	
 	
 	/////////////////////////// 영민 비지니스 계좌 송금 ///////////////////////////////////
 	@GetMapping(value = "/sendBiz")
@@ -549,6 +581,8 @@ public class ChallengeController {
 		service.updatePlusSum(vo);
 		
 		rttr.addFlashAttribute("sendOK", "OK");
+		rttr.addFlashAttribute("check", "p_finishCk");
+		
 		
 		return "redirect:/challenge/plusFeed?cno="+vo.getCno();
 	}

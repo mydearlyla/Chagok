@@ -11,4 +11,5 @@ public class PlusVO {
 	private boolean pl_finish;
 	private int pl_cnt;
 	private int pl_sum;
+	private int pl_chk;
 }

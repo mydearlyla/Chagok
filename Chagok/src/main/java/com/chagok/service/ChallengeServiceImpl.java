@@ -324,7 +324,6 @@ public class ChallengeServiceImpl implements ChallengeService{
 	// 챌린지 성공/실패 여부 가져옴(한 명만)
 	@Override
 	public Map<String, Object> challengeResult(Integer cno, Integer mno) throws Exception {
-//		mylog.debug("challengeResult() 호출");
 		
 		return dao.challengeResult(cno, mno);
 	}
@@ -334,6 +333,16 @@ public class ChallengeServiceImpl implements ChallengeService{
 	public void updateMsum(Map<String, Object> map) throws Exception {
 		mylog.debug(" updateMsum() 호출 ");
 		dao.updateMsum(map);
+	}
+
+	@Override
+	public void updatePlusResult(Map<String, Object> map) throws Exception {
+		dao.updatePlusResult(map);
+	}
+
+	@Override
+	public void justOne(Map<String, Object> map) throws Exception {
+		dao.justOne(map);		
 	}
 
 	

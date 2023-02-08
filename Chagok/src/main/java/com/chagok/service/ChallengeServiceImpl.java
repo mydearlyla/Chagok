@@ -96,20 +96,15 @@ public class ChallengeServiceImpl implements ChallengeService{
 	// 챌린지 등록
 	@Override
    public Integer challengeRegist(ChallengeVO vo) throws Exception {
-      mylog.debug(" challengeRegist(ChallengeVO vo) 호출 ");
-            
       Integer cno = dao.challengeRegist(vo);
-      mylog.debug(cno + "번 챌린지 등록 완료 ");
     
       return cno;
       
    }
 	
-
 	// 챌린지 목록
 	@Override
 	public List<ChallengeVO> getChallengeList() throws Exception {
-		mylog.debug(" getChallengeList() 호출");
 		
 		return dao.getChallengeList();
 	}
@@ -180,7 +175,18 @@ public class ChallengeServiceImpl implements ChallengeService{
 		return dao.ranking();
 	}
 
+	// 내 챌린지 (페이징)
+	@Override
+	public List<ChallengeVO> mychallengeAll(Criteria cri, String nick) throws Exception {
+		return dao.mychallengeAll(cri, nick);
+	}
 	
+	// 내 챌린지 총 개수 (페이징)
+	@Override
+	public Integer mychallengecnt(String nick) throws Exception {
+		return dao.mychallengecnt(nick);
+	}
+
 	// 챌린지 메인 (페이징)
 	@Override
 	public List<ChallengeVO> cListM(SearchCriteria scri) throws Exception {
@@ -223,16 +229,13 @@ public class ChallengeServiceImpl implements ChallengeService{
 	// 챌린지 목록 (페이징)
 	@Override
 	public List<ChallengeVO> cList(SearchCriteria scri) throws Exception {
-		mylog.debug(" cList(SearchCriteria scri) 호출 ");
 		
 		return dao.cList(scri);
 	}
 	
-	
 	// 챌린지 총 개수 (페이징)
 	@Override
 	public Integer cListCount(SearchCriteria scri) throws Exception {
-		mylog.debug(" cListCount(SearchCriteria scri) 호출 ");
 		
 		return dao.cListCount(scri);
 	}

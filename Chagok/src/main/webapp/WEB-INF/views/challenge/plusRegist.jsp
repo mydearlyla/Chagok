@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@ include file="../include/header.jsp"%>
 <%@ include file="../include/sidebar.jsp"%>
 
@@ -2164,7 +2163,6 @@ p {
 </style>
 
 <!-- 로딩 코드 start -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style type="text/css">
 #waiting {
     width: 100%;
@@ -2185,21 +2183,21 @@ p {
 }
 </style>
 <div id="waiting">
-   <img src="./resources/imgUpload/new-loading.gif">
+   <img src="../resources/imgUpload/new-loading.gif">
 </div>
 
 <script type="text/javascript">
     $(window).on('load', function() {
         setTimeout(function(){
-            $("#waiting").fadeOut();
+            $("#waiting").fadeOut(); 
         }, 300);
     });
 </script>
 <!-- 로딩 코드 end -->
 
 
+<!-- 데이트피커 -->
 <script type="text/javascript">
-	/* 설정 */
 $.datepicker.setDefaults({
 	  dateFormat: 'yy-mm-dd',
 	  prevText: '이전 달',
@@ -2275,7 +2273,7 @@ $(document).ready(function(){
  .ui-button:hover,
  .ui-button:focus { border: 0px solid #cccccc; background-color: transparent; font-weight: normal; color: #2b2b2b; } 
 
- .ui-widget-header .ui-icon { background-image: url('./src/main/webapp/WEB-INF/views/challenge/btns.png'); } 
+ .ui-widget-header .ui-icon { background-image: url("../resources/imgUpload/btns.png"); } 
 
  .ui-icon-circle-triangle-e { background-position: -20px 0px; background-size: 36px; } 
 
@@ -2292,7 +2290,7 @@ $(document).ready(function(){
  .ui-state-highlight,
  .ui-widget-content .ui-state-highlight,
  .ui-widget-header .ui-state-highlight {    
-border: 0px;
+	border: 0px;
     background: #66c14a38;
     border-radius: 50%;
    } 
@@ -2301,7 +2299,8 @@ border: 0px;
 
  .inp:focus { outline: none; background-color: #eee; } 
 </style>
-<!-- Datepicker -->
+<!-- 데이트피커 -->
+
 
 <!-- 유효성 검사 -->
 <script type="text/javascript">
@@ -2410,77 +2409,74 @@ $(document).ready(function() {
 	   }
   	});
 });
-</script> 
-
+</script>
+<!-- 유효성 검사 -->
 </head>
+
+
+
+
 <body>
 <h2 style="margin-left: 35px;">저축형 챌린지 등록</h2>
 <form action=""  method="post" enctype="multipart/form-data">
-  <div class="main-content" >
-  
+<div class="main-content" >
+<!-- 사진등록 -->
   <div class="container-fluid" >
-
-    
       <div class="row">
         <div class="col-xl-4 order-xl-1 mb-5 mb-xl-0">
           <div class="card card-profile shadow">
-					<!-- Upload profile -->
-					<div class="bg-secondary-soft px-4 py-5 rounded">
-						<div class="row1">
-							
-							<div class="text-center">
-								<div class="square position-relative display-2 mb-3">
-								<h4 class="mb-4 mt-0">챌린지 사진 등록</h4>
-									<div class="select_img"><img src="" /></div>
-								</div>
-								<button type="reset" class="btn btn-danger-soft" for="reset">취소</button>
-								<input type="file" id="customFile" name="file" hidden="">
-								<label class="btn btn-success-soft btn-block" for="customFile">업로드</label>
-								<p class="text-muted mt-3 mb-0">
-									<span class="me-1">주의:</span>최소사이즈 300px x 300px
-								</p>
-								
-								 	<script>
-									  $("#customFile").change(function(){
-									   if(this.files && this.files[0]) {
-									    var reader = new FileReader;
-									    reader.onload = function(data) {
-									     $(".select_img img").attr("src", data.target.result).width(500);        
-									    }
-									    reader.readAsDataURL(this.files[0]);
-									   }
-									  });
-									  
-									 </script>
-									 
-<%-- 								<%=request.getRealPath("/") %> --%>
-								
-							</div>
-							
+			<div class="bg-secondary-soft px-4 py-5 rounded">
+				<div class="row1">
+					
+					<div class="text-center">
+						<div class="square position-relative display-2 mb-3">
+						<h4 class="mb-4 mt-0">챌린지 사진 등록</h4>
+							<div class="select_img"><img src="" /></div>
 						</div>
+						<button type="reset" class="btn btn-danger-soft" for="reset">취소</button>
+						<input type="file" id="customFile" name="file" hidden="">
+						<label class="btn btn-success-soft btn-block" for="customFile">업로드</label>
+						<p class="text-muted mt-3 mb-0">
+							<span class="me-1">주의:</span>최소사이즈 300px x 300px
+						</p>
+						
+					 	   <script>
+							  $("#customFile").change(function(){
+							   if(this.files && this.files[0]) {
+							    var reader = new FileReader;
+							    reader.onload = function(data) {
+							     $(".select_img img").attr("src", data.target.result).width(500);        
+							    }
+							    reader.readAsDataURL(this.files[0]);
+							   }
+							  });
+							  
+						    </script>
 					</div>
 				</div>
+			</div>
+		</div>
+ </div>
+<!-- 사진등록 -->        
+
+
+<!-- 챌린지 등록 -->
+<div class="col-xl-8 order-xl-2">
+  <div class="card bg-secondary shadow">
+    <div class="card-header bg-white border-0">
+      <div class="row align-items-center">
+        <div class="col-8">
+          <h3 class="mb-0">챌린지 등록</h3>
         </div>
-        
-        
-        <div class="col-xl-8 order-xl-2">
-          <div class="card bg-secondary shadow">
-            <div class="card-header bg-white border-0">
-              <div class="row align-items-center">
-                <div class="col-8">
-                  <h3 class="mb-0">챌린지 등록</h3>
-                </div>
-                <div class="col-4 text-right">
-                  <a href="#" class="btn btn-sm btn-primary">저축형</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              
-<!--                 챌린지 등록 -->
-                <div class="pl-lg-4">
-                  <div class="row">
-                  
+        	<div class="col-4 text-right">
+          		<a href="#" class="btn btn-sm btn-primary">저축형</a>
+        	</div>
+      	</div>
+    	</div>
+    	
+        <div class="card-body">
+             <div class="pl-lg-4">
+               <div class="row">
                   
                     <div class="col-md-12">
                       <div class="form-group focused">
@@ -2575,13 +2571,10 @@ $(document).ready(function() {
 					<div class="textstyle"> 을(를) 저축합니다. </div>
                     
                   </div>
-                  
-                  
                 </div>
                
                 
-                <hr class="my-4">
-<!-- 				Description -->
+             <hr class="my-4">
                 <div class="pl-lg-4">
                   <div class="form-group focused">
                     <label class="form-control-label" for="input-city">챌린지 설명</label>
@@ -2589,7 +2582,6 @@ $(document).ready(function() {
                   </div>
                 </div>
                 
-<!--                 button -->
 				<div class="gap-3 d-md-flex justify-content-md-end text-center">
 					<button type="reset" class="btn btn-danger btn-lg">취소하기</button>
 					<button type="submit" class="btn btn-primary btn-lg" id="regist">등록하기</button>
@@ -2599,7 +2591,6 @@ $(document).ready(function() {
                 <input type="hidden" name="c_sort" value="0">
                 <input type="hidden" name="c_min" value="2">
                 <input type="hidden" name="c_cnt" value="1">
-                
                 
             </div>
           </div>
@@ -2614,5 +2605,3 @@ $(document).ready(function() {
 
 </div>
 <%@ include file="../include/footer.jsp" %>
-
-</html>

@@ -102,9 +102,16 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public List<BoardVO> getNBoardPage(Criteria cri) throws Exception {
 		mylog.debug("  getBoardPage(Criteria cri) 페이징처리 ");
-		mylog.debug(cri+"@@@@@@@@@@@@@@@@@@@@@@");
 		
 		return sqlSession.selectList(NAMESPACE + ".nboardPageNo",cri);
+	}
+
+	// 메인 공지리스트 조회
+	@Override
+	public List<BoardVO> getMNBoardPage(Criteria cri) throws Exception {
+		mylog.debug("  getBoardPage(Criteria cri) 페이징처리 ");
+	
+		return sqlSession.selectList(NAMESPACE + ".MnboardPageNo",cri);
 	}
 
 	// 전체 공지게시판 글 개수 조회
@@ -117,12 +124,18 @@ public class BoardDAOImpl implements BoardDAO{
 
 	// 후기리스트 조회
 	@Override
-//	public List<BoardVO> getRBoardPage(Criteria cri) throws Exception {
 	public List<Map<String, Object>> getRBoardPage(Criteria cri) throws Exception {
 		mylog.debug("  getBoardPage(Criteria cri) 페이징처리 ");
-		mylog.debug(cri+"@@@@@@@@@@@@@@@@@@@@@@");
 			
 		return sqlSession.selectList(NAMESPACE + ".rboardPageNo",cri);
+	}
+
+	// 메인 후기리스트 조회
+	@Override
+	public List<Map<String, Object>> getMRBoardPage(Criteria cri) throws Exception {
+		mylog.debug("  getBoardPage(Criteria cri) 페이징처리 ");
+		
+		return sqlSession.selectList(NAMESPACE + ".MrboardPageNo",cri);
 	}
 
 	// 전체 후기게시판 글 개수 조회
@@ -137,9 +150,16 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public List<BoardVO> getFBoardPage(Criteria cri) throws Exception {
 		mylog.debug("  getBoardPage(Criteria cri) 페이징처리 ");
-		mylog.debug(cri+"@@@@@@@@@@@@@@@@@@@@@@");
 		
 		return sqlSession.selectList(NAMESPACE + ".fboardPageNo",cri);
+	}
+
+	// 메인 자유게시판 조회
+	@Override
+	public List<BoardVO> getMFBoardPage(Criteria cri) throws Exception {
+		mylog.debug("  getBoardPage(Criteria cri) 페이징처리 ");
+		
+		return sqlSession.selectList(NAMESPACE + ".MfboardPageNo",cri);
 	}
 
 	// 전체 자유게시판 글 개수 조회
@@ -154,9 +174,16 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public List<BoardVO> getEBoardPage(Criteria cri) throws Exception {
 		mylog.debug("  getBoardPage(Criteria cri) 페이징처리 ");
-		mylog.debug(cri+"@@@@@@@@@@@@@@@@@@@@@@");
 			
 		return sqlSession.selectList(NAMESPACE + ".eboardPageNo",cri);
+	}
+
+	// 메인 경제게시판 조회
+	@Override
+	public List<BoardVO> getMEBoardPage(Criteria cri) throws Exception {
+		mylog.debug("  getBoardPage(Criteria cri) 페이징처리 ");
+		
+		return sqlSession.selectList(NAMESPACE + ".MeboardPageNo",cri);
 	}
 		
 	// 경제 자유게시판 글 개수 조회
@@ -169,11 +196,12 @@ public class BoardDAOImpl implements BoardDAO{
 	
 	// 내가 쓴 글 조회
 	@Override
-	public List<BoardVO> getMyBoardWrite(String nick) throws Exception {
-		mylog.debug("  getMyBoardWrite(Criteria cri) 페이징처리 ");
-		mylog.debug(nick+"@@@@@@@@@@@@@@@@@@@@@@");
-		
-		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",nick);
+//	public List<BoardVO> getMyBoardWrite(String nick) throws Exception {
+	public List<BoardVO> getMyBoardWrite(String nick, Criteria cri) throws Exception {
+//	public List<Map<String, Object>> getMyBoardWrite(String nick,Criteria cri) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+//		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",nick);
+		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",map);
 	}
 
 	// 내가 쓴 글 개수 조회

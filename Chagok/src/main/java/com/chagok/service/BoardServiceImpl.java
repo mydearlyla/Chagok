@@ -88,6 +88,13 @@ public class BoardServiceImpl implements BoardService{
 		return dao.getNBoardPage(cri);
 	}
 
+	// 메인 공지글 정보 조회(페이징처리 cri)
+	@Override
+	public List<BoardVO> getMNBoardPage(Criteria cri) throws Exception {
+		mylog.debug(" getNBoardPage(Criteria cri) 호출 ");
+		return dao.getMNBoardPage(cri);
+	}
+
 	// 전체 공지게시판 글 개수 조회
 	@Override
 	public int NboardCount() throws Exception {
@@ -100,6 +107,13 @@ public class BoardServiceImpl implements BoardService{
 	public List<Map<String, Object>> getRBoardPage(Criteria cri) throws Exception {
 		mylog.debug(" getRBoardPage(Criteria cri) 호출 ");
 		return dao.getRBoardPage(cri);
+	}
+
+	// 메인 후기게시판 정보 조회(페이징처리 cri)
+	@Override
+	public List<Map<String, Object>> getMRBoardPage(Criteria cri) throws Exception {
+		mylog.debug(" getRBoardPage(Criteria cri) 호출 ");
+		return dao.getMRBoardPage(cri);
 	}
 
 	// 전체 후기게시판 글 개수 조회
@@ -116,6 +130,13 @@ public class BoardServiceImpl implements BoardService{
 		return dao.getFBoardPage(cri);
 	}
 
+	// 메인 자유게시판 정보 조회(페이징처리 cri)
+	@Override
+	public List<BoardVO> getMFBoardPage(Criteria cri) throws Exception {
+		mylog.debug(" getFBoardPage(Criteria cri) 호출 ");
+		return dao.getMFBoardPage(cri);
+	}
+
 	// 전체 자유게시판 글 개수 조회
 	@Override
 	public int FboardCount() throws Exception {
@@ -129,6 +150,13 @@ public class BoardServiceImpl implements BoardService{
 		mylog.debug(" getEBoardPage(Criteria cri) 호출 ");
 		return dao.getEBoardPage(cri);
 	}
+
+	// 메인 경제게시판 정보 조회(페이징처리 cri)
+	@Override
+	public List<BoardVO> getMEBoardPage(Criteria cri) throws Exception {
+		mylog.debug(" getEBoardPage(Criteria cri) 호출 ");
+		return dao.getMEBoardPage(cri);
+	}
 	
 	// 경제 자유게시판 글 개수 조회
 	@Override
@@ -139,9 +167,12 @@ public class BoardServiceImpl implements BoardService{
 		
 	// 내가 쓴 글 조회(페이징처리 cri)	
 	@Override
-	public List<BoardVO> getMyBoardWrite(String nick) throws Exception {
+//	public List<BoardVO> getMyBoardWrite(String nick) throws Exception {
+	public List<BoardVO> getMyBoardWrite(String nick, Criteria cri) throws Exception {
+//	public List<Map<String, Object>> getMyBoardWrite(String nick,Criteria cri) throws Exception {
 		mylog.debug(" getMyBoardWrite(Criteria cri) 호출 ");
-		return dao.getMyBoardWrite(nick);
+//		return dao.getMyBoardWrite(nick,cri);
+		return dao.getMyBoardWrite(nick,cri);
 	}	
 	
 	// 내가 쓴 글 개수 조회

@@ -29,8 +29,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.chagok.domain.BusinessAccountVO;
 import com.chagok.domain.ChallengeVO;
+import com.chagok.domain.Criteria;
 import com.chagok.domain.MessageVO;
 import com.chagok.domain.MinusVO;
+import com.chagok.domain.PageMaker;
 import com.chagok.domain.PlusVO;
 import com.chagok.domain.SysLogVO;
 import com.chagok.domain.UserVO;
@@ -69,9 +71,6 @@ public class ChallengeController {
 			HttpServletRequest req ) throws Exception {
 		mylog.debug("plusfeedGET() 호출");
 		
-		// ServletContext appliation = req.getSession().getServletContext();
-	    // appliation.setAttribute("alertAPP", "test"); >> 알림용
-
 		List<Map<String, Object>> plusPeoList = service.getPlusPeople(cno);
 		Integer mno = service.getChallengeInfo(cno).getMno();
 		
@@ -101,8 +100,7 @@ public class ChallengeController {
 
 	@GetMapping(value = "/plusdetail")
 	public String plusdetailGET(Model model, @RequestParam("cno") Integer cno, HttpSession session) throws Exception {
-		mylog.debug("plusdetailGET 호출");
-		mylog.debug(cno + "");
+		mylog.debug("plusdetailGET 호출" + cno);
 		
 		Integer mno = service.getChallengeInfo(cno).getMno();
 		ChallengeVO vo = service.getChallengeInfo(cno);
@@ -186,8 +184,7 @@ public class ChallengeController {
 	@PostMapping(value = "/plusdetailPOST")
 	@ResponseBody // ajax 값을 바로 jsp에 보내기 위해 사용@RequestParam("ctno") int ctno, 
 	public String plusdetailPOST(@RequestBody Map<String, Object> map,HttpSession session) throws Exception {
-		mylog.debug("plusdetailPOST 호출");
-		mylog.debug(map+"");
+		mylog.debug("plusdetailPOST 호출" + map);
 		
 		String result="";
 		
@@ -198,20 +195,19 @@ public class ChallengeController {
 		}else {
 			result = "N";
 
-			mylog.debug(map+"");
+//			mylog.debug(map+"");
 			service.joinplusInsert(map); // mno랑 cno필요
 			service.joinplusUpdate(map); // nick이랑 cno
 		}
 	
-		mylog.debug(result);
+//		mylog.debug(result);
 		return result;
 	}
 
 	// http://localhost:8080/challenge/minusdetail?cno=1
 	@GetMapping(value = "/minusdetail")
 	public String minusdetailGET(Model model,@RequestParam("cno") int cno, HttpSession session) throws Exception {
-		mylog.debug("minusdetailGET 호출");
-		mylog.debug("cno : "+cno);
+		mylog.debug("minusdetailGET 호출"+cno);
 		
 		ChallengeVO vo = service.getChallengeInfo(cno);
 		model.addAttribute("user", uservice.getUser(vo.getMno())); 
@@ -229,24 +225,22 @@ public class ChallengeController {
 	@PostMapping(value = "/minusdetailPOST")
 	@ResponseBody // ajax 값을 바로 jsp에 보내기 위해 사용@RequestParam("ctno") int ctno, 
 	public String minusdetailPOST(@RequestBody Map<String, Object> map,HttpSession session) throws Exception {
-		mylog.debug("minusdetailPOST 호출");
-		mylog.debug("map1 : "+map);
-		// service.updateMsum(map);
+		mylog.debug("minusdetailPOST 호출" + map);
+
 		String result="";
-		
 		Integer gctno = service.samechallenge(map);	
 		mylog.debug("gctno : "+gctno);
+		
 		if(gctno != null) {
 			result = "Y";
 		}else {
 			result = "N";
 
-			mylog.debug("map2 : "+map);
 			service.joinminusInsert(map); // mno랑 cno필요
 			service.joinplusUpdate(map); // nick이랑 cno
 		}
 	
-		mylog.debug(result);
+//		mylog.debug(result);
 		return result;
 }
 	
@@ -279,12 +273,28 @@ public class ChallengeController {
 
 	// http://localhost:8080/challenge/mychallenge
 		@GetMapping("/mychallenge")
-		public String mychallengeGET(Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		public String mychallengeGET(Model model, HttpSession session, RedirectAttributes rttr,Criteria cri) throws Exception {
+			
+//			mylog.debug(cri+": 마이챌린지 cri");
 			
 			String nick = (String)session.getAttribute("nick");
-			mylog.debug("nick : "+nick);
+			mylog.debug("mychallenge "+nick);
 			Integer mno	= (Integer)session.getAttribute("mno");
 			List<Map<String, Object>> challengeResultList = new ArrayList<Map<String,Object>>();
+			
+			// 페이징 처리
+			cri.setPerPageNum(10);
+			List<ChallengeVO> mychallengeAll = service.mychallengeAll(cri,nick);
+			PageMaker pagevo = new PageMaker();
+			pagevo.setDisplayPageNum(10);
+			pagevo.setCri(cri);
+			pagevo.setTotalCount(service.mychallengecnt(nick));
+			
+			mylog.debug(pagevo.toString());
+			mylog.debug(""+mychallengeAll);
+			
+			model.addAttribute("pagevo", pagevo);
+			model.addAttribute("mychallengeAll", mychallengeAll);
 			
 			if(nick != null) {
 				List<ChallengeVO> mychallengeList = service.getmyChallenge(nick);
@@ -350,9 +360,13 @@ public class ChallengeController {
 	// 챌린지 등록 (저축형) - GET
 	// http://localhost:8080/challenge/plusregist
 	@GetMapping(value="/plusregist")
-	public String plusRegistGET() throws Exception{
-		
-		return "/challenge/plusRegist";
+	public String plusRegistGET(HttpSession session) throws Exception{
+		// 로그인 확인
+		if(session.getAttribute("mno")==null) {
+			return "redirect:/login?pageInfo=challenge/plusregist";
+		}else {
+			return "/challenge/plusRegist";
+		}
 	}
 		
 	// 챌린지 등록 (저축형) - POST
@@ -371,14 +385,14 @@ public class ChallengeController {
 		map.put("mno", mno);
 		map.put("ctno", vo.getCtno());
 		
-		Integer result = service.samechallenge(map);
+		Integer overlap = service.samechallenge(map);
 		
-		if(result != null) {
-			rttr.addFlashAttribute("result", "overlap");
+		if(overlap != null) {
+			rttr.addFlashAttribute("overlap", "overlap");
 			
 			return "redirect:/commumain";
 		}
-		rttr.addFlashAttribute("result", "Noverlap");
+		rttr.addFlashAttribute("overlap", "Noverlap");
 			
 		// 사진등록
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
@@ -396,7 +410,6 @@ public class ChallengeController {
 		vo.setC_thumbFile(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		
 		// 챌린지 등록
-		mylog.debug(vo.toString());
 		service.challengeRegist(vo);
 		
 		// plus 테이블에 정보 추가
@@ -412,9 +425,13 @@ public class ChallengeController {
 	// 챌린지 등록 (절약형) - GET
 	// http://localhost:8080/challenge/minusregist
 	@GetMapping(value="/minusregist")
-	public String minusRegistGET() throws Exception{
-		
-		return "/challenge/minusRegist";
+	public String minusRegistGET(HttpSession session) throws Exception{
+		// 로그인 확인
+		if(session.getAttribute("mno")==null) {
+			return "redirect:/login?pageInfo=challenge/minusregist";
+		}else {
+			return "/challenge/minusRegist";
+		}
 	}
 	
 	// 챌린지 등록 (절약형) - POST
@@ -433,14 +450,14 @@ public class ChallengeController {
 		map.put("mno", mno);
 		map.put("ctno", vo.getCtno());
 		
-		Integer result = service.samechallenge(map);
+		Integer overlap = service.samechallenge(map);
 		
-		if(result != null) {
-			rttr.addFlashAttribute("result", "overlap");
+		if(overlap != null) {
+			rttr.addFlashAttribute("overlap", "overlap");
 			
 			return "redirect:/commumain";
 		}
-		rttr.addFlashAttribute("result", "Noverlap");
+		rttr.addFlashAttribute("overlap", "Noverlap");
 		
 		// 사진등록
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
@@ -457,7 +474,6 @@ public class ChallengeController {
 		vo.setC_thumbFile(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		
 		// 챌린지 등록
-		mylog.debug(vo.toString());
 		service.challengeRegist(vo);
 		
 		// minus 테이블에 정보 추가
@@ -470,10 +486,10 @@ public class ChallengeController {
 	}
 	
 	// 챌린지 결과(성공)
-	// http://localhost:8080/challenge/success?cno=1
-	@GetMapping(value="/success")
-	public String victoryGET(Model model, @RequestParam("cno") int cno, HttpSession session) throws Exception{
-		Integer mno = (Integer) session.getAttribute("mno");
+		// http://localhost:8080/challenge/success?cno=1
+		@GetMapping(value="/success")
+		public String victoryGET(Model model, @RequestParam("cno") int cno, HttpSession session) throws Exception{
+			Integer mno = (Integer) session.getAttribute("mno");
 		
 		ChallengeVO vo = service.getChallengeInfo(cno);
 		List<ChallengeVO> challengeList = service.getChallengeList(cno);
@@ -491,9 +507,10 @@ public class ChallengeController {
 		model.addAttribute("Success", Success); // 성공인원
 		model.addAttribute("result", result);
 		
+		// 포인트 처리(biz계좌)
 		Map<String, Object> giveInfo = new HashMap<String, Object>();
 	    giveInfo.put("mno", mno);
-	    giveInfo.put("getpoint", (ChallengeMoney/Success));
+	    giveInfo.put("getpoint", (ChallengeMoney/Success)*0.9);
 	    
 		uservice.givePoint(giveInfo);
 		

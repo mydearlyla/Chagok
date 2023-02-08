@@ -116,7 +116,7 @@
 
 footer {
     width: 100%;
-    height: 10px; /* footer의 높이 */
+    height: 20px; /* footer의 높이 */
     position: absolute;  
     bottom: 10px;
     left: 0;

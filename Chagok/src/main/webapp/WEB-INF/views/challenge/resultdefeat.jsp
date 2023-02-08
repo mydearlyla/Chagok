@@ -506,7 +506,7 @@ body .wrapper .footer .address p span {
           <p><b>😥아쉽습니다! 챌린지 완주에 실패하셨습니다.</b> <span></span></p>
       </div>
   </div>
-  <button class="button" style="z-index: 5; position: absolute; left: 910px; margin-top: 10px;" type="button" onclick="location.href='/review?cno=${vo.cno}';">후기 작성하기</button>
+<%--   <button class="button" style="z-index: 5; position: absolute; left: 910px; margin-top: 10px;" type="button" onclick="location.href='/review?cno=${vo.cno}';">후기 작성하기</button> --%>
   </div>
 </div>
 

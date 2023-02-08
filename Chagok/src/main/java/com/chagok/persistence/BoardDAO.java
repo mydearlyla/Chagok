@@ -62,7 +62,9 @@ public interface BoardDAO {
 	public int EBoardCount() throws Exception;	
 	
 	// 내가 쓴 글 보기
-	public List<BoardVO> getMyBoardWrite(String nick) throws Exception;
+//	public List<BoardVO> getMyBoardWrite(String nick) throws Exception;
+	public List<BoardVO> getMyBoardWrite(String nick, Criteria cri) throws Exception;
+//	public List<Map<String, Object>> getMyBoardWrite(String nick, Criteria cri) throws Exception;
 	
 	// 내가 쓴 글 개수 조회
 	public int MyBoardWriteCnt() throws Exception;
@@ -72,5 +74,16 @@ public interface BoardDAO {
 	// 모든 게시판 글 조회(종류불문)
 	public List<BoardVO> getAllboardList(Criteria cri) throws Exception;
 	
+	// 메인 후기리스트 조회 (페이징처리 cri)
+	public List<Map<String, Object>> getMRBoardPage(Criteria cri) throws Exception;
+	
+	// 메인 경제게시판 조회 (페이징처리 cri)
+	public List<BoardVO> getMEBoardPage(Criteria cri) throws Exception;
+	
+	// 메인 자유게시판 조회 (페이징처리 cri)
+	public List<BoardVO> getMFBoardPage(Criteria cri) throws Exception;
+	
+	// 메인 공지리스트 조회 (페이징처리 cri)
+	public List<BoardVO> getMNBoardPage(Criteria cri) throws Exception;
 
 }

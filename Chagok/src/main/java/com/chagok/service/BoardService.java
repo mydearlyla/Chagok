@@ -39,30 +39,44 @@ public interface BoardService {
 
 	// 공지글 정보 조회(페이징처리 cri)
 	public List<BoardVO> getNBoardPage(Criteria cri) throws Exception;
+
+	// 메인 공지글 정보 조회(페이징처리 cri)
+	public List<BoardVO> getMNBoardPage(Criteria cri) throws Exception;
 		
 	// 전체 공지 게시판 글 개수 조회
 	public int NboardCount() throws Exception;
 	
 	// 후기글 정보 조회(페이징처리 cri)
 	public List<Map<String, Object>> getRBoardPage(Criteria cri) throws Exception;
+
+	// 메인 후기글 정보 조회(페이징처리 cri)
+	public List<Map<String, Object>> getMRBoardPage(Criteria cri) throws Exception;
 		
 	// 전체 후기 게시판 글 개수 조회
 	public int RboardCount() throws Exception;	
 	
 	// 자유게시판 정보 조회(페이징처리 cri)
 	public List<BoardVO> getFBoardPage(Criteria cri) throws Exception;
+
+	// 메인 자유게시판 정보 조회(페이징처리 cri)
+	public List<BoardVO> getMFBoardPage(Criteria cri) throws Exception;
 		
 	// 전체 자유 게시판 글 개수 조회
 	public int FboardCount() throws Exception;
 	
 	// 자유게시판 경제 조회(페이징처리 cri)
 	public List<BoardVO> getEBoardPage(Criteria cri) throws Exception;
+
+	// 메인 자유게시판 경제 조회(페이징처리 cri)
+	public List<BoardVO> getMEBoardPage(Criteria cri) throws Exception;
 	
 	// 전체 경제 게시판 글 개수 조회
 	public int EboardCount() throws Exception;	
 	
 	// 내가 쓴 글(페이징처리 cri)
-	public List<BoardVO> getMyBoardWrite(String nick) throws Exception;
+//	public List<BoardVO> getMyBoardWrite(String nick) throws Exception;
+	public List<BoardVO> getMyBoardWrite(String nick, Criteria cri) throws Exception;
+//	public List<Map<String, Object>> getMyBoardWrite(String nick,Criteria cri) throws Exception;
 		
 	// 내가 쓴 글 개수 조회
 	public int MyBoardWriteCnt() throws Exception;

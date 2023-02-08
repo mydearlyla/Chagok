@@ -71,6 +71,12 @@ public interface ChallengeService {
 	// 명예의 전당 순위
 	public List<UserVO> ranking() throws Exception;
 	
+	// 내 챌린지 (페이징)
+	public List<ChallengeVO> mychallengeAll(Criteria cri, String nick) throws Exception;
+	
+	// 내 챌린지 총 개수 (페이징)
+	public Integer mychallengecnt(String nick) throws Exception;
+	
 	// 챌린지 메인 (페이징)
 	public List<ChallengeVO> cListM(SearchCriteria scri) throws Exception;
 	

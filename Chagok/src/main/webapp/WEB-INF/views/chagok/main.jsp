@@ -74,7 +74,7 @@
 								</span>
 								<div class="btn_bx">
 									<a href="/assetmain" class="btn_demo border">자산관리</a>
-									<a href="/commumain" class="btn_free full">커뮤니티</a>
+									<a href="/commumain" class="btn_free full">챌린지</a>
 								</div>
 							</dd>
 						</dl>

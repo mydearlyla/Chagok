@@ -513,6 +513,7 @@ function requestPay2()
                 <h3>
                     <strong>차곡 닉네임: </strong> ${userVO.nick } <br>
                     <strong>보유 꿀머니: </strong>  <fmt:formatNumber value="${userVO.buypoint+userVO.getpoint}"/> 꿀 <br>
+                    <strong>환급가능 꿀머니: </strong>  <fmt:formatNumber value="${userVO.getpoint}"/> 꿀 <br>
                 </h3>
             </div>
         </div>
@@ -540,8 +541,7 @@ function requestPay2()
        		<div class="pright" style="width: 50%;">
                 <h3>환급</h3>
                 <p>
-                    꿀머니가 10,000을 넘으면 현금으로 환급 받으실 수 있습니다.<br>
-                    (단, 부가세 10%를 제외한 나머지 금액으로 환급됩니다.)
+                    꿀머니가 10,000꿀을 넘으면 현금으로 환급 받으실 수 있습니다.
                 </p>
                  <h3>차곡 구독 서비스</h3>
                 <p>

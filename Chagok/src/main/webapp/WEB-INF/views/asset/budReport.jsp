@@ -388,5 +388,5 @@ $(document).ready(function(){
 	});
 </script>
 
-
+</div>
 <%@ include file="../include/footer.jsp"%>

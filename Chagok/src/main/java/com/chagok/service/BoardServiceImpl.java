@@ -167,9 +167,12 @@ public class BoardServiceImpl implements BoardService{
 		
 	// 내가 쓴 글 조회(페이징처리 cri)	
 	@Override
-	public List<BoardVO> getMyBoardWrite(String nick) throws Exception {
+//	public List<BoardVO> getMyBoardWrite(String nick) throws Exception {
+	public List<BoardVO> getMyBoardWrite(String nick, Criteria cri) throws Exception {
+//	public List<Map<String, Object>> getMyBoardWrite(String nick,Criteria cri) throws Exception {
 		mylog.debug(" getMyBoardWrite(Criteria cri) 호출 ");
-		return dao.getMyBoardWrite(nick);
+//		return dao.getMyBoardWrite(nick,cri);
+		return dao.getMyBoardWrite(nick,cri);
 	}	
 	
 	// 내가 쓴 글 개수 조회

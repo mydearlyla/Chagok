@@ -240,14 +240,14 @@
 	    	</tr>
 	  </thead>
 		<tbody>
-		<c:if test="${mychallengeList.size() == 0}">
+		<c:if test="${mychallengeAll.size() == 0}">
 			 <tr>
 			 	<td colspan="6" align="center">현재 참여중인 챌린지가 없습니다!</td>
 			 <tr>
 		</c:if> 
 		
 		
-			<c:forEach var="vo" items="${mychallengeList }">
+			<c:forEach var="vo" items="${mychallengeAll }">
 			    <tr>
 					<td style="text-align:center; padding: 15px 0;">
 						<c:if test="${vo.c_sort eq 0 }">저축형</c:if>
@@ -332,15 +332,15 @@
   <div class="board_page" style="text-align:center;" >
                <ul class= "pagination pagination-sm no-margin pull-center" >
                <c:if test="${pagevo.prev }">
-					<li><a href="/mychallenge?page=${pagevo.startPage-1 }">«</a></li>
+					<li><a href="/challenge/mychallenge?page=${pagevo.startPage-1 }">«</a></li>
 				</c:if>
                <c:forEach var="idx" begin="${pagevo.startPage }" end="${pagevo.endPage }" step="1">
 					<li 
 						<c:out value="${idx == pagevo.cri.page? 'class=active':'' }"/>
-						><a href="/mychallenge?page=${idx }">${idx }</a></li>
+						><a href="/challenge/mychallenge?page=${idx }">${idx }</a></li>
 				</c:forEach>
                 <c:if test="${pagevo.next }">
-					<li><a href="/mychallenge?page=${pagevo.endPage+1 }">»</a></li>
+					<li><a href="/challenge/mychallenge?page=${pagevo.endPage+1 }">»</a></li>
 				</c:if>
                 </ul>
   </div>           

@@ -185,9 +185,7 @@ public class ChagokController {
 	
 	// 챌린지 상태 업데이트
 	public void ingChallenge() throws Exception {
-		
 		List<ChallengeVO> st =  service2.getChallengeList();
-		Map<String, Object> result = new HashMap<String, Object>();
 		
 		Date now = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -512,10 +510,10 @@ public class ChagokController {
 	   String nick = (String)session.getAttribute("nick");
 	    
 	    mylog.debug(nick+"");
-	  
-//		   List<BoardVO> boardList = service2.getMyBoardWrite(cri);	  
-//		   List<BoardVO> boardList = service2.getMyBoardWrite(cri,nick);
-		   List<BoardVO> boardList = service3.getMyBoardWrite(nick);
+//		   List<BoardVO> boardList = service3.getMyBoardWrite(cri);	  
+	       List<BoardVO> boardList = service3.getMyBoardWrite(nick,cri);
+//  	   List<Map<String, Object>> boardList = service3.getMyBoardWrite(nick, cri);
+//		   List<BoardVO> boardList = service3.getMyBoardWrite(nick);
 		   
 		   model.addAttribute("boardList", boardList);
 		   

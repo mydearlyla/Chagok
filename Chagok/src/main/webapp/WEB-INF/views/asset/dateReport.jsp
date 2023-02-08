@@ -475,4 +475,5 @@ var linechart = new Chart(ctx2, {
 
 </script>
 
+</div>
 <%@ include file="../include/footer.jsp"%>

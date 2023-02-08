@@ -253,7 +253,7 @@
 		delete from user where mno = #{mno} and pw = #{pw}
 	</delete>
 	
-	<!-- 내챌린지 페이징 -->
+<!-- 	내챌린지 페이징 -->
 	<select id="mychallengeAll" resultType="map">
 		select * from challenge A join category B
    		on A.ctno = B.ctno
@@ -275,20 +275,20 @@
 		 FROM (
 				SELECT *, @rownum := @rownum + 1 AS RNUM FROM chl 
 				JOIN ( SELECT @rownum := 0) R
-				WHERE (c_status=1 OR c_status=7) 
+				WHERE (c_status=1 OR c_status=2 OR c_status=7) 
 				<include refid="search"></include>
 				ORDER BY c_status
 													) MP
 		         		
       WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
-      ORDER BY c_status, cno
+      ORDER BY c_status, c_start, cno
 	</select>
 	
 	<!-- 챌린지 메인2 -->
 	<select id="cListCountM" resultType="Integer" parameterType="com.chagok.domain.SearchCriteria">
-		SELECT COUNT(c_status=1 OR c_status=7) AS c_status
+		SELECT COUNT(c_status=1 OR c_status=2 OR c_status=7) AS c_status
 		   FROM challenge
-		   WHERE (c_status=1 OR c_status=7)
+		   WHERE (c_status=1 OR c_status=2 OR c_status=7)
 		<include refid="search"></include>	
 		   AND cno > 0
 	</select>
@@ -304,7 +304,7 @@
 													) MP
 		         		
       WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
-      ORDER BY cno
+      ORDER BY c_start
 	</select>
 	
 	<!-- 챌린지 메인 진행중 2 -->
@@ -322,19 +322,20 @@
 		 FROM (
 				SELECT *, @rownum := @rownum + 1 AS RNUM FROM chl 
 				JOIN ( SELECT @rownum := 0) R
-				WHERE c_status=7
+				WHERE (c_status=2 OR c_status=7)
 				<include refid="search"></include>
+				ORDER BY c_status
 													) MP
 		         		
       WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
-      ORDER BY cno
+      ORDER BY c_status, cno
 	</select>
 	
 	<!-- 챌린지 메인 종료 2 -->
 	<select id="cListCountMe" resultType="Integer" parameterType="com.chagok.domain.SearchCriteria">
-		SELECT COUNT(c_status=7)
+		SELECT COUNT(c_status=2 OR c_status=7) AS c_status
 		   FROM challenge
-		   WHERE c_status=7
+		   WHERE (c_status=2 OR c_status=7)
 		<include refid="search"></include>	
 		   AND cno > 0
 	</select>
@@ -390,7 +391,8 @@
 <!-- 	가계부 값 연동하기  -->
 	<update id="updateMoney">
 		update minus set m_sum =
-		(select m_sum-#{ab_amount} from (select * from minus) m where m.mno = #{mno} and m.cno=#{cno})
+		(select m_sum-#{ab_amount} from (select * from minus) m where m.mno = #{mno} and m.cno=#{cno}),
+		m_finish = "N"
 		where mno = #{mno} and cno = #{cno}
 	</update>
 	
@@ -592,8 +594,15 @@
 		on b.b_writer = u.nick
 		where u.nick = #{nick}
 		order by b_date desc
-		limit 0,10;
+		limit #{pageStart},10
 	</select>
+<!-- 	<select id ="myBoardWrite" resultType="map"> -->
+<!-- 		select * from board b inner join user u -->
+<!-- 		on b.b_writer = u.nick -->
+<!-- 		where u.nick = #{nick} -->
+<!-- 		order by b_date desc -->
+<!-- 		limit 0,10; -->
+<!-- 	</select> -->
 	
 	<!-- 내가 쓴 글 전체 개수 -->
 	<select id="myBoardWriteCnt" resultType="int">

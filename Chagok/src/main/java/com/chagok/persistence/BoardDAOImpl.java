@@ -196,11 +196,12 @@ public class BoardDAOImpl implements BoardDAO{
 	
 	// 내가 쓴 글 조회
 	@Override
-	public List<BoardVO> getMyBoardWrite(String nick) throws Exception {
-		mylog.debug("  getMyBoardWrite(Criteria cri) 페이징처리 ");
-		mylog.debug(nick+"@@@@@@@@@@@@@@@@@@@@@@");
-		
-		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",nick);
+//	public List<BoardVO> getMyBoardWrite(String nick) throws Exception {
+	public List<BoardVO> getMyBoardWrite(String nick, Criteria cri) throws Exception {
+//	public List<Map<String, Object>> getMyBoardWrite(String nick,Criteria cri) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+//		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",nick);
+		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",map);
 	}
 
 	// 내가 쓴 글 개수 조회

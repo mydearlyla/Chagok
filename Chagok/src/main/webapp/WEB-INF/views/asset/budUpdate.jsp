@@ -299,5 +299,5 @@ $(document).ready(function(){
 
 
 
-
+</div>
 <%@ include file="../include/footer.jsp" %>

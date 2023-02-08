@@ -2273,7 +2273,7 @@ $(document).ready(function(){
  .ui-button:hover,
  .ui-button:focus { border: 0px solid #cccccc; background-color: transparent; font-weight: normal; color: #2b2b2b; } 
 
- .ui-widget-header .ui-icon { background-image: url('./src/main/webapp/WEB-INF/views/challenge/btns.png'); } 
+ .ui-widget-header .ui-icon { background-image: url("../resources/imgUpload/btns.png"); } 
 
  .ui-icon-circle-triangle-e { background-position: -20px 0px; background-size: 36px; } 
 
@@ -2290,7 +2290,7 @@ $(document).ready(function(){
  .ui-state-highlight,
  .ui-widget-content .ui-state-highlight,
  .ui-widget-header .ui-state-highlight {    
-border: 0px;
+	border: 0px;
     background: #66c14a38;
     border-radius: 50%;
    } 

@@ -360,9 +360,13 @@ public class ChallengeController {
 	// 챌린지 등록 (저축형) - GET
 	// http://localhost:8080/challenge/plusregist
 	@GetMapping(value="/plusregist")
-	public String plusRegistGET() throws Exception{
-		
-		return "/challenge/plusRegist";
+	public String plusRegistGET(HttpSession session) throws Exception{
+		// 로그인 확인
+		if(session.getAttribute("mno")==null) {
+			return "redirect:/login?pageInfo=challenge/plusregist";
+		}else {
+			return "/challenge/plusRegist";
+		}
 	}
 		
 	// 챌린지 등록 (저축형) - POST
@@ -422,9 +426,13 @@ public class ChallengeController {
 	// 챌린지 등록 (절약형) - GET
 	// http://localhost:8080/challenge/minusregist
 	@GetMapping(value="/minusregist")
-	public String minusRegistGET() throws Exception{
-		
-		return "/challenge/minusRegist";
+	public String minusRegistGET(HttpSession session) throws Exception{
+		// 로그인 확인
+		if(session.getAttribute("mno")==null) {
+			return "redirect:/login?pageInfo=challenge/minusregist";
+		}else {
+			return "/challenge/minusRegist";
+		}
 	}
 	
 	// 챌린지 등록 (절약형) - POST

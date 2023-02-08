@@ -268,20 +268,20 @@
 		 FROM (
 				SELECT *, @rownum := @rownum + 1 AS RNUM FROM chl 
 				JOIN ( SELECT @rownum := 0) R
-				WHERE (c_status=1 OR c_status=7) 
+				WHERE (c_status=1 OR c_status=2 OR c_status=7) 
 				<include refid="search"></include>
 				ORDER BY c_status
 													) MP
 		         		
       WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
-      ORDER BY c_status, cno
+      ORDER BY c_status, c_start, cno
 	</select>
 	
 	<!-- 챌린지 메인2 -->
 	<select id="cListCountM" resultType="Integer" parameterType="com.chagok.domain.SearchCriteria">
-		SELECT COUNT(c_status=1 OR c_status=7) AS c_status
+		SELECT COUNT(c_status=1 OR c_status=2 OR c_status=7) AS c_status
 		   FROM challenge
-		   WHERE (c_status=1 OR c_status=7)
+		   WHERE (c_status=1 OR c_status=2 OR c_status=7)
 		<include refid="search"></include>	
 		   AND cno > 0
 	</select>
@@ -297,7 +297,7 @@
 													) MP
 		         		
       WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
-      ORDER BY cno
+      ORDER BY c_start
 	</select>
 	
 	<!-- 챌린지 메인 진행중 2 -->
@@ -315,19 +315,20 @@
 		 FROM (
 				SELECT *, @rownum := @rownum + 1 AS RNUM FROM chl 
 				JOIN ( SELECT @rownum := 0) R
-				WHERE c_status=7
+				WHERE (c_status=2 OR c_status=7)
 				<include refid="search"></include>
+				ORDER BY c_status
 													) MP
 		         		
       WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
-      ORDER BY cno
+      ORDER BY c_status, cno
 	</select>
 	
 	<!-- 챌린지 메인 종료 2 -->
 	<select id="cListCountMe" resultType="Integer" parameterType="com.chagok.domain.SearchCriteria">
-		SELECT COUNT(c_status=7)
+		SELECT COUNT(c_status=2 OR c_status=7) AS c_status
 		   FROM challenge
-		   WHERE c_status=7
+		   WHERE (c_status=2 OR c_status=7)
 		<include refid="search"></include>	
 		   AND cno > 0
 	</select>

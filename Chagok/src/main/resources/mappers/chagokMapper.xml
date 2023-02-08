@@ -365,7 +365,8 @@
 <!-- 	가계부 값 연동하기  -->
 	<update id="updateMoney">
 		update minus set m_sum =
-		(select m_sum-#{ab_amount} from (select * from minus) m where m.mno = #{mno} and m.cno=#{cno})
+		(select m_sum-#{ab_amount} from (select * from minus) m where m.mno = #{mno} and m.cno=#{cno}),
+		m_finish = "N"
 		where mno = #{mno} and cno = #{cno}
 	</update>
 	

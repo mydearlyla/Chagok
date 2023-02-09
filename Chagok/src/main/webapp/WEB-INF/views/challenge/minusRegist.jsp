@@ -18,7 +18,6 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <style>
-
 body{
 	margin-top:20px;
 	color: #9b9ca1;
@@ -2184,13 +2183,13 @@ p {
 }
 </style>
 <div id="waiting">
-   <img src="./resources/imgUpload/new-loading.gif">
+   <img src="../resources/imgUpload/new-loading.gif">
 </div>
 
 <script type="text/javascript">
     $(window).on('load', function() {
         setTimeout(function(){
-            $("#waiting").fadeOut();
+            $("#waiting").fadeOut(); 
         }, 300);
     });
 </script>
@@ -2198,7 +2197,6 @@ p {
 
 
 <script type="text/javascript">
-	/* 설정 */
 $.datepicker.setDefaults({
 	  dateFormat: 'yy-mm-dd',
 	  prevText: '이전 달',
@@ -2274,9 +2272,9 @@ $(document).ready(function(){
  .ui-button:hover,
  .ui-button:focus { border: 0px solid #cccccc; background-color: transparent; font-weight: normal; color: #2b2b2b; } 
 
- .ui-widget-header .ui-icon { background-image: url('./src/main/webapp/WEB-INF/views/challenge/btns.png'); } 
+ .ui-widget-header .ui-icon { background-image: url("../resources/imgUpload/btns.png"); } 
 
- .ui-icon-circle-triangle-e { background-position: -20px 0px; background-size: 36px; } 
+ .ui-icon-circle-triangle-e { background-position: -20px 0px; background-size: 36px;} 
 
  .ui-icon-circle-triangle-w { background-position: -0px -0px; background-size: 36px; } 
 
@@ -2302,39 +2300,7 @@ border: 0px;
 </style>
 <!-- 데이트피커 -->
 
-<!-- 로딩 코드 start -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<style type="text/css">
-#waiting {
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    position: fixed;
-    display: flex;
-    background: white;
-    z-index: 999;
-    opacity: 0.9;
-}
-#waiting > img {
-    display: flex;
-    width: fit-content;
-    height: fit-content;
-    margin: auto;
-}
-</style>
-<div id="waiting">
-   <img src="../resources/imgUpload/new-loading.gif">
-</div>
 
-<script type="text/javascript">
-    $(window).on('load', function() {
-        setTimeout(function(){
-            $("#waiting").fadeOut();
-        }, 300);
-    });
-</script>
-<!-- 로딩 코드 end -->
 <!-- 유효성 검사 -->
 <script type="text/javascript">
 $(document).ready(function(){

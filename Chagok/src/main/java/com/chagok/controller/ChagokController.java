@@ -185,9 +185,7 @@ public class ChagokController {
 	
 	// 챌린지 상태 업데이트
 	public void ingChallenge() throws Exception {
-		
 		List<ChallengeVO> st =  service2.getChallengeList();
-		Map<String, Object> result = new HashMap<String, Object>();
 		
 		Date now = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");

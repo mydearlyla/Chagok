@@ -151,5 +151,9 @@ public interface ChallengeDAO {
 	// update minus m_sum
 	public void updateMsum(Map<String, Object> map) throws Exception;
 	
+	// 성공여부 plus테이블에 업데이트
+	public void updatePlusResult(Map<String, Object> map) throws Exception;
 	
+	// 챌린지 성공시 포인트  1번만 지급용 저축형 0, 절약형1
+	public void justOne(Map<String, Object> map) throws Exception;
 }

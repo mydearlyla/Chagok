@@ -81,10 +81,36 @@
 	   	   });	
 	}
 </script>
+<!-- 영민 입금하기 (비지니스계좌 ) -->
 
-<!-- 영민 입금하기 (비지니스계좌 구현중) -->
+<!-- 성공 업데이트 -->
 
-
+<script type="text/javascript">
+	if ( ${ check == "p_finishCk" }) {
+		if(${myPlusVO.pl_sum == (vo.c_period*7 /vo.c_freq) * vo.c_amount }){
+	
+			var mno = ${mno};
+	  		var cno = ${vo.cno};
+	  		
+	  		var info = {"mno":mno, "cno":cno};
+	  		
+			$.ajax({
+	   			type : "post",
+	   			url : "/challenge/sendResult",
+	   			contentType : "application/json",
+	   			dataType :'text',
+	   			data : JSON.stringify(info),
+	   			success : function(data){ 
+	   				console.log('통신 성공! ' + data);
+	   			},
+	  				error : function(error){
+	  					console.log(error);
+				}
+	  		});	//ajax
+	  			
+		}   		
+	}
+</script>
 
 <!-- 로딩 코드 start -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -123,6 +149,7 @@
 
 
 <h1 style="padding: 0 15px 0 15px;"> 저축형 차곡 챌린지 </h1>
+
 
  <!-- Main content -->
 <section class="content">

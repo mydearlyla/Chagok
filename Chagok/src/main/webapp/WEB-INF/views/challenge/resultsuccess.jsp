@@ -618,7 +618,7 @@ opacity:1;
       </div>
   </div>
   </div>
-      <button class="button" style="z-index: 5; position: absolute; left: 910px; margin-top: 10px; "type="button" onclick="location.href='/review?cno=${vo.cno}';">후기 작성하기</button>
+<%--       <button class="button" style="z-index: 5; position: absolute; left: 910px; margin-top: 10px; "type="button" onclick="location.href='/review?cno=${vo.cno}';">후기 작성하기</button> --%>
 </div>
 
 </body>

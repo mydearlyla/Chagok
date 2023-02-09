@@ -514,7 +514,7 @@ public class ChagokController {
 	    mylog.debug(nick+"");
 //		   List<BoardVO> boardList = service3.getMyBoardWrite(cri);	  
 	       List<BoardVO> boardList = service3.getMyBoardWrite(nick,cri);
-//  	   List<Map<String, Object>> boardList = service3.getMyBoardWrite(nick, cri);
+//	       List<Map<String, Object>> boardList = service3.getMyBoardWrite(nick, cri);
 //		   List<BoardVO> boardList = service3.getMyBoardWrite(nick);
 		   
 		   model.addAttribute("boardList", boardList);

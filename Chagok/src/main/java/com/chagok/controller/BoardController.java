@@ -370,6 +370,7 @@ public class BoardController {
 		pageMaker.setDisplayPageNum(10);
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(Bservice.EboardCount());
+		
 		model.addAttribute("pageMaker", pageMaker);
 			
 		return "/community/economy";

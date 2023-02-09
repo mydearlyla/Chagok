@@ -91,7 +91,7 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu active">
-                <li><a href="/notice"></i> 공지 게시판</a></li>
+                <li><a href="/notice?page=1"></i> 공지 게시판</a></li>
                 <li><a href="/community/report"></i> 신고 게시판</a></li>
               </ul>
             </li>

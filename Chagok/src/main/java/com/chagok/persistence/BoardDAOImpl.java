@@ -201,6 +201,8 @@ public class BoardDAOImpl implements BoardDAO{
 //	public List<Map<String, Object>> getMyBoardWrite(String nick,Criteria cri) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 //		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",nick);
+		map.put("pageStart", cri.getPageStart());
+		map.put("perPageNum", cri.getPerPageNum());
 		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",map);
 	}
 

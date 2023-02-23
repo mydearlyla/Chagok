@@ -596,19 +596,31 @@
 <!-- 		order by b_date desc -->
 <!-- 		limit #{pageStart},10 -->
 <!-- 	</select> -->
+<!-- 	<select id ="myBoardWrite" resultType="map"> -->
+<!-- 		select * from board b inner join user u -->
+<!-- 		on b.b_writer = u.nick -->
+<!-- 		where u.nick = #{nick} -->
+<!-- 		order by b_date desc -->
+<!-- 		limit 0,10; -->
+<!-- 	</select>	 -->
 	<select id ="myBoardWrite" resultType="map">
 		select * from board b inner join user u
-		on b.b_writer = u.nick
-		where u.nick = #{nick}
-		order by b_date desc
-		limit 0,10;
+   		on b.b_writer = u.nick
+   		where b.b_writer like concat('%',#{nick},'%')
+   		order by b_date desc
+		limit #{pageStart},10
 	</select>
-	
+
 	<!-- 내가 쓴 글 전체 개수 -->
-	<select id="myBoardWriteCnt" resultType="int">
-		select count(*) 
-		from board
-		where b_writer = #{nick}
+<!-- 	<select id="myBoardWriteCnt" resultType="int"> -->
+<!-- 		select count(*)  -->
+<!-- 		from board -->
+<!-- 		where b_writer = #{nick} -->
+<!-- 	</select> -->
+	<select id="myBoardWriteCnt" resultType="Integer">
+		select count(*) from board b inner join user u
+		on b.b_writer = u.nick
+   		where b.b_writer like concat('%',#{nick},'%')
 	</select>
 
 	<!-- ctno만 가져오기 -->

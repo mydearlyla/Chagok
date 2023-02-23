@@ -168,18 +168,20 @@ public class BoardServiceImpl implements BoardService{
 	// 내가 쓴 글 조회(페이징처리 cri)	
 	@Override
 //	public List<BoardVO> getMyBoardWrite(String nick) throws Exception {
-	public List<BoardVO> getMyBoardWrite(String nick, Criteria cri) throws Exception {
+	public List<BoardVO> getMyBoardWrite(Criteria cri, String nick) throws Exception {
 //	public List<Map<String, Object>> getMyBoardWrite(String nick,Criteria cri) throws Exception {
-		mylog.debug(" getMyBoardWrite(Criteria cri) 호출 ");
+		
 //		return dao.getMyBoardWrite(nick);
-		return dao.getMyBoardWrite(nick,cri);
+		return dao.getMyBoardWrite(cri, nick);
 	}	
 	
 	// 내가 쓴 글 개수 조회
 	@Override
-	public int MyBoardWriteCnt() throws Exception {
-		mylog.debug(" MyBoardWriteCnt() 호출");
-		return dao.MyBoardWriteCnt();
+//	public int MyBoardWriteCnt() throws Exception {
+	public Integer MyBoardWriteCnt(String nick) throws Exception {
+		
+//		return dao.MyBoardWriteCnt();
+		return dao.MyBoardWriteCnt(nick);
 	}
 
 	// 전체 게시판 조회

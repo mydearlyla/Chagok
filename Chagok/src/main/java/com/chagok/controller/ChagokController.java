@@ -511,7 +511,7 @@ public class ChagokController {
 	    
 	    mylog.debug(nick+"");
 //		   List<BoardVO> boardList = service3.getMyBoardWrite(cri);	  
-	       List<BoardVO> boardList = service3.getMyBoardWrite(nick,cri);
+	       List<BoardVO> boardList = service3.getMyBoardWrite(cri,nick);
 //	       List<Map<String, Object>> boardList = service3.getMyBoardWrite(nick, cri);
 //		   List<BoardVO> boardList = service3.getMyBoardWrite(nick);
 		   
@@ -521,9 +521,12 @@ public class ChagokController {
 			cri.setPerPageNum(10);
 			pageMaker.setDisplayPageNum(10);
 			pageMaker.setCri(cri);
-			pageMaker.setTotalCount(service3.MyBoardWriteCnt());
+			pageMaker.setTotalCount(service3.MyBoardWriteCnt(nick));
 			model.addAttribute("pageMaker", pageMaker);
 	   
+//			if(nick == null) {
+//				return "/chagok/login";
+//			}
 	 
 	   return "/chagok/myBoardWrite";
    }

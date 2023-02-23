@@ -148,6 +148,7 @@ $(document).ready(function() {
 
 
  <body>
+
  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
  <script src="../assets/js/theme.min.js"></script>
@@ -246,5 +247,5 @@ $(document).ready(function() {
 </body>
 </html> 
 
-</div>
+
 <%@ include file="../include/footer.jsp" %>

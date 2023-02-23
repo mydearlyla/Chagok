@@ -49,6 +49,7 @@ public class BoardController {
 	public String reviewboardGET(HttpSession session,Model model,Criteria cri) throws Exception {
 		
 		List<Map<String, Object>> boardList2 = Bservice.getRBoardPage(cri);	
+		Integer count = Bservice.RboardCount();
 		
 		// 페이징 처리
 		PageMaker pageMaker = new PageMaker();
@@ -57,7 +58,7 @@ public class BoardController {
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(Bservice.RboardCount());
 		model.addAttribute("pageMaker", pageMaker);
-					
+		model.addAttribute("count",count);			
 		model.addAttribute("boardList2", boardList2);
 		
 		return "/community/reviewboard";
@@ -179,6 +180,7 @@ public class BoardController {
 	public String noticeGET(Model model,HttpSession session,Criteria cri) throws Exception {
 			
 		List<BoardVO> boardList2 = Bservice.getNBoardPage(cri);
+		Integer count = Bservice.NboardCount();
 		
 		// 페이징 처리
 		PageMaker pageMaker = new PageMaker();
@@ -187,7 +189,7 @@ public class BoardController {
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(Bservice.NboardCount());
 		model.addAttribute("pageMaker", pageMaker);
-			
+		model.addAttribute("count", count);
 		model.addAttribute("boardList2", boardList2);
 
 		return "/community/notice";
@@ -356,8 +358,7 @@ public class BoardController {
 	@GetMapping(value = "/economy")
 	public String EconomyGET(HttpSession session,Model model,Criteria cri) throws Exception {
 		List<BoardVO> boardList = Bservice.getEBoardPage(cri);	
-		
-		model.addAttribute("boardList", boardList);
+		Integer count = Bservice.EboardCount();
 		
 		PageMaker pageMaker = new PageMaker();
 		cri.setPerPageNum(10);
@@ -366,7 +367,9 @@ public class BoardController {
 		pageMaker.setTotalCount(Bservice.EboardCount());
 		
 		model.addAttribute("pageMaker", pageMaker);
-			
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("count", count);
+		
 		return "/community/economy";
 	}
 	

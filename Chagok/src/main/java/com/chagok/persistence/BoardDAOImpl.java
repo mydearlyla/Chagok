@@ -197,10 +197,11 @@ public class BoardDAOImpl implements BoardDAO{
 	// 내가 쓴 글 조회
 	@Override
 //	public List<BoardVO> getMyBoardWrite(String nick) throws Exception {
-	public List<BoardVO> getMyBoardWrite(String nick, Criteria cri) throws Exception {
+	public List<BoardVO> getMyBoardWrite(Criteria cri, String nick) throws Exception {
 //	public List<Map<String, Object>> getMyBoardWrite(String nick,Criteria cri) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 //		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",nick);
+		map.put("nick", nick);
 		map.put("pageStart", cri.getPageStart());
 		map.put("perPageNum", cri.getPerPageNum());
 		return sqlSession.selectList(NAMESPACE + ".myBoardWrite",map);
@@ -208,7 +209,8 @@ public class BoardDAOImpl implements BoardDAO{
 
 	// 내가 쓴 글 개수 조회
 	@Override
-	public int MyBoardWriteCnt() throws Exception {
+//	public int MyBoardWriteCnt() throws Exception {
+	public Integer MyBoardWriteCnt(String nick) throws Exception {
 					
 		return sqlSession.selectOne(NAMESPACE+".myBoardWriteCnt");
 				

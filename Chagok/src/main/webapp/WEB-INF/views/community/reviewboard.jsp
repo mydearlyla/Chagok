@@ -84,7 +84,7 @@
  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
  <script src="../assets/js/theme.min.js"></script>	
  
- 
+
 	 	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 			<div class="board_wrap">
 				<div class="board_title">
@@ -118,24 +118,9 @@
 			</c:forEach>
 			  
 			<tbody>
-			<c:if test="${param.page.equals('1')}">
-				<c:set var="boardno" value="${boardList2.size() }"></c:set>
-				<fmt:parseNumber var="boardno" value="${boardno }" type="number" />
-				<c:forEach items="${boardList2 }" var="boardList2"  begin="0" end="10" step="1" >
-						    <tr>
-						      <th scope="row" style="text-align:center; padding: 15px 0;">${boardno + 10 }</th>
-						      <th scope="row" style="text-align:center; padding: 15px 0;">[${sort }]</th>
-						      <td style="text-align:center; padding: 15px 0;"><a href="/reviewcontent?bno=${boardList2.bno }&cno=${boardList2.cno}">${boardList2.c_title }</a></td>
-						      <th scope="row" style="text-align:center; padding: 15px 0;"> ${boardList2.b_writer}</th>
-						      <th scope="row" style="text-align:center; padding: 15px 0;"> ${boardList2.c_period } 주</th>
-							  <td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList2.b_date }" pattern="yyyy-MM-dd"/></td>
-						    </tr>
-				<c:set var="boardno" value="${boardno -1 }"></c:set>
-                </c:forEach>
-            </c:if>
-			<c:if test="${param.page.equals('2')}">
-				<c:set var="boardno" value="${boardList2.size() }"></c:set>
-				<fmt:parseNumber var="boardno" value="${boardno }" type="number" />
+				
+				<c:set var="boardno" value="${count - ((pageMaker.startPage-1)*10) }"></c:set>
+				<fmt:parseNumber var="boardno" value="${count }" type="number" />
 				<c:forEach items="${boardList2 }" var="boardList2"  begin="0" end="10" step="1" >
 						    <tr>
 						      <th scope="row" style="text-align:center; padding: 15px 0;">${boardno }</th>
@@ -145,9 +130,39 @@
 						      <th scope="row" style="text-align:center; padding: 15px 0;"> ${boardList2.c_period } 주</th>
 							  <td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList2.b_date }" pattern="yyyy-MM-dd"/></td>
 						    </tr>
-				<c:set var="boardno" value="${boardno -1 }"></c:set>
+				<c:set var="boardno" value="${boardno - 1 }"></c:set>
                 </c:forEach>
-            </c:if>
+            
+<%-- 			<c:if test="${param.page.equals('1')}"> --%>
+<%-- 				<c:set var="boardno" value="${boardList2.size() }"></c:set> --%>
+<%-- 				<fmt:parseNumber var="boardno" value="${boardno }" type="number" /> --%>
+<%-- 				<c:forEach items="${boardList2 }" var="boardList2"  begin="0" end="10" step="1" > --%>
+<!-- 						    <tr> -->
+<%-- 						      <th scope="row" style="text-align:center; padding: 15px 0;">${boardno + 10 }</th> --%>
+<%-- 						      <th scope="row" style="text-align:center; padding: 15px 0;">[${sort }]</th> --%>
+<%-- 						      <td style="text-align:center; padding: 15px 0;"><a href="/reviewcontent?bno=${boardList2.bno }&cno=${boardList2.cno}">${boardList2.c_title }</a></td> --%>
+<%-- 						      <th scope="row" style="text-align:center; padding: 15px 0;"> ${boardList2.b_writer}</th> --%>
+<%-- 						      <th scope="row" style="text-align:center; padding: 15px 0;"> ${boardList2.c_period } 주</th> --%>
+<%-- 							  <td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList2.b_date }" pattern="yyyy-MM-dd"/></td> --%>
+<!-- 						    </tr> -->
+<%-- 				<c:set var="boardno" value="${boardno -1 }"></c:set> --%>
+<%--                 </c:forEach> --%>
+<%--             </c:if> --%>
+<%-- 			<c:if test="${param.page.equals('2')}"> --%>
+<%-- 				<c:set var="boardno" value="${boardList2.size() }"></c:set> --%>
+<%-- 				<fmt:parseNumber var="boardno" value="${boardno }" type="number" /> --%>
+<%-- 				<c:forEach items="${boardList2 }" var="boardList2"  begin="0" end="10" step="1" > --%>
+<!-- 						    <tr> -->
+<%-- 						      <th scope="row" style="text-align:center; padding: 15px 0;">${boardno }</th> --%>
+<%-- 						      <th scope="row" style="text-align:center; padding: 15px 0;">[${sort }]</th> --%>
+<%-- 						      <td style="text-align:center; padding: 15px 0;"><a href="/reviewcontent?bno=${boardList2.bno }&cno=${boardList2.cno}">${boardList2.c_title }</a></td> --%>
+<%-- 						      <th scope="row" style="text-align:center; padding: 15px 0;"> ${boardList2.b_writer}</th> --%>
+<%-- 						      <th scope="row" style="text-align:center; padding: 15px 0;"> ${boardList2.c_period } 주</th> --%>
+<%-- 							  <td style="text-align:center; padding: 15px 0;"><fmt:formatDate value="${boardList2.b_date }" pattern="yyyy-MM-dd"/></td> --%>
+<!-- 						    </tr> -->
+<%-- 				<c:set var="boardno" value="${boardno -1 }"></c:set> --%>
+<%--                 </c:forEach> --%>
+<%--             </c:if> --%>
 			</tbody>
 	</table>
   <div class="board_page" style="text-align:center;" >

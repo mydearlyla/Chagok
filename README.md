@@ -39,25 +39,17 @@
 ![](https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![](https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![](https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
-![](https://img.shields.io/badge/Apache%20Tomcat
--F8DC75?style=for-the-badge&logo=Apache%20Tomcat&logoColor=white)
+![](https://img.shields.io/badge/Apache%20Tomcat-F8DC75?style=for-the-badge&logo=Apache%20Tomcat&logoColor=white)
 
-![](img src="https://img.shields.io/badge/Apache Maven
--C71A36?style=for-the-badge&logo=Apache Maven&logoColor=white)
-![](https://img.shields.io/badge/Chart.js
--FF6384?style=for-the-badge&logo=Chart.js&logoColor=white)
+![](img src="https://img.shields.io/badge/Apache Maven-C71A36?style=for-the-badge&logo=Apache Maven&logoColor=white)
+![](https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=Chart.js&logoColor=white)
 
 ---
-![](https://img.shields.io/badge/Git
--F05032?style=for-the-badge&logo=Git&logoColor=white)
-![](https://img.shields.io/badge/Github
--181717?style=for-the-badge&logo=Github&logoColor=white)
-![](https://img.shields.io/badge/Kakao OVEN
--FFCD00?style=for-the-badge&logo=Kakao&logoColor=white)
-![](https://img.shields.io/badge/Slack
--4A154B?style=for-the-badge&logo=Slack&logoColor=white)
-![](img src="https://img.shields.io/badge/Google Sheets
--34A853?style=for-the-badge&logo=Google Sheets&logoColor=white)
+![](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white)
+![](https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=Github&logoColor=white)
+![](https://img.shields.io/badge/Kakao OVEN-FFCD00?style=for-the-badge&logo=Kakao&logoColor=white)
+![](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=Slack&logoColor=white)
+![](img src="https://img.shields.io/badge/Google Sheets-34A853?style=for-the-badge&logo=Google Sheets&logoColor=white)
 
   [　]( )   
 ## 👨🏻‍🤝‍👨🏻 팀원 소개

@@ -5,9 +5,9 @@
 
 ## 📑프로젝트 개요
 
-> **Q. 제작 의도?  
+> Q. 제작 의도?  
 >   
-> A. 좋은 소비습관을 형성하기 위한 금융 챌린지 기능과, 자산관리와 소셜 웹 서비스를 제공하는 것을 목표로 했습니다.**
+> A. 좋은 소비습관을 형성하기 위한 금융 챌린지 기능과, 자산관리와 소셜 웹 서비스를 제공하는 것을 목표로 했습니다.
 
 -   개발 기간 : 2022.12. ~ 2023.01. (1개월)
 -   개발 인원 : 8 명
@@ -36,29 +36,30 @@
 ![](https://img.shields.io/badge/jquery-0769AD?style=for-the-badge&logo=jquery&logoColor=white)
 ![](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![](https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![](https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white)![](https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![](https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![](https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![](https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
-<img src="https://img.shields.io/badge/Apache%20Tomcat
--F8DC75?style=for-the-badge&logo=Apache%20Tomcat&logoColor=white">
-<img src="https://img.shields.io/badge/Apache Maven
--C71A36?style=for-the-badge&logo=Apache Maven&logoColor=white">
-<img src="https://img.shields.io/badge/Chart.js
--FF6384?style=for-the-badge&logo=Chart.js&logoColor=white">
+![](https://img.shields.io/badge/Apache%20Tomcat
+-F8DC75?style=for-the-badge&logo=Apache%20Tomcat&logoColor=white)
+
+![](img src="https://img.shields.io/badge/Apache Maven
+-C71A36?style=for-the-badge&logo=Apache Maven&logoColor=white)
+![](https://img.shields.io/badge/Chart.js
+-FF6384?style=for-the-badge&logo=Chart.js&logoColor=white)
+
 ---
-<img src="https://img.shields.io/badge/Git
--F05032?style=for-the-badge&logo=Git&logoColor=white">
-<img src="https://img.shields.io/badge/Github
--181717?style=for-the-badge&logo=Github&logoColor=white">
-<img src="https://img.shields.io/badge/Kakao OVEN
--FFCD00?style=for-the-badge&logo=Kakao&logoColor=white">
-<img src="https://img.shields.io/badge/Slack
--4A154B?style=for-the-badge&logo=Slack&logoColor=white">
-<img src="https://img.shields.io/badge/Google Sheets
--34A853?style=for-the-badge&logo=Google Sheets&logoColor=white">
+![](https://img.shields.io/badge/Git
+-F05032?style=for-the-badge&logo=Git&logoColor=white)
+![](https://img.shields.io/badge/Github
+-181717?style=for-the-badge&logo=Github&logoColor=white)
+![](https://img.shields.io/badge/Kakao OVEN
+-FFCD00?style=for-the-badge&logo=Kakao&logoColor=white)
+![](https://img.shields.io/badge/Slack
+-4A154B?style=for-the-badge&logo=Slack&logoColor=white)
+![](img src="https://img.shields.io/badge/Google Sheets
+-34A853?style=for-the-badge&logo=Google Sheets&logoColor=white)
 
-<br>
-
-
+  [　]( )   
 ## 👨🏻‍🤝‍👨🏻 팀원 소개
 
 ![image](https://user-images.githubusercontent.com/111268784/227419253-cf540829-34b8-4c6b-acbc-7edcbae6824d.png)
